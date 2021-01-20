@@ -9,8 +9,6 @@ public class MyGeneInfoHit {
     private String name;
     private String entrezgene;
 
-    @JsonIgnoreProperties(value={ "_score" }, allowGetters=true)
-
     public String getId() {
         return id;
     }

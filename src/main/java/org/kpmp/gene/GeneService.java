@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class GeneService {
 
     private final String getMyGeneInfoQuery= "https://mygene.info/v3/query?q=%s&species=9606";
-    private final String myGeneInfoGene = "https://mygene.info/v3/gene/%s?fields=symbol,name,entrezgene,ensembl.gene,HGNC,MIM,alias";
     private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public MyGeneInfoResult query(String queryString) throws IOException {
