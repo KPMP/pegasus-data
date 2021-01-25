@@ -46,4 +46,12 @@ public class MyGeneInfoHitTest {
         assertEquals("egene", myGeneInfoHit.getEntrezgene());
     }
 
+    @Test
+    public void testSetAlias() throws Exception {
+        String[] aliases = new String[]{"alias1", "alias2"};
+        myGeneInfoHit.setAlias(aliases);
+        assertEquals(aliases, myGeneInfoHit.getAlias());
+    }
+
+
 }
