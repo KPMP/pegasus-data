@@ -20,9 +20,4 @@ public class GeneServiceTest {
         geneService = null;
     }
 
-    @Test
-    public void testQuery() {
-        // To-Do: Fill this out.
-    }
-
 }
