@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+    baseName='pegasus-data'
+    version= '0.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'commons-io:commons-io:2.6'
+    compile 'org.springframework:spring-test:5.0.5.RELEASE'
+    compile 'org.apache.commons:commons-compress:1.17'
+    compile 'org.apache.commons:commons-text:1.7'
+    compile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.mockito:mockito-core'
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.2.0.RELEASE'
+    compile 'com.graphql-java:graphql-spring-boot-starter:5.0.2'
+    compile 'com.graphql-java:graphql-java-tools:5.2.4'
+    compile('com.graphql-java:graphiql-spring-boot-starter:5.0.2')
+}
+
+springBoot {
+    mainClassName = "org.kpmp.Application"
+}
