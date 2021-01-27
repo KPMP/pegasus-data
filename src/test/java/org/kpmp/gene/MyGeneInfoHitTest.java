@@ -6,6 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class MyGeneInfoHitTest {
@@ -45,5 +48,13 @@ public class MyGeneInfoHitTest {
         myGeneInfoHit.setEntrezgene("egene");
         assertEquals("egene", myGeneInfoHit.getEntrezgene());
     }
+
+    @Test
+    public void testSetAlias() throws Exception {
+        List<String> aliases = Arrays.asList("one", "two");
+        myGeneInfoHit.setAlias(aliases);
+        assertEquals(aliases, myGeneInfoHit.getAlias());
+    }
+
 
 }

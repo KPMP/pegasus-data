@@ -1,13 +1,17 @@
 package org.kpmp.gene;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 public class MyGeneInfoHit {
     private String id;
     private String symbol;
     private String name;
     private String entrezgene;
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private List<String> alias;
 
     public String getId() {
         return id;
@@ -42,4 +46,11 @@ public class MyGeneInfoHit {
         this.entrezgene = entrezgene;
     }
 
+    public List<String> getAlias() {
+        return alias;
+    }
+
+    public void setAlias(List<String> alias) {
+        this.alias = alias;
+    }
 }

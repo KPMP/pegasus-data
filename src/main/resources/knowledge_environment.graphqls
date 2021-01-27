@@ -3,8 +3,9 @@ type Query {
 }
 
 type MyGeneInfoHit {
-    id: Int
+    id: ID
     symbol: String
     name: String
     entrezgene: String
+    alias: [String]
 }
