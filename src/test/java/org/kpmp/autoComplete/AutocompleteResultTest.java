@@ -49,4 +49,10 @@ class AutocompleteResultTest {
         autocompleteResult.setAliases(aliases);
         assertEquals(aliases, autocompleteResult.getAliases());
     }
+
+    @Test
+    void setName() {
+        autocompleteResult.setName("name");
+        assertEquals("name", autocompleteResult.getName());
+    }
 }

@@ -40,7 +40,7 @@ public class AutocompleteService {
     public List<AutocompleteResult> convertMyGeneInfoHitsToAutocompleteResults(List<MyGeneInfoHit> hits) {
         List<AutocompleteResult> autocompleteResults = new ArrayList<>();
         for (MyGeneInfoHit hit : hits) {
-            autocompleteResults.add(new AutocompleteResult(hit.getSymbol(), hit.getId(), TYPE_GENE, hit.getAlias()));
+            autocompleteResults.add(new AutocompleteResult(hit.getSymbol(), hit.getName(), hit.getId(), TYPE_GENE, hit.getAlias()));
         }
         return autocompleteResults;
     }
@@ -48,7 +48,7 @@ public class AutocompleteService {
     public List<AutocompleteResult> convertCellTypesToAutocompleteResults(List<CellType> cellTypes) {
         List<AutocompleteResult> autocompleteResults = new ArrayList<>();
         for (CellType cellType : cellTypes) {
-            autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, null));
+            autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null, Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, null));
         }
         return autocompleteResults;
     }

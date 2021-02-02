@@ -5,6 +5,7 @@ import java.util.List;
 public class AutocompleteResult {
 
     private String value;
+    private String name;
     private String id;
     private String type;
     private List<String> aliases;
@@ -12,8 +13,9 @@ public class AutocompleteResult {
     public AutocompleteResult() {
     }
 
-    public AutocompleteResult(String value, String id, String type, List<String> aliases) {
+    public AutocompleteResult(String value, String name, String id, String type, List<String> aliases) {
         this.value = value;
+        this.name = name;
         this.id = id;
         this.type = type;
         this.aliases = aliases;
@@ -41,6 +43,14 @@ public class AutocompleteResult {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<String> getAliases() {
