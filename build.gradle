@@ -7,6 +7,12 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.palantir.docker' version '0.22.1'
+}
+
+group = 'kingstonduo'
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -43,4 +49,16 @@ dependencies {
 
 springBoot {
     mainClassName = "org.kpmp.Application"
+}
+
+task unpack(type: Copy) {
+    dependsOn bootJar
+    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+    into("build/dependency")
+}
+
+docker {
+    name "${project.group}/${jar.baseName}"
+    copySpec.from(tasks.unpack.outputs).into("dependency")
+    buildArgs(['DEPENDENCY': "dependency"])
 }
