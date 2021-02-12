@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +20,7 @@ public class GeneService {
     private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public MyGeneInfoResult query(String queryString) throws IOException {
-            URL url = new URL(String.format(GET_MY_GENE_INFO_QUERY, queryString));
+            URL url = new URL(String.format(GET_MY_GENE_INFO_QUERY, URLEncoder.encode(queryString.replaceAll("/",""), StandardCharsets.UTF_8.toString())));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(
