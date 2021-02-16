@@ -23,8 +23,7 @@ public class Query implements GraphQLQueryResolver {
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException {
-		MyGeneInfoResult myGeneInfoResult = geneService.query(symbol);
-		return myGeneInfoResult.getHits();
+		return geneService.querySymbolAndAlias(symbol);
 	}
 
 	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException {
