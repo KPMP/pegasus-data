@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class GeneController {
@@ -23,8 +24,8 @@ public class GeneController {
 
     @RequestMapping(value = "/v1/gene/query/{queryString}", method = RequestMethod.GET)
     public @ResponseBody
-    MyGeneInfoResult queryBySymbol(@PathVariable String queryString, HttpServletRequest request)
+    List<MyGeneInfoHit> queryBySymbol(@PathVariable String queryString, HttpServletRequest request)
             throws JSONException, IOException {
-        return geneService.query(queryString);
+        return geneService.querySymbolAndAlias(queryString);
     }
 }

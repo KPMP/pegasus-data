@@ -28,8 +28,7 @@ public class AutocompleteService {
     }
 
     public List<AutocompleteResult> query(String searchTerm) throws IOException {
-        MyGeneInfoResult myGeneInfoResult = geneService.query(searchTerm);
-        List<MyGeneInfoHit> myGeneInfoHits = myGeneInfoResult.getHits();
+        List<MyGeneInfoHit> myGeneInfoHits = geneService.querySymbolAndAlias(searchTerm);
         List<CellType> cellTypes = cellTypeRepository.findByCellTypeContaining(searchTerm);
         List<AutocompleteResult> myGeneResults = convertMyGeneInfoHitsToAutocompleteResults(myGeneInfoHits);
         List<AutocompleteResult> cellTypeResults = convertCellTypesToAutocompleteResults(cellTypes);

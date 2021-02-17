@@ -43,7 +43,6 @@ class AutocompleteServiceTest {
 
     @Test
     void query() throws IOException {
-        MyGeneInfoResult mgResult = new MyGeneInfoResult();
         MyGeneInfoHit hit = new MyGeneInfoHit();
         hit.setSymbol("symbol");
         List<String> gAliases = new ArrayList<String>();
@@ -52,13 +51,12 @@ class AutocompleteServiceTest {
         hit.setId("gId");
         List<MyGeneInfoHit> hits = new ArrayList<MyGeneInfoHit>();
         hits.add(hit);
-        mgResult.setHits(hits);
         CellType ct = new CellType();
         ct.setCellType("cellType");
         ct.setCellTypeId(5);
         List<CellType> cellTypes = new ArrayList<CellType>();
         cellTypes.add(ct);
-        when(geneService.query("searchTerm")).thenReturn(mgResult);
+        when(geneService.querySymbolAndAlias("searchTerm")).thenReturn(hits);
         when(cellTypeRepository.findByCellTypeContaining("searchTerm")).thenReturn(cellTypes);
         List<AutocompleteResult> results = autocompleteService.query("searchTerm");
         assertEquals(2, results.size());
