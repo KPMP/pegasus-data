@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -18,8 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GeneService {
 
-    public static final String GET_MY_GENE_INFO_QUERY_SYMBOL = "http://mygene.info/v3/query?q=symbol:%s%%2A&species=9606&fields=symbol,name,taxid,entrezgene,alias";
-    public static final String GET_MY_GENE_INFO_QUERY_ALIAS = "http://mygene.info/v3/query?q=alias:%s%%2A&species=9606&fields=symbol,name,taxid,entrezgene,alias";
+    public static final String GET_MY_GENE_INFO_QUERY_SYMBOL = "http://mygene.info/v3/query?q=symbol:%s%%2A&species=9606&fields=symbol,name,taxid,entrezgene,alias&size=100";
+    public static final String GET_MY_GENE_INFO_QUERY_ALIAS = "http://mygene.info/v3/query?q=alias:%s%%2A%%20NOT%%20symbol:%s%%2A&species=9606&fields=symbol,name,taxid,entrezgene,alias&size=100";
 
     private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -44,8 +46,15 @@ public class GeneService {
         List<MyGeneInfoHit> symbolResults = query(GET_MY_GENE_INFO_QUERY_SYMBOL, queryString).getHits();
         List<MyGeneInfoHit> aliasResults = query(GET_MY_GENE_INFO_QUERY_ALIAS, queryString).getHits();
         List<MyGeneInfoHit> finalResults = new ArrayList<>();
-        finalResults.addAll(symbolResults.subList(0, symbolResults.size() >= 5 ? 6 : symbolResults.size()));
-        finalResults.addAll(aliasResults.subList(0, symbolResults.size() >= 5 ? 6 : symbolResults.size()));
+        finalResults.addAll(sortAndSlice(symbolResults, 5));
+        finalResults.addAll(sortAndSlice(aliasResults, 5));
         return finalResults;
     }
+
+    public List<MyGeneInfoHit> sortAndSlice(List<MyGeneInfoHit> hits, int max) {
+        List<MyGeneInfoHit> slicedHits = hits.size() <= max ? hits : hits.subList(0, max);
+        Collections.sort(slicedHits);
+        return slicedHits;
+    }
+
 }

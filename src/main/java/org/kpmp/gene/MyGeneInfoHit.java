@@ -2,10 +2,11 @@ package org.kpmp.gene;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MyGeneInfoHit {
+public class MyGeneInfoHit implements Comparable<MyGeneInfoHit> {
     private String id;
     private String symbol;
     private String name;
@@ -52,5 +53,10 @@ public class MyGeneInfoHit {
 
     public void setAlias(List<String> alias) {
         this.alias = alias;
+    }
+
+    @Override
+    public int compareTo(MyGeneInfoHit hit) {
+        return this.getSymbol().compareTo(hit.getSymbol());
     }
 }
