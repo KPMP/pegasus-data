@@ -44,6 +44,22 @@ public class GeneServiceTest {
         MyGeneInfoResult result2 = new MyGeneInfoResult();
         List<MyGeneInfoHit> hits2 = new ArrayList<>();
         MyGeneInfoHit hit2 = new MyGeneInfoHit();
+        hit2.setSymbol("z");
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
+        hits2.add(hit2);
         hits2.add(hit2);
         result2.setHits(hits2);
         GeneService geneService2 = Mockito.spy(geneService);
@@ -54,6 +70,7 @@ public class GeneServiceTest {
         assertEquals(results.get(1), hit1b);
         assertEquals(results.get(5), hit1c);
         assertEquals(results.get(6), hit2);
+        assertEquals(results.size(), 20);
     }
 
 }
