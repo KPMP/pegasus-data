@@ -46,9 +46,9 @@ public class GeneService {
         List<MyGeneInfoHit> symbolResults = query(GET_MY_GENE_INFO_QUERY_SYMBOL, queryString).getHits();
         List<MyGeneInfoHit> aliasResults = query(GET_MY_GENE_INFO_QUERY_ALIAS, queryString).getHits();
         List<MyGeneInfoHit> finalResults = new ArrayList<>();
-        finalResults.addAll(sortAndSlice(symbolResults, 20));
-        finalResults.addAll(sortAndSlice(aliasResults, 20));
-        return finalResults.size() <= 20 ? finalResults : finalResults.subList(0, 20);
+        finalResults.addAll(sortAndSlice(symbolResults, 10));
+        finalResults.addAll(sortAndSlice(aliasResults, 10));
+        return finalResults.size() <= 10 ? finalResults : finalResults.subList(0, 10);
     }
 
     private List<MyGeneInfoHit> sortAndSlice(List<MyGeneInfoHit> hits, int max) {

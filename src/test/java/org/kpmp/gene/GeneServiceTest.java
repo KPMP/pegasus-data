@@ -70,7 +70,7 @@ public class GeneServiceTest {
         assertEquals(results.get(1), hit1b);
         assertEquals(results.get(5), hit1c);
         assertEquals(results.get(6), hit2);
-        assertEquals(results.size(), 20);
+        assertEquals(10, results.size());
     }
 
 }
