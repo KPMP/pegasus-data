@@ -52,7 +52,8 @@ public class GeneServiceTest {
         List<MyGeneInfoHit> results = geneService2.querySymbolAndAlias("query");
         assertEquals(results.get(0), hit1a);
         assertEquals(results.get(1), hit1b);
-        assertEquals(results.get(5), hit2);
+        assertEquals(results.get(5), hit1c);
+        assertEquals(results.get(6), hit2);
     }
 
 }
