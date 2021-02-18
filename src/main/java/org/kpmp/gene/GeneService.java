@@ -51,10 +51,9 @@ public class GeneService {
         return finalResults.size() <= 20 ? finalResults : finalResults.subList(0, 20);
     }
 
-    public List<MyGeneInfoHit> sortAndSlice(List<MyGeneInfoHit> hits, int max) {
-        List<MyGeneInfoHit> slicedHits = hits.size() <= max ? hits : hits.subList(0, max);
-        Collections.sort(slicedHits);
-        return slicedHits;
+    private List<MyGeneInfoHit> sortAndSlice(List<MyGeneInfoHit> hits, int max) {
+        Collections.sort(hits);
+        return hits.size() <= max ? hits : hits.subList(0, max);
     }
 
 }
