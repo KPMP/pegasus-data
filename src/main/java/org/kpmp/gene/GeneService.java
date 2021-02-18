@@ -26,7 +26,7 @@ public class GeneService {
     private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public MyGeneInfoResult query(String url, String queryString) throws IOException {
-            String encodedQueryString = URLEncoder.encode(queryString.replaceAll("/",""), StandardCharsets.UTF_8.toString());
+            String encodedQueryString = URLEncoder.encode(queryString.replaceAll("[/|\\(|\\)]",""), StandardCharsets.UTF_8.toString());
             URL queryUrl = new URL(String.format(url, encodedQueryString, encodedQueryString));
             HttpURLConnection con = (HttpURLConnection) queryUrl.openConnection();
             con.setRequestMethod("GET");
