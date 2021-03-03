@@ -1,16 +1,15 @@
 package org.kpmp.autocomplete;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.kpmp.cellType.CellType;
 import org.kpmp.cellType.CellTypeRepository;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
-import org.kpmp.gene.MyGeneInfoResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class AutocompleteService {
