@@ -36,7 +36,7 @@ public class Query implements GraphQLQueryResolver {
 		return autocompleteService.query(searchTerm);
 	}
 	
-	public CellTypeHierarchy getCellTypeHierarchy() {
+	public CellTypeHierarchy getCellTypeHierarchy() throws IOException{
 		return cellTypeService.getCellTypeHierarchy();
 	}
 }
