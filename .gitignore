@@ -27,3 +27,7 @@ hs_err_pid*
 build
 
 .bash_history
+
+.settings
+bin
+.gradle

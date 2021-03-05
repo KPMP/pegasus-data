@@ -1,25 +1,22 @@
-package org.kpmp.autoComplete;
+package org.kpmp.autocomplete;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.autocomplete.AutocompleteResult;
-import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellType;
 import org.kpmp.cellType.CellTypeRepository;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
-import org.kpmp.gene.MyGeneInfoResult;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 class AutocompleteServiceTest {
 

@@ -9,5 +9,7 @@ import java.util.List;
 public interface CellTypeRepository extends CrudRepository<CellType, Integer> {
 
     List<CellType> findByCellTypeContaining(String searchTerm);
+    
+    List<CellType> findAll();
 
 }

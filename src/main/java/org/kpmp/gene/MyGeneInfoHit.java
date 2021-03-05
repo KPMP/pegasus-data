@@ -1,10 +1,9 @@
 package org.kpmp.gene;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class MyGeneInfoHit implements Comparable<MyGeneInfoHit> {
     private String id;

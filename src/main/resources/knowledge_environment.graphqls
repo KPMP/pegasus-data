@@ -1,20 +1,35 @@
 type Query {
-    genes(symbol: String): [MyGeneInfoHit]
-    autocomplete(searchTerm: String): [AutoCompleteResult]
+  genes(symbol: String): [MyGeneInfoHit]
+  autocomplete(searchTerm: String): [AutoCompleteResult]
+  cellTypeHierarchy: CellTypeHierarchy
 }
 
 type MyGeneInfoHit {
-    id: ID
-    symbol: String
-    name: String
-    entrezgene: String
-    alias: [String]
+  id: ID
+  symbol: String
+  name: String
+  entrezgene: String
+  alias: [String]
 }
 
 type AutoCompleteResult {
-    value: String
-    name: String
-    type: String
-    id: ID
-    aliases: [String]
+  value: String
+  name: String
+  type: String
+  id: ID
+  aliases: [String]
+}
+
+type CellTypeHierarchy {
+  cellTypeRegions: [CellTypeStructureRegion]
+}
+
+type CellTypeStructureRegion {
+  cellTypeSubregions: [CellTypeStructureSubregion]
+  regionName: String
+}
+
+type CellTypeStructureSubregion {
+  cellTypeNames: [String]
+  subregionName: String
 }
