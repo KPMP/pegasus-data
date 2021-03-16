@@ -31,7 +31,7 @@ public class SingleNucleusUMAPPoint {
     @Column(name = "cluster_id")
     private int clusterId;
     @Column(name = "subclass.l2")
-    private String cellTypesubClassL1;
+    private String cellTypeSubClassL1;
     @Column(name = "subclass.l1")
     private String cellTypeSubClassL2;
     @Column(name = "class")
@@ -137,12 +137,12 @@ public class SingleNucleusUMAPPoint {
         this.clusterId = clusterId;
     }
 
-    public String getCellTypesubClassL1() {
-        return cellTypesubClassL1;
+    public String getCellTypeSubClassL1() {
+        return cellTypeSubClassL1;
     }
 
-    public void setCellTypesubClassL1(String cellTypesubClassL1) {
-        this.cellTypesubClassL1 = cellTypesubClassL1;
+    public void setCellTypeSubClassL1(String cellTypesubClassL1) {
+        this.cellTypeSubClassL1 = cellTypesubClassL1;
     }
 
     public String getCellTypeSubClassL2() {

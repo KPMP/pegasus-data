@@ -23,9 +23,7 @@ public class SingleCellUMAPPoint {
     @Column(name = "subclass.l2")
     private String cellTypeSubClassL2;
     @Column(name = "subclass.l1")
-    private String cellTypesubClassL1;
-    @Column(name = "dataSource")
-    private String dataSource;
+    private String cellTypeSubClassL1;
     @Column(name = "sampletype")
     private String sampleType;
     @Column(name = "UMAP_1")
@@ -34,18 +32,13 @@ public class SingleCellUMAPPoint {
     private double umapY;
     @Column(name = "specimen_id")
     private String specimenId;
-    @Column(name = "diseasetype")
-    private String diseaseType;
     @Column(name = "cluster_id")
     private int clusterId;
     @Column(name = "class")
     private String cellTypeClass;
     @Column(name = "library_id")
     private String libraryId;
-    @Column(name = "age")
-    private int age;
-    @Column(name = "sex")
-    private String sex;
+  
 
     public String getBarcode() {
         return barcode;
@@ -95,20 +88,12 @@ public class SingleCellUMAPPoint {
         this.cellTypeSubClassL2 = cellTypeSubClassL2;
     }
 
-    public String getCellTypesubClassL1() {
-        return cellTypesubClassL1;
+    public String getCellTypeSubClassL1() {
+        return cellTypeSubClassL1;
     }
 
-    public void setCellTypesubClassL1(String cellTypesubClassL1) {
-        this.cellTypesubClassL1 = cellTypesubClassL1;
-    }
-
-    public String getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(String dataSource) {
-        this.dataSource = dataSource;
+    public void setCellTypeSubClassL1(String cellTypesubClassL1) {
+        this.cellTypeSubClassL1 = cellTypesubClassL1;
     }
 
     public String getSampleType() {
@@ -143,14 +128,6 @@ public class SingleCellUMAPPoint {
         this.specimenId = specimenId;
     }
 
-    public String getDiseaseType() {
-        return diseaseType;
-    }
-
-    public void setDiseaseType(String diseaseType) {
-        this.diseaseType = diseaseType;
-    }
-
     public int getClusterId() {
         return clusterId;
     }
@@ -175,19 +152,4 @@ public class SingleCellUMAPPoint {
         this.libraryId = libraryId;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
 }
