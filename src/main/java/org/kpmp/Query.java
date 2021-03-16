@@ -3,6 +3,9 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.List;
 
+import org.kpmp.geneExpression.GeneExpressionService;
+import org.kpmp.geneExpression.SCRNAGeneExpressionValue;
+import org.kpmp.geneExpression.SNRNAGeneExpressionValue;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -20,12 +23,14 @@ public class Query implements GraphQLQueryResolver {
 	private GeneService geneService;
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
+	private GeneExpressionService geneExpressionService;
 
 	@Autowired
-	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService) {
+	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService, GeneExpressionService geneExpressionService) {
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
+		this.geneExpressionService = geneExpressionService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException {
@@ -38,5 +43,13 @@ public class Query implements GraphQLQueryResolver {
 	
 	public CellTypeHierarchy getCellTypeHierarchy() throws IOException{
 		return cellTypeService.getCellTypeHierarchy();
+	}
+
+	public List<SCRNAGeneExpressionValue> scGeneExpression(String searchTerm) throws IOException {
+		return geneExpressionService.getSCExpressionByGene(searchTerm);
+	}
+
+	public List<SNRNAGeneExpressionValue> snGeneExpression(String searchTerm) throws IOException {
+		return geneExpressionService.getSNExpressionByGene(searchTerm);
 	}
 }

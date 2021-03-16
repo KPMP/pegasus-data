@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.geneExpression.GeneExpressionService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -26,12 +27,14 @@ public class QueryTest {
 	private AutocompleteService autocompleteService;
 	@Mock
 	private GeneService geneService;
+	@Mock
+	private GeneExpressionService geneExpressionService;
 	private Query query;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		query = new Query(geneService, autocompleteService, cellTypeService);
+		query = new Query(geneService, autocompleteService, cellTypeService, geneExpressionService);
 	}
 
 	@After
