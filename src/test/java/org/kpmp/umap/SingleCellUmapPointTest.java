@@ -6,14 +6,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SingleCellUMAPPointTest {
+public class SingleCellUmapPointTest {
 
 	private static final double DELTA_FOR_DOUBLE_ASSERTIONS = 0.000001;
-	private SingleCellUMAPPoint point;
+	private SingleCellUmapPoint point;
 
 	@Before
 	public void setUp() throws Exception {
-		point = new SingleCellUMAPPoint();
+		point = new SingleCellUmapPoint();
 	}
 
 	@After
@@ -88,9 +88,9 @@ public class SingleCellUMAPPointTest {
 	}
 
 	@Test
-	public void testSetClusterId() {
-		point.setClusterId(3);
-		assertEquals(3, point.getClusterId());
+	public void testSetSeuratClusterId() {
+		point.setSeuratClusterId(3);
+		assertEquals(3, point.getSeuratClusterId());
 	}
 
 	@Test
