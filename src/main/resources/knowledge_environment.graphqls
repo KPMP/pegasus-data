@@ -3,6 +3,7 @@ type Query {
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
   geneExpression(dataType: String, geneSymbol: String, tissueType: String) : [GeneExpressionValue]
+  umapPoints(dataType: String): [UmapPoint]
 }
 
 type MyGeneInfoHit {
@@ -48,4 +49,12 @@ type GeneExpressionValue {
   cluster: String
   cellType: String
   dataType: String
+}
+
+type UmapPoint {
+	umapX: Float
+	umapY: Float
+	clusterColor: String
+	clusterName: String
+	dataType: String
 }

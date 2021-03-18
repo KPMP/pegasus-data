@@ -13,6 +13,8 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
+import org.kpmp.umap.UmapDataService;
+import org.kpmp.umap.UmapPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +27,17 @@ public class Query implements GraphQLQueryResolver {
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
 	private GeneExpressionService geneExpressionService;
+	private UmapDataService umapService;
+
 
 	@Autowired
-	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService, GeneExpressionService geneExpressionService) {
+	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
+			UmapDataService umapService, GeneExpressionService geneExpressionService) {
+
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
+		this.umapService = umapService;
 		this.geneExpressionService = geneExpressionService;
 	}
 
@@ -41,12 +48,19 @@ public class Query implements GraphQLQueryResolver {
 	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException {
 		return autocompleteService.query(searchTerm);
 	}
-	
-	public CellTypeHierarchy getCellTypeHierarchy() throws IOException{
+
+	public CellTypeHierarchy getCellTypeHierarchy() throws IOException {
 		return cellTypeService.getCellTypeHierarchy();
 	}
 
 	public List<? extends GeneExpressionValue> geneExpression(String dataType, String searchTerm, String tissueType) throws IOException {
-		return geneExpressionService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
+			return geneExpressionService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
+	}
+
+	public List<UmapPoint> getUmapPoints(String dataType) {
+		if (dataType == null) {
+			return umapService.getUmapPoints();
+		}
+		return umapService.getUmapPoints(dataType);
 	}
 }
