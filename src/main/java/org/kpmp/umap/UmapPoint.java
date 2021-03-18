@@ -1,42 +1,67 @@
 package org.kpmp.umap;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "umap_point_v")
+@IdClass(UmapPointId.class)
 public class UmapPoint {
 
-	private double xCoordinate;
-	private double yCoordinate;
-	private String cluster;
-	private String color;
+	@Id
+	@Column(name = "umap_x")
+	private double umapX;
+	@Id
+	@Column(name = "umap_y")
+	private double umapY;
+	@Column(name = "cluster_name")
+	private String clusterName;
+	@Column(name = "cluster_color")
+	private String clusterColor;
+	@Column(name = "data_type")
+	private String dataType;
 
-	public double getxCoordinate() {
-		return xCoordinate;
+	public double getUmapX() {
+		return umapX;
 	}
 
-	public void setxCoordinate(double xCoordinate) {
-		this.xCoordinate = xCoordinate;
+	public void setUmapX(double umapX) {
+		this.umapX = umapX;
 	}
 
-	public double getyCoordinate() {
-		return yCoordinate;
+	public double getUmapY() {
+		return umapY;
 	}
 
-	public void setyCoordinate(double yCoordinate) {
-		this.yCoordinate = yCoordinate;
+	public void setUmapY(double umapY) {
+		this.umapY = umapY;
 	}
 
-	public String getCluster() {
-		return cluster;
+	public String getClusterName() {
+		return clusterName;
 	}
 
-	public void setCluster(String cluster) {
-		this.cluster = cluster;
+	public void setClusterName(String clusterName) {
+		this.clusterName = clusterName;
 	}
 
-	public String getColor() {
-		return color;
+	public String getClusterColor() {
+		return clusterColor;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setClusterColor(String clusterColor) {
+		this.clusterColor = clusterColor;
+	}
+
+	public String getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
 	}
 
 }

@@ -1,6 +1,6 @@
 package org.kpmp.umap;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class UmapPointTest {
 
-	private static final double DELTA_FOR_DOUBLE_ASSERTIONS = 0.000001;
+	private static double DOUBLE_PRECISION = 0.000001d;
 	private UmapPoint point;
 
 	@Before
@@ -22,27 +22,33 @@ public class UmapPointTest {
 	}
 
 	@Test
-	public void testSetxCoordinate() {
-		point.setxCoordinate(4.3d);
-		assertEquals(4.3d, point.getxCoordinate(), DELTA_FOR_DOUBLE_ASSERTIONS);
+	public void testSetUmapX() {
+		point.setUmapX(2.4d);
+		assertEquals(2.4d, point.getUmapX(), DOUBLE_PRECISION);
 	}
 
 	@Test
-	public void testSetyCoordinate() {
-		point.setyCoordinate(5.3d);
-		assertEquals(5.3d, point.getyCoordinate(), DELTA_FOR_DOUBLE_ASSERTIONS);
+	public void testSetUmapY() {
+		point.setUmapY(2.5d);
+		assertEquals(2.5d, point.getUmapY(), DOUBLE_PRECISION);
 	}
 
 	@Test
-	public void testSetCluster() {
-		point.setCluster("cluster");
-		assertEquals("cluster", point.getCluster());
+	public void testSetClusterName() {
+		point.setClusterName("cluster name");
+		assertEquals("cluster name", point.getClusterName());
 	}
 
 	@Test
-	public void testSetColor() throws Exception {
-		point.setColor("#121212");
-		assertEquals("#121212", point.getColor());
+	public void testSetClusterColor() {
+		point.setClusterColor("cluster color");
+		assertEquals("cluster color", point.getClusterColor());
+	}
+
+	@Test
+	public void testSetExperimentType() {
+		point.setDataType("experiment type");
+		assertEquals("experiment type", point.getDataType());
 	}
 
 }
