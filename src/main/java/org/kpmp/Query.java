@@ -3,6 +3,10 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.List;
 
+import org.kpmp.geneExpression.GeneExpressionService;
+import org.kpmp.geneExpression.GeneExpressionValue;
+import org.kpmp.geneExpression.SCRNAGeneExpressionValue;
+import org.kpmp.geneExpression.SNRNAGeneExpressionValue;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -22,15 +26,19 @@ public class Query implements GraphQLQueryResolver {
 	private GeneService geneService;
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
+	private GeneExpressionService geneExpressionService;
 	private UmapDataService umapService;
+
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
-			UmapDataService umapService) {
+			UmapDataService umapService, GeneExpressionService geneExpressionService) {
+
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
 		this.umapService = umapService;
+		this.geneExpressionService = geneExpressionService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException {
@@ -43,6 +51,10 @@ public class Query implements GraphQLQueryResolver {
 
 	public CellTypeHierarchy getCellTypeHierarchy() throws IOException {
 		return cellTypeService.getCellTypeHierarchy();
+	}
+
+	public List<? extends GeneExpressionValue> geneExpression(String dataType, String searchTerm, String tissueType) throws IOException {
+			return geneExpressionService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
 	}
 
 	public List<UmapPoint> getUmapPoints(String dataType) {
