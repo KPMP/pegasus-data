@@ -2,6 +2,7 @@ type Query {
   genes(symbol: String): [MyGeneInfoHit]
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
+  umapPoints(dataType: String): [UmapPoint]
 }
 
 type MyGeneInfoHit {
@@ -32,4 +33,12 @@ type CellTypeStructureRegion {
 type CellTypeStructureSubregion {
   cellTypeNames: [String]
   subregionName: String
+}
+
+type UmapPoint {
+	umapX: Float
+	umapY: Float
+	clusterColor: String
+	clusterName: String
+	dataType: String
 }
