@@ -1,123 +1,168 @@
 package org.kpmp.geneExpression;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "sc_rnaseq")
-public class SCRNAGeneExpressionValue {
+public class SCRNAGeneExpressionValue implements GeneExpressionValue {
 
-    @Id
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Column(name = "tissue_type")
     private String tissueType;
     @Column(name = "gene")
     private String gene;
     @Column(name = "p_val")
-    private double pVal;
+    private Double pVal;
     @Column(name = "p_val_adj")
-    private double pValAdj;
+    private Double pValAdj;
     @Column(name = "fold_change")
-    private double foldChanges;
+    private Double foldChange;
     @Column(name = "pct_1")
-    private double pct1;
+    private Double pct1;
     @Column(name = "pct_2")
-    private double pct2;
+    private Double pct2;
     @Column(name = "specificity")
-    private double specificity;
+    private Double specificity;
     @Column(name = "avg_exp")
-    private double avgExpression;
+    private Double avgExpression;
+    @Id
     @Column(name = "cluster")
     private String cluster;
 
-    public int getId() {
+    @Column(name = "cell_type")
+    private String cellType;
+
+    @Transient
+    public String getDataType() {
+        return "sc";
+    }
+
+    @Override
+    @Nullable
+    public String getCellType() {
+        return cellType;
+    }
+
+    @Override
+    public void setCellType(String cellType) {
+        this.cellType = cellType;
+    }
+
+    @Override
+    @Nullable
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
+    @Override
+    @Nullable
     public String getTissueType() {
         return tissueType;
     }
 
+    @Override
     public void setTissueType(String tissueType) {
         this.tissueType = tissueType;
     }
 
+    @Override
+    @Nullable
     public String getGene() {
         return gene;
     }
 
+    @Override
     public void setGene(String gene) {
         this.gene = gene;
     }
 
-    public double getpVal() {
+    @Nullable
+    public Double getPVal() {
         return pVal;
     }
 
-    public void setpVal(double pVal) {
+    public void setPVal(Double pVal) {
         this.pVal = pVal;
     }
 
-    public double getpValAdj() {
+    @Nullable
+    public Double getPValAdj() {
         return pValAdj;
     }
 
-    public void setpValAdj(double pValAdj) {
+    public void setPValAdj(Double pValAdj) {
         this.pValAdj = pValAdj;
     }
 
-    public double getFoldChanges() {
-        return foldChanges;
+    @Override
+    @Nullable
+    public Double getFoldChange() {
+        return foldChange;
     }
 
-    public void setFoldChanges(double foldChanges) {
-        this.foldChanges = foldChanges;
+    public void setFoldChange(Double foldChange) {
+        this.foldChange = foldChange;
     }
 
-    public double getPct1() {
+    @Override
+    @Nullable
+    public Double getPct1() {
         return pct1;
     }
 
-    public void setPct1(double pct1) {
+    public void setPct1(Double pct1) {
         this.pct1 = pct1;
     }
 
-    public double getPct2() {
+    @Override
+    @Nullable
+    public Double getPct2() {
         return pct2;
     }
 
-    public void setPct2(double pct2) {
+    public void setPct2(Double pct2) {
         this.pct2 = pct2;
     }
 
-    public double getSpecificity() {
+    @Nullable
+    public Double getSpecificity() {
         return specificity;
     }
 
-    public void setSpecificity(double specificity) {
+    public void setSpecificity(Double specificity) {
         this.specificity = specificity;
     }
 
-    public double getAvgExpression() {
+    @Override
+    @Nullable
+    public Double getAvgExpression() {
         return avgExpression;
     }
 
-    public void setAvgExpression(double avgExpression) {
+    public void setAvgExpression(Double avgExpression) {
         this.avgExpression = avgExpression;
     }
 
+    @Override
+    @Nullable
     public String getCluster() {
         return cluster;
     }
 
+    @Override
     public void setCluster(String cluster) {
         this.cluster = cluster;
     }
+
 }

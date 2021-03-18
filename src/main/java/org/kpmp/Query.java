@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.kpmp.geneExpression.GeneExpressionService;
+import org.kpmp.geneExpression.GeneExpressionValue;
 import org.kpmp.geneExpression.SCRNAGeneExpressionValue;
 import org.kpmp.geneExpression.SNRNAGeneExpressionValue;
 import org.kpmp.autocomplete.AutocompleteResult;
@@ -45,11 +46,7 @@ public class Query implements GraphQLQueryResolver {
 		return cellTypeService.getCellTypeHierarchy();
 	}
 
-	public List<SCRNAGeneExpressionValue> scGeneExpression(String searchTerm) throws IOException {
-		return geneExpressionService.getSCExpressionByGene(searchTerm);
-	}
-
-	public List<SNRNAGeneExpressionValue> snGeneExpression(String searchTerm) throws IOException {
-		return geneExpressionService.getSNExpressionByGene(searchTerm);
+	public List<? extends GeneExpressionValue> geneExpression(String dataType, String searchTerm, String tissueType) throws IOException {
+		return geneExpressionService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
 	}
 }

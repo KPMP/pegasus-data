@@ -2,8 +2,7 @@ type Query {
   genes(symbol: String): [MyGeneInfoHit]
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
-  snGeneExpression(geneSymbol: String) : [SNRNAGeneExpressionValue]
-  scGeneExpression(geneSymbol: String) : [SCRNAGeneExpressionValue]
+  geneExpression(dataType: String, geneSymbol: String, tissueType: String) : [GeneExpressionValue]
 }
 
 type MyGeneInfoHit {
@@ -36,29 +35,17 @@ type CellTypeStructureSubregion {
   subregionName: String
 }
 
-type SNRNAGeneExpressionValue {
+type GeneExpressionValue {
   id: ID
   tissueType: String
   gene: String
   pVal: Float
   pValAdj: Float
-  foldChanges: Float
+  foldChange: Float
   pct1: Float
   pct2: Float
   avgExpression: Float
   cluster: String
-}
-
-type SCRNAGeneExpressionValue {
-  id: ID
-  tissueType: String
-  gene: String
-  pVal: Float
-  pValAdj: Float
-  foldChanges: Float
-  pct1: Float
-  pct2: Float
-  specificity: Float
-  avgExpression: Float
-  cluster: String
+  cellType: String
+  dataType: String
 }

@@ -1,6 +1,7 @@
 package org.kpmp;
 
 import static org.junit.Assert.*;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -16,6 +17,9 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
+import org.kpmp.geneExpression.GeneExpressionValue;
+import org.kpmp.geneExpression.SCRNAGeneExpressionValue;
+import org.kpmp.geneExpression.SNRNAGeneExpressionValue;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -62,8 +66,15 @@ public class QueryTest {
 	public void testGetCellTypeHierarchy() throws Exception {
 		CellTypeHierarchy expectedResult = new CellTypeHierarchy();
 		when(cellTypeService.getCellTypeHierarchy()).thenReturn(expectedResult);
-		
+
 		assertEquals(expectedResult, query.getCellTypeHierarchy());
+	}
+
+	@Test
+	public void geneExpression() throws Exception {
+		List expectedResult = Arrays.asList(new SNRNAGeneExpressionValue());
+		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki")).thenReturn(expectedResult);
+		assertEquals(expectedResult, query.geneExpression("sn", "gene", "aki"));
 	}
 
 }
