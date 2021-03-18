@@ -1,6 +1,9 @@
 package org.kpmp;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -73,6 +76,18 @@ public class QueryTest {
 		when(umapDataService.getUmapPoints("data type")).thenReturn(expectedList);
 
 		assertEquals(expectedList, query.getUmapPoints("data type"));
+		verify(umapDataService).getUmapPoints("data type");
+		verify(umapDataService, times(0)).getUmapPoints();
+	}
+
+	@Test
+	public void testGetUmapPointsWhenNullDataType() throws Exception {
+		List<UmapPoint> expectedList = Arrays.asList(new UmapPoint());
+		when(umapDataService.getUmapPoints()).thenReturn(expectedList);
+
+		assertEquals(expectedList, query.getUmapPoints(null));
+		verify(umapDataService, times(0)).getUmapPoints(any(String.class));
+		verify(umapDataService).getUmapPoints();
 	}
 
 }

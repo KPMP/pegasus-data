@@ -46,6 +46,9 @@ public class Query implements GraphQLQueryResolver {
 	}
 
 	public List<UmapPoint> getUmapPoints(String dataType) {
+		if (dataType == null) {
+			return umapService.getUmapPoints();
+		}
 		return umapService.getUmapPoints(dataType);
 	}
 }

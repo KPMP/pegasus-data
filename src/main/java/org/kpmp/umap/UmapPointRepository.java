@@ -8,4 +8,7 @@ public interface UmapPointRepository extends CrudRepository<UmapPoint, UmapPoint
 
 	List<UmapPoint> findByDataType(String experimentType);
 
+	@Override
+	List<UmapPoint> findAll();
+
 }

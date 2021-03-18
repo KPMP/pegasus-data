@@ -19,4 +19,7 @@ public class UmapDataService {
 		return umapPointRepo.findByDataType(dataType);
 	}
 
+	public List<UmapPoint> getUmapPoints() {
+		return umapPointRepo.findAll();
+	}
 }
