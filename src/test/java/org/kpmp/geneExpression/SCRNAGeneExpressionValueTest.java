@@ -21,34 +21,90 @@ public class SCRNAGeneExpressionValueTest {
     }
 
     @Test
-    public void testGettersAndSetters() throws Exception {
-        scrnaGeneExpressionValue.setAvgExpression(0.1);
-        scrnaGeneExpressionValue.setCellType("ct");
-        scrnaGeneExpressionValue.setCluster("cluster");
-        scrnaGeneExpressionValue.setFoldChange(0.2);
-        scrnaGeneExpressionValue.setGene("gene");
-        scrnaGeneExpressionValue.setId(1);
-        scrnaGeneExpressionValue.setPct1(0.3);
-        scrnaGeneExpressionValue.setPct2(0.4);
-        scrnaGeneExpressionValue.setPVal(0.5);
-        scrnaGeneExpressionValue.setPValAdj(0.6);
-        scrnaGeneExpressionValue.setSpecificity(0.7);
-        scrnaGeneExpressionValue.setTissueType("tissue");
-        assertEquals(0.1, scrnaGeneExpressionValue.getAvgExpression(), 0.001);
-        assertEquals("ct", scrnaGeneExpressionValue.getCellType());
-        assertEquals("cluster", scrnaGeneExpressionValue.getCluster());
-        assertEquals("gene", scrnaGeneExpressionValue.getGene());
-        assertEquals("tissue", scrnaGeneExpressionValue.getTissueType());
+    public void testGetDataType() throws Exception {
         assertEquals("sc", scrnaGeneExpressionValue.getDataType());
+    }
+
+    @Test
+    public void testSetAvgExpression() throws Exception {
+        scrnaGeneExpressionValue.setAvgExpression(0.1);
+        assertEquals(0.1, scrnaGeneExpressionValue.getAvgExpression(), 0.001);
+
+    }
+
+    @Test
+    public void testSetCellType() throws Exception {
+        scrnaGeneExpressionValue.setCellType("ct");
+        assertEquals("ct", scrnaGeneExpressionValue.getCellType());
+
+    }
+
+    @Test
+    public void testSetCluster() throws Exception {
+        scrnaGeneExpressionValue.setCluster("cluster");
+        assertEquals("cluster", scrnaGeneExpressionValue.getCluster());
+    }
+
+    @Test
+    public void testSetFoldChange() throws Exception {
+        scrnaGeneExpressionValue.setFoldChange(0.2);
         assertEquals(0.2, scrnaGeneExpressionValue.getFoldChange(), 0.001);
-        assertEquals(0.3, scrnaGeneExpressionValue.getPct1(), 0.001);
-        assertEquals(0.4, scrnaGeneExpressionValue.getPct2(), 0.001);
-        assertEquals(0.5, scrnaGeneExpressionValue.getPVal(), 0.001);
-        assertEquals(0.6, scrnaGeneExpressionValue.getPValAdj(), 0.001);
-        assertEquals(0.7, scrnaGeneExpressionValue.getSpecificity(), 0.001);
+    }
+
+    @Test
+    public void testSetGene() throws Exception {
+        scrnaGeneExpressionValue.setGene("gene");
+        assertEquals("gene", scrnaGeneExpressionValue.getGene());
+
+    }
+
+    @Test
+    public void testSetId() throws Exception {
+        scrnaGeneExpressionValue.setId(1);
         assertEquals(1, scrnaGeneExpressionValue.getId(), 0.001);
 
     }
+
+    @Test
+    public void testSetPct1() throws Exception {
+        scrnaGeneExpressionValue.setPct1(0.3);
+        assertEquals(0.3, scrnaGeneExpressionValue.getPct1(), 0.001);
+
+    }
+
+    @Test
+    public void testSetPct2() throws Exception {
+        scrnaGeneExpressionValue.setPct2(0.4);
+        assertEquals(0.4, scrnaGeneExpressionValue.getPct2(), 0.001);
+
+    }
+
+    @Test
+    public void testSetPVal() throws Exception {
+        scrnaGeneExpressionValue.setPVal(0.5);
+        assertEquals(0.5, scrnaGeneExpressionValue.getPVal(), 0.001);
+
+    }
+
+    @Test
+    public void testSetPValAdj() throws Exception {
+        scrnaGeneExpressionValue.setPValAdj(0.6);
+        assertEquals(0.6, scrnaGeneExpressionValue.getPValAdj(), 0.001);
+
+    }
+
+    @Test
+    public void testSetTissueType() throws Exception {
+        scrnaGeneExpressionValue.setTissueType("tissue");
+        assertEquals("tissue", scrnaGeneExpressionValue.getTissueType());
+    }
+
+    @Test
+    public void testSetSpecificity() throws Exception {
+        scrnaGeneExpressionValue.setSpecificity(0.8);
+        assertEquals(0.8, scrnaGeneExpressionValue.getSpecificity(), 0.001);
+    }
+
 
 
 }
