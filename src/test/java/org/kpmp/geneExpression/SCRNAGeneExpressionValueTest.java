@@ -99,6 +99,18 @@ public class SCRNAGeneExpressionValueTest {
         assertEquals(0.8, scrnaGeneExpressionValue.getSpecificity(), 0.001);
     }
 
+    @Test
+    public void testSetClusterName() throws Exception {
+        scrnaGeneExpressionValue.setClusterName("cluster name");
+        assertEquals("cluster name", scrnaGeneExpressionValue.getClusterName());
+    }
+
+    @Test
+    public void testSetCellCount() throws Exception {
+        scrnaGeneExpressionValue.setCellCount(42);
+        assertEquals(Integer.valueOf(42), scrnaGeneExpressionValue.getCellCount());
+    }
+
 
 
 }

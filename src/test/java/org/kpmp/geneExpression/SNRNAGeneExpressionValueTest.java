@@ -91,4 +91,16 @@ public class SNRNAGeneExpressionValueTest {
         snrnaGeneExpressionValue.setTissueType("tissue");
         assertEquals("tissue", snrnaGeneExpressionValue.getTissueType());
     }
+
+    @Test
+    public void testSetClusterName() throws Exception {
+        snrnaGeneExpressionValue.setClusterName("cluster name");
+        assertEquals("cluster name", snrnaGeneExpressionValue.getClusterName());
+    }
+
+    @Test
+    public void testSetCellCount() throws Exception {
+        snrnaGeneExpressionValue.setCellCount(42);
+        assertEquals(Integer.valueOf(42), snrnaGeneExpressionValue.getCellCount());
+    }
 }
