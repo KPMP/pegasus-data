@@ -32,12 +32,6 @@ public class SCRNAGeneExpressionValueTest {
 
     }
 
-    @Test
-    public void testSetCellType() throws Exception {
-        scrnaGeneExpressionValue.setCellType("ct");
-        assertEquals("ct", scrnaGeneExpressionValue.getCellType());
-
-    }
 
     @Test
     public void testSetCluster() throws Exception {

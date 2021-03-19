@@ -51,16 +51,11 @@ public class SNRNAGeneExpressionValue implements GeneExpressionValue {
         return "sn";
     }
 
-    @Override
-    @Nullable
-    public String getCellType() {
-        return cellType;
-    }
+    @Column(name = "cluster_name")
+    private String clusterName;
 
-    @Override
-    public void setCellType(String cellType) {
-        this.cellType = cellType;
-    }
+    @Column(name = "cell_count")
+    private Integer cellCount;
 
     @Override
     @Nullable
@@ -167,5 +162,26 @@ public class SNRNAGeneExpressionValue implements GeneExpressionValue {
     @Override
     public void setCluster(String cluster) {
         this.cluster = cluster;
+    }
+
+    @Override
+    public void setCellCount(Integer cellCount) {
+        this.cellCount = cellCount;
+    }
+
+    @Override
+    public Integer getCellCount() {
+        return this.cellCount;
+    }
+
+    @Override
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
+    }
+
+    @Nullable
+    @Override
+    public String getClusterName() {
+        return this.clusterName;
     }
 }

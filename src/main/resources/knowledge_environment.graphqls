@@ -47,8 +47,9 @@ type GeneExpressionValue {
   pct2: Float
   avgExpression: Float
   cluster: String
-  cellType: String
+  clusterName: String
   dataType: String
+  cellCount: Int
 }
 
 type UmapPoint {

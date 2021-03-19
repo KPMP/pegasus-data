@@ -33,13 +33,6 @@ public class SNRNAGeneExpressionValueTest {
     }
 
     @Test
-    public void testSetCellType() throws Exception {
-        snrnaGeneExpressionValue.setCellType("ct");
-        assertEquals("ct", snrnaGeneExpressionValue.getCellType());
-
-    }
-
-    @Test
     public void testSetCluster() throws Exception {
         snrnaGeneExpressionValue.setCluster("cluster");
         assertEquals("cluster", snrnaGeneExpressionValue.getCluster());
