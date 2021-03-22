@@ -42,9 +42,13 @@ public interface GeneExpressionValue {
 
     void setCluster(String cluster);
 
-    String getCellType();
-
-    void setCellType(String cellType);
-
     String getDataType();
+
+    void setCellCount(Integer cellCount);
+
+    Integer getCellCount();
+
+    void setClusterName(String clusterName);
+
+    String getClusterName();
 }

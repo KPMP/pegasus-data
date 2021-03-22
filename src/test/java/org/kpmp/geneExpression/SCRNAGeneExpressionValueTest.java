@@ -32,12 +32,6 @@ public class SCRNAGeneExpressionValueTest {
 
     }
 
-    @Test
-    public void testSetCellType() throws Exception {
-        scrnaGeneExpressionValue.setCellType("ct");
-        assertEquals("ct", scrnaGeneExpressionValue.getCellType());
-
-    }
 
     @Test
     public void testSetCluster() throws Exception {
@@ -103,6 +97,18 @@ public class SCRNAGeneExpressionValueTest {
     public void testSetSpecificity() throws Exception {
         scrnaGeneExpressionValue.setSpecificity(0.8);
         assertEquals(0.8, scrnaGeneExpressionValue.getSpecificity(), 0.001);
+    }
+
+    @Test
+    public void testSetClusterName() throws Exception {
+        scrnaGeneExpressionValue.setClusterName("cluster name");
+        assertEquals("cluster name", scrnaGeneExpressionValue.getClusterName());
+    }
+
+    @Test
+    public void testSetCellCount() throws Exception {
+        scrnaGeneExpressionValue.setCellCount(42);
+        assertEquals(Integer.valueOf(42), scrnaGeneExpressionValue.getCellCount());
     }
 
 

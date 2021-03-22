@@ -36,8 +36,11 @@ public class SCRNAGeneExpressionValue implements GeneExpressionValue {
     @Column(name = "cluster")
     private String cluster;
 
-    @Column(name = "cell_type")
-    private String cellType;
+    @Column(name = "cluster_name")
+    private String clusterName;
+
+    @Column(name = "cell_count")
+    private Integer cellCount;
 
     @Transient
     public String getDataType() {
@@ -45,14 +48,24 @@ public class SCRNAGeneExpressionValue implements GeneExpressionValue {
     }
 
     @Override
-    @Nullable
-    public String getCellType() {
-        return cellType;
+    public void setCellCount(Integer cellCount) {
+        this.cellCount = cellCount;
     }
 
     @Override
-    public void setCellType(String cellType) {
-        this.cellType = cellType;
+    public Integer getCellCount() {
+        return this.cellCount;
+    }
+
+    @Override
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
+    }
+
+    @Nullable
+    @Override
+    public String getClusterName() {
+        return this.clusterName;
     }
 
     @Override

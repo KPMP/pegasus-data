@@ -33,13 +33,6 @@ public class SNRNAGeneExpressionValueTest {
     }
 
     @Test
-    public void testSetCellType() throws Exception {
-        snrnaGeneExpressionValue.setCellType("ct");
-        assertEquals("ct", snrnaGeneExpressionValue.getCellType());
-
-    }
-
-    @Test
     public void testSetCluster() throws Exception {
         snrnaGeneExpressionValue.setCluster("cluster");
         assertEquals("cluster", snrnaGeneExpressionValue.getCluster());
@@ -97,5 +90,17 @@ public class SNRNAGeneExpressionValueTest {
     public void testSetTissueType() throws Exception {
         snrnaGeneExpressionValue.setTissueType("tissue");
         assertEquals("tissue", snrnaGeneExpressionValue.getTissueType());
+    }
+
+    @Test
+    public void testSetClusterName() throws Exception {
+        snrnaGeneExpressionValue.setClusterName("cluster name");
+        assertEquals("cluster name", snrnaGeneExpressionValue.getClusterName());
+    }
+
+    @Test
+    public void testSetCellCount() throws Exception {
+        snrnaGeneExpressionValue.setCellCount(42);
+        assertEquals(Integer.valueOf(42), snrnaGeneExpressionValue.getCellCount());
     }
 }
