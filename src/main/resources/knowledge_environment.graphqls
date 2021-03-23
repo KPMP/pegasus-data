@@ -50,6 +50,12 @@ type GeneExpressionValue {
   clusterName: String
   dataType: String
   cellCount: Int
+  synonyms: [CellTypeSynonym]
+}
+
+type CellTypeSynonym {
+  cell_type_id: ID
+  cell_type_synonym: String
 }
 
 type UmapPoint {

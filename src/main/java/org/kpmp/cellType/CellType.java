@@ -3,7 +3,9 @@ package org.kpmp.cellType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "cell_type")
@@ -30,6 +32,9 @@ public class CellType {
 
     @Column(name="release_sunset")
     private Double releaseSunset;
+
+    @OneToMany(mappedBy="celltype_synonym")
+    private Set<CellTypeSynonym> synonyms;
 
     public int getCellTypeId() {
         return cellTypeId;
