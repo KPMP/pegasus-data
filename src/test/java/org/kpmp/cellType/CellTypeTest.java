@@ -4,6 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTypeTest {
@@ -60,5 +65,21 @@ class CellTypeTest {
     void setReleaseSunset() {
         cellType.setReleaseSunset(2.0);
         assertEquals((Double)2.0, cellType.getReleaseSunset());
+    }
+
+    @Test
+    void testSetSynonyms() {
+        CellTypeSynonym cellTypeSynonym = new CellTypeSynonym();
+        cellTypeSynonym.setCellTypeSynonym("syn1");
+        CellTypeSynonym cellTypeSynonym2 = new CellTypeSynonym();
+        cellTypeSynonym2.setCellTypeSynonym("syn2");
+        List<CellTypeSynonym> synonymList = new ArrayList<>();
+        synonymList.add(cellTypeSynonym);
+        synonymList.add(cellTypeSynonym2);
+        Set<CellTypeSynonym> synonymSet = new HashSet<>(synonymList);
+        cellType.setSynonyms(synonymSet);
+        List<String> synonyms = cellType.getSynonymStringList();
+        assertTrue(synonyms.contains("syn1"));
+        assertTrue(synonyms.contains("syn2"));
     }
 }
