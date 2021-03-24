@@ -95,11 +95,19 @@ public class CellType {
         this.releaseSunset = releaseSunset;
     }
 
-    public List<String> getSynonyms() {
+    public List<String> getSynonymStringList() {
         List<String> synonymList = new ArrayList<>();
         for (CellTypeSynonym synonym : synonyms) {
             synonymList.add(synonym.getCellTypeSynonym());
         }
         return synonymList;
+    }
+
+    public Set<CellTypeSynonym> getSynonyms() {
+        return synonyms;
+    }
+
+    public void setSynonyms(Set<CellTypeSynonym> synonyms) {
+        this.synonyms = synonyms;
     }
 }

@@ -54,7 +54,7 @@ class AutocompleteServiceTest {
         List<CellType> cellTypes = new ArrayList<CellType>();
         cellTypes.add(ct);
         when(geneService.querySymbolAndAlias("searchTerm")).thenReturn(hits);
-        when(cellTypeRepository.findByCellTypeContaining("searchTerm")).thenReturn(cellTypes);
+        when(cellTypeRepository.findByCellTypeContainingOrSynonymContaining("searchTerm")).thenReturn(cellTypes);
         List<AutocompleteResult> results = autocompleteService.query("searchTerm");
         assertEquals(2, results.size());
         AutocompleteResult result1 = results.get(0);

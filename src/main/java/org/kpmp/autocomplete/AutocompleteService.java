@@ -46,7 +46,7 @@ public class AutocompleteService {
     public List<AutocompleteResult> convertCellTypesToAutocompleteResults(List<CellType> cellTypes) {
         List<AutocompleteResult> autocompleteResults = new ArrayList<>();
         for (CellType cellType : cellTypes) {
-            autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null, Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, cellType.getSynonyms()));
+            autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null, Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, cellType.getSynonymStringList()));
         }
         return autocompleteResults;
     }
