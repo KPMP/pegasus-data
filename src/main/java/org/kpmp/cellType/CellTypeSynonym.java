@@ -1,7 +1,7 @@
 package org.kpmp.cellType;
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.IdClass;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "celltype_synonym")
-@IdClass(CellTypeSynonym.class)
+@IdClass(CellTypeSynonymId.class)
 public class CellTypeSynonym {
 
     @Id
@@ -22,8 +22,8 @@ public class CellTypeSynonym {
     @Column(name="cell_type_synonym")
     private String cellTypeSynonym;
 
-    @ManyToOne
-    @JoinColumn(name="cell_type_id", nullable=false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="cell_type_id", nullable = false, insertable = false, updatable = false)
     private CellType cellType;
 
     public int getCellTypeId() {

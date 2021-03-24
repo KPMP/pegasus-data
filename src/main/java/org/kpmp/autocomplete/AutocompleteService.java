@@ -28,7 +28,7 @@ public class AutocompleteService {
 
     public List<AutocompleteResult> query(String searchTerm) throws IOException {
         List<MyGeneInfoHit> myGeneInfoHits = geneService.querySymbolAndAlias(searchTerm);
-        List<CellType> cellTypes = cellTypeRepository.findByCellTypeContainingOrCellTypeSynonymContaining(searchTerm);
+        List<CellType> cellTypes = cellTypeRepository.findByCellTypeContainingOrSynonymContaining(searchTerm);
         List<AutocompleteResult> myGeneResults = convertMyGeneInfoHitsToAutocompleteResults(myGeneInfoHits);
         List<AutocompleteResult> cellTypeResults = convertCellTypesToAutocompleteResults(cellTypes);
         myGeneResults.addAll(cellTypeResults);
@@ -46,7 +46,7 @@ public class AutocompleteService {
     public List<AutocompleteResult> convertCellTypesToAutocompleteResults(List<CellType> cellTypes) {
         List<AutocompleteResult> autocompleteResults = new ArrayList<>();
         for (CellType cellType : cellTypes) {
-            autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null, Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, null));
+            autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null, Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, cellType.getSynonyms()));
         }
         return autocompleteResults;
     }

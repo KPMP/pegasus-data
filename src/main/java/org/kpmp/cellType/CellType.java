@@ -2,9 +2,12 @@ package org.kpmp.cellType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,7 +36,7 @@ public class CellType {
     @Column(name="release_sunset")
     private Double releaseSunset;
 
-    @OneToMany(mappedBy="celltype_synonym")
+    @OneToMany(mappedBy="cellType", fetch = FetchType.EAGER)
     private Set<CellTypeSynonym> synonyms;
 
     public int getCellTypeId() {
@@ -90,5 +93,13 @@ public class CellType {
 
     public void setReleaseSunset(Double releaseSunset) {
         this.releaseSunset = releaseSunset;
+    }
+
+    public List<String> getSynonyms() {
+        List<String> synonymList = new ArrayList<>();
+        for (CellTypeSynonym synonym : synonyms) {
+            synonymList.add(synonym.getCellTypeSynonym());
+        }
+        return synonymList;
     }
 }
