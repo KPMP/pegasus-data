@@ -3,6 +3,7 @@ package org.kpmp.geneExpression;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionValue;
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,6 +1,6 @@
-package org.kpmp.geneExpression;
+package org.kpmp.geneExpressionSummary;
 
-public interface GeneExpressionValue {
+public interface GeneSummaryPerCluster {
 
     Integer getId();
 

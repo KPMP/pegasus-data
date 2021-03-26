@@ -1,4 +1,4 @@
-package org.kpmp.geneExpression;
+package org.kpmp.geneExpressionSummary;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

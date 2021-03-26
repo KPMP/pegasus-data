@@ -4,6 +4,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kpmp.gene.GeneService;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.geneExpressionSummary.GeneSummaryPerCluster;
+import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionRepository;
+import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionValue;
+import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionRepository;
+import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionValue;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -15,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 public class GeneExpressionServiceTest {
 
-    private GeneExpressionService geneExpressionService;
+    private GeneExpressionSummaryService geneExpressionService;
     @Mock
     private SNRNAGeneExpressionRepository snrnaGeneExpressionRepository;
     @Mock
@@ -24,7 +30,7 @@ public class GeneExpressionServiceTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        geneExpressionService = new GeneExpressionService(scrnaGeneExpressionRepository, snrnaGeneExpressionRepository);
+        geneExpressionService = new GeneExpressionSummaryService(scrnaGeneExpressionRepository, snrnaGeneExpressionRepository);
     }
 
     @After
@@ -40,10 +46,10 @@ public class GeneExpressionServiceTest {
         when(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "aki")).thenReturn(scResults);
         List results = geneExpressionService.getByDataTypeTissueTypeAndGene("", "gene", "aki");
         assertEquals(2, results.size());
-        List<? extends GeneExpressionValue> resultsSC = geneExpressionService.getByDataTypeTissueTypeAndGene("sc", "gene", "aki");
+        List<? extends GeneSummaryPerCluster> resultsSC = geneExpressionService.getByDataTypeTissueTypeAndGene("sc", "gene", "aki");
         assertEquals(scResults, resultsSC);
         assertEquals("sc", resultsSC.get(0).getDataType());
-        List<? extends GeneExpressionValue> resultsSN = geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki");
+        List<? extends GeneSummaryPerCluster> resultsSN = geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki");
         assertEquals(snResults, resultsSN);
         assertEquals("sn", resultsSN.get(0).getDataType());
 
