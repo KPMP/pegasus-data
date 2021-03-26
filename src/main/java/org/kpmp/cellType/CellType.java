@@ -1,5 +1,7 @@
 package org.kpmp.cellType;
 
+import javafx.scene.control.Cell;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -109,5 +111,20 @@ public class CellType {
 
     public void setSynonyms(Set<CellTypeSynonym> synonyms) {
         this.synonyms = synonyms;
+    }
+
+    @Override
+    public int hashCode() {
+        return cellType.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if(!(obj instanceof CellType))
+            return false;
+        CellType cellType = (CellType) obj;
+        return cellType.getCellType().equals(this.getCellType());
     }
 }

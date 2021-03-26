@@ -68,7 +68,7 @@ class CellTypeTest {
     }
 
     @Test
-    void testSetSynonyms() {
+    void testSetSynonyms() throws Exception {
         CellTypeSynonym cellTypeSynonym = new CellTypeSynonym();
         cellTypeSynonym.setCellTypeSynonym("syn1");
         CellTypeSynonym cellTypeSynonym2 = new CellTypeSynonym();
@@ -81,5 +81,13 @@ class CellTypeTest {
         List<String> synonyms = cellType.getSynonymStringList();
         assertTrue(synonyms.contains("syn1"));
         assertTrue(synonyms.contains("syn2"));
+    }
+
+    @Test
+    void testEquals() throws Exception {
+        cellType.setCellType("same name");
+        CellType cellType1 = new CellType();
+        cellType1.setCellType("same name");
+        assertEquals(cellType, cellType1);
     }
 }

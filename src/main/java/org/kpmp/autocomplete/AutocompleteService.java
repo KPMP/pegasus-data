@@ -3,6 +3,7 @@ package org.kpmp.autocomplete;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.kpmp.cellType.CellType;
 import org.kpmp.cellType.CellTypeRepository;
@@ -44,8 +45,9 @@ public class AutocompleteService {
     }
 
     public List<AutocompleteResult> convertCellTypesToAutocompleteResults(List<CellType> cellTypes) {
+        List<CellType> cellTypeListNoDupes = cellTypes.stream().distinct().collect(Collectors.toList());
         List<AutocompleteResult> autocompleteResults = new ArrayList<>();
-        for (CellType cellType : cellTypes) {
+        for (CellType cellType : cellTypeListNoDupes) {
             autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null, Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, cellType.getSynonymStringList()));
         }
         return autocompleteResults;
