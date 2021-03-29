@@ -51,4 +51,16 @@ public class UmapPointTest {
 		assertEquals("experiment type", point.getDataType());
 	}
 
+	@Test
+	public void testSetExpressionValue() throws Exception {
+		point.setExpressionValue(4d);
+		assertEquals(4d, point.getExpressionValue(), DOUBLE_PRECISION);
+	}
+
+	@Test
+	public void testSetBarcode() throws Exception {
+		point.setBarcode("barcode");
+		assertEquals("barcode", point.getBarcode());
+	}
+
 }

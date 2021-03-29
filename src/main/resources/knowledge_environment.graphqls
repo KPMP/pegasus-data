@@ -3,7 +3,7 @@ type Query {
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
   expressionSummaryPerClusterByGene(dataType: String, geneSymbol: String, tissueType: String) : [GeneSummaryPerCluster]
-  umapPoints(dataType: String): [UmapPoint]
+  umapPoints(dataType: String!, geneSymbol: String!): [UmapPoint]
 }
 
 type MyGeneInfoHit {

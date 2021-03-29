@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "sn_rnaseq")
-public class SNRNAGeneExpressionValue implements GeneSummaryPerCluster {
+public class SNRNAGeneExpressionSummartValue implements GeneSummaryPerCluster {
 
     @Column(name = "id")
     private Integer id;

@@ -12,12 +12,12 @@ public class GeneExpressionSummaryService {
 	private final String SC_DATATYPE = "sc";
 	private final String SN_DATATYPE = "sn";
 
-	private SCRNAGeneExpressionRepository scrnaGeneExpressionRepository;
-	private SNRNAGeneExpressionRepository snrnaGeneExpressionRepository;
+	private SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository;
+	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
 
 	@Autowired
-	public GeneExpressionSummaryService(SCRNAGeneExpressionRepository scrnaGeneExpressionRepository,
-			SNRNAGeneExpressionRepository snrnaGeneExpressionRepository) {
+	public GeneExpressionSummaryService(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
+			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
 	}

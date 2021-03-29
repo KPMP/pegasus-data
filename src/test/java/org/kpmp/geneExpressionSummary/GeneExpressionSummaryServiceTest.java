@@ -1,4 +1,4 @@
-package org.kpmp.geneExpression;
+package org.kpmp.geneExpressionSummary;
 
 import org.junit.After;
 import org.junit.Before;
@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.kpmp.gene.GeneService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.GeneSummaryPerCluster;
-import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionRepository;
-import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionValue;
-import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionRepository;
-import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionValue;
+import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionSummartValue;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -19,13 +19,13 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class GeneExpressionServiceTest {
+public class GeneExpressionSummaryServiceTest {
 
     private GeneExpressionSummaryService geneExpressionService;
     @Mock
-    private SNRNAGeneExpressionRepository snrnaGeneExpressionRepository;
+    private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
     @Mock
-    private SCRNAGeneExpressionRepository scrnaGeneExpressionRepository;
+    private SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -40,9 +40,9 @@ public class GeneExpressionServiceTest {
 
     @Test
     public void testGetByDataTypeTissueTypeAndGene() throws Exception {
-        List<SNRNAGeneExpressionValue> snResults = Arrays.asList(new SNRNAGeneExpressionValue());
+        List<SNRNAGeneExpressionSummartValue> snResults = Arrays.asList(new SNRNAGeneExpressionSummartValue());
         when(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "aki")).thenReturn(snResults);
-        List<SCRNAGeneExpressionValue> scResults = Arrays.asList(new SCRNAGeneExpressionValue());
+        List<SCRNAGeneExpressionSummaryValue> scResults = Arrays.asList(new SCRNAGeneExpressionSummaryValue());
         when(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "aki")).thenReturn(scResults);
         List results = geneExpressionService.getByDataTypeTissueTypeAndGene("", "gene", "aki");
         assertEquals(2, results.size());

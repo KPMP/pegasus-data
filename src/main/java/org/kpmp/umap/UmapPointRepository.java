@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UmapPointRepository extends CrudRepository<UmapPoint, UmapPointId> {
 
-	List<UmapPoint> findByDataType(String experimentType);
+	List<UmapPoint> findByDataType(String dataType);
 
 	@Override
 	List<UmapPoint> findAll();

@@ -1,19 +1,19 @@
-package org.kpmp.geneExpression;
+package org.kpmp.geneExpressionSummary;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionValue;
+import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionSummaryValue;
 
 import static org.junit.Assert.assertEquals;
 
-public class SCRNAGeneExpressionValueTest {
+public class SCRNAGeneExpressionSummaryValueTest {
 
-    private SCRNAGeneExpressionValue scrnaGeneExpressionValue;
+    private SCRNAGeneExpressionSummaryValue scrnaGeneExpressionValue;
 
     @Before
     public void setUp() throws Exception {
-        scrnaGeneExpressionValue = new SCRNAGeneExpressionValue();
+        scrnaGeneExpressionValue = new SCRNAGeneExpressionSummaryValue();
     }
 
     @After

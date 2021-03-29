@@ -3,6 +3,7 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.List;
 
+import org.json.JSONException;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -55,10 +56,7 @@ public class Query implements GraphQLQueryResolver {
 		return geneExpressionSummaryService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
 	}
 
-	public List<UmapPoint> getUmapPoints(String dataType) {
-		if (dataType == null) {
-			return umapService.getUmapPoints();
-		}
-		return umapService.getUmapPoints(dataType);
+	public List<UmapPoint> getUmapPoints(String dataType, String geneSymbol) throws JSONException, Exception {
+		return umapService.getUmapPoints(dataType, geneSymbol);
 	}
 }
