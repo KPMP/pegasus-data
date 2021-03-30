@@ -3,16 +3,15 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.List;
 
-import org.kpmp.geneExpression.GeneExpressionService;
-import org.kpmp.geneExpression.GeneExpressionValue;
-import org.kpmp.geneExpression.SCRNAGeneExpressionValue;
-import org.kpmp.geneExpression.SNRNAGeneExpressionValue;
+import org.json.JSONException;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.geneExpressionSummary.GeneSummaryPerCluster;
 import org.kpmp.umap.UmapDataService;
 import org.kpmp.umap.UmapPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +25,18 @@ public class Query implements GraphQLQueryResolver {
 	private GeneService geneService;
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
-	private GeneExpressionService geneExpressionService;
+	private GeneExpressionSummaryService geneExpressionSummaryService;
 	private UmapDataService umapService;
-
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
-			UmapDataService umapService, GeneExpressionService geneExpressionService) {
+			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
 		this.umapService = umapService;
-		this.geneExpressionService = geneExpressionService;
+		this.geneExpressionSummaryService = geneExpressionSummaryService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException {
@@ -53,14 +51,12 @@ public class Query implements GraphQLQueryResolver {
 		return cellTypeService.getCellTypeHierarchy();
 	}
 
-	public List<? extends GeneExpressionValue> geneExpression(String dataType, String searchTerm, String tissueType) throws IOException {
-			return geneExpressionService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
+	public List<? extends GeneSummaryPerCluster> expressionSummaryPerClusterByGene(String dataType, String searchTerm,
+			String tissueType) throws IOException {
+		return geneExpressionSummaryService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
 	}
 
-	public List<UmapPoint> getUmapPoints(String dataType) {
-		if (dataType == null) {
-			return umapService.getUmapPoints();
-		}
-		return umapService.getUmapPoints(dataType);
+	public List<UmapPoint> getUmapPoints(String dataType, String geneSymbol) throws JSONException, Exception {
+		return umapService.getUmapPoints(dataType, geneSymbol);
 	}
 }

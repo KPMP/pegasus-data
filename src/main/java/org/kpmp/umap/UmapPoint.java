@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "umap_point_v")
@@ -23,6 +24,10 @@ public class UmapPoint {
 	private String clusterColor;
 	@Column(name = "data_type")
 	private String dataType;
+	@Column(name = "barcode")
+	private String barcode;
+	@Transient
+	private double expressionValue;
 
 	public double getUmapX() {
 		return umapX;
@@ -62,6 +67,22 @@ public class UmapPoint {
 
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
+	}
+
+	public double getExpressionValue() {
+		return expressionValue;
+	}
+
+	public void setExpressionValue(double expressionValue) {
+		this.expressionValue = expressionValue;
+	}
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
 	}
 
 }

@@ -1,7 +1,6 @@
 package org.kpmp.umap;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,9 +8,11 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.geneExpression.ExpressionDataService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -20,11 +21,15 @@ public class UmapDataServiceTest {
 	@Mock
 	private UmapPointRepository umapPointRepo;
 	private UmapDataService service;
+	@Mock
+	private ExpressionDataService expressionDataService;
+
+	private static double DOUBLE_PRECISION = 0.000001d;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		service = new UmapDataService(umapPointRepo);
+		service = new UmapDataService(umapPointRepo, expressionDataService);
 	}
 
 	@After
@@ -33,27 +38,36 @@ public class UmapDataServiceTest {
 	}
 
 	@Test
-	public void testGetUmapPoints() {
+	public void testGetUmapPointsWhenBarcodeNotPresentInExpressionData() throws Exception {
 		List<UmapPoint> expectedPoints = Arrays.asList(new UmapPoint());
-		when(umapPointRepo.findByDataType("experimentType")).thenReturn(expectedPoints);
+		when(umapPointRepo.findByDataType("dataType")).thenReturn(expectedPoints);
+		when(expressionDataService.getGeneExpressionValues("dataType", "geneSymbol")).thenReturn(new JSONObject());
 
-		List<UmapPoint> umapPoints = service.getUmapPoints("experimentType");
+		List<UmapPoint> umapPoints = service.getUmapPoints("dataType", "geneSymbol");
 
 		assertEquals(expectedPoints, umapPoints);
-		verify(umapPointRepo).findByDataType("experimentType");
+		assertEquals(0d, umapPoints.get(0).getExpressionValue(), DOUBLE_PRECISION);
+		verify(umapPointRepo).findByDataType("dataType");
+		verify(expressionDataService).getGeneExpressionValues("dataType", "geneSymbol");
 		verify(umapPointRepo, times(0)).findAll();
 	}
 
 	@Test
-	public void testGetUmapPointsWitNoParameter() throws Exception {
-		List<UmapPoint> expectedPoints = Arrays.asList(new UmapPoint());
-		when(umapPointRepo.findAll()).thenReturn(expectedPoints);
+	public void testGetUmapPointsWhenBardoceFoundInExpressionData() throws Exception {
+		UmapPoint umapPoint = new UmapPoint();
+		umapPoint.setBarcode("barcode");
+		List<UmapPoint> expectedPoints = Arrays.asList(umapPoint);
+		when(umapPointRepo.findByDataType("dataType")).thenReturn(expectedPoints);
+		when(expressionDataService.getGeneExpressionValues("dataType", "geneSymbol"))
+				.thenReturn(new JSONObject("{ 'barcode': 0.4d , 'barcode2': 2.2d}"));
 
-		List<UmapPoint> umapPoints = service.getUmapPoints();
+		List<UmapPoint> umapPoints = service.getUmapPoints("dataType", "geneSymbol");
 
 		assertEquals(expectedPoints, umapPoints);
-		verify(umapPointRepo).findAll();
-		verify(umapPointRepo, times(0)).findByDataType(any(String.class));
+		assertEquals(0.4d, umapPoints.get(0).getExpressionValue(), DOUBLE_PRECISION);
+		verify(umapPointRepo).findByDataType("dataType");
+		verify(expressionDataService).getGeneExpressionValues("dataType", "geneSymbol");
+		verify(umapPointRepo, times(0)).findAll();
 	}
 
 }

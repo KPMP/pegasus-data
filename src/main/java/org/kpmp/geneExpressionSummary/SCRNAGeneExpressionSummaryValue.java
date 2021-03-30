@@ -1,4 +1,4 @@
-package org.kpmp.geneExpression;
+package org.kpmp.geneExpressionSummary;
 
 import org.springframework.lang.Nullable;
 
@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "sc_rnaseq")
-public class SCRNAGeneExpressionValue implements GeneExpressionValue {
+public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 
     @Column(name = "id")
     private Integer id;

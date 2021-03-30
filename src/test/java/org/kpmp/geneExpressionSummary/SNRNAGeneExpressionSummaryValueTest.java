@@ -1,18 +1,19 @@
-package org.kpmp.geneExpression;
+package org.kpmp.geneExpressionSummary;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionSummartValue;
 
 import static org.junit.Assert.assertEquals;
 
-public class SNRNAGeneExpressionValueTest {
+public class SNRNAGeneExpressionSummaryValueTest {
 
-    SNRNAGeneExpressionValue snrnaGeneExpressionValue;
+    SNRNAGeneExpressionSummartValue snrnaGeneExpressionValue;
 
     @Before
     public void setUp() throws Exception {
-        snrnaGeneExpressionValue = new SNRNAGeneExpressionValue();
+        snrnaGeneExpressionValue = new SNRNAGeneExpressionSummartValue();
     }
 
     @After
