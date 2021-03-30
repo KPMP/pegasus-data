@@ -38,4 +38,23 @@ public class GeneExpressionService {
         }
         return results;
     }
+
+    public List<? extends GeneExpressionValue> getExpressionSummaryPerGeneByCellTypeAndTissueType(String dataType, String cellType, String tissueType) {
+        List<? extends GeneExpressionValue> results;
+        switch (dataType) {
+            case SC_DATATYPE:
+                results = scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType);
+                break;
+            case SN_DATATYPE:
+                results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType);
+                break;
+            default:
+                List allResults = new ArrayList<>();
+                allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+                allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+                results = allResults;
+        }
+        return results;
+    }
+
 }

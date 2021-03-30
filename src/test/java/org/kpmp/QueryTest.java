@@ -19,6 +19,7 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
+import org.kpmp.geneExpression.SCRNAGeneExpressionValue;
 import org.kpmp.geneExpression.SNRNAGeneExpressionValue;
 import org.kpmp.umap.UmapDataService;
 import org.kpmp.umap.UmapPoint;
@@ -76,9 +77,21 @@ public class QueryTest {
 
 	@Test
 	public void geneExpression() throws Exception {
-		List expectedResult = Arrays.asList(new SNRNAGeneExpressionValue());
-		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki")).thenReturn(expectedResult);
-		assertEquals(expectedResult, query.geneExpression("sn", "gene", "aki"));
+		List expectedResultSN1 = Arrays.asList(new SNRNAGeneExpressionValue());
+		List expectedResultSN2 = Arrays.asList(new SNRNAGeneExpressionValue());
+		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN1);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sn", "cell type", "aki")).thenReturn(expectedResultSN2);
+
+		List expectedResultSC1 = Arrays.asList(new SCRNAGeneExpressionValue());
+		List expectedResultSC2 = Arrays.asList(new SCRNAGeneExpressionValue());
+		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sc", "gene", "aki")).thenReturn(expectedResultSC1);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "aki")).thenReturn(expectedResultSC2);
+
+		assertEquals(expectedResultSN1, query.geneExpression("sn", "gene", "", "aki"));
+		assertEquals(expectedResultSC1, query.geneExpression("sc", "gene", "", "aki"));
+
+		assertEquals(expectedResultSN2, query.geneExpression("sn", "", "cell type", "aki"));
+		assertEquals(expectedResultSC2, query.geneExpression("sc", "", "cell type", "aki"));
 	}
 
 	public void testGetUmapPoints() throws Exception {

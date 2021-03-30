@@ -1,6 +1,7 @@
 package org.kpmp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.kpmp.geneExpression.GeneExpressionService;
@@ -53,8 +54,14 @@ public class Query implements GraphQLQueryResolver {
 		return cellTypeService.getCellTypeHierarchy();
 	}
 
-	public List<? extends GeneExpressionValue> geneExpression(String dataType, String searchTerm, String tissueType) throws IOException {
-			return geneExpressionService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
+	public List<? extends GeneExpressionValue> geneExpression(String dataType, String geneSymbol, String cellType, String tissueType) throws IOException {
+		List<? extends GeneExpressionValue> results = new ArrayList<>();
+		if (cellType.isEmpty()) {
+			results = geneExpressionService.getByDataTypeTissueTypeAndGene(dataType, geneSymbol, tissueType);
+		} else if (geneSymbol.isEmpty()) {
+			results = geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType(dataType, cellType, tissueType);
+		}
+		return results;
 	}
 
 	public List<UmapPoint> getUmapPoints(String dataType) {
