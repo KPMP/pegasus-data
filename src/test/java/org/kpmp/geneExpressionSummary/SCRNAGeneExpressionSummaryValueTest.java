@@ -3,17 +3,16 @@ package org.kpmp.geneExpressionSummary;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionSummaryValue;
 
 import static org.junit.Assert.assertEquals;
 
 public class SCRNAGeneExpressionSummaryValueTest {
 
-    private SCRNAGeneExpressionSummaryValue scrnaGeneExpressionValue;
+    private SCRNAGeneExpressionExpressionSummaryValue scrnaGeneExpressionValue;
 
     @Before
     public void setUp() throws Exception {
-        scrnaGeneExpressionValue = new SCRNAGeneExpressionSummaryValue();
+        scrnaGeneExpressionValue = new SCRNAGeneExpressionExpressionSummaryValue();
     }
 
     @After

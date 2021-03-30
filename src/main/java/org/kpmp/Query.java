@@ -1,6 +1,7 @@
 package org.kpmp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -11,7 +12,7 @@ import org.kpmp.cellType.CellTypeService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
-import org.kpmp.geneExpressionSummary.GeneSummaryPerCluster;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.umap.UmapDataService;
 import org.kpmp.umap.UmapPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,14 @@ public class Query implements GraphQLQueryResolver {
 		return cellTypeService.getCellTypeHierarchy();
 	}
 
-	public List<? extends GeneSummaryPerCluster> expressionSummaryPerClusterByGene(String dataType, String searchTerm,
-			String tissueType) throws IOException {
-		return geneExpressionSummaryService.getByDataTypeTissueTypeAndGene(dataType, searchTerm, tissueType);
+	public List<? extends GeneExpressionSummary> geneExpressionSummary(String dataType, String geneSymbol, String cellType, String tissueType) throws IOException {
+		List<? extends GeneExpressionSummary> results = new ArrayList<>();
+		if (cellType.isEmpty()) {
+			results = geneExpressionSummaryService.getByDataTypeTissueTypeAndGene(dataType, geneSymbol, tissueType);
+		} else if (geneSymbol.isEmpty()) {
+			results = geneExpressionSummaryService.getExpressionSummaryPerGeneByCellTypeAndTissueType(dataType, cellType, tissueType);
+		}
+		return results;
 	}
 
 	public List<UmapPoint> getUmapPoints(String dataType, String geneSymbol) throws JSONException, Exception {

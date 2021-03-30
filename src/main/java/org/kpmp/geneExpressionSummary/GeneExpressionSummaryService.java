@@ -22,9 +22,9 @@ public class GeneExpressionSummaryService {
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
 	}
 
-	public List<? extends GeneSummaryPerCluster> getByDataTypeTissueTypeAndGene(String dataType, String geneSymbol,
-			String tissueType) {
-		List<? extends GeneSummaryPerCluster> results;
+	public List<? extends GeneExpressionSummary> getByDataTypeTissueTypeAndGene(String dataType, String geneSymbol,
+																				String tissueType) {
+		List<? extends GeneExpressionSummary> results;
 		switch (dataType) {
 		case SC_DATATYPE:
 			results = scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType);
@@ -33,11 +33,31 @@ public class GeneExpressionSummaryService {
 			results = snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType);
 			break;
 		default:
-			List<GeneSummaryPerCluster> allResults = new ArrayList<>();
+			List<GeneExpressionSummary> allResults = new ArrayList<>();
 			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType));
 			allResults.addAll(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType));
 			results = allResults;
 		}
 		return results;
 	}
+
+	public List<? extends GeneExpressionSummary> getExpressionSummaryPerGeneByCellTypeAndTissueType(String dataType, String cellType, String tissueType) {
+		List<? extends GeneExpressionSummary> results;
+		switch (dataType) {
+			case SC_DATATYPE:
+				results = scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType);
+				break;
+			case SN_DATATYPE:
+				results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType);
+				break;
+			default:
+				List allResults = new ArrayList<>();
+				allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+				allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+				results = allResults;
+		}
+		return results;
+	}
+
+
 }

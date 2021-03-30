@@ -5,17 +5,20 @@ import org.springframework.lang.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name = "sc_rnaseq")
-public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
+@IdClass(GeneExpressionId.class)
+public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary {
 
     @Column(name = "id")
     private Integer id;
     @Column(name = "tissue_type")
     private String tissueType;
+    @Id
     @Column(name = "gene")
     private String gene;
     @Column(name = "p_val")
@@ -31,7 +34,7 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
     @Column(name = "specificity")
     private Double specificity;
     @Column(name = "avg_exp")
-    private Double avgExpression;
+    private Double avgExp;
     @Id
     @Column(name = "cluster")
     private String cluster;
@@ -159,12 +162,12 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 
     @Override
     @Nullable
-    public Double getAvgExpression() {
-        return avgExpression;
+    public Double getAvgExp() {
+        return avgExp;
     }
 
-    public void setAvgExpression(Double avgExpression) {
-        this.avgExpression = avgExpression;
+    public void setAvgExp(Double avgExp) {
+        this.avgExp = avgExp;
     }
 
     @Override
