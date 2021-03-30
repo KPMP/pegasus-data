@@ -1,8 +1,6 @@
 package org.kpmp;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,14 +10,14 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.geneExpression.GeneExpressionService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
-import org.kpmp.geneExpression.SNRNAGeneExpressionValue;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionSummartValue;
 import org.kpmp.umap.UmapDataService;
 import org.kpmp.umap.UmapPoint;
 import org.mockito.Mock;
@@ -34,7 +32,7 @@ public class QueryTest {
 	@Mock
 	private GeneService geneService;
 	@Mock
-	private GeneExpressionService geneExpressionService;
+	private GeneExpressionSummaryService geneExpressionService;
 	private Query query;
 	@Mock
 	private UmapDataService umapDataService;
@@ -74,30 +72,19 @@ public class QueryTest {
 		assertEquals(expectedResult, query.getCellTypeHierarchy());
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test
 	public void geneExpression() throws Exception {
-		List expectedResult = Arrays.asList(new SNRNAGeneExpressionValue());
+		List expectedResult = Arrays.asList(new SNRNAGeneExpressionSummartValue());
 		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki")).thenReturn(expectedResult);
-		assertEquals(expectedResult, query.geneExpression("sn", "gene", "aki"));
+		assertEquals(expectedResult, query.expressionSummaryPerClusterByGene("sn", "gene", "aki"));
 	}
 
 	public void testGetUmapPoints() throws Exception {
 		List<UmapPoint> expectedList = Arrays.asList(new UmapPoint());
-		when(umapDataService.getUmapPoints("data type")).thenReturn(expectedList);
+		when(umapDataService.getUmapPoints("data type", "geneSymbol")).thenReturn(expectedList);
 
-		assertEquals(expectedList, query.getUmapPoints("data type"));
-		verify(umapDataService).getUmapPoints("data type");
-		verify(umapDataService, times(0)).getUmapPoints();
+		assertEquals(expectedList, query.getUmapPoints("data type", "geneSymbol"));
+		verify(umapDataService).getUmapPoints("data type", "geneSymbol");
 	}
-
-	@Test
-	public void testGetUmapPointsWhenNullDataType() throws Exception {
-		List<UmapPoint> expectedList = Arrays.asList(new UmapPoint());
-		when(umapDataService.getUmapPoints()).thenReturn(expectedList);
-
-		assertEquals(expectedList, query.getUmapPoints(null));
-		verify(umapDataService, times(0)).getUmapPoints(any(String.class));
-		verify(umapDataService).getUmapPoints();
-	}
-
 }
