@@ -1,17 +1,19 @@
 package org.kpmp.geneExpressionSummary;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.kpmp.DataTypeEnum;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 @Entity
 @Table(name = "sn_rnaseq")
-public class SNRNAGeneExpressionSummartValue implements GeneSummaryPerCluster {
+@IdClass(GeneExpressionId.class)
+public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary {
 
 	@Column(name = "id")
 	private Integer id;
@@ -19,11 +21,12 @@ public class SNRNAGeneExpressionSummartValue implements GeneSummaryPerCluster {
 	@Column(name = "tissue_type")
 	private String tissueType;
 
+	@Id
 	@Column(name = "gene")
 	private String gene;
 
 	@Column(name = "p_val")
-	private Double PVal;
+	private Double pVal;
 
 	@Column(name = "p_val_adj")
 	private Double pValAdj;
@@ -38,7 +41,7 @@ public class SNRNAGeneExpressionSummartValue implements GeneSummaryPerCluster {
 	private Double pct2;
 
 	@Column(name = "avg_exp")
-	private Double avgExpression;
+	private Double avgExp;
 
 	@Id
 	@Column(name = "cluster")
@@ -92,24 +95,20 @@ public class SNRNAGeneExpressionSummartValue implements GeneSummaryPerCluster {
 		this.gene = gene;
 	}
 
-	@Override
 	@Nullable
 	public Double getPVal() {
-		return PVal;
+		return pVal;
 	}
 
-	@Override
-	public void setPVal(Double PVal) {
-		this.PVal = PVal;
+	public void setPVal(Double pVal) {
+		this.pVal = pVal;
 	}
 
-	@Override
 	@Nullable
 	public Double getPValAdj() {
 		return pValAdj;
 	}
 
-	@Override
 	public void setPValAdj(Double pValAdj) {
 		this.pValAdj = pValAdj;
 	}
@@ -149,14 +148,14 @@ public class SNRNAGeneExpressionSummartValue implements GeneSummaryPerCluster {
 
 	@Override
 	@Nullable
-	public Double getAvgExpression() {
-		return avgExpression;
+	public Double getAvgExp() {
+		return avgExp;
 	}
 
 	@Override
 	@Nullable
-	public void setAvgExpression(Double avgExpression) {
-		this.avgExpression = avgExpression;
+	public void setAvgExp(Double avgExp) {
+		this.avgExp = avgExp;
 	}
 
 	@Id

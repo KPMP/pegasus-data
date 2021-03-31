@@ -50,12 +50,6 @@ class CellTypeTest {
     }
 
     @Test
-    void setAbbreviation() {
-        cellType.setAbbreviation("ABBREV");
-        assertEquals("ABBREV", cellType.getAbbreviation());
-    }
-
-    @Test
     void setReleaseVer() {
         cellType.setReleaseVer(2.0);
         assertEquals((Double)2.0, cellType.getReleaseVer());

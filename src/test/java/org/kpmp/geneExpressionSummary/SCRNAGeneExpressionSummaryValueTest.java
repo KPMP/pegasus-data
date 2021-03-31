@@ -3,17 +3,16 @@ package org.kpmp.geneExpressionSummary;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionSummaryValue;
 
 import static org.junit.Assert.assertEquals;
 
 public class SCRNAGeneExpressionSummaryValueTest {
 
-    private SCRNAGeneExpressionSummaryValue scrnaGeneExpressionValue;
+    private SCRNAGeneExpressionExpressionSummaryValue scrnaGeneExpressionValue;
 
     @Before
     public void setUp() throws Exception {
-        scrnaGeneExpressionValue = new SCRNAGeneExpressionSummaryValue();
+        scrnaGeneExpressionValue = new SCRNAGeneExpressionExpressionSummaryValue();
     }
 
     @After
@@ -28,8 +27,8 @@ public class SCRNAGeneExpressionSummaryValueTest {
 
     @Test
     public void testSetAvgExpression() throws Exception {
-        scrnaGeneExpressionValue.setAvgExpression(0.1);
-        assertEquals(0.1, scrnaGeneExpressionValue.getAvgExpression(), 0.001);
+        scrnaGeneExpressionValue.setAvgExp(0.1);
+        assertEquals(0.1, scrnaGeneExpressionValue.getAvgExp(), 0.001);
 
     }
 

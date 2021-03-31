@@ -2,7 +2,7 @@ type Query {
   genes(symbol: String): [MyGeneInfoHit]
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
-  expressionSummaryPerClusterByGene(dataType: String, geneSymbol: String, tissueType: String) : [GeneSummaryPerCluster]
+  geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, tissueType: String) : [GeneExpressionSummary]
   umapPoints(dataType: String!, geneSymbol: String!): [UmapPoint]
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
 }
@@ -37,20 +37,20 @@ type CellTypeStructureSubregion {
   subregionName: String
 }
 
-type GeneSummaryPerCluster {
-  id: ID
-  tissueType: String
-  gene: String
-  pVal: Float
-  pValAdj: Float
-  foldChange: Float
-  pct1: Float
-  pct2: Float
-  avgExpression: Float
-  cluster: String
-  clusterName: String
-  dataType: String
-  cellCount: Int
+type GeneExpressionSummary {
+    id: ID
+    tissueType: String
+    gene: String
+    pVal: Float
+    pValAdj: Float
+    foldChange: Float
+    pct1: Float
+    pct2: Float
+    avgExp: Float
+    cluster: String
+    clusterName: String
+    dataType: String
+    cellCount: Int
 }
 
 type UmapPoint {
