@@ -27,8 +27,8 @@ public class SNRNAGeneExpressionSummaryValueTest {
 
     @Test
     public void testSetAvgExpression() throws Exception {
-        snrnaGeneExpressionValue.setAvgExpression(0.1);
-        assertEquals(0.1, snrnaGeneExpressionValue.getAvgExpression(), 0.001);
+        snrnaGeneExpressionValue.setAvgExp(0.1);
+        assertEquals(0.1, snrnaGeneExpressionValue.getAvgExp(), 0.001);
 
     }
 

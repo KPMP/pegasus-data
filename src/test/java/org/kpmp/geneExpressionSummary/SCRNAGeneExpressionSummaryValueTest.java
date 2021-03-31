@@ -27,8 +27,8 @@ public class SCRNAGeneExpressionSummaryValueTest {
 
     @Test
     public void testSetAvgExpression() throws Exception {
-        scrnaGeneExpressionValue.setAvgExpression(0.1);
-        assertEquals(0.1, scrnaGeneExpressionValue.getAvgExpression(), 0.001);
+        scrnaGeneExpressionValue.setAvgExp(0.1);
+        assertEquals(0.1, scrnaGeneExpressionValue.getAvgExp(), 0.001);
 
     }
 
