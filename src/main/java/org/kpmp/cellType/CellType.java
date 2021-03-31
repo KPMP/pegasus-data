@@ -28,9 +28,6 @@ public class CellType {
 	@Column(name = "cell_type")
 	private String cellType;
 
-	@Column(name = "abbreviation")
-	private String abbreviation;
-
 	@Column(name = "release_ver")
 	private Double releaseVer;
 
@@ -70,14 +67,6 @@ public class CellType {
 
 	public void setCellType(String cellType) {
 		this.cellType = cellType;
-	}
-
-	public String getAbbreviation() {
-		return abbreviation;
-	}
-
-	public void setAbbreviation(String abbreviation) {
-		this.abbreviation = abbreviation;
 	}
 
 	public Double getReleaseVer() {

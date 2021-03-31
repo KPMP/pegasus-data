@@ -1,6 +1,6 @@
 package org.kpmp.geneExpressionSummary;
 
-public interface GeneSummaryPerCluster {
+public interface GeneExpressionSummary {
 
     Integer getId();
 
@@ -34,9 +34,9 @@ public interface GeneSummaryPerCluster {
 
     void setPct2(Double pct2);
 
-    Double getAvgExpression();
+    Double getAvgExp();
 
-    void setAvgExpression(Double avgExpression);
+    void setAvgExp(Double avgExp);
 
     String getCluster();
 

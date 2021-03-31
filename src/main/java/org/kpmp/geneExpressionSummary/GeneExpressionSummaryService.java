@@ -20,9 +20,9 @@ public class GeneExpressionSummaryService {
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
 	}
 
-	public List<? extends GeneSummaryPerCluster> getByDataTypeTissueTypeAndGene(String dataType, String geneSymbol,
-			String tissueType) {
-		List<? extends GeneSummaryPerCluster> results = new ArrayList<>();
+	public List<? extends GeneExpressionSummary> getByDataTypeTissueTypeAndGene(String dataType, String geneSymbol,
+																				String tissueType) {
+		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
@@ -30,11 +30,30 @@ public class GeneExpressionSummaryService {
 		case SINGLE_NUCLEUS:
 			return snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType);
 		case UNKNOWN:
-			List<GeneSummaryPerCluster> allResults = new ArrayList<>();
+			List<GeneExpressionSummary> allResults = new ArrayList<>();
 			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType));
 			allResults.addAll(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType));
 			return allResults;
 
+		}
+		return results;
+	}
+
+	public List<? extends GeneExpressionSummary> getExpressionSummaryPerGeneByCellTypeAndTissueType(String dataType, String cellType, String tissueType) {
+		List<? extends GeneExpressionSummary> results = new ArrayList<>();
+		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
+		switch (dataTypeEnum) {
+			case SINGLE_CELL:
+				results = scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType);
+				break;
+			case SINGLE_NUCLEUS:
+				results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType);
+				break;
+			case UNKNOWN:
+				List allResults = new ArrayList<>();
+				allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+				allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+				results = allResults;
 		}
 		return results;
 	}

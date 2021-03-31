@@ -1,22 +1,25 @@
 package org.kpmp.geneExpressionSummary;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.kpmp.DataTypeEnum;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 @Entity
 @Table(name = "sc_rnaseq")
-public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
+@IdClass(GeneExpressionId.class)
+public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary {
 
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "tissue_type")
 	private String tissueType;
+	@Id
 	@Column(name = "gene")
 	private String gene;
 	@Column(name = "p_val")
@@ -32,7 +35,7 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 	@Column(name = "specificity")
 	private Double specificity;
 	@Column(name = "avg_exp")
-	private Double avgExpression;
+	private Double avgExp;
 	@Id
 	@Column(name = "cluster")
 	private String cluster;
@@ -76,7 +79,6 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 		return id;
 	}
 
-	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -103,24 +105,20 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 		this.gene = gene;
 	}
 
-	@Override
 	@Nullable
 	public Double getPVal() {
 		return pVal;
 	}
 
-	@Override
 	public void setPVal(Double pVal) {
 		this.pVal = pVal;
 	}
 
-	@Override
 	@Nullable
 	public Double getPValAdj() {
 		return pValAdj;
 	}
 
-	@Override
 	public void setPValAdj(Double pValAdj) {
 		this.pValAdj = pValAdj;
 	}
@@ -131,7 +129,6 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 		return foldChange;
 	}
 
-	@Override
 	public void setFoldChange(Double foldChange) {
 		this.foldChange = foldChange;
 	}
@@ -142,7 +139,6 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 		return pct1;
 	}
 
-	@Override
 	public void setPct1(Double pct1) {
 		this.pct1 = pct1;
 	}
@@ -153,7 +149,6 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 		return pct2;
 	}
 
-	@Override
 	public void setPct2(Double pct2) {
 		this.pct2 = pct2;
 	}
@@ -169,13 +164,12 @@ public class SCRNAGeneExpressionSummaryValue implements GeneSummaryPerCluster {
 
 	@Override
 	@Nullable
-	public Double getAvgExpression() {
-		return avgExpression;
+	public Double getAvgExp() {
+		return avgExp;
 	}
 
-	@Override
-	public void setAvgExpression(Double avgExpression) {
-		this.avgExpression = avgExpression;
+	public void setAvgExp(Double avgExp) {
+		this.avgExp = avgExp;
 	}
 
 	@Override
