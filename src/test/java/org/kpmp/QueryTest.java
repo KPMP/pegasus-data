@@ -14,6 +14,8 @@ import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
+import org.kpmp.cellTypeSummary.ClusterHierarchy;
+import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
@@ -36,11 +38,14 @@ public class QueryTest {
 	private Query query;
 	@Mock
 	private UmapDataService umapDataService;
+	@Mock
+	private ClusterHierarchyService clusterHierarchyService;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService);
+		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
+				clusterHierarchyService);
 	}
 
 	@After
@@ -86,5 +91,14 @@ public class QueryTest {
 
 		assertEquals(expectedList, query.getUmapPoints("data type", "geneSymbol"));
 		verify(umapDataService).getUmapPoints("data type", "geneSymbol");
+	}
+
+	@Test
+	public void testGetClusterHierarchies() throws Exception {
+		List<ClusterHierarchy> expectedList = Arrays.asList(new ClusterHierarchy());
+		when(clusterHierarchyService.findClustersByCellType("cell type")).thenReturn(expectedList);
+
+		assertEquals(expectedList, query.getClusterHieararchies("cell type"));
+		verify(clusterHierarchyService).findClustersByCellType("cell type");
 	}
 }

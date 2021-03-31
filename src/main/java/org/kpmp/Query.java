@@ -8,6 +8,8 @@ import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
+import org.kpmp.cellTypeSummary.ClusterHierarchy;
+import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
@@ -27,16 +29,19 @@ public class Query implements GraphQLQueryResolver {
 	private CellTypeService cellTypeService;
 	private GeneExpressionSummaryService geneExpressionSummaryService;
 	private UmapDataService umapService;
+	private ClusterHierarchyService clusterHierarchyService;
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
-			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService) {
+			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
+			ClusterHierarchyService clusterHierarchyService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
 		this.umapService = umapService;
 		this.geneExpressionSummaryService = geneExpressionSummaryService;
+		this.clusterHierarchyService = clusterHierarchyService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException {
@@ -58,5 +63,9 @@ public class Query implements GraphQLQueryResolver {
 
 	public List<UmapPoint> getUmapPoints(String dataType, String geneSymbol) throws JSONException, Exception {
 		return umapService.getUmapPoints(dataType, geneSymbol);
+	}
+
+	public List<ClusterHierarchy> getClusterHieararchies(String cellType) throws IOException {
+		return clusterHierarchyService.findClustersByCellType(cellType);
 	}
 }

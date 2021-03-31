@@ -4,6 +4,7 @@ type Query {
   cellTypeHierarchy: CellTypeHierarchy
   expressionSummaryPerClusterByGene(dataType: String, geneSymbol: String, tissueType: String) : [GeneSummaryPerCluster]
   umapPoints(dataType: String!, geneSymbol: String!): [UmapPoint]
+  getClusterHieararchies(cellType: String!): [ClusterHierarchy]
 }
 
 type MyGeneInfoHit {
@@ -60,4 +61,15 @@ type UmapPoint {
 	dataType: String
 	expressionValue: Float
 	barcode: String
+}
+
+type ClusterHierarchy {
+	cellType: String
+	cellTypeId: Int
+	structureRegion: String
+	structureSubregion: String
+	clusterId: Int
+	clusterName: String
+	isSingleNucCluster: String
+	isSingleCellCluster: String
 }
