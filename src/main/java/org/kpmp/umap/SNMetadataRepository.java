@@ -11,4 +11,5 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 	@Override
 	List<SNMetadata> findAll();
 
+	List<SNMetadata> findByTissueType(String tissueType);
 }

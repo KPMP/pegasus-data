@@ -57,4 +57,10 @@ public class SCMetadataTest {
 		assertEquals("barcode", point.getBarcode());
 	}
 
+	@Test
+	public void testSetTissueType() throws Exception {
+		point.setTissueType("tissueType");
+		assertEquals("tissueType", point.getTissueType());
+	}
+
 }

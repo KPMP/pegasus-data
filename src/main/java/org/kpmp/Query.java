@@ -69,8 +69,9 @@ public class Query implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<? extends UmapPoint> getUmapPoints(String dataType, String geneSymbol) throws JSONException, Exception {
-		return umapService.getUmapPoints(dataType, geneSymbol);
+	public List<? extends UmapPoint> getUmapPoints(String dataType, String geneSymbol, String tissueType)
+			throws JSONException, Exception {
+		return umapService.getUmapPoints(dataType, geneSymbol, tissueType);
 	}
 
 	public List<ClusterHierarchy> getClusterHieararchies(String cellType) throws IOException {
