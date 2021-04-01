@@ -17,9 +17,7 @@ public interface SCRNAGeneExpressionSummaryRepository extends CrudRepository<SCR
 
     @Query(value = "SELECT DISTINCT scr.cluster, c.cluster_name, 0 as cell_count, scr.id, scr.tissue_type, scr.gene, scr.p_val as p_val, scr.p_val_adj as p_val_adj, scr.fold_change, scr.pct_1, scr.pct_2, scr.specificity, scr.avg_exp as avg_exp " +
             "FROM sc_rnaseq scr " +
-            "JOIN cluster c ON scr.cluster = c.abbreviation " +
-            "JOIN cluster_celltype cc ON c.cluster_id = cc.cluster_id " +
-            "JOIN cell_type ct ON cc.cell_type_id = ct.cell_type_id AND ct.cell_type = :cellType " +
+            "JOIN cluster c ON scr.cluster = c.abbreviation AND c.cluster_name = :cellType " +
             "WHERE scr.tissue_type = :tissueType " +
             "ORDER BY scr.fold_change ASC", nativeQuery = true)
     List<SCRNAGeneExpressionExpressionSummaryValue> findExpressionSummaryPerGeneByCellTypeAndTissueType(@Param("cellType") String cellType, @Param("tissueType") String tissueType);
