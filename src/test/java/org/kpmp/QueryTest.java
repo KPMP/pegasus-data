@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,8 +22,8 @@ import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.umap.SNMetadata;
 import org.kpmp.umap.UmapDataService;
-import org.kpmp.umap.UmapPoint;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -84,12 +85,14 @@ public class QueryTest {
 		List expectedResultSN1 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
 		List expectedResultSN2 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
 		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN1);
-		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sn", "cell type", "aki")).thenReturn(expectedResultSN2);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sn", "cell type", "aki"))
+				.thenReturn(expectedResultSN2);
 
 		List expectedResultSC1 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		List expectedResultSC2 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sc", "gene", "aki")).thenReturn(expectedResultSC1);
-		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "aki")).thenReturn(expectedResultSC2);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "aki"))
+				.thenReturn(expectedResultSC2);
 
 		assertEquals(expectedResultSN1, query.geneExpressionSummary("sn", "gene", "", "aki"));
 		assertEquals(expectedResultSC1, query.geneExpressionSummary("sc", "gene", "", "aki"));
@@ -98,8 +101,11 @@ public class QueryTest {
 		assertEquals(expectedResultSC2, query.geneExpressionSummary("sc", "", "cell type", "aki"));
 	}
 
+	@SuppressWarnings("unchecked")
 	public void testGetUmapPoints() throws Exception {
-		List<UmapPoint> expectedList = Arrays.asList(new UmapPoint());
+		@SuppressWarnings("rawtypes")
+		List expectedList = new ArrayList<>();
+		expectedList.add(new SNMetadata());
 		when(umapDataService.getUmapPoints("data type", "geneSymbol")).thenReturn(expectedList);
 
 		assertEquals(expectedList, query.getUmapPoints("data type", "geneSymbol"));

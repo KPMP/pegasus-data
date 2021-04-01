@@ -1,9 +1,11 @@
 package org.kpmp.umap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kpmp.DataTypeEnum;
 import org.kpmp.geneExpression.ExpressionDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,18 +13,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class UmapDataService {
 
-	private UmapPointRepository umapPointRepo;
 	private ExpressionDataService expressionService;
+	private SNMetadataRepository snMetadataRepo;
+	private SCMetadataRepository scMetadataRepo;
 
 	@Autowired
-	public UmapDataService(UmapPointRepository umapPointRepo, ExpressionDataService expressionService) {
-		this.umapPointRepo = umapPointRepo;
+	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo,
+			ExpressionDataService expressionService) {
+		this.scMetadataRepo = scMetadataRepo;
+		this.snMetadataRepo = snMetadataRepo;
 		this.expressionService = expressionService;
 	}
 
-	public List<UmapPoint> getUmapPoints(String dataType, String geneSymbol) throws JSONException, Exception {
+	public List<? extends UmapPoint> getUmapPoints(String dataType, String geneSymbol) throws JSONException, Exception {
 		JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol);
-		List<UmapPoint> umapPoints = umapPointRepo.findByDataType(dataType);
+		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
+		List<? extends UmapPoint> umapPoints = new ArrayList<>();
+		if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL)) {
+			umapPoints = scMetadataRepo.findAll();
+		} else if (dataTypeEnum.equals(DataTypeEnum.SINGLE_NUCLEUS)) {
+			umapPoints = snMetadataRepo.findAll();
+		}
+
 		for (UmapPoint umapPoint : umapPoints) {
 			String barcode = umapPoint.getBarcode();
 			if (geneExpressionValues.has(barcode)) {

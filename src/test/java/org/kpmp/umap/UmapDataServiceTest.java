@@ -18,18 +18,20 @@ import org.mockito.MockitoAnnotations;
 
 public class UmapDataServiceTest {
 
-	@Mock
-	private UmapPointRepository umapPointRepo;
 	private UmapDataService service;
 	@Mock
 	private ExpressionDataService expressionDataService;
+	@Mock
+	private SCMetadataRepository scMetadataRepository;
+	@Mock
+	private SNMetadataRepository snMetadataRepository;
 
 	private static double DOUBLE_PRECISION = 0.000001d;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		service = new UmapDataService(umapPointRepo, expressionDataService);
+		service = new UmapDataService(scMetadataRepository, snMetadataRepository, expressionDataService);
 	}
 
 	@After
@@ -37,37 +39,39 @@ public class UmapDataServiceTest {
 		service = null;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test
 	public void testGetUmapPointsWhenBarcodeNotPresentInExpressionData() throws Exception {
-		List<UmapPoint> expectedPoints = Arrays.asList(new UmapPoint());
-		when(umapPointRepo.findByDataType("dataType")).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("dataType", "geneSymbol")).thenReturn(new JSONObject());
+		List expectedPoints = Arrays.asList(new SNMetadata());
+		when(snMetadataRepository.findAll()).thenReturn(expectedPoints);
+		when(expressionDataService.getGeneExpressionValues("sn", "geneSymbol")).thenReturn(new JSONObject());
 
-		List<UmapPoint> umapPoints = service.getUmapPoints("dataType", "geneSymbol");
+		List<? extends UmapPoint> umapPoints = service.getUmapPoints("sn", "geneSymbol");
 
 		assertEquals(expectedPoints, umapPoints);
 		assertEquals(0d, umapPoints.get(0).getExpressionValue(), DOUBLE_PRECISION);
-		verify(umapPointRepo).findByDataType("dataType");
-		verify(expressionDataService).getGeneExpressionValues("dataType", "geneSymbol");
-		verify(umapPointRepo, times(0)).findAll();
+		verify(expressionDataService).getGeneExpressionValues("sn", "geneSymbol");
+		verify(snMetadataRepository).findAll();
+		verify(scMetadataRepository, times(0)).findAll();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test
 	public void testGetUmapPointsWhenBardoceFoundInExpressionData() throws Exception {
-		UmapPoint umapPoint = new UmapPoint();
+		UmapPoint umapPoint = new SCMetadata();
 		umapPoint.setBarcode("barcode");
-		List<UmapPoint> expectedPoints = Arrays.asList(umapPoint);
-		when(umapPointRepo.findByDataType("dataType")).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("dataType", "geneSymbol"))
+		List expectedPoints = Arrays.asList(umapPoint);
+		when(scMetadataRepository.findAll()).thenReturn(expectedPoints);
+		when(expressionDataService.getGeneExpressionValues("sc", "geneSymbol"))
 				.thenReturn(new JSONObject("{ 'barcode': 0.4d , 'barcode2': 2.2d}"));
 
-		List<UmapPoint> umapPoints = service.getUmapPoints("dataType", "geneSymbol");
+		List<? extends UmapPoint> umapPoints = service.getUmapPoints("sc", "geneSymbol");
 
 		assertEquals(expectedPoints, umapPoints);
 		assertEquals(0.4d, umapPoints.get(0).getExpressionValue(), DOUBLE_PRECISION);
-		verify(umapPointRepo).findByDataType("dataType");
-		verify(expressionDataService).getGeneExpressionValues("dataType", "geneSymbol");
-		verify(umapPointRepo, times(0)).findAll();
+		verify(scMetadataRepository).findAll();
+		verify(snMetadataRepository, times(0)).findAll();
+		verify(expressionDataService).getGeneExpressionValues("sc", "geneSymbol");
 	}
 
 }

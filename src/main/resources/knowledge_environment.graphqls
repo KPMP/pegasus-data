@@ -58,7 +58,6 @@ type UmapPoint {
 	umapY: Float
 	clusterColor: String
 	clusterName: String
-	dataType: String
 	expressionValue: Float
 	barcode: String
 }
