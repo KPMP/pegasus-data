@@ -11,4 +11,5 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 	@Override
 	List<SCMetadata> findAll();
 
+	List<SCMetadata> findByTissueType(String tissueType);
 }

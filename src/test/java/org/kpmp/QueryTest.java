@@ -106,10 +106,10 @@ public class QueryTest {
 		@SuppressWarnings("rawtypes")
 		List expectedList = new ArrayList<>();
 		expectedList.add(new SNMetadata());
-		when(umapDataService.getUmapPoints("data type", "geneSymbol")).thenReturn(expectedList);
+		when(umapDataService.getUmapPoints("data type", "geneSymbol", "tissueType")).thenReturn(expectedList);
 
-		assertEquals(expectedList, query.getUmapPoints("data type", "geneSymbol"));
-		verify(umapDataService).getUmapPoints("data type", "geneSymbol");
+		assertEquals(expectedList, query.getUmapPoints("data type", "geneSymbol", "tissueType"));
+		verify(umapDataService).getUmapPoints("data type", "geneSymbol", "tissueType");
 	}
 
 	@Test

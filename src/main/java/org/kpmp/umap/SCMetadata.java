@@ -21,6 +21,8 @@ public class SCMetadata implements UmapPoint {
 	@Id
 	@Column(name = "barcode")
 	private String barcode;
+	@Column(name = "tissue_type")
+	private String tissueType;
 	@Transient
 	private double expressionValue;
 
@@ -82,6 +84,14 @@ public class SCMetadata implements UmapPoint {
 	@Override
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
+	}
+
+	public String getTissueType() {
+		return tissueType;
+	}
+
+	public void setTissueType(String tissueType) {
+		this.tissueType = tissueType;
 	}
 
 }
