@@ -6,14 +6,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UmapPointTest {
+public class SNMetadataTest {
 
 	private static double DOUBLE_PRECISION = 0.000001d;
-	private UmapPoint point;
+	private SNMetadata point;
 
 	@Before
 	public void setUp() throws Exception {
-		point = new UmapPoint();
+		point = new SNMetadata();
 	}
 
 	@After
@@ -43,12 +43,6 @@ public class UmapPointTest {
 	public void testSetClusterColor() {
 		point.setClusterColor("cluster color");
 		assertEquals("cluster color", point.getClusterColor());
-	}
-
-	@Test
-	public void testSetExperimentType() {
-		point.setDataType("experiment type");
-		assertEquals("experiment type", point.getDataType());
 	}
 
 	@Test

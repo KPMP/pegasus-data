@@ -33,18 +33,18 @@ targetCompatibility = 1.8
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'commons-io:commons-io:2.6'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'mysql:mysql-connector-java:8.0.15'
+    compile 'org.springframework.boot:spring-boot-starter-test'
     compile 'org.springframework:spring-test:5.0.5.RELEASE'
+    compile 'commons-io:commons-io:2.6'
+    compile 'mysql:mysql-connector-java:8.0.15'
     compile 'org.apache.commons:commons-compress:1.17'
     compile 'org.apache.commons:commons-text:1.7'
-    compile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'org.mockito:mockito-core'
-    testCompile 'org.springframework.boot:spring-boot-starter-test:2.2.0.RELEASE'
     compile 'com.graphql-java:graphql-spring-boot-starter:5.0.2'
     compile 'com.graphql-java:graphql-java-tools:5.2.4'
-    compile('com.graphql-java:graphiql-spring-boot-starter:5.0.2')
+    testCompile 'org.mockito:mockito-core'
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.2.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
 }
 
 springBoot {
