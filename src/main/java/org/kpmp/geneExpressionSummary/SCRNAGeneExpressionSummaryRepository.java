@@ -19,7 +19,7 @@ public interface SCRNAGeneExpressionSummaryRepository extends CrudRepository<SCR
             "FROM sc_rnaseq scr " +
             "JOIN cluster c ON scr.cluster = c.abbreviation AND c.cluster_name = :cellType " +
             "WHERE scr.tissue_type = :tissueType " +
-            "ORDER BY scr.fold_change ASC", nativeQuery = true)
+            "ORDER BY scr.fold_change DESC", nativeQuery = true)
     List<SCRNAGeneExpressionExpressionSummaryValue> findExpressionSummaryPerGeneByCellTypeAndTissueType(@Param("cellType") String cellType, @Param("tissueType") String tissueType);
 
 }
