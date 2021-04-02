@@ -19,7 +19,7 @@ public interface SNRNAGeneExpressionSummaryRepository extends CrudRepository<SNR
 			"FROM sn_rnaseq snr " +
 			"JOIN cluster c ON snr.cluster = c.abbreviation AND c.cluster_name = :cellType " +
 			"WHERE snr.tissue_type = :tissueType " +
-			"ORDER BY snr.fold_change ASC", nativeQuery = true)
+			"ORDER BY snr.fold_change DESC", nativeQuery = true)
 	List<SNRNAGeneExpressionExpressionSummaryValue> findExpressionSummaryPerGeneByCellTypeAndTissueType(@Param("cellType") String cellType, @Param("tissueType") String tissueType);
 
 }
