@@ -1,6 +1,7 @@
 package org.kpmp.cellType;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,47 +33,58 @@ public class CellTypeStructureRegionTest {
 	@Test
 	public void testSetCellTypeSubregions() {
 		CellTypeStructureSubregion expectedSubregion = new CellTypeStructureSubregion("subregion");
-		expectedSubregion.addCellType("cell type 1");
+		CellType cellType1 = new CellType();
+		cellType1.setCellType("cell type 1");
+		expectedSubregion.addCellType(cellType1);
 		region.addCellTypeSubregion(expectedSubregion);
 
 		assertEquals(1, region.getCellTypeSubregions().size());
 		CellTypeStructureSubregion actualSubregion = region.getCellTypeSubregions().get(0);
 		assertEquals(expectedSubregion, actualSubregion);
-		assertEquals(1, actualSubregion.getCellTypeNames().size());
-		assertEquals("cell type 1", actualSubregion.getCellTypeNames().get(0));
+		assertEquals(1, actualSubregion.getCellTypes().size());
+		assertEquals("cell type 1", actualSubregion.getCellTypes().get(0).getCellType());
 	}
 
 	@Test
 	public void testSetCellTypeSubregionsWhenAddSameSubregion() {
+		CellType cellType1 = new CellType();
+		cellType1.setCellType("cell type 1");
 		CellTypeStructureSubregion expectedSubregion = new CellTypeStructureSubregion("subregion");
-		expectedSubregion.addCellType("cell type 1");
+		expectedSubregion.addCellType(cellType1);
 		region.addCellTypeSubregion(expectedSubregion);
+		CellType cellType2 = new CellType();
+		cellType2.setCellType("cell type 2");
 		CellTypeStructureSubregion expectedSubregion2 = new CellTypeStructureSubregion("subregion");
-		expectedSubregion2.addCellType("cell type 2");
+		expectedSubregion2.addCellType(cellType2);
 		region.addCellTypeSubregion(expectedSubregion2);
 
 		assertEquals(1, region.getCellTypeSubregions().size());
 		CellTypeStructureSubregion actualSubregion = region.getCellTypeSubregions().get(0);
 		assertEquals(expectedSubregion, actualSubregion);
-		List<String> actualCellTypes = actualSubregion.getCellTypeNames();
+		List<CellType> actualCellTypes = actualSubregion.getCellTypes();
 		assertEquals(2, actualCellTypes.size());
-		List<String> expectedCellTypes = Arrays.asList("cell type 1", "cell type 2");
+		List<CellType> expectedCellTypes = Arrays.asList(cellType1, cellType2);
 		assertTrue(expectedCellTypes.containsAll(actualCellTypes) && actualCellTypes.containsAll(expectedCellTypes));
 	}
-	
+
 	@Test
 	public void testSetCellTypeSubregionsWhenAddDifferentSubregion() {
+		CellType cellType1 = new CellType();
+		cellType1.setCellType("cell type 1");
 		CellTypeStructureSubregion expectedSubregion = new CellTypeStructureSubregion("subregion");
-		expectedSubregion.addCellType("cell type 1");
+		expectedSubregion.addCellType(cellType1);
 		region.addCellTypeSubregion(expectedSubregion);
+		CellType cellType2 = new CellType();
+		cellType2.setCellType("cell type 2");
 		CellTypeStructureSubregion expectedSubregion2 = new CellTypeStructureSubregion("subregion2");
-		expectedSubregion2.addCellType("cell type 2");
+		expectedSubregion2.addCellType(cellType2);
 		region.addCellTypeSubregion(expectedSubregion2);
-		
+
 		List<CellTypeStructureSubregion> actualSubregions = region.getCellTypeSubregions();
 		assertEquals(2, actualSubregions.size());
 		List<CellTypeStructureSubregion> expectedSubregions = Arrays.asList(expectedSubregion, expectedSubregion2);
 		assertEquals(expectedSubregions.size(), actualSubregions.size());
-		assertTrue(expectedSubregions.containsAll(actualSubregions) && actualSubregions.containsAll(expectedSubregions));
+		assertTrue(
+				expectedSubregions.containsAll(actualSubregions) && actualSubregions.containsAll(expectedSubregions));
 	}
 }

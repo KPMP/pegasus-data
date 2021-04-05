@@ -3,30 +3,32 @@ package org.kpmp.cellType;
 import java.io.Serializable;
 
 public class CellTypeSynonymId implements Serializable {
-    private int cellTypeId;
-    private String cellTypeSynonym;
 
-    public CellTypeSynonymId() {
-    }
+	private static final long serialVersionUID = 1699767061183525109L;
+	private int cellTypeId;
+	private String cellTypeSynonym;
 
-    public CellTypeSynonymId(int cellTypeId, String cellTypeSynonym) {
-        this.cellTypeId = cellTypeId;
-        this.cellTypeSynonym = cellTypeSynonym;
-    }
+	public CellTypeSynonymId() {
+	}
 
-    public int getCellTypeId() {
-        return cellTypeId;
-    }
+	public CellTypeSynonymId(int cellTypeId, String cellTypeSynonym) {
+		this.cellTypeId = cellTypeId;
+		this.cellTypeSynonym = cellTypeSynonym;
+	}
 
-    public void setCellTypeId(int cellTypeId) {
-        this.cellTypeId = cellTypeId;
-    }
+	public int getCellTypeId() {
+		return cellTypeId;
+	}
 
-    public String getCellTypeSynonym() {
-        return cellTypeSynonym;
-    }
+	public void setCellTypeId(int cellTypeId) {
+		this.cellTypeId = cellTypeId;
+	}
 
-    public void setCellTypeSynonym(String cellTypeSynonym) {
-        this.cellTypeSynonym = cellTypeSynonym;
-    }
+	public String getCellTypeSynonym() {
+		return cellTypeSynonym;
+	}
+
+	public void setCellTypeSynonym(String cellTypeSynonym) {
+		this.cellTypeSynonym = cellTypeSynonym;
+	}
 }

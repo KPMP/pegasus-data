@@ -1,6 +1,6 @@
 package org.kpmp.cellType;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,24 +19,28 @@ public class CellTypeStructureSubregionTest {
 	@Test
 	public void testConstructor() {
 		CellTypeStructureSubregion subregion = new CellTypeStructureSubregion("subregionName");
-		
+
 		assertEquals("subregionName", subregion.getSubregionName());
-		assertEquals(0, subregion.getCellTypeNames().size());
+		assertEquals(0, subregion.getCellTypes().size());
 	}
 
 	@Test
 	public void testAddCellType() throws Exception {
 		CellTypeStructureSubregion subregion = new CellTypeStructureSubregion("subregionName");
-		subregion.addCellType("new cell type");
-		
-		assertEquals(1, subregion.getCellTypeNames().size());
-		assertEquals("new cell type", subregion.getCellTypeNames().get(0));
-		
-		subregion.addCellType("new cell type");
-		assertEquals(1, subregion.getCellTypeNames().size());
-		assertEquals("new cell type", subregion.getCellTypeNames().get(0));
-		
-		subregion.addCellType("another cell type");
-		assertEquals(2, subregion.getCellTypeNames().size());
+		CellType cellType1 = new CellType();
+		cellType1.setCellType("new cell type");
+		subregion.addCellType(cellType1);
+
+		assertEquals(1, subregion.getCellTypes().size());
+		assertEquals("new cell type", subregion.getCellTypes().get(0).getCellType());
+
+		subregion.addCellType(cellType1);
+		assertEquals(1, subregion.getCellTypes().size());
+
+		CellType cellType2 = new CellType();
+		cellType2.setCellType("another cell type");
+		subregion.addCellType(cellType2);
+		assertEquals(2, subregion.getCellTypes().size());
+		assertEquals("another cell type", subregion.getCellTypes().get(1).getCellType());
 	}
 }

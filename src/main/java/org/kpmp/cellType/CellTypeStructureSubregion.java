@@ -1,15 +1,15 @@
 package org.kpmp.cellType;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import com.google.common.base.Objects;
 
 public class CellTypeStructureSubregion {
 
 	private String subregionName;
-	private Set<String> cellTypeNames = new HashSet<String>();
-	
+	private List<CellType> cellTypes = new ArrayList<>();
+
 	public CellTypeStructureSubregion(String subregionName) {
 		this.subregionName = subregionName;
 	}
@@ -22,17 +22,35 @@ public class CellTypeStructureSubregion {
 		this.subregionName = subregionName;
 	}
 
-	public List<String> getCellTypeNames() {
-		List<String> cells = new ArrayList<>();
-		cells.addAll(cellTypeNames);
-		return cells;
+	public List<CellType> getCellTypes() {
+		return this.cellTypes;
 	}
 
-	public void addCellType(String cellTypeName) {
-		
-		cellTypeNames.add(cellTypeName);
+	public void addCellType(CellType cellType) {
+		if (!cellTypes.contains(cellType)) {
+			cellTypes.add(cellType);
+		}
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (obj.getClass() != getClass()) {
+			return false;
+		}
+		CellTypeStructureSubregion other = (CellTypeStructureSubregion) obj;
+		return Objects.equal(this.subregionName, other.subregionName);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(subregionName);
+	}
 
 }

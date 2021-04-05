@@ -34,6 +34,9 @@ public class CellType {
 	@Column(name = "release_sunset")
 	private Double releaseSunset;
 
+	@Column(name = "cell_type_order")
+	private int cellTypeOrdering;
+
 	@OneToMany(mappedBy = "cellType", fetch = FetchType.EAGER)
 	private Set<CellTypeSynonym> synonyms;
 
@@ -101,6 +104,14 @@ public class CellType {
 		this.synonyms = synonyms;
 	}
 
+	public int getCellTypeOrdering() {
+		return cellTypeOrdering;
+	}
+
+	public void setCellTypeOrdering(int cellTypeOrdering) {
+		this.cellTypeOrdering = cellTypeOrdering;
+	}
+
 	@Override
 	public int hashCode() {
 		return cellType.hashCode();
@@ -115,4 +126,5 @@ public class CellType {
 		CellType cellType = (CellType) obj;
 		return cellType.getCellType().equals(this.getCellType());
 	}
+
 }

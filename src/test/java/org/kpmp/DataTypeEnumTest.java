@@ -20,6 +20,7 @@ public class DataTypeEnumTest {
 		assertEquals(DataTypeEnum.SINGLE_NUCLEUS, DataTypeEnum.fromAbbreviation("sn"));
 		assertEquals(DataTypeEnum.UNKNOWN, DataTypeEnum.fromAbbreviation("xxx"));
 		assertEquals(DataTypeEnum.UNKNOWN, DataTypeEnum.fromAbbreviation(""));
+		assertEquals(DataTypeEnum.UNKNOWN, DataTypeEnum.fromAbbreviation(null));
 	}
 
 }

@@ -16,12 +16,12 @@ public class CellTypeService {
 	}
 
 	public CellTypeHierarchy getCellTypeHierarchy() {
-		List<CellType> cellTypes = cellTypeRepo.findAll();
+		List<CellType> cellTypes = cellTypeRepo.findAllByOrderByCellTypeOrderingAsc();
 		CellTypeHierarchy hierarchy = new CellTypeHierarchy();
 
 		for (CellType cellType : cellTypes) {
 			CellTypeStructureSubregion subregion = new CellTypeStructureSubregion(cellType.getStructureSubregion());
-			subregion.addCellType(cellType.getCellType());
+			subregion.addCellType(cellType);
 			CellTypeStructureRegion region = new CellTypeStructureRegion(cellType.getStructureRegion());
 			region.addCellTypeSubregion(subregion);
 			hierarchy.addCellTypeStructureRegion(region);

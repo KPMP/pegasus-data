@@ -20,7 +20,7 @@ public class CellTypeServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		
+
 		service = new CellTypeService(cellTypeRepo);
 	}
 
@@ -38,18 +38,18 @@ public class CellTypeServiceTest {
 		cellType1.setStructureSubregion("subregion 1");
 		cellType1.setStructureRegion("region 1");
 		cellTypes.add(cellType1);
-		when(cellTypeRepo.findAll()).thenReturn(cellTypes);
-		
+		when(cellTypeRepo.findAllByOrderByCellTypeOrderingAsc()).thenReturn(cellTypes);
+
 		CellTypeHierarchy cellTypeHierarchy = service.getCellTypeHierarchy();
-		
+
 		assertEquals(1, cellTypeHierarchy.getCellTypeRegions().size());
 		CellTypeStructureRegion region = cellTypeHierarchy.getCellTypeRegions().get(0);
 		assertEquals("region 1", region.getRegionName());
 		assertEquals(1, region.getCellTypeSubregions().size());
 		CellTypeStructureSubregion subregion = region.getCellTypeSubregions().get(0);
 		assertEquals("subregion 1", subregion.getSubregionName());
-		assertEquals(1, subregion.getCellTypeNames().size());
-		assertEquals("cell type 1", subregion.getCellTypeNames().get(0));
+		assertEquals(1, subregion.getCellTypes().size());
+		assertEquals("cell type 1", subregion.getCellTypes().get(0).getCellType());
 	}
 
 }
