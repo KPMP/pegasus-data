@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public class CellTypeStructureRegion {
-	
+
 	private String regionName;
 	private Map<String, CellTypeStructureSubregion> subregionMap = new HashMap<>();
-	
+	private List<String> subregionOrderdList = new ArrayList<>();
+
 	public CellTypeStructureRegion(String regionName) {
 		this.regionName = regionName;
 	}
@@ -24,21 +25,23 @@ public class CellTypeStructureRegion {
 
 	public List<CellTypeStructureSubregion> getCellTypeSubregions() {
 		List<CellTypeStructureSubregion> subregions = new ArrayList<>();
-		subregions.addAll(subregionMap.values());
+		for (String subregionName : subregionOrderdList) {
+			subregions.add(subregionMap.get(subregionName));
+		}
 		return subregions;
 	}
-	
-	public void addCellTypeSubregion(CellTypeStructureSubregion subregion) {
-		String subregionName = subregion.getSubregionName();
-		
+
+	public void addCellTypeSubregion(CellTypeStructureSubregion newSubregion) {
+		String subregionName = newSubregion.getSubregionName();
 		if (subregionMap.containsKey(subregionName)) {
 			CellTypeStructureSubregion existingSubregion = subregionMap.get(subregionName);
-			List<String> newCellTypes = subregion.getCellTypeNames();
-			for (String cellType : newCellTypes) {
+			List<CellType> newCellTypes = newSubregion.getCellTypes();
+			for (CellType cellType : newCellTypes) {
 				existingSubregion.addCellType(cellType);
 			}
 		} else {
-			subregionMap.put(subregionName, subregion);
+			subregionOrderdList.add(newSubregion.getSubregionName());
+			subregionMap.put(subregionName, newSubregion);
 		}
 	}
 

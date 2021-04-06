@@ -32,11 +32,14 @@ public class GeneExpressionSummaryServiceTest {
 		geneExpressionService = null;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testGetByDataTypeTissueTypeAndGene() throws Exception {
-		List<SNRNAGeneExpressionExpressionSummaryValue> snResults = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
+		List<SNRNAGeneExpressionExpressionSummaryValue> snResults = Arrays
+				.asList(new SNRNAGeneExpressionExpressionSummaryValue());
 		when(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "aki")).thenReturn(snResults);
-		List<SCRNAGeneExpressionExpressionSummaryValue> scResults = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
+		List<SCRNAGeneExpressionExpressionSummaryValue> scResults = Arrays
+				.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		when(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "aki")).thenReturn(scResults);
 		List results = geneExpressionService.getByDataTypeTissueTypeAndGene("", "gene", "aki");
 		assertEquals(2, results.size());
@@ -51,21 +54,27 @@ public class GeneExpressionSummaryServiceTest {
 
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testGetExpressionSummaryPerGeneByCellTypeAndTissueType() throws Exception {
-		List<SNRNAGeneExpressionExpressionSummaryValue> snResults = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
-		when(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType("cell type", "aki")).thenReturn(snResults);
-		List<SCRNAGeneExpressionExpressionSummaryValue> scResults = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
-		when(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType("cell type", "aki")).thenReturn(scResults);
+		List<SNRNAGeneExpressionExpressionSummaryValue> snResults = Arrays
+				.asList(new SNRNAGeneExpressionExpressionSummaryValue());
+		when(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType("cell type", "aki"))
+				.thenReturn(snResults);
+		List<SCRNAGeneExpressionExpressionSummaryValue> scResults = Arrays
+				.asList(new SCRNAGeneExpressionExpressionSummaryValue());
+		when(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType("cell type", "aki"))
+				.thenReturn(scResults);
 		List results = geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("", "cell type", "aki");
 		assertEquals(2, results.size());
-		List<? extends GeneExpressionSummary> resultsSC = geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "aki");
+		List<? extends GeneExpressionSummary> resultsSC = geneExpressionService
+				.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "aki");
 		assertEquals(scResults, resultsSC);
 		assertEquals("sc", resultsSC.get(0).getDataType());
-		List<? extends GeneExpressionSummary> resultsSN = geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sn", "cell type", "aki");
+		List<? extends GeneExpressionSummary> resultsSN = geneExpressionService
+				.getExpressionSummaryPerGeneByCellTypeAndTissueType("sn", "cell type", "aki");
 		assertEquals(snResults, resultsSN);
 		assertEquals("sn", resultsSN.get(0).getDataType());
 	}
-
 
 }

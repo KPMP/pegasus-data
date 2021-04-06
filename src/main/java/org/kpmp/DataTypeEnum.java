@@ -15,9 +15,9 @@ public enum DataTypeEnum {
 	}
 
 	public static DataTypeEnum fromAbbreviation(String abbreviation) {
-		if ("sc".equals(abbreviation)) {
+		if (SINGLE_CELL.abbreviation.equals(abbreviation)) {
 			return SINGLE_CELL;
-		} else if ("sn".equals(abbreviation)) {
+		} else if (SINGLE_NUCLEUS.abbreviation.equals(abbreviation)) {
 			return SINGLE_NUCLEUS;
 		}
 		return UNKNOWN;
