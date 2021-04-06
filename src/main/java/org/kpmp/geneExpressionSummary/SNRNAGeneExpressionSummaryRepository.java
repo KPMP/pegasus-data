@@ -12,7 +12,7 @@ public interface SNRNAGeneExpressionSummaryRepository extends CrudRepository<SNR
 
 	@Query(value = "SELECT snc.cluster, snc.cluster_name, snc.cell_count, snc.cluster_id as id, snr.tissue_type, IF(isnull(snr.gene), '', snr.gene) as gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp " +
 			"FROM sn_cluster_v snc " +
-			"LEFT JOIN sn_rnaseq snr ON snc.cluster = snr.cluster AND snr.gene = :geneSymbol AND snr.tissue_type = :tissueType ORDER BY snr.p_val IS NULL, snr.p_val ASC", nativeQuery = true)
+			"LEFT JOIN sn_rnaseq snr ON snc.cluster = snr.cluster AND snc.tissue_type = :tissueType AND snr.gene = :geneSymbol AND snr.tissue_type = :tissueType ORDER BY snr.p_val IS NULL, snr.p_val ASC", nativeQuery = true)
 	List<SNRNAGeneExpressionExpressionSummaryValue> findByTissueAndGeneAllClusters(@Param("geneSymbol") String geneSymbol, @Param("tissueType") String tissueType);
 
 	@Query(value = "SELECT DISTINCT snr.cluster, c.cluster_name, 0 as cell_count, snr.id, snr.tissue_type, snr.gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp " +
