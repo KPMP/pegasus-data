@@ -3,6 +3,7 @@ package org.kpmp.geneExpressionSummary;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import static org.junit.Assert.assertEquals;
 
@@ -102,5 +103,15 @@ public class SNRNAGeneExpressionSummaryValueTest {
     public void testSetCellCount() throws Exception {
         snrnaGeneExpressionValue.setCellCount(42);
         assertEquals(Integer.valueOf(42), snrnaGeneExpressionValue.getCellCount());
+    }
+
+    @Test
+    public void testEquals() throws Exception {
+        snrnaGeneExpressionValue.setGene("gene");
+        snrnaGeneExpressionValue.setCluster("cluster");
+        SNRNAGeneExpressionExpressionSummaryValue value = new SNRNAGeneExpressionExpressionSummaryValue();
+        value.setGene("gene");
+        value.setCluster("cluster");
+        assertEquals(value, snrnaGeneExpressionValue);
     }
 }

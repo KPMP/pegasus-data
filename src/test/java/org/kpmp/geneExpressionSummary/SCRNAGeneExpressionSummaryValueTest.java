@@ -111,6 +111,14 @@ public class SCRNAGeneExpressionSummaryValueTest {
         assertEquals(Integer.valueOf(42), scrnaGeneExpressionValue.getCellCount());
     }
 
-
+    @Test
+    public void testEquals() throws Exception {
+        scrnaGeneExpressionValue.setGene("gene");
+        scrnaGeneExpressionValue.setCluster("cluster");
+        SCRNAGeneExpressionExpressionSummaryValue value = new SCRNAGeneExpressionExpressionSummaryValue();
+        value.setGene("gene");
+        value.setCluster("cluster");
+        assertEquals(value, scrnaGeneExpressionValue);
+    }
 
 }
