@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -15,8 +14,10 @@ import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
-import org.kpmp.umap.UmapPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,8 @@ public class Query implements GraphQLQueryResolver {
 	private GeneExpressionSummaryService geneExpressionSummaryService;
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
+
+	private Logger logger = LoggerFactory.getLogger(Query.class);
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
@@ -69,12 +72,16 @@ public class Query implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<? extends UmapPoint> getUmapPoints(String dataType, String geneSymbol, String tissueType)
-			throws JSONException, Exception {
-		return umapService.getUmapPoints(dataType, geneSymbol, tissueType);
-	}
-
 	public List<ClusterHierarchy> getClusterHieararchies(String cellType) throws IOException {
 		return clusterHierarchyService.findClustersByCellType(cellType);
+	}
+
+	public PlotData getUmapPlotData(String dataType, String geneSymbol, String tissueType) throws Exception {
+		try {
+			return umapService.getPlotData(dataType, geneSymbol, tissueType);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
 	}
 }

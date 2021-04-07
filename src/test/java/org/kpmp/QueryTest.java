@@ -22,7 +22,9 @@ import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
-import org.kpmp.umap.SNMetadata;
+import org.kpmp.umap.FeatureData;
+import org.kpmp.umap.PlotData;
+import org.kpmp.umap.ReferenceCluster;
 import org.kpmp.umap.UmapDataService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -101,15 +103,17 @@ public class QueryTest {
 		assertEquals(expectedResultSC2, query.geneExpressionSummary("sc", "", "cell type", "aki"));
 	}
 
-	@SuppressWarnings("unchecked")
-	public void testGetUmapPoints() throws Exception {
-		@SuppressWarnings("rawtypes")
-		List expectedList = new ArrayList<>();
-		expectedList.add(new SNMetadata());
-		when(umapDataService.getUmapPoints("data type", "geneSymbol", "tissueType")).thenReturn(expectedList);
+	@Test
+	public void testGetUmapPlotData() throws Exception {
+		List<FeatureData> featureData = new ArrayList<>();
+		List<ReferenceCluster> referenceData = new ArrayList<>();
+		PlotData expectedPlotData = new PlotData(referenceData, featureData);
+		when(umapDataService.getPlotData("sn", "gene", "all")).thenReturn(expectedPlotData);
 
-		assertEquals(expectedList, query.getUmapPoints("data type", "geneSymbol", "tissueType"));
-		verify(umapDataService).getUmapPoints("data type", "geneSymbol", "tissueType");
+		PlotData umapPlotData = query.getUmapPlotData("sn", "gene", "all");
+
+		assertEquals(expectedPlotData, umapPlotData);
+		verify(umapDataService).getPlotData("sn", "gene", "all");
 	}
 
 	@Test

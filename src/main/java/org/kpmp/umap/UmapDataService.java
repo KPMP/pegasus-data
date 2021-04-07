@@ -1,7 +1,10 @@
 package org.kpmp.umap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,13 +29,54 @@ public class UmapDataService {
 		this.expressionService = expressionService;
 	}
 
-	public List<? extends UmapPoint> getUmapPoints(String dataType, String geneSymbol, String requestTissueType)
+	public PlotData getPlotData(String dataType, String geneSymbol, String requestTissueType)
 			throws JSONException, Exception {
 		JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol);
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
 		List<? extends UmapPoint> umapPoints = new ArrayList<>();
 		TissueTypeEnum tissueType = TissueTypeEnum.fromRequestType(requestTissueType);
 
+		umapPoints = getUmapPoints(dataTypeEnum, umapPoints, tissueType);
+
+		Map<String, ReferenceCluster> referenceClusters = new HashMap<>();
+		FeatureData featureDataWithExpressionValues = new FeatureData();
+		FeatureData featureDataWithNoExpressionValues = new FeatureData();
+
+		for (UmapPoint umapPoint : umapPoints) {
+			double umapX = umapPoint.getUmapX();
+			double umapY = umapPoint.getUmapY();
+
+			if (referenceClusters.containsKey(umapPoint.getClusterName())) {
+				ReferenceCluster referenceCluster = referenceClusters.get(umapPoint.getClusterName());
+				referenceCluster.addXValue(umapX);
+				referenceCluster.addYValue(umapY);
+			} else {
+				ReferenceCluster referenceCluster = new ReferenceCluster(umapPoint.getClusterName(),
+						umapPoint.getClusterColor());
+				referenceCluster.addXValue(umapX);
+				referenceCluster.addYValue(umapY);
+				referenceClusters.put(umapPoint.getClusterName(), referenceCluster);
+			}
+
+			String barcode = umapPoint.getBarcode();
+			if (geneExpressionValues.has(barcode)) {
+				featureDataWithExpressionValues.addXValue(umapX);
+				featureDataWithExpressionValues.addYValue(umapY);
+				featureDataWithExpressionValues.addExpression(geneExpressionValues.getDouble(barcode));
+			} else {
+				featureDataWithNoExpressionValues.addXValue(umapX);
+				featureDataWithNoExpressionValues.addYValue(umapY);
+				featureDataWithNoExpressionValues.addExpression(0d);
+			}
+		}
+
+		List<ReferenceCluster> referenceClusterList = new ArrayList<>(referenceClusters.values());
+		return new PlotData(referenceClusterList,
+				Arrays.asList(featureDataWithExpressionValues, featureDataWithNoExpressionValues));
+	}
+
+	private List<? extends UmapPoint> getUmapPoints(DataTypeEnum dataTypeEnum, List<? extends UmapPoint> umapPoints,
+			TissueTypeEnum tissueType) {
 		if (tissueType == TissueTypeEnum.ALL) {
 			if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL)) {
 				umapPoints = scMetadataRepo.findAll();
@@ -44,15 +88,6 @@ public class UmapDataService {
 				umapPoints = scMetadataRepo.findByTissueType(tissueType.getParticipantTissueType());
 			} else if (dataTypeEnum.equals(DataTypeEnum.SINGLE_NUCLEUS)) {
 				umapPoints = snMetadataRepo.findByTissueType(tissueType.getParticipantTissueType());
-			}
-		}
-
-		for (UmapPoint umapPoint : umapPoints) {
-			String barcode = umapPoint.getBarcode();
-			if (geneExpressionValues.has(barcode)) {
-				umapPoint.setExpressionValue(geneExpressionValues.getDouble(barcode));
-			} else {
-				umapPoint.setExpressionValue(0d);
 			}
 		}
 		return umapPoints;
