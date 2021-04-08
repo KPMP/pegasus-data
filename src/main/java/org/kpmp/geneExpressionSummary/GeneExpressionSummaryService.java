@@ -2,6 +2,7 @@ package org.kpmp.geneExpressionSummary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.kpmp.DataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class GeneExpressionSummaryService {
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
-			return scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType);
+			return scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType).stream().distinct().collect(Collectors.toList());
 		case SINGLE_NUCLEUS:
-			return snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType);
+			return snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType).stream().distinct().collect(Collectors.toList());
 		case UNKNOWN:
 			List<GeneExpressionSummary> allResults = new ArrayList<>();
 			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType));

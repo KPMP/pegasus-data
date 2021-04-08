@@ -3,6 +3,7 @@ package org.kpmp.geneExpressionSummary;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,6 +76,36 @@ public class GeneExpressionSummaryServiceTest {
 				.getExpressionSummaryPerGeneByCellTypeAndTissueType("sn", "cell type", "aki");
 		assertEquals(snResults, resultsSN);
 		assertEquals("sn", resultsSN.get(0).getDataType());
+	}
+
+	@Test
+	public void testSCDuplicatesAreRemoved() throws Exception {
+		SCRNAGeneExpressionExpressionSummaryValue scv = new SCRNAGeneExpressionExpressionSummaryValue();
+		SCRNAGeneExpressionExpressionSummaryValue scv2 = new SCRNAGeneExpressionExpressionSummaryValue();
+		scv.setGene("gene");
+		scv2.setGene("gene");
+		scv.setCluster("cluster");
+		scv2.setCluster("cluster");
+		List<SCRNAGeneExpressionExpressionSummaryValue> summaryValues = new ArrayList<>();
+		summaryValues.add(scv);
+		summaryValues.add(scv2);
+		when(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "all")).thenReturn(summaryValues);
+		assertEquals(1, geneExpressionService.getByDataTypeTissueTypeAndGene("sc", "gene", "all").size());
+	}
+
+	@Test
+	public void testSNDuplicatesAreRemoved() throws Exception {
+		SNRNAGeneExpressionExpressionSummaryValue scv = new SNRNAGeneExpressionExpressionSummaryValue();
+		SNRNAGeneExpressionExpressionSummaryValue scv2 = new SNRNAGeneExpressionExpressionSummaryValue();
+		scv.setGene("gene");
+		scv2.setGene("gene");
+		scv.setCluster("cluster");
+		scv2.setCluster("cluster");
+		List<SNRNAGeneExpressionExpressionSummaryValue> summaryValues = new ArrayList<>();
+		summaryValues.add(scv);
+		summaryValues.add(scv2);
+		when(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "all")).thenReturn(summaryValues);
+		assertEquals(1, geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "all").size());
 	}
 
 }

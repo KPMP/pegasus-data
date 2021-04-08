@@ -183,4 +183,19 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		this.cluster = cluster;
 	}
 
+	@Override
+	public int hashCode() {
+		return (gene + cluster).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof SCRNAGeneExpressionExpressionSummaryValue))
+			return false;
+		SCRNAGeneExpressionExpressionSummaryValue scrnaGeneExpressionExpressionSummaryValue = (SCRNAGeneExpressionExpressionSummaryValue) obj;
+		return (scrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene()) && scrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
+	}
+
 }

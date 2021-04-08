@@ -189,4 +189,19 @@ public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 	public String getClusterName() {
 		return this.clusterName;
 	}
+
+	@Override
+	public int hashCode() {
+		return (gene + cluster).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof SNRNAGeneExpressionExpressionSummaryValue))
+			return false;
+		SNRNAGeneExpressionExpressionSummaryValue snrnaGeneExpressionExpressionSummaryValue = (SNRNAGeneExpressionExpressionSummaryValue) obj;
+		return (snrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene()) && snrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
+	}
 }
