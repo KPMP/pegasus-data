@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.kpmp.DataTypeEnum;
+import org.kpmp.TissueTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +26,16 @@ public class GeneExpressionSummaryService {
 			String tissueType) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
+		TissueTypeEnum tissueTypeEnum = TissueTypeEnum.fromRequestType(tissueType);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
-			return scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType).stream().distinct().collect(Collectors.toList());
+			return scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream().distinct().collect(Collectors.toList());
 		case SINGLE_NUCLEUS:
-			return snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType).stream().distinct().collect(Collectors.toList());
+			return snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream().distinct().collect(Collectors.toList());
 		case UNKNOWN:
 			List<GeneExpressionSummary> allResults = new ArrayList<>();
-			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType));
-			allResults.addAll(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueType));
+			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()));
+			allResults.addAll(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()));
 			return allResults;
 
 		}
@@ -45,21 +47,22 @@ public class GeneExpressionSummaryService {
 			String cellType, String tissueType) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
+		TissueTypeEnum tissueTypeEnum = TissueTypeEnum.fromRequestType(tissueType);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
 			results = scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType,
-					tissueType);
+					tissueTypeEnum.getParticipantTissueType());
 			break;
 		case SINGLE_NUCLEUS:
 			results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType,
-					tissueType);
+					tissueTypeEnum.getParticipantTissueType());
 			break;
 		case UNKNOWN:
 			List allResults = new ArrayList<>();
 			allResults.addAll(scrnaGeneExpressionRepository
-					.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+					.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueTypeEnum.getParticipantTissueType()));
 			allResults.addAll(snrnaGeneExpressionRepository
-					.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueType));
+					.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueTypeEnum.getParticipantTissueType()));
 			results = allResults;
 		}
 		return results;
