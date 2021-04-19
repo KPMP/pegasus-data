@@ -10,4 +10,6 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
 	List<ClusterHierarchy> findAll();
 
 	List<ClusterHierarchy> findByCellType(String cellType);
+
+	ClusterHierarchy findOneByClusterName(String clusterName);
 }

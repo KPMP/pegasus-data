@@ -5,6 +5,7 @@ type Query {
   geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, tissueType: String) : [GeneExpressionSummary]
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
   getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
+  dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
 }
 
 type MyGeneInfoHit {
