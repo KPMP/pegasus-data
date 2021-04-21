@@ -2,6 +2,7 @@ package org.kpmp;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.kpmp.autocomplete.AutocompleteResult;
@@ -83,5 +84,18 @@ public class Query implements GraphQLQueryResolver {
 			logger.error(e.getMessage());
 			throw e;
 		}
+	}
+
+	public List<String> dataTypesForConcept(String geneSymbol, String clusterName) throws Exception {
+		// At the moment, we are going to assume that all genes are covered in both SC &
+		// SN data
+		if (geneSymbol != null && !geneSymbol.isEmpty()) {
+			return Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+					DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
+		} else if (clusterName != null && !clusterName.isEmpty()) {
+			return clusterHierarchyService.findDataTypesByClusterName(clusterName);
+		}
+		throw new Exception("Must provide either a cluster or a gene symbol.");
+
 	}
 }
