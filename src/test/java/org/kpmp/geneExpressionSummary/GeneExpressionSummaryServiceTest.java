@@ -67,7 +67,7 @@ public class GeneExpressionSummaryServiceTest {
 		when(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType("cell type", "AKI"))
 				.thenReturn(scResults);
 		List results = geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("", "cell type", "AKI");
-//		assertEquals(2, results.size());
+		assertEquals(2, results.size());
 		List<? extends GeneExpressionSummary> resultsSC = geneExpressionService
 				.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "AKI");
 		assertEquals(scResults, resultsSC);

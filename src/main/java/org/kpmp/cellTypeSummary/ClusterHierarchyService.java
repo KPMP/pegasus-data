@@ -23,7 +23,7 @@ public class ClusterHierarchyService {
 
 	public List<String> findDataTypesByClusterName(String clusterName) {
 		List<String> dataTypesRepresented = new ArrayList<>();
-		ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findOneByClusterName(clusterName);
+		ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterName(clusterName);
 		if (clustersInDataTypes.getIsSingleCellCluster().equalsIgnoreCase("Y")) {
 			dataTypesRepresented.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
 		}
