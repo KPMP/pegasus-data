@@ -23,6 +23,7 @@ public interface SCRNAGeneExpressionSummaryRepository
 	List<SCRNAGeneExpressionExpressionSummaryValue> findExpressionSummaryPerGeneByCellTypeAndTissueType(
 			@Param("cellType") String cellType, @Param("tissueType") String tissueType);
 
-	long countByGene(String gene);
+	@Query(value = "SELECT COUNT(*) FROM sc_rnaseq scr WHERE scr.gene= :gene", nativeQuery = true)
+	long getCountByGene(@Param("gene") String gene);
 
 }

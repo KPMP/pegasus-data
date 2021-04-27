@@ -76,12 +76,12 @@ public class GeneExpressionSummaryService {
 
 	public List<String> findDataTypesByGene(String gene) {
 		List<String> dataTypes = new ArrayList<>();
-		long scCountByGene = scrnaGeneExpressionRepository.countByGene(gene);
+		long scCountByGene = scrnaGeneExpressionRepository.getCountByGene(gene);
 		if (scCountByGene != 0) {
 			dataTypes.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
 		}
 
-		long snCountByGene = snrnaGeneExpressionRepository.countByGene(gene);
+		long snCountByGene = snrnaGeneExpressionRepository.getCountByGene(gene);
 		if (snCountByGene != 0) {
 			dataTypes.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 		}
