@@ -29,13 +29,19 @@ public class GeneExpressionSummaryService {
 		TissueTypeEnum tissueTypeEnum = TissueTypeEnum.fromRequestType(tissueType);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
-			return scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream().distinct().collect(Collectors.toList());
+			return scrnaGeneExpressionRepository
+					.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream()
+					.distinct().collect(Collectors.toList());
 		case SINGLE_NUCLEUS:
-			return snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream().distinct().collect(Collectors.toList());
+			return snrnaGeneExpressionRepository
+					.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream()
+					.distinct().collect(Collectors.toList());
 		case UNKNOWN:
 			List<GeneExpressionSummary> allResults = new ArrayList<>();
-			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()));
-			allResults.addAll(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()));
+			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol,
+					tissueTypeEnum.getParticipantTissueType()));
+			allResults.addAll(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol,
+					tissueTypeEnum.getParticipantTissueType()));
 			return allResults;
 
 		}
@@ -59,13 +65,27 @@ public class GeneExpressionSummaryService {
 			break;
 		case UNKNOWN:
 			List allResults = new ArrayList<>();
-			allResults.addAll(scrnaGeneExpressionRepository
-					.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueTypeEnum.getParticipantTissueType()));
-			allResults.addAll(snrnaGeneExpressionRepository
-					.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType, tissueTypeEnum.getParticipantTissueType()));
+			allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(
+					cellType, tissueTypeEnum.getParticipantTissueType()));
+			allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(
+					cellType, tissueTypeEnum.getParticipantTissueType()));
 			results = allResults;
 		}
 		return results;
+	}
+
+	public List<String> findDataTypesByGene(String gene) {
+		List<String> dataTypes = new ArrayList<>();
+		long scCountByGene = scrnaGeneExpressionRepository.countByGene(gene);
+		if (scCountByGene != 0) {
+			dataTypes.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
+		}
+
+		long snCountByGene = snrnaGeneExpressionRepository.countByGene(gene);
+		if (snCountByGene != 0) {
+			dataTypes.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
+		}
+		return dataTypes;
 	}
 
 }
