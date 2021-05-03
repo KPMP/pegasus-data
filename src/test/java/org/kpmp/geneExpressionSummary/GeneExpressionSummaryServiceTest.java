@@ -1,6 +1,7 @@
 package org.kpmp.geneExpressionSummary;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.DataTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -42,7 +44,9 @@ public class GeneExpressionSummaryServiceTest {
 		List<SCRNAGeneExpressionExpressionSummaryValue> scResults = Arrays
 				.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		when(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "AKI")).thenReturn(scResults);
+
 		List results = geneExpressionService.getByDataTypeTissueTypeAndGene("", "gene", "AKI");
+
 		assertEquals(2, results.size());
 		List<? extends GeneExpressionSummary> resultsSC = geneExpressionService.getByDataTypeTissueTypeAndGene("sc",
 				"gene", "aki");
@@ -66,7 +70,9 @@ public class GeneExpressionSummaryServiceTest {
 				.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		when(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType("cell type", "AKI"))
 				.thenReturn(scResults);
+
 		List results = geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("", "cell type", "AKI");
+
 		assertEquals(2, results.size());
 		List<? extends GeneExpressionSummary> resultsSC = geneExpressionService
 				.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "AKI");
@@ -90,6 +96,7 @@ public class GeneExpressionSummaryServiceTest {
 		summaryValues.add(scv);
 		summaryValues.add(scv2);
 		when(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "all")).thenReturn(summaryValues);
+
 		assertEquals(1, geneExpressionService.getByDataTypeTissueTypeAndGene("sc", "gene", "all").size());
 	}
 
@@ -105,7 +112,60 @@ public class GeneExpressionSummaryServiceTest {
 		summaryValues.add(scv);
 		summaryValues.add(scv2);
 		when(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters("gene", "all")).thenReturn(summaryValues);
+
 		assertEquals(1, geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "all").size());
 	}
 
+	@Test
+	public void testFindDataTypesByGeneWhenBothHaveData() throws Exception {
+		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+
+		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
+
+		assertEquals(2, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+	}
+
+	@Test
+	public void testFindDataTypesByGeneWhenSingleCellHasData() throws Exception {
+		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(0l);
+		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+
+		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
+
+		assertEquals(1, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
+		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+	}
+
+	@Test
+	public void testFindDataTypesByGeneWhenSingleNucHasData() throws Exception {
+		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(0l);
+
+		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
+
+		assertEquals(1, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+	}
+
+	@Test
+	public void testFindDataTypesByGeneWhenNeitherHaveData() throws Exception {
+		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(0l);
+		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(0l);
+
+		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
+
+		assertEquals(0, dataTypes.size());
+		assertEquals(Arrays.asList(), dataTypes);
+		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+	}
 }

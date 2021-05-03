@@ -1,6 +1,7 @@
 package org.kpmp.cellTypeSummary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.DataTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -37,4 +39,59 @@ public class ClusterHierarchyServiceTest {
 		assertEquals(hierarchies, service.findClustersByCellType("cell type"));
 	}
 
+	@Test
+	public void testFindDataTypesByClusterNameWhenBothY() throws Exception {
+		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
+		clusterHierarchy.setIsSingleCellCluster("Y");
+		clusterHierarchy.setIsSingleNucCluster("Y");
+		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+
+		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
+
+		assertEquals(2, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+	}
+
+	@Test
+	public void testFindDataTypesByClusterNameWhenSingleCellY() throws Exception {
+		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
+		clusterHierarchy.setIsSingleCellCluster("Y");
+		clusterHierarchy.setIsSingleNucCluster("N");
+		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+
+		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
+
+		assertEquals(1, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
+		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+	}
+
+	@Test
+	public void testFindDataTypesByClusterNameWhenSingleNucY() throws Exception {
+		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
+		clusterHierarchy.setIsSingleCellCluster("N");
+		clusterHierarchy.setIsSingleNucCluster("y");
+		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+
+		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
+
+		assertEquals(1, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+	}
+
+	@Test
+	public void testFindDataTypesByClusterNameWhenNeitherY() throws Exception {
+		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
+		clusterHierarchy.setIsSingleCellCluster("N");
+		clusterHierarchy.setIsSingleNucCluster("N");
+		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+
+		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
+
+		assertEquals(0, dataTypes.size());
+		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+	}
 }

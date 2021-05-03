@@ -1,6 +1,8 @@
 package org.kpmp;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -123,5 +125,49 @@ public class QueryTest {
 
 		assertEquals(expectedList, query.getClusterHieararchies("cell type"));
 		verify(clusterHierarchyService).findClustersByCellType("cell type");
+	}
+
+	@Test
+	public void dataTypesForConceptWhenGeneSymbolAndNullClusterName() throws Exception {
+		List<String> expectedResult = Arrays.asList("1", "2");
+		when(geneExpressionService.findDataTypesByGene("gene")).thenReturn(expectedResult);
+
+		List<String> dataTypesForConcept = query.dataTypesForConcept("gene", null);
+
+		assertEquals(expectedResult, dataTypesForConcept);
+		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
+	}
+
+	@Test
+	public void dataTypesForConceptWhenGeneSymbolAndBlankClusterName() throws Exception {
+		List<String> expectedResult = Arrays.asList("1", "2");
+		when(geneExpressionService.findDataTypesByGene("gene")).thenReturn(expectedResult);
+
+		List<String> dataTypesForConcept = query.dataTypesForConcept("gene", "");
+
+		assertEquals(expectedResult, dataTypesForConcept);
+		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
+	}
+
+	@Test
+	public void dataTypesForConceptWhenClusterNameAndNullGene() throws Exception {
+		List<String> expectedResult = Arrays.asList("1", "2");
+		when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult);
+
+		List<String> dataTypesForConcept = query.dataTypesForConcept(null, "cluster");
+
+		assertEquals(expectedResult, dataTypesForConcept);
+		verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class));
+	}
+
+	@Test
+	public void dataTypesForConceptWhenClusterNameAndBlankGene() throws Exception {
+		List<String> expectedResult = Arrays.asList("1", "2");
+		when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult);
+
+		List<String> dataTypesForConcept = query.dataTypesForConcept("", "cluster");
+
+		assertEquals(expectedResult, dataTypesForConcept);
+		verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class));
 	}
 }
