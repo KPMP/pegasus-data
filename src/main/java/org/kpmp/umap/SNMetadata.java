@@ -14,6 +14,8 @@ public class SNMetadata implements UmapPoint {
 	private double umapX;
 	@Column(name = "umap_y")
 	private double umapY;
+	@Column(name = "cluster_abbreviation")
+    private String clusterAbbreviation;
 	@Column(name = "cluster_name")
 	private String clusterName;
 	@Column(name = "cluster_color")
@@ -56,7 +58,17 @@ public class SNMetadata implements UmapPoint {
 		this.clusterName = clusterName;
 	}
 
-	@Override
+    @Override
+    public String getClusterAbbreviation() {
+        return clusterAbbreviation;
+    }
+
+    @Override
+    public void setClusterAbbreviation(String clusterAbbreviation) {
+        this.clusterAbbreviation = clusterAbbreviation;
+    }
+
+    @Override
 	public String getClusterColor() {
 		return clusterColor;
 	}

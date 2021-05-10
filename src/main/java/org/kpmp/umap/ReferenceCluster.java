@@ -9,9 +9,10 @@ public class ReferenceCluster {
 	private List<Double> yValues = new ArrayList<>();
 	private String color;
 	private String clusterName;
+	private String clusterAbbreviation;
 
-	public ReferenceCluster(String clusterName, String color) {
-		this.clusterName = clusterName;
+	public ReferenceCluster(String clusterAbbreviation, String color) {
+		this.clusterAbbreviation = clusterAbbreviation;
 		this.color = color;
 	}
 
@@ -55,4 +56,11 @@ public class ReferenceCluster {
 		this.clusterName = clusterName;
 	}
 
+    public String getClusterAbbreviation() {
+        return clusterAbbreviation;
+    }
+
+    public void setClusterAbbreviation(String clusterAbbreviation) {
+        this.clusterAbbreviation = clusterAbbreviation;
+    }
 }

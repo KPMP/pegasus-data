@@ -14,6 +14,10 @@ public interface UmapPoint {
 
 	public void setClusterName(String clusterName);
 
+	public String getClusterAbbreviation();
+
+	public void setClusterAbbreviation(String clusterAbbreviation);
+
 	public String getClusterColor();
 
 	public void setClusterColor(String clusterColor);
