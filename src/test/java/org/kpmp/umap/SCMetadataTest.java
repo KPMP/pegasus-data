@@ -40,6 +40,12 @@ public class SCMetadataTest {
 	}
 
 	@Test
+	public void testSetClusterAbbreviation() {
+		point.setClusterAbbreviation("cluster abbr");
+		assertEquals("cluster abbr", point.getClusterAbbreviation());
+	}
+
+	@Test
 	public void testSetClusterColor() {
 		point.setClusterColor("cluster color");
 		assertEquals("cluster color", point.getClusterColor());

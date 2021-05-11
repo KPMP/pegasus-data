@@ -43,11 +43,13 @@ public class UmapDataServiceTest {
 		snMetadata.setUmapX(3d);
 		snMetadata.setUmapY(4d);
 		snMetadata.setClusterName("clusterName");
+		snMetadata.setClusterAbbreviation("clusterAbbrev");
 		snMetadata.setBarcode("barcodeNotInExpression");
 		SNMetadata snMetadata2 = new SNMetadata();
 		snMetadata2.setUmapX(5d);
 		snMetadata2.setUmapY(6d);
 		snMetadata2.setClusterName("clusterName");
+		snMetadata2.setClusterAbbreviation("clusterAbbrev");
 		snMetadata2.setBarcode("barcode");
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findAll()).thenReturn(expectedPoints);
@@ -66,6 +68,7 @@ public class UmapDataServiceTest {
 		assertEquals(6d, featureDataWithExpressionValues.getYValues().get(0), DOUBLE_PRECISION);
 		assertEquals(1, featureDataWithExpressionValues.getExpression().size());
 		assertEquals(0.4d, featureDataWithExpressionValues.getExpression().get(0), DOUBLE_PRECISION);
+		assertEquals("0.4<br>clusterName", featureDataWithExpressionValues.getHoverDisplay().get(0));
 
 		FeatureData featureDataWithZeroExpressionValue = featureData.get(1);
 		assertEquals(1, featureDataWithZeroExpressionValue.getXValues().size());
@@ -74,6 +77,9 @@ public class UmapDataServiceTest {
 		assertEquals(4d, featureDataWithZeroExpressionValue.getYValues().get(0), DOUBLE_PRECISION);
 		assertEquals(1, featureDataWithZeroExpressionValue.getExpression().size());
 		assertEquals(0d, featureDataWithZeroExpressionValue.getExpression().get(0), DOUBLE_PRECISION);
+		assertEquals("clusterName", featureDataWithZeroExpressionValue.getHoverDisplay().get(0));
+
+
 	}
 
 	@Test
@@ -82,12 +88,14 @@ public class UmapDataServiceTest {
 		snMetadata.setUmapX(3d);
 		snMetadata.setUmapY(4d);
 		snMetadata.setClusterName("clusterName");
+		snMetadata.setClusterAbbreviation("clusterAbbreviation");
 		snMetadata.setClusterColor("color");
 		snMetadata.setBarcode("barcodeNotInExpression");
 		SNMetadata snMetadata2 = new SNMetadata();
 		snMetadata2.setUmapX(5d);
 		snMetadata2.setUmapY(6d);
 		snMetadata2.setClusterName("clusterName");
+		snMetadata2.setClusterAbbreviation("clusterAbbreviation");
 		snMetadata2.setClusterColor("color");
 		snMetadata2.setBarcode("barcode");
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
@@ -98,7 +106,7 @@ public class UmapDataServiceTest {
 
 		List<ReferenceCluster> clusters = plotData.getReferenceData();
 		assertEquals(1, clusters.size());
-		assertEquals("clusterName", clusters.get(0).getClusterName());
+		assertEquals("clusterAbbreviation", clusters.get(0).getClusterAbbreviation());
 		assertEquals("color", clusters.get(0).getColor());
 		List<Double> xValues = clusters.get(0).getXValues();
 		assertEquals(2, xValues.size());
@@ -116,13 +124,13 @@ public class UmapDataServiceTest {
 		SNMetadata snMetadata = new SNMetadata();
 		snMetadata.setUmapX(3d);
 		snMetadata.setUmapY(4d);
-		snMetadata.setClusterName("clusterName1");
+		snMetadata.setClusterAbbreviation("clusterAbbrev1");
 		snMetadata.setClusterColor("color1");
 		snMetadata.setBarcode("barcodeNotInExpression");
 		SNMetadata snMetadata2 = new SNMetadata();
 		snMetadata2.setUmapX(5d);
 		snMetadata2.setUmapY(6d);
-		snMetadata2.setClusterName("clusterName2");
+		snMetadata2.setClusterAbbreviation("clusterAbbrev2");
 		snMetadata2.setClusterColor("color2");
 		snMetadata2.setBarcode("barcode");
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
@@ -133,18 +141,18 @@ public class UmapDataServiceTest {
 
 		List<ReferenceCluster> clusters = plotData.getReferenceData();
 		assertEquals(2, clusters.size());
-		assertEquals("clusterName1", clusters.get(0).getClusterName());
-		assertEquals("color1", clusters.get(0).getColor());
-		assertEquals("clusterName2", clusters.get(1).getClusterName());
-		assertEquals("color2", clusters.get(1).getColor());
-		List<Double> xValues = clusters.get(0).getXValues();
+		assertEquals("clusterAbbrev2", clusters.get(0).getClusterAbbreviation());
+		assertEquals("color2", clusters.get(0).getColor());
+		assertEquals("clusterAbbrev1", clusters.get(1).getClusterAbbreviation());
+		assertEquals("color1", clusters.get(1).getColor());
+		List<Double> xValues = clusters.get(1).getXValues();
 		assertEquals(1, xValues.size());
 		assertEquals(3d, xValues.get(0), DOUBLE_PRECISION);
-		List<Double> yValues = clusters.get(0).getYValues();
+		List<Double> yValues = clusters.get(1).getYValues();
 		assertEquals(1, yValues.size());
 		assertEquals(4d, yValues.get(0), DOUBLE_PRECISION);
-		xValues = clusters.get(1).getXValues();
-		yValues = clusters.get(1).getYValues();
+		xValues = clusters.get(0).getXValues();
+		yValues = clusters.get(0).getYValues();
 		assertEquals(5d, xValues.get(0), DOUBLE_PRECISION);
 		assertEquals(6d, yValues.get(0), DOUBLE_PRECISION);
 

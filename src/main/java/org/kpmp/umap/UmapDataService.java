@@ -46,28 +46,36 @@ public class UmapDataService {
 			double umapX = umapPoint.getUmapX();
 			double umapY = umapPoint.getUmapY();
 
-			if (referenceClusters.containsKey(umapPoint.getClusterName())) {
-				ReferenceCluster referenceCluster = referenceClusters.get(umapPoint.getClusterName());
+			if (referenceClusters.containsKey(umapPoint.getClusterAbbreviation())) {
+				ReferenceCluster referenceCluster = referenceClusters.get(umapPoint.getClusterAbbreviation());
 				referenceCluster.addXValue(umapX);
 				referenceCluster.addYValue(umapY);
+				referenceCluster.setClusterName(umapPoint.getClusterName());
+				referenceCluster.setClusterAbbreviation(umapPoint.getClusterAbbreviation());
 			} else {
-				ReferenceCluster referenceCluster = new ReferenceCluster(umapPoint.getClusterName(),
+				ReferenceCluster referenceCluster = new ReferenceCluster(umapPoint.getClusterAbbreviation(),
 						umapPoint.getClusterColor());
 				referenceCluster.addXValue(umapX);
 				referenceCluster.addYValue(umapY);
-				referenceClusters.put(umapPoint.getClusterName(), referenceCluster);
+                referenceCluster.setClusterName(umapPoint.getClusterName());
+                referenceCluster.setClusterAbbreviation(umapPoint.getClusterAbbreviation());
+                referenceClusters.put(umapPoint.getClusterAbbreviation(), referenceCluster);
 			}
 
 			String barcode = umapPoint.getBarcode();
 			if (geneExpressionValues.has(barcode)) {
+			    Double expressionValue = geneExpressionValues.getDouble(barcode);
 				featureDataWithExpressionValues.addXValue(umapX);
 				featureDataWithExpressionValues.addYValue(umapY);
-				featureDataWithExpressionValues.addExpression(geneExpressionValues.getDouble(barcode));
-			} else {
+				featureDataWithExpressionValues.addExpression(expressionValue);
+				featureDataWithExpressionValues.addHoverDisplay(Double.toString(expressionValue) + "<br>" + umapPoint.getClusterName());
+
+            } else {
 				featureDataWithNoExpressionValues.addXValue(umapX);
 				featureDataWithNoExpressionValues.addYValue(umapY);
 				featureDataWithNoExpressionValues.addExpression(0d);
-			}
+                featureDataWithNoExpressionValues.addHoverDisplay(umapPoint.getClusterName());
+            }
 		}
 
 		List<ReferenceCluster> referenceClusterList = new ArrayList<>(referenceClusters.values());

@@ -16,7 +16,7 @@ public class ReferenceClusterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		cluster = new ReferenceCluster("clusterName", "color");
+		cluster = new ReferenceCluster("clusterAbbrev", "color");
 	}
 
 	@After
@@ -26,7 +26,7 @@ public class ReferenceClusterTest {
 
 	@Test
 	public void testConstructor() throws Exception {
-		assertEquals("clusterName", cluster.getClusterName());
+		assertEquals("clusterAbbrev", cluster.getClusterAbbreviation());
 		assertEquals("color", cluster.getColor());
 	}
 
@@ -76,6 +76,12 @@ public class ReferenceClusterTest {
 	public void testSetClusterName() {
 		cluster.setClusterName("cluster name too");
 		assertEquals("cluster name too", cluster.getClusterName());
+	}
+
+	@Test
+	public void testSetClusterAbbrevation() {
+		cluster.setClusterAbbreviation("cluster abbrev too");
+		assertEquals("cluster abbrev too", cluster.getClusterAbbreviation());
 	}
 
 }
