@@ -11,9 +11,10 @@ import org.springframework.stereotype.Repository;
 public interface SCRNAGeneExpressionSummaryRepository
 		extends CrudRepository<SCRNAGeneExpressionExpressionSummaryValue, GeneExpressionId> {
 
-	@Query(value = "SELECT DISTINCT scc.cluster, scc.cluster_name, IF(isnull(scr.gene), null, scc.cell_count) as cell_count, scc.cluster_id as id, IF(isnull(scr.tissue_type), :tissueType, scr.tissue_type) as tissue_type, IF(isnull(scr.gene), :geneSymbol, scr.gene) as gene, scr.p_val as p_val, scr.p_val_adj as p_val_adj, scr.fold_change, scr.pct_1, scr.pct_2, scr.specificity, scr.avg_exp as avg_exp "
+	@Query(value = "SELECT DISTINCT scc.cluster, scc.cluster_name, scc.cell_count, scc.cluster_id as id, IF(isnull(scr.tissue_type), :tissueType, scr.tissue_type) as tissue_type, IF(isnull(scr.gene), :geneSymbol, scr.gene) as gene, scr.p_val as p_val, scr.p_val_adj as p_val_adj, scr.fold_change, scr.pct_1, scr.pct_2, scr.specificity, scr.avg_exp as avg_exp "
 			+ "FROM sc_cluster_v scc "
-			+ "LEFT JOIN sc_rnaseq scr ON scc.cluster = scr.cluster AND scc.tissue_type = LCASE(:tissueType) AND scr.gene = :geneSymbol AND scr.tissue_type = LCASE(:tissueType) ORDER BY scr.p_val IS NULL, scr.p_val ASC", nativeQuery = true)
+			+ "LEFT JOIN sc_rnaseq scr ON scc.cluster = scr.cluster AND scr.gene = :geneSymbol AND scr.tissue_type = LCASE(:tissueType) "
+			+ "WHERE scc.tissue_type = LCASE(:tissueType) ORDER BY scr.p_val IS NULL, scr.p_val ASC", nativeQuery = true)
 	List<SCRNAGeneExpressionExpressionSummaryValue> findByTissueAndGeneAllClusters(
 			@Param("geneSymbol") String geneSymbol, @Param("tissueType") String tissueType);
 
