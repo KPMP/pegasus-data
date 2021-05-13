@@ -11,9 +11,10 @@ import org.springframework.stereotype.Repository;
 public interface SNRNAGeneExpressionSummaryRepository
 		extends CrudRepository<SNRNAGeneExpressionExpressionSummaryValue, GeneExpressionId> {
 
-	@Query(value = "SELECT DISTINCT snc.cluster, snc.cluster_name, IF(isnull(snr.gene), null, snc.cell_count) as cell_count, snc.cluster_id as id, IF(isnull(snr.tissue_type), :tissueType, snr.tissue_type) as tissue_type, IF(isnull(snr.gene), :geneSymbol, snr.gene) as gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
+	@Query(value = "SELECT DISTINCT snc.cluster, snc.cluster_name, snc.cell_count as cell_count, snc.cluster_id as id, IF(isnull(snr.tissue_type), :tissueType, snr.tissue_type) as tissue_type, IF(isnull(snr.gene), :geneSymbol, snr.gene) as gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
 			+ "FROM sn_cluster_v snc "
-			+ "LEFT JOIN sn_rnaseq snr ON snc.cluster = snr.cluster AND snc.tissue_type = LCASE(:tissueType) AND snr.gene = :geneSymbol AND snr.tissue_type = LCASE(:tissueType) ORDER BY snr.p_val IS NULL, snr.p_val ASC", nativeQuery = true)
+			+ "LEFT JOIN sn_rnaseq snr ON snc.cluster = snr.cluster AND snr.gene = :geneSymbol AND snr.tissue_type = LCASE(:tissueType) "
+			+ "WHERE snc.tissue_type = LCASE(:tissueType) ORDER BY snr.p_val IS NULL, snr.p_val ASC", nativeQuery = true)
 	List<SNRNAGeneExpressionExpressionSummaryValue> findByTissueAndGeneAllClusters(
 			@Param("geneSymbol") String geneSymbol, @Param("tissueType") String tissueType);
 
