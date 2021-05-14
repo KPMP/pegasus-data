@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.TissueTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,18 @@ public class GeneExpressionSummaryService {
 
 	private SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository;
 	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
+	private SCRNAParticipantRepository scrnaParticipantRepository;
+	private SNRNAParticipantRepository snrnaParticipantRepository;
 
 	@Autowired
 	public GeneExpressionSummaryService(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
-			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository) {
+			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
+			SCRNAParticipantRepository scrnaParticipantRepository,
+			SNRNAParticipantRepository snrnaParticipantRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
+		this.scrnaParticipantRepository = scrnaParticipantRepository;
+		this.snrnaParticipantRepository = snrnaParticipantRepository;
 	}
 
 	public List<? extends GeneExpressionSummary> getByDataTypeTissueTypeAndGene(String dataType, String geneSymbol,
@@ -88,4 +95,27 @@ public class GeneExpressionSummaryService {
 		return dataTypes;
 	}
 
+	public List<DatasetSummary> getGeneDatasetInformation(String geneSymbol) {
+		List<DatasetSummary> geneSummary = new ArrayList<>();
+
+		geneSummary.add(new DatasetSummary(
+			"TRANSCRIPTOMICS",
+		 	"Single-cell RNA-seq (scRNA-seq)",
+			DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()),
+			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()),
+			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+			scrnaParticipantRepository.getParticipantCount()
+		));
+		geneSummary.add(new DatasetSummary(
+			"",
+		 	"Single-nucleus RNA-seq (snRNA-seq)",
+			DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()),
+			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()),
+			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+			snrnaParticipantRepository.getParticipantCount()
+		));
+		return geneSummary;
+	}
 }
