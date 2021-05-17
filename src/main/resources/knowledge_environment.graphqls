@@ -13,10 +13,10 @@ type GeneDatasetInformation {
   omicsType: String
   dataType: String
   dataTypeShort: String
-  aki: Long
-  ckd: Long
-  hrt: Long
-  participants: Long
+  akiCount: Long
+  ckdCount: Long
+  hrtCount: Long
+  participantCount: Long
 }
 
 type MyGeneInfoHit {

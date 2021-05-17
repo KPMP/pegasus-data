@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.DataTypeEnum;
+import org.kpmp.FullDataTypeEnum;
+import org.kpmp.OmicsTypeEnum;
 import org.kpmp.TissueTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,8 +101,8 @@ public class GeneExpressionSummaryService {
 		List<DatasetSummary> geneSummary = new ArrayList<>();
 
 		geneSummary.add(new DatasetSummary(
-			"TRANSCRIPTOMICS",
-		 	"Single-cell RNA-seq (scRNA-seq)",
+			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
 			DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()),
 			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()),
@@ -108,8 +110,8 @@ public class GeneExpressionSummaryService {
 			scrnaParticipantRepository.getParticipantCount()
 		));
 		geneSummary.add(new DatasetSummary(
-			"",
-		 	"Single-nucleus RNA-seq (snRNA-seq)",
+			OmicsTypeEnum.NONE.getEnum(),
+			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
 			DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()),
 			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()),

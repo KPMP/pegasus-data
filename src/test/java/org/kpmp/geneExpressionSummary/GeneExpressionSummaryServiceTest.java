@@ -192,13 +192,15 @@ public class GeneExpressionSummaryServiceTest {
 		DatasetSummary resultDataSC = result.get(0);
 		DatasetSummary resultDataSN = result.get(1);
 
-		assertEquals(Long.valueOf(0), resultDataSC.getAki());
-		assertEquals(Long.valueOf(0), resultDataSC.getCkd());
-		assertEquals(Long.valueOf(0), resultDataSC.getHrt());
-		assertEquals(Long.valueOf(0), resultDataSN.getAki());
-		assertEquals(Long.valueOf(0), resultDataSN.getAki());
-		assertEquals(Long.valueOf(0), resultDataSN.getAki());
+		assertEquals(Long.valueOf(0), resultDataSC.getAkiCount());
+		assertEquals(Long.valueOf(0), resultDataSC.getCkdCount());
+		assertEquals(Long.valueOf(0), resultDataSC.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataSN.getAkiCount());
+		assertEquals(Long.valueOf(0), resultDataSN.getCkdCount());
+		assertEquals(Long.valueOf(0), resultDataSN.getHrtCount());
 		assertEquals("sc", resultDataSC.getDataTypeShort());
 		assertEquals("sn", resultDataSN.getDataTypeShort());
+		assertEquals(Long.valueOf(0), resultDataSN.getParticipantCount());
+
 	}
 }

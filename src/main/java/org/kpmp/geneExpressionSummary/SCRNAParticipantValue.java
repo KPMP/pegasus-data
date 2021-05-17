@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "sn_participant_tissue_v")
 @IdClass(ParticipantId.class)
-public class SCRNAParticipantValue implements Participant {
+public class SCRNAParticipantValue {
 
 	@Column(name = "tissue_type")
 	private String tissueType;

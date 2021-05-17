@@ -4,19 +4,19 @@ public class DatasetSummary {
     private String omicsType;
     private String dataType;
     private String dataTypeShort;
-    private Long aki;
-    private Long ckd;
-    private Long hrt;
-    private Long participants;
+    private Long akiCount;
+    private Long ckdCount;
+    private Long hrtCount;
+    private Long participantCount;
 
-    public DatasetSummary(String myOmicsType, String dataType, String dataTypeShort, Long aki, Long ckd, Long hrt, Long participants) {
-        this.omicsType = myOmicsType;
+    public DatasetSummary(String omicsType, String dataType, String dataTypeShort, Long akiCount, Long ckdCount, Long hrtCount, Long participantCount) {
+        this.omicsType = omicsType;
         this.dataType = dataType;
         this.dataTypeShort = dataTypeShort;
-        this.aki = aki;
-        this.ckd = ckd;
-        this.hrt = hrt;
-        this.participants = participants;
+        this.akiCount = akiCount;
+        this.ckdCount = ckdCount;
+        this.hrtCount = hrtCount;
+        this.participantCount = participantCount;
     }
     public String getOmicsType() {
       return this.omicsType;
@@ -40,35 +40,35 @@ public class DatasetSummary {
     this.dataTypeShort = dataTypeShort;
   }
 
-  public Long getAki() {
-    return this.aki;
+  public Long getAkiCount() {
+    return this.akiCount;
   }
 
-  public void setAki(Long aki) {
-    this.aki = aki;
+  public void setAkiCount(Long akiCount) {
+    this.akiCount = akiCount;
   }
 
-  public Long getCkd() {
-    return this.ckd;
+  public Long getCkdCount() {
+    return this.ckdCount;
   }
 
-  public void setCkd(Long ckd) {
-    this.ckd = ckd;
+  public void setCkdCount(Long ckdCount) {
+    this.ckdCount = ckdCount;
   }
 
-  public Long getHrt() {
-    return this.hrt;
+  public Long getHrtCount() {
+    return this.hrtCount;
   }
 
-  public void setHrt(Long hrt) {
-    this.hrt = hrt;
+  public void setHrtCount(Long hrtCount) {
+    this.hrtCount = hrtCount;
   }
 
-  public Long getParticipants() {
-    return this.participants;
+  public Long getParticipantCount() {
+    return this.participantCount;
   }
 
-  public void setParticipants(Long participants) {
-    this.participants = participants;
+  public void setParticipantCount(Long participantCount) {
+    this.participantCount = participantCount;
   }
 }
