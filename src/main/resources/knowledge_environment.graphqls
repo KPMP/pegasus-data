@@ -6,6 +6,17 @@ type Query {
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
   getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
+  getGeneDatasetInformation(geneSymbol: String): [GeneDatasetInformation]
+}
+
+type GeneDatasetInformation {
+  omicsType: String
+  dataType: String
+  dataTypeShort: String
+  akiCount: Long
+  ckdCount: Long
+  hrtCount: Long
+  participantCount: Long
 }
 
 type MyGeneInfoHit {

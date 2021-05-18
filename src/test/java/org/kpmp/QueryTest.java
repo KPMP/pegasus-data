@@ -19,6 +19,7 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
+import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
@@ -169,5 +170,32 @@ public class QueryTest {
 
 		assertEquals(expectedResult, dataTypesForConcept);
 		verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class));
+	}
+
+	@Test
+	public void getGeneDatasetInformation() throws Exception {
+		List<DatasetSummary> expectedResult = new ArrayList<>();
+
+		expectedResult.add(new DatasetSummary(
+			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
+			DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+			Long.valueOf(0),
+			Long.valueOf(0),
+			Long.valueOf(0),
+			Long.valueOf(0)));
+		expectedResult.add(new DatasetSummary(
+			OmicsTypeEnum.NONE.getEnum(),
+		 	FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(),
+			DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+			Long.valueOf(0),
+			Long.valueOf(0),
+			Long.valueOf(0),
+			Long.valueOf(0)));
+		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
+
+		List<DatasetSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
+
+		assertEquals(expectedResult, datasetSummary);
 	}
 }

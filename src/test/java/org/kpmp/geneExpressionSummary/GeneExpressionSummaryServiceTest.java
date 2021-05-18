@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.kpmp.datasetSummary.DatasetSummary;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,12 +24,18 @@ public class GeneExpressionSummaryServiceTest {
 	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
 	@Mock
 	private SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository;
+	@Mock
+	private SCRNAParticipantRepository scrnaParticipantRepository;
+	@Mock
+	private SNRNAParticipantRepository snrnaParticipantRepository;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		geneExpressionService = new GeneExpressionSummaryService(scrnaGeneExpressionRepository,
-				snrnaGeneExpressionRepository);
+				snrnaGeneExpressionRepository,
+				scrnaParticipantRepository,
+				snrnaParticipantRepository);
 	}
 
 	@After
@@ -167,5 +175,32 @@ public class GeneExpressionSummaryServiceTest {
 		assertEquals(Arrays.asList(), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+	}
+
+	@Test
+	public void testGetGeneDatasetInformation() throws Exception {
+		when(scrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "aki")).thenReturn(Long.valueOf(0));
+		when(scrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "ckd")).thenReturn(Long.valueOf(0));
+		when(scrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "hrt")).thenReturn(Long.valueOf(0));
+		when(scrnaParticipantRepository.getParticipantCount()).thenReturn(Long.valueOf(0));
+		when(snrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "aki")).thenReturn(Long.valueOf(0));
+		when(snrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "ckd")).thenReturn(Long.valueOf(0));
+		when(snrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "hrt")).thenReturn(Long.valueOf(0));		
+		when(snrnaParticipantRepository.getParticipantCount()).thenReturn(Long.valueOf(0));
+
+		List<DatasetSummary> result = geneExpressionService.getGeneDatasetInformation("AAA");
+		DatasetSummary resultDataSC = result.get(0);
+		DatasetSummary resultDataSN = result.get(1);
+
+		assertEquals(Long.valueOf(0), resultDataSC.getAkiCount());
+		assertEquals(Long.valueOf(0), resultDataSC.getCkdCount());
+		assertEquals(Long.valueOf(0), resultDataSC.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataSN.getAkiCount());
+		assertEquals(Long.valueOf(0), resultDataSN.getCkdCount());
+		assertEquals(Long.valueOf(0), resultDataSN.getHrtCount());
+		assertEquals("sc", resultDataSC.getDataTypeShort());
+		assertEquals("sn", resultDataSN.getDataTypeShort());
+		assertEquals(Long.valueOf(0), resultDataSN.getParticipantCount());
+
 	}
 }

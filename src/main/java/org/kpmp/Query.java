@@ -3,7 +3,9 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
+import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -79,6 +81,15 @@ public class Query implements GraphQLQueryResolver {
 	public PlotData getUmapPlotData(String dataType, String geneSymbol, String tissueType) throws Exception {
 		try {
 			return umapService.getPlotData(dataType, geneSymbol, tissueType);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	public List<DatasetSummary> getGeneDatasetInformation(String geneSymbol) throws Exception {
+		try {
+			return geneExpressionSummaryService.getGeneDatasetInformation(geneSymbol);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

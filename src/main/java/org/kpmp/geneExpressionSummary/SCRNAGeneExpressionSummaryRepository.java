@@ -27,4 +27,6 @@ public interface SCRNAGeneExpressionSummaryRepository
 	@Query(value = "SELECT COUNT(*) FROM sc_rnaseq scr WHERE scr.gene= :gene", nativeQuery = true)
 	long getCountByGene(@Param("gene") String gene);
 
+    @Query(value = "SELECT COUNT(*) FROM sc_rnaseq scr WHERE scr.gene= :geneSymbol AND scr.tissue_type= :tissueType", nativeQuery = true)
+	Long getCountByTissueAndGene(@Param("geneSymbol") String geneSymbol, @Param("tissueType") String tissueType);
 }
