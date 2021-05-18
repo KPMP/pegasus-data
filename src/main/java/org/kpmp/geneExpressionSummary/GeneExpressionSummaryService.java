@@ -111,7 +111,7 @@ public class GeneExpressionSummaryService {
 		));
 		geneSummary.add(new DatasetSummary(
 			OmicsTypeEnum.NONE.getEnum(),
-			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
+			FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(),
 			DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()),
 			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()),
