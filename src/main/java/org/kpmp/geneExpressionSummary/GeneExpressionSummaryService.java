@@ -104,18 +104,18 @@ public class GeneExpressionSummaryService {
 			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
 			DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()),
-			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()),
-			scrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+			scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
+			scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
+			scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 			scrnaParticipantRepository.getParticipantCount()
 		));
 		geneSummary.add(new DatasetSummary(
 			OmicsTypeEnum.NONE.getEnum(),
 			FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(),
 			DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
-			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()),
-			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()),
-			snrnaGeneExpressionRepository.getCountByTissueAndGene(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+			snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
+			snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
+			snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 			snrnaParticipantRepository.getParticipantCount()
 		));
 		return geneSummary;
