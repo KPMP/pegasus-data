@@ -179,13 +179,13 @@ public class GeneExpressionSummaryServiceTest {
 
 	@Test
 	public void testGetGeneDatasetInformation() throws Exception {
-		when(scrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "aki")).thenReturn(Long.valueOf(0));
-		when(scrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "ckd")).thenReturn(Long.valueOf(0));
-		when(scrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "hrt")).thenReturn(Long.valueOf(0));
+		when(scrnaGeneExpressionRepository.getCountByTissue("aki")).thenReturn(Long.valueOf(0));
+		when(scrnaGeneExpressionRepository.getCountByTissue("ckd")).thenReturn(Long.valueOf(0));
+		when(scrnaGeneExpressionRepository.getCountByTissue("hrt")).thenReturn(Long.valueOf(0));
 		when(scrnaParticipantRepository.getParticipantCount()).thenReturn(Long.valueOf(0));
-		when(snrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "aki")).thenReturn(Long.valueOf(0));
-		when(snrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "ckd")).thenReturn(Long.valueOf(0));
-		when(snrnaGeneExpressionRepository.getCountByTissueAndGene("AAA", "hrt")).thenReturn(Long.valueOf(0));		
+		when(snrnaGeneExpressionRepository.getCountByTissue("aki")).thenReturn(Long.valueOf(0));
+		when(snrnaGeneExpressionRepository.getCountByTissue("ckd")).thenReturn(Long.valueOf(0));
+		when(snrnaGeneExpressionRepository.getCountByTissue("hrt")).thenReturn(Long.valueOf(0));
 		when(snrnaParticipantRepository.getParticipantCount()).thenReturn(Long.valueOf(0));
 
 		List<DatasetSummary> result = geneExpressionService.getGeneDatasetInformation("AAA");
