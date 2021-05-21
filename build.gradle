@@ -59,7 +59,7 @@ task unpack(type: Copy) {
 }
 
 docker {
-    name "${project.group}/${jar.baseName}"
+    name "${project.group}/${jar.baseName}:latest"
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }
