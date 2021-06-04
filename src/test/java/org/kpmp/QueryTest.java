@@ -22,6 +22,9 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
+import org.kpmp.geneExpression.RTExpressionData;
+import org.kpmp.geneExpression.RTExpressionDataAllSegments;
+import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
@@ -47,12 +50,14 @@ public class QueryTest {
 	private UmapDataService umapDataService;
 	@Mock
 	private ClusterHierarchyService clusterHierarchyService;
+	@Mock
+	private RTExpressionDataService rtExpressionDataService;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
-				clusterHierarchyService);
+				clusterHierarchyService, rtExpressionDataService);
 	}
 
 	@After
@@ -197,5 +202,12 @@ public class QueryTest {
 		List<DatasetSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
 
 		assertEquals(expectedResult, datasetSummary);
+	}
+
+	@Test
+	public void testGetRTGeneExpression() throws Exception {
+		List data = Arrays.asList(new RTExpressionDataAllSegments());
+		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbol("all_segments", "gene")).thenReturn(data);
+		assertEquals(data, query.getRTGeneExpression("all_segments", "gene"));
 	}
 }

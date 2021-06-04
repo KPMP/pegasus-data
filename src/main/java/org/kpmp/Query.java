@@ -14,6 +14,8 @@ import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
+import org.kpmp.geneExpression.RTExpressionData;
+import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.umap.PlotData;
@@ -34,13 +36,14 @@ public class Query implements GraphQLQueryResolver {
 	private GeneExpressionSummaryService geneExpressionSummaryService;
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
+	private RTExpressionDataService rtExpressionDataService;
 
 	private Logger logger = LoggerFactory.getLogger(Query.class);
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
-			ClusterHierarchyService clusterHierarchyService) {
+			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
@@ -48,6 +51,7 @@ public class Query implements GraphQLQueryResolver {
 		this.umapService = umapService;
 		this.geneExpressionSummaryService = geneExpressionSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
+		this.rtExpressionDataService = rtExpressionDataService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException {
@@ -104,5 +108,14 @@ public class Query implements GraphQLQueryResolver {
 		}
 		throw new Exception("Must provide either a cluster or a gene symbol.");
 
+	}
+
+	public List <? extends RTExpressionData> getRTGeneExpression(String comparisonType, String geneSymbol) throws Exception {
+		try {
+			return rtExpressionDataService.getByComparisonTypeAndGeneSymbol(comparisonType, geneSymbol);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
 	}
 }
