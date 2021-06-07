@@ -7,6 +7,7 @@ type Query {
   getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getGeneDatasetInformation(geneSymbol: String): [GeneDatasetInformation]
+  getRTGeneExpression(comparisonType: String, geneSymbol: String): [RTGeneExpression]
 }
 
 type GeneDatasetInformation {
@@ -98,4 +99,15 @@ type ReferenceCluster {
 	color: String
 	clusterName: String
     clusterAbbreviation: String
+}
+
+type RTGeneExpression {
+    id: ID
+    geneSymbol: String
+    segment: String
+    foldChange: Float
+    pVal: Float
+    stdDev: Float
+    pValLog10: Float
+    tissueType: String
 }
