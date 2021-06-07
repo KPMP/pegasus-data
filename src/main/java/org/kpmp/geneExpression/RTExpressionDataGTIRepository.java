@@ -7,5 +7,6 @@ import java.util.List;
 
 @Repository
 public interface RTExpressionDataGTIRepository extends CrudRepository<RTExpressionDataGTI, Integer> {
-    List<RTExpressionDataGTI> findByGeneSymbol(String geneSymbol);
+    List<RTExpressionDataGTI> findByGeneSymbolAndTissueType(String geneSymbol, String tissueType);
+
 }

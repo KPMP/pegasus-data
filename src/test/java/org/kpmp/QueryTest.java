@@ -22,6 +22,7 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
+import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
@@ -207,7 +208,10 @@ public class QueryTest {
 	@Test
 	public void testGetRTGeneExpression() throws Exception {
 		List data = Arrays.asList(new RTExpressionDataAllSegments());
-		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbol("all_segments", "gene")).thenReturn(data);
-		assertEquals(data, query.getRTGeneExpression("all_segments", "gene"));
+		RTExpressionByTissueType rtExpressionByTissueType = new RTExpressionByTissueType();
+		rtExpressionByTissueType.setAki(data);
+		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene")).thenReturn(rtExpressionByTissueType);
+		assertEquals(rtExpressionByTissueType, query.getRTGeneExpressionByTissue("all_segments", "gene"));
+		assertEquals(rtExpressionByTissueType.getAki(), data);
 	}
 }

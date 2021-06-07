@@ -17,7 +17,12 @@ public enum TissueTypeEnum {
 		return this.participantTissueType;
 	}
 
-	public static TissueTypeEnum fromRequestType(String requestType) {
+    public String getRequestType() {
+        return this.requestType;
+    }
+
+
+    public static TissueTypeEnum fromRequestType(String requestType) {
 		if (ALL.requestType.equalsIgnoreCase(requestType)) {
 			return ALL;
 		} else if (AKI.requestType.equalsIgnoreCase(requestType)) {

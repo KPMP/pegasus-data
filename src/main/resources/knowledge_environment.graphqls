@@ -7,7 +7,7 @@ type Query {
   getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getGeneDatasetInformation(geneSymbol: String): [GeneDatasetInformation]
-  getRTGeneExpression(comparisonType: String, geneSymbol: String): [RTGeneExpression]
+  getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
 }
 
 type GeneDatasetInformation {
@@ -110,4 +110,11 @@ type RTGeneExpression {
     stdDev: Float
     pValLog10: Float
     tissueType: String
+}
+
+type RTGeneExpressionByTissue {
+    all: [RTGeneExpression]
+    hrt: [RTGeneExpression]
+    ckd: [RTGeneExpression]
+    aki: [RTGeneExpression]
 }

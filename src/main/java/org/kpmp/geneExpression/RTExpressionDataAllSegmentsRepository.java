@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RTExpressionDataAllSegments, Integer> {
-    List<RTExpressionDataAllSegments> findByGeneSymbol(String geneSymbol);
+    List<RTExpressionDataAllSegments> findByGeneSymbolAndTissueType(String geneSymbol, String tissueType);
 }
