@@ -32,4 +32,8 @@ public interface RTExpressionData {
     String getTissueType();
 
     void setTissueType(String tissueType);
+
+    Integer getSampleCount();
+
+    void setSampleCount(Integer sampleCount);
 }

@@ -26,6 +26,8 @@ public class RTExpressionDataGTI implements RTExpressionData {
     private Double pValLog10;
     @Column(name = "tissue_type")
     private String tissueType;
+    @Column(name = "sample_count")
+    private Integer sampleCount;
 
     public Integer getId() {
         return id;
@@ -89,6 +91,14 @@ public class RTExpressionDataGTI implements RTExpressionData {
 
     public void setTissueType(String tissueType) {
         this.tissueType = tissueType;
+    }
+
+    public Integer getSampleCount() {
+        return sampleCount;
+    }
+
+    public void setSampleCount(Integer sampleCount) {
+        this.sampleCount = sampleCount;
     }
 }
 

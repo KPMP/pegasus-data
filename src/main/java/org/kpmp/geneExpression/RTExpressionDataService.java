@@ -25,16 +25,16 @@ public class RTExpressionDataService {
         RTExpressionByTissueType rtExpressionByTissueType = new RTExpressionByTissueType();
         switch (rtComparisonTypeEnum) {
             case ALL_SEGMENTS:
-                rtExpressionByTissueType.setAki(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()));
-                rtExpressionByTissueType.setCkd(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()));
-                rtExpressionByTissueType.setAll(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()));
-                rtExpressionByTissueType.setHrt(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getRequestType()));
+                rtExpressionByTissueType.setAki(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()));
+                rtExpressionByTissueType.setCkd(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()));
+                rtExpressionByTissueType.setAll(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()));
+                rtExpressionByTissueType.setHrt(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getRequestType()));
                 break;
             case GLOM_V_TI:
-                rtExpressionByTissueType.setAki(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()));
-                rtExpressionByTissueType.setCkd(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()));
-                rtExpressionByTissueType.setAll(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()));
-                rtExpressionByTissueType.setHrt(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getRequestType()));
+                rtExpressionByTissueType.setAki(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()));
+                rtExpressionByTissueType.setCkd(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()));
+                rtExpressionByTissueType.setAll(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()));
+                rtExpressionByTissueType.setHrt(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getRequestType()));
                 break;
             case UNKNOWN:
                 rtExpressionByTissueType = null;

@@ -110,6 +110,7 @@ type RTGeneExpression {
     stdDev: Float
     pValLog10: Float
     tissueType: String
+    sampleCount: Int
 }
 
 type RTGeneExpressionByTissue {

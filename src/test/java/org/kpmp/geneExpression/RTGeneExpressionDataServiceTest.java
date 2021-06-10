@@ -53,17 +53,17 @@ public class RTGeneExpressionDataServiceTest {
         RTExpressionDataGTI gallData = new RTExpressionDataGTI();
         List<RTExpressionDataGTI> gallDataList = Arrays.asList(gallData);
 
-        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType("gene", "AKI")).thenReturn(allAkiDataList);
-        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType("gene", "AKI")).thenReturn(gAkiDataList);
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "AKI")).thenReturn(allAkiDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "AKI")).thenReturn(gAkiDataList);
 
-        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType("gene", "CKD")).thenReturn(allckdDataList);
-        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType("gene", "CKD")).thenReturn(gckdDataList);
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "CKD")).thenReturn(allckdDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "CKD")).thenReturn(gckdDataList);
 
-        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType("gene", "hrt")).thenReturn(allhrtDataList);
-        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType("gene", "hrt")).thenReturn(ghrtDataList);
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "hrt")).thenReturn(allhrtDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "hrt")).thenReturn(ghrtDataList);
 
-        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueType("gene", "all")).thenReturn(allallDataList);
-        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueType("gene", "all")).thenReturn(gallDataList);
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "all")).thenReturn(allallDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "all")).thenReturn(gallDataList);
 
         RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
         RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
