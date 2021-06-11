@@ -32,16 +32,76 @@ public class RTGeneExpressionDataServiceTest {
     }
 
     @Test
-    public void testGetByComparisonTypeGeneSymbolAndTissueType() throws Exception {
-        RTExpressionDataAllSegments aData = new RTExpressionDataAllSegments();
-        List<RTExpressionDataAllSegments> aDataList = Arrays.asList(aData);
-        RTExpressionDataGTI gData = new RTExpressionDataGTI();
-        List<RTExpressionDataGTI> gDataList = Arrays.asList(gData);
-        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbol("gene")).thenReturn(aDataList);
-        when(rtExpressionDataGTIRepository.findByGeneSymbol("gene")).thenReturn(gDataList);
-        assertEquals(aDataList, rtExpressionDataService.getByComparisonTypeAndGeneSymbol("all_segments", "gene"));
-        assertEquals(gDataList, rtExpressionDataService.getByComparisonTypeAndGeneSymbol("glom_tub", "gene"));
-        assertEquals(null, rtExpressionDataService.getByComparisonTypeAndGeneSymbol("blah", "gene"));
+    public void testGetByComparisonTypeAndGeneSymbolPerTissue_all() throws Exception {
+
+        RTExpressionDataAllSegments allallData = new RTExpressionDataAllSegments();
+        List<RTExpressionDataAllSegments> allallDataList = Arrays.asList(allallData);
+        RTExpressionDataGTI gallData = new RTExpressionDataGTI();
+        List<RTExpressionDataGTI> gallDataList = Arrays.asList(gallData);
+
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "all")).thenReturn(allallDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "all")).thenReturn(gallDataList);
+
+        RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
+        RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
+
+        assertEquals(rtExpressionByTissueTypeAll.getAll(), allallDataList);
+        assertEquals(rtExpressionByTissueTypeGti.getAll(), gallDataList);
+
     }
 
+    @Test
+    public void testGetByComparisonTypeAndGeneSymbolPerTissue_hrt() throws Exception {
+
+        RTExpressionDataAllSegments allhrtData = new RTExpressionDataAllSegments();
+        List<RTExpressionDataAllSegments> allhrtDataList = Arrays.asList(allhrtData);
+        RTExpressionDataGTI ghrtData = new RTExpressionDataGTI();
+        List<RTExpressionDataGTI> ghrtDataList = Arrays.asList(ghrtData);
+
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "hrt")).thenReturn(allhrtDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "hrt")).thenReturn(ghrtDataList);
+
+        RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
+        RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
+
+        assertEquals(rtExpressionByTissueTypeAll.getHrt(), allhrtDataList);
+        assertEquals(rtExpressionByTissueTypeGti.getHrt(), ghrtDataList);
+
+    }
+
+    @Test
+    public void testGetByComparisonTypeAndGeneSymbolPerTissue_ckd() throws Exception {
+        RTExpressionDataAllSegments allckdData = new RTExpressionDataAllSegments();
+        List<RTExpressionDataAllSegments> allckdDataList = Arrays.asList(allckdData);
+        RTExpressionDataGTI gckdData = new RTExpressionDataGTI();
+        List<RTExpressionDataGTI> gckdDataList = Arrays.asList(gckdData);
+
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "CKD")).thenReturn(allckdDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "CKD")).thenReturn(gckdDataList);
+
+        RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
+        RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
+
+        assertEquals(rtExpressionByTissueTypeAll.getCkd(), allckdDataList);
+        assertEquals(rtExpressionByTissueTypeGti.getCkd(), gckdDataList);
+
+    }
+
+    @Test
+    public void testGetByComparisonTypeAndGeneSymbolPerTissue_aki() throws Exception {
+        RTExpressionDataAllSegments allAkiData = new RTExpressionDataAllSegments();
+        List<RTExpressionDataAllSegments> allAkiDataList = Arrays.asList(allAkiData);
+        RTExpressionDataGTI gAkiData = new RTExpressionDataGTI();
+        List<RTExpressionDataGTI> gAkiDataList = Arrays.asList(gAkiData);
+
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "AKI")).thenReturn(allAkiDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "AKI")).thenReturn(gAkiDataList);
+
+        RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
+        RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
+
+        assertEquals(rtExpressionByTissueTypeAll.getAki(), allAkiDataList);
+        assertEquals(rtExpressionByTissueTypeGti.getAki(), gAkiDataList);
+
+    }
 }

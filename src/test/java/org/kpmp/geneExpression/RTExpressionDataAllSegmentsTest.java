@@ -67,4 +67,10 @@ class RTExpressionDataAllSegmentsTest {
         rtExpressionDataAllSegments.setTissueType("tt");
         assertEquals("tt", rtExpressionDataAllSegments.getTissueType());
     }
+
+    @Test
+    void setSampleCount() {
+        rtExpressionDataAllSegments.setSampleCount(12);
+        assertEquals(12, (int) rtExpressionDataAllSegments.getSampleCount());
+    }
 }

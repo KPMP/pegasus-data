@@ -67,4 +67,11 @@ class RTExpressionDataGTITest {
         rtExpressionDataGTI.setTissueType("tt");
         assertEquals("tt", rtExpressionDataGTI.getTissueType());
     }
+
+    @Test
+    void setSampleCount() {
+        rtExpressionDataGTI.setSampleCount(12);
+        assertEquals(12, (int) rtExpressionDataGTI.getSampleCount());
+    }
+
 }

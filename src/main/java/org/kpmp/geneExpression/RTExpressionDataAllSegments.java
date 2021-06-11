@@ -26,6 +26,8 @@ public class RTExpressionDataAllSegments implements RTExpressionData {
     private Double pValLog10;
     @Column(name = "tissue_type")
     private String tissueType;
+    @Column(name = "sample_count")
+    private Integer sampleCount;
 
     @Override
     public Integer getId() {
@@ -105,6 +107,16 @@ public class RTExpressionDataAllSegments implements RTExpressionData {
     @Override
     public void setTissueType(String tissueType) {
         this.tissueType = tissueType;
+    }
+
+    @Override
+    public Integer getSampleCount() {
+        return sampleCount;
+    }
+
+    @Override
+    public void setSampleCount(Integer sampleCount) {
+        this.sampleCount = sampleCount;
     }
 }
 
