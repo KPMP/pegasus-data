@@ -99,4 +99,18 @@ public class ClusterHierarchyServiceTest {
 		assertEquals(0, dataTypes.size());
 		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
+
+	@Test
+	public void testFindDataTypesByClusterNameWhenRTY() throws Exception {
+		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
+		clusterHierarchy.setIsSingleCellCluster("N");
+		clusterHierarchy.setIsSingleNucCluster("N");
+		clusterHierarchy.setIsRegionalTranscriptomics("Y");
+		when(clusterHierarchyRepo.findFirstByClusterOrRegion("cluster")).thenReturn(clusterHierarchy);
+
+		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
+
+		assertEquals(1, dataTypes.size());
+		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
+	}
 }
