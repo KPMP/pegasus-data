@@ -9,6 +9,7 @@ import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 import org.kpmp.TissueTypeEnum;
+import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +20,22 @@ public class GeneExpressionSummaryService {
 	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
 	private SCRNAParticipantRepository scrnaParticipantRepository;
 	private SNRNAParticipantRepository snrnaParticipantRepository;
+	private RTSummaryRepository rtSummaryRepository;
+	RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
 
 	@Autowired
 	public GeneExpressionSummaryService(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
 			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
 			SCRNAParticipantRepository scrnaParticipantRepository,
-			SNRNAParticipantRepository snrnaParticipantRepository) {
+			SNRNAParticipantRepository snrnaParticipantRepository,
+			RTSummaryRepository rtSummaryRepository,
+			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
 		this.scrnaParticipantRepository = scrnaParticipantRepository;
 		this.snrnaParticipantRepository = snrnaParticipantRepository;
+		this.rtSummaryRepository = rtSummaryRepository;
+		this.rtExpressionDataAllSegmentsRepository = rtExpressionDataAllSegmentsRepository;
 	}
 
 	public List<? extends GeneExpressionSummary> getByDataTypeTissueTypeAndGene(String dataType, String geneSymbol,
@@ -94,12 +101,16 @@ public class GeneExpressionSummaryService {
 		if (snCountByGene != 0) {
 			dataTypes.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 		}
+		long rtCountByGene = rtExpressionDataAllSegmentsRepository.getCountByGene(gene);
+		if (rtCountByGene != 0) {
+			dataTypes.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+		}
 		return dataTypes;
 	}
 
 	public List<DatasetSummary> getGeneDatasetInformation(String geneSymbol) {
 		List<DatasetSummary> geneSummary = new ArrayList<>();
-
+		RTSummaryValue rtSummaryValue = rtSummaryRepository.getCountByTissue();
 		geneSummary.add(new DatasetSummary(
 			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
@@ -118,6 +129,16 @@ public class GeneExpressionSummaryService {
 			snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 			snrnaParticipantRepository.getParticipantCount()
 		));
+		geneSummary.add(new DatasetSummary(
+				OmicsTypeEnum.NONE.getEnum(),
+				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFull(),
+				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
+				rtSummaryValue.getAkiCount().longValue(),
+				rtSummaryValue.getCkdCount().longValue(),
+				rtSummaryValue.getHrtCount().longValue(),
+				rtSummaryValue.getAllCount().longValue()
+		));
+
 		return geneSummary;
 	}
 }

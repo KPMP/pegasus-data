@@ -8,6 +8,7 @@ type Query {
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getGeneDatasetInformation(geneSymbol: String): [GeneDatasetInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
+  getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
 }
 
 type GeneDatasetInformation {
@@ -79,6 +80,8 @@ type ClusterHierarchy {
 	clusterName: String
 	isSingleNucCluster: String
 	isSingleCellCluster: String
+    isRegionalTranscriptomics: String
+    cellTypeOrder: Float
 }
 
 type PlotData {

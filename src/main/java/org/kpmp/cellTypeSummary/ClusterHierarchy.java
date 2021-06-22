@@ -1,5 +1,7 @@
 package org.kpmp.cellTypeSummary;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,8 +29,12 @@ public class ClusterHierarchy {
 	private String isSingleCellCluster;
 	@Column(name = "is_single_nuc")
 	private String isSingleNucCluster;
+	@Column(name = "is_rt")
+    private String isRegionalTranscriptomics;
 	@Column(name = "cell_type")
 	private String cellType;
+	@Column(name = "cell_type_order")
+    private Double cellTypeOrder;
 
 	public int getCellTypeId() {
 		return cellTypeId;
@@ -38,6 +44,7 @@ public class ClusterHierarchy {
 		this.cellTypeId = cellTypeId;
 	}
 
+    @Nullable
 	public int getClusterId() {
 		return clusterId;
 	}
@@ -54,6 +61,7 @@ public class ClusterHierarchy {
 		this.structureRegion = structureRegion;
 	}
 
+    @Nullable
 	public String getStructureSubregion() {
 		return structureSubregion;
 	}
@@ -62,6 +70,7 @@ public class ClusterHierarchy {
 		this.structureSubregion = structureSubregion;
 	}
 
+    @Nullable
 	public String getClusterName() {
 		return clusterName;
 	}
@@ -86,4 +95,29 @@ public class ClusterHierarchy {
 		this.isSingleNucCluster = isSingleNucCluster;
 	}
 
+    public String getIsRegionalTranscriptomics() {
+        return isRegionalTranscriptomics;
+    }
+
+    public void setIsRegionalTranscriptomics(String isRegionalTranscriptomics) {
+        this.isRegionalTranscriptomics = isRegionalTranscriptomics;
+    }
+
+    @Nullable
+    public Double getCellTypeOrder() {
+        return cellTypeOrder;
+    }
+
+    public void setCellTypeOrder(Double cellTypeOrder) {
+        this.cellTypeOrder = cellTypeOrder;
+    }
+
+    @Nullable
+    public String getCellType() {
+        return cellType;
+    }
+
+    public void setCellType(String cellType) {
+        this.cellType = cellType;
+    }
 }

@@ -23,13 +23,16 @@ public class ClusterHierarchyService {
 
 	public List<String> findDataTypesByClusterName(String clusterName) {
 		List<String> dataTypesRepresented = new ArrayList<>();
-		ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterName(clusterName);
+		ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterOrRegion(clusterName);
 		if (clustersInDataTypes.getIsSingleCellCluster().equalsIgnoreCase("Y")) {
 			dataTypesRepresented.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
 		}
 		if (clustersInDataTypes.getIsSingleNucCluster().equalsIgnoreCase("Y")) {
 			dataTypesRepresented.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 		}
+        if (clustersInDataTypes.getIsRegionalTranscriptomics().equalsIgnoreCase("Y")) {
+            dataTypesRepresented.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+        }
 		return dataTypesRepresented;
 	}
 }

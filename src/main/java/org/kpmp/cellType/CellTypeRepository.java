@@ -17,6 +17,6 @@ public interface CellTypeRepository extends CrudRepository<CellType, Integer> {
 			+ "    WHERE ct.cell_type LIKE %:searchTerm% OR ct.structure_region LIKE %:searchTerm% OR ct.structure_subregion LIKE %:searchTerm%", nativeQuery = true)
 	List<CellType> findByCellTypeContainingOrSynonymContaining(@Param("searchTerm") String searchTerm);
 
-	List<CellType> findAllByOrderByCellTypeOrderingAsc();
+	List<CellType> findAllByCellTypeIsNotNullOrderByCellTypeOrdering();
 
 }

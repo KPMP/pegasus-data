@@ -16,6 +16,7 @@ import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionData;
+import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
@@ -114,6 +115,15 @@ public class Query implements GraphQLQueryResolver {
 	public RTExpressionByTissueType getRTGeneExpressionByTissue(String comparisonType, String geneSymbol) throws Exception {
 		try {
 			return rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue(comparisonType, geneSymbol);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(String structure) throws Exception {
+		try {
+			return rtExpressionDataService.getByStructure(structure);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

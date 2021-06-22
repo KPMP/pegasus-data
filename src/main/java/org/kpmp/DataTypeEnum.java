@@ -2,7 +2,7 @@ package org.kpmp;
 
 public enum DataTypeEnum {
 
-	SINGLE_CELL("sc"), SINGLE_NUCLEUS("sn"), UNKNOWN("");
+	SINGLE_CELL("sc"), SINGLE_NUCLEUS("sn"), REGIONAL_TRANSCRIPTOMICS("rt"), UNKNOWN("");
 
 	private String abbreviation;
 
@@ -19,6 +19,8 @@ public enum DataTypeEnum {
 			return SINGLE_CELL;
 		} else if (SINGLE_NUCLEUS.abbreviation.equals(abbreviation)) {
 			return SINGLE_NUCLEUS;
+		} else if (REGIONAL_TRANSCRIPTOMICS.abbreviation.equals(abbreviation)) {
+			return REGIONAL_TRANSCRIPTOMICS;
 		}
 		return UNKNOWN;
 	}
