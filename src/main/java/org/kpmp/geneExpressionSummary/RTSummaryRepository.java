@@ -9,6 +9,4 @@ public interface RTSummaryRepository extends CrudRepository<RTSummaryValue, Stri
             "FROM rt_summary WHERE segment != 'Bulk'", nativeQuery = true)
     RTSummaryValue getCountByTissue();
 
-    @Query(value = "SELECT MAX(all_count) from rt_summary WHERE segment != 'Bulk'", nativeQuery = true)
-    long getParticipantCount();
 }

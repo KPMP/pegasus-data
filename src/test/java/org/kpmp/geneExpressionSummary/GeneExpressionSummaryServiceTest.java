@@ -135,6 +135,7 @@ public class GeneExpressionSummaryServiceTest {
 	public void testFindDataTypesByGeneWhenBothHaveData() throws Exception {
 		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
 		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+		when(rtExpressionDataAllSegmentsRepository.getCountByGene("gene")).thenReturn(1l);
 
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
@@ -143,12 +144,14 @@ public class GeneExpressionSummaryServiceTest {
 				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
 	}
 
 	@Test
 	public void testFindDataTypesByGeneWhenSingleCellHasData() throws Exception {
 		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(0l);
 		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+		when(rtExpressionDataAllSegmentsRepository.getCountByGene("gene")).thenReturn((long) 101);
 
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
@@ -156,6 +159,7 @@ public class GeneExpressionSummaryServiceTest {
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
 	}
 
 	@Test
@@ -205,15 +209,20 @@ public class GeneExpressionSummaryServiceTest {
 		List<DatasetSummary> result = geneExpressionService.getGeneDatasetInformation("AAA");
 		DatasetSummary resultDataSC = result.get(0);
 		DatasetSummary resultDataSN = result.get(1);
+		DatasetSummary resultDataRt = result.get(2);
 
 		assertEquals(Long.valueOf(0), resultDataSC.getAkiCount());
 		assertEquals(Long.valueOf(0), resultDataSC.getCkdCount());
 		assertEquals(Long.valueOf(0), resultDataSC.getHrtCount());
 		assertEquals(Long.valueOf(0), resultDataSN.getAkiCount());
 		assertEquals(Long.valueOf(0), resultDataSN.getCkdCount());
-		assertEquals(Long.valueOf(0), resultDataSN.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getAkiCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getCkdCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getHrtCount());
 		assertEquals("sc", resultDataSC.getDataTypeShort());
 		assertEquals("sn", resultDataSN.getDataTypeShort());
+		assertEquals("rt", resultDataRt.getDataTypeShort());
 		assertEquals(Long.valueOf(0), resultDataSN.getParticipantCount());
 
 	}
