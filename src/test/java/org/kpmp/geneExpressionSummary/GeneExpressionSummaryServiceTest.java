@@ -139,9 +139,9 @@ public class GeneExpressionSummaryServiceTest {
 
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
-		assertEquals(2, dataTypes.size());
+		assertEquals(3, dataTypes.size());
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
@@ -155,8 +155,8 @@ public class GeneExpressionSummaryServiceTest {
 
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
-		assertEquals(1, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
+		assertEquals(2, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
