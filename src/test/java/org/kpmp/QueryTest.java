@@ -214,4 +214,11 @@ public class QueryTest {
 		assertEquals(rtExpressionByTissueType, query.getRTGeneExpressionByTissue("all_segments", "gene"));
 		assertEquals(rtExpressionByTissueType.getAki(), data);
 	}
+
+	@Test
+	public void testGetRTGeneExpressionByStructure() throws Exception {
+		List data = Arrays.asList(new RTExpressionDataAllSegments());
+		when(rtExpressionDataService.getByStructure("tubulers")).thenReturn(data);
+		assertEquals(data, query.getRTGeneExpressionByStructure("tubulers"));
+	}
 }

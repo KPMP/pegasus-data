@@ -16,7 +16,7 @@ public class CellTypeService {
 	}
 
 	public CellTypeHierarchy getCellTypeHierarchy() {
-		List<CellType> cellTypes = cellTypeRepo.findAllByOrderByCellTypeOrderingAsc();
+		List<CellType> cellTypes = cellTypeRepo.findAllByCellTypeIsNotNullOrderByCellTypeOrdering();
 		CellTypeHierarchy hierarchy = new CellTypeHierarchy();
 
 		for (CellType cellType : cellTypes) {

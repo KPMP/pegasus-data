@@ -14,6 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kpmp.DataTypeEnum;
+import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -28,6 +29,10 @@ public class GeneExpressionSummaryServiceTest {
 	private SCRNAParticipantRepository scrnaParticipantRepository;
 	@Mock
 	private SNRNAParticipantRepository snrnaParticipantRepository;
+	@Mock
+	private RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
+	@Mock
+	private RTSummaryRepository rtSummaryRepository;
 
 	@Before
 	public void setUp() throws Exception {
@@ -35,7 +40,9 @@ public class GeneExpressionSummaryServiceTest {
 		geneExpressionService = new GeneExpressionSummaryService(scrnaGeneExpressionRepository,
 				snrnaGeneExpressionRepository,
 				scrnaParticipantRepository,
-				snrnaParticipantRepository);
+				snrnaParticipantRepository,
+				rtSummaryRepository,
+				rtExpressionDataAllSegmentsRepository);
 	}
 
 	@After
@@ -128,27 +135,31 @@ public class GeneExpressionSummaryServiceTest {
 	public void testFindDataTypesByGeneWhenBothHaveData() throws Exception {
 		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
 		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+		when(rtExpressionDataAllSegmentsRepository.getCountByGene("gene")).thenReturn(1l);
 
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
-		assertEquals(2, dataTypes.size());
+		assertEquals(3, dataTypes.size());
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
 	}
 
 	@Test
 	public void testFindDataTypesByGeneWhenSingleCellHasData() throws Exception {
 		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(0l);
 		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
+		when(rtExpressionDataAllSegmentsRepository.getCountByGene("gene")).thenReturn((long) 101);
 
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
-		assertEquals(1, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
+		assertEquals(2, dataTypes.size());
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
+		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
 	}
 
 	@Test
@@ -179,6 +190,13 @@ public class GeneExpressionSummaryServiceTest {
 
 	@Test
 	public void testGetGeneDatasetInformation() throws Exception {
+		RTSummaryValue rtCountsByTissue = new RTSummaryValue();
+		rtCountsByTissue.setAkiCount(0);
+		rtCountsByTissue.setCkdCount(0);
+		rtCountsByTissue.setHrtCount(0);
+		rtCountsByTissue.setAllCount(0);
+
+		when(rtSummaryRepository.getCountByTissue()).thenReturn(rtCountsByTissue);
 		when(scrnaGeneExpressionRepository.getCountByTissue("aki")).thenReturn(Long.valueOf(0));
 		when(scrnaGeneExpressionRepository.getCountByTissue("ckd")).thenReturn(Long.valueOf(0));
 		when(scrnaGeneExpressionRepository.getCountByTissue("hrt")).thenReturn(Long.valueOf(0));
@@ -191,15 +209,20 @@ public class GeneExpressionSummaryServiceTest {
 		List<DatasetSummary> result = geneExpressionService.getGeneDatasetInformation("AAA");
 		DatasetSummary resultDataSC = result.get(0);
 		DatasetSummary resultDataSN = result.get(1);
+		DatasetSummary resultDataRt = result.get(2);
 
 		assertEquals(Long.valueOf(0), resultDataSC.getAkiCount());
 		assertEquals(Long.valueOf(0), resultDataSC.getCkdCount());
 		assertEquals(Long.valueOf(0), resultDataSC.getHrtCount());
 		assertEquals(Long.valueOf(0), resultDataSN.getAkiCount());
 		assertEquals(Long.valueOf(0), resultDataSN.getCkdCount());
-		assertEquals(Long.valueOf(0), resultDataSN.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getAkiCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getCkdCount());
+		assertEquals(Long.valueOf(0), resultDataRt.getHrtCount());
 		assertEquals("sc", resultDataSC.getDataTypeShort());
 		assertEquals("sn", resultDataSN.getDataTypeShort());
+		assertEquals("rt", resultDataRt.getDataTypeShort());
 		assertEquals(Long.valueOf(0), resultDataSN.getParticipantCount());
 
 	}

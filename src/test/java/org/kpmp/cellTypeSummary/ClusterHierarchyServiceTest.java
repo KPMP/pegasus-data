@@ -44,14 +44,15 @@ public class ClusterHierarchyServiceTest {
 		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
 		clusterHierarchy.setIsSingleCellCluster("Y");
 		clusterHierarchy.setIsSingleNucCluster("Y");
-		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+		clusterHierarchy.setIsRegionalTranscriptomics("N");
+		when(clusterHierarchyRepo.findFirstByClusterOrRegion("cluster")).thenReturn(clusterHierarchy);
 
 		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
 
 		assertEquals(2, dataTypes.size());
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
-		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
 
 	@Test
@@ -59,13 +60,15 @@ public class ClusterHierarchyServiceTest {
 		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
 		clusterHierarchy.setIsSingleCellCluster("Y");
 		clusterHierarchy.setIsSingleNucCluster("N");
-		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+		clusterHierarchy.setIsRegionalTranscriptomics("N");
+
+		when(clusterHierarchyRepo.findFirstByClusterOrRegion("cluster")).thenReturn(clusterHierarchy);
 
 		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
 
 		assertEquals(1, dataTypes.size());
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
-		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
 
 	@Test
@@ -73,13 +76,14 @@ public class ClusterHierarchyServiceTest {
 		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
 		clusterHierarchy.setIsSingleCellCluster("N");
 		clusterHierarchy.setIsSingleNucCluster("y");
-		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+		clusterHierarchy.setIsRegionalTranscriptomics("N");
+		when(clusterHierarchyRepo.findFirstByClusterOrRegion("cluster")).thenReturn(clusterHierarchy);
 
 		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
 
 		assertEquals(1, dataTypes.size());
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
-		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
 
 	@Test
@@ -87,11 +91,26 @@ public class ClusterHierarchyServiceTest {
 		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
 		clusterHierarchy.setIsSingleCellCluster("N");
 		clusterHierarchy.setIsSingleNucCluster("N");
-		when(clusterHierarchyRepo.findFirstByClusterName("cluster")).thenReturn(clusterHierarchy);
+		clusterHierarchy.setIsRegionalTranscriptomics("N");
+		when(clusterHierarchyRepo.findFirstByClusterOrRegion("cluster")).thenReturn(clusterHierarchy);
 
 		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
 
 		assertEquals(0, dataTypes.size());
-		verify(clusterHierarchyRepo).findFirstByClusterName("cluster");
+		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
+	}
+
+	@Test
+	public void testFindDataTypesByClusterNameWhenRTY() throws Exception {
+		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
+		clusterHierarchy.setIsSingleCellCluster("N");
+		clusterHierarchy.setIsSingleNucCluster("N");
+		clusterHierarchy.setIsRegionalTranscriptomics("Y");
+		when(clusterHierarchyRepo.findFirstByClusterOrRegion("cluster")).thenReturn(clusterHierarchy);
+
+		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
+
+		assertEquals(1, dataTypes.size());
+		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
 }

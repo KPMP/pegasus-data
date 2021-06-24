@@ -14,9 +14,9 @@ public interface CellTypeRepository extends CrudRepository<CellType, Integer> {
 			+ "    JOIN celltype_synonym cs ON (ct.cell_type_id = cs.cell_type_id AND cs.cell_type_synonym LIKE %:searchTerm%) "
 			+ "    UNION " + "    SELECT ct.*, cs.* " + "    FROM cell_type ct "
 			+ "    LEFT JOIN celltype_synonym cs ON ct.cell_type_id = cs.cell_type_id "
-			+ "    WHERE ct.cell_type LIKE %:searchTerm% OR ct.structure_region LIKE %:searchTerm% OR ct.structure_subregion LIKE %:searchTerm%", nativeQuery = true)
+			+ "    WHERE ct.cell_type LIKE %:searchTerm% OR ct.structure_region LIKE %:searchTerm% OR ct.structure_subregion LIKE %:searchTerm% AND ct.cell_type IS NOT NULL", nativeQuery = true)
 	List<CellType> findByCellTypeContainingOrSynonymContaining(@Param("searchTerm") String searchTerm);
 
-	List<CellType> findAllByOrderByCellTypeOrderingAsc();
+	List<CellType> findAllByCellTypeIsNotNullOrderByCellTypeOrdering();
 
 }

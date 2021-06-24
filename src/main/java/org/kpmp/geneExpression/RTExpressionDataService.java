@@ -42,4 +42,8 @@ public class RTExpressionDataService {
         return rtExpressionByTissueType;
     }
 
+    public List<? extends RTExpressionData> getByStructure(String structure) {
+        return rtExpressionDataAllSegmentsRepository.findByStructure(structure);
+    }
+
 }

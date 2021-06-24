@@ -3,7 +3,6 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 
 import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.autocomplete.AutocompleteResult;
@@ -114,6 +113,15 @@ public class Query implements GraphQLQueryResolver {
 	public RTExpressionByTissueType getRTGeneExpressionByTissue(String comparisonType, String geneSymbol) throws Exception {
 		try {
 			return rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue(comparisonType, geneSymbol);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(String structure) throws Exception {
+		try {
+			return rtExpressionDataService.getByStructure(structure);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

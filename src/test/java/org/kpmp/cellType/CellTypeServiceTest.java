@@ -38,7 +38,7 @@ public class CellTypeServiceTest {
 		cellType1.setStructureSubregion("subregion 1");
 		cellType1.setStructureRegion("region 1");
 		cellTypes.add(cellType1);
-		when(cellTypeRepo.findAllByOrderByCellTypeOrderingAsc()).thenReturn(cellTypes);
+		when(cellTypeRepo.findAllByCellTypeIsNotNullOrderByCellTypeOrdering()).thenReturn(cellTypes);
 
 		CellTypeHierarchy cellTypeHierarchy = service.getCellTypeHierarchy();
 
