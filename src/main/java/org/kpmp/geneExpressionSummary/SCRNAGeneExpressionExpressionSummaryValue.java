@@ -1,14 +1,14 @@
 package org.kpmp.geneExpressionSummary;
 
-import org.kpmp.DataTypeEnum;
-import org.springframework.lang.Nullable;
+import java.beans.Transient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.kpmp.DataTypeEnum;
 
 @Entity
 @Table(name = "sc_rnaseq")
@@ -32,8 +32,6 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 	private Double pct1;
 	@Column(name = "pct_2")
 	private Double pct2;
-	@Column(name = "specificity")
-	private Double specificity;
 	@Column(name = "avg_exp")
 	private Double avgExp;
 	@Id
@@ -79,6 +77,7 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -105,20 +104,24 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		this.gene = gene;
 	}
 
+	@Override
 	@Nullable
 	public Double getPVal() {
 		return pVal;
 	}
 
+	@Override
 	public void setPVal(Double pVal) {
 		this.pVal = pVal;
 	}
 
+	@Override
 	@Nullable
 	public Double getPValAdj() {
 		return pValAdj;
 	}
 
+	@Override
 	public void setPValAdj(Double pValAdj) {
 		this.pValAdj = pValAdj;
 	}
@@ -129,6 +132,7 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		return foldChange;
 	}
 
+	@Override
 	public void setFoldChange(Double foldChange) {
 		this.foldChange = foldChange;
 	}
@@ -139,6 +143,7 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		return pct1;
 	}
 
+	@Override
 	public void setPct1(Double pct1) {
 		this.pct1 = pct1;
 	}
@@ -149,17 +154,9 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		return pct2;
 	}
 
+	@Override
 	public void setPct2(Double pct2) {
 		this.pct2 = pct2;
-	}
-
-	@Nullable
-	public Double getSpecificity() {
-		return specificity;
-	}
-
-	public void setSpecificity(Double specificity) {
-		this.specificity = specificity;
 	}
 
 	@Override
@@ -168,6 +165,7 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		return avgExp;
 	}
 
+	@Override
 	public void setAvgExp(Double avgExp) {
 		this.avgExp = avgExp;
 	}
@@ -195,7 +193,8 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		if (!(obj instanceof SCRNAGeneExpressionExpressionSummaryValue))
 			return false;
 		SCRNAGeneExpressionExpressionSummaryValue scrnaGeneExpressionExpressionSummaryValue = (SCRNAGeneExpressionExpressionSummaryValue) obj;
-		return (scrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene()) && scrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
+		return (scrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene())
+				&& scrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
 	}
 
 }
