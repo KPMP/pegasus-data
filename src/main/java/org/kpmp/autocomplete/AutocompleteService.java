@@ -9,8 +9,6 @@ import org.kpmp.cellType.CellType;
 import org.kpmp.cellType.CellTypeRepository;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,6 @@ public class AutocompleteService {
 
 	private GeneService geneService;
 	private CellTypeRepository cellTypeRepository;
-	private Logger logger = LoggerFactory.getLogger(AutocompleteService.class);
 
 	@Autowired
 	public AutocompleteService(GeneService geneService, CellTypeRepository cellTypeRepository) {
@@ -57,10 +54,7 @@ public class AutocompleteService {
 		List<AutocompleteResult> autocompleteResults = new ArrayList<>();
 		List<Integer> idsAdded = new ArrayList<>();
 
-		logger.warn("converting cell types to autocomplete results");
-
 		for (CellType cellType : cellTypeListNoDupes) {
-			logger.warn("added cell type: " + cellType.getCellType() + " with id: " + cellType.getCellTypeId());
 			autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null,
 					Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, cellType.getSynonymStringList()));
 			idsAdded.add(cellType.getCellTypeId());
@@ -68,13 +62,9 @@ public class AutocompleteService {
 
 		List<String> subregionHits = new ArrayList<>();
 		for (CellType subregion : subregions) {
-			if (subregionHits.contains(subregion.getStructureSubregion())
-					|| idsAdded.contains(subregion.getCellTypeId())) {
-				logger.warn("skipped subregion: " + subregion.getStructureSubregion() + " with id: "
-						+ subregion.getCellTypeId());
-			} else {
-				logger.warn("added subregion: " + subregion.getStructureSubregion() + " with id: "
-						+ subregion.getCellTypeId());
+
+			if (!(subregionHits.contains(subregion.getStructureSubregion())
+					|| idsAdded.contains(subregion.getCellTypeId()))) {
 				autocompleteResults.add(new AutocompleteResult(subregion.getStructureSubregion(), null,
 						Integer.toString(subregion.getCellTypeId()), TYPE_CELL_TYPE, null));
 				subregionHits.add(subregion.getStructureSubregion());
@@ -84,10 +74,7 @@ public class AutocompleteService {
 
 		List<String> regionHits = new ArrayList<>();
 		for (CellType region : regions) {
-			if (regionHits.contains(region.getStructureRegion()) || idsAdded.contains(region.getCellTypeId())) {
-				logger.warn("skipped region: " + region.getStructureRegion() + " with id: " + region.getCellTypeId());
-			} else {
-				logger.warn("added region: " + region.getStructureRegion() + " with id: " + region.getCellTypeId());
+			if (!(regionHits.contains(region.getStructureRegion()) || idsAdded.contains(region.getCellTypeId()))) {
 				autocompleteResults.add(new AutocompleteResult(region.getStructureRegion(), null,
 						Integer.toString(region.getCellTypeId()), TYPE_CELL_TYPE, null));
 				regionHits.add(region.getStructureRegion());
