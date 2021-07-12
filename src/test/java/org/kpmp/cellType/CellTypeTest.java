@@ -85,10 +85,12 @@ public class CellTypeTest {
 	}
 
 	@Test
-	public void testEquals() throws Exception {
+	public void testEqualsAndHashCode() throws Exception {
 		cellType.setCellType("same name");
 		CellType cellType1 = new CellType();
 		cellType1.setCellType("same name");
+
 		assertEquals(cellType, cellType1);
+		assertEquals(cellType.hashCode(), cellType1.hashCode());
 	}
 }
