@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,9 +23,11 @@ public class CellType {
 	@Column(name = "structure_region")
 	private String structureRegion;
 
+	@Nullable
 	@Column(name = "structure_subregion")
 	private String structureSubregion;
 
+	@Nullable
 	@Column(name = "cell_type")
 	private String cellType;
 

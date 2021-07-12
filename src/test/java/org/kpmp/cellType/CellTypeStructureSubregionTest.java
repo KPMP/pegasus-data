@@ -29,6 +29,7 @@ public class CellTypeStructureSubregionTest {
 		CellTypeStructureSubregion subregion = new CellTypeStructureSubregion("subregionName");
 		CellType cellType1 = new CellType();
 		cellType1.setCellType("new cell type");
+		cellType1.setCellTypeId(1);
 		subregion.addCellType(cellType1);
 
 		assertEquals(1, subregion.getCellTypes().size());
@@ -39,6 +40,7 @@ public class CellTypeStructureSubregionTest {
 
 		CellType cellType2 = new CellType();
 		cellType2.setCellType("another cell type");
+		cellType2.setCellTypeId(2);
 		subregion.addCellType(cellType2);
 		assertEquals(2, subregion.getCellTypes().size());
 		assertEquals("another cell type", subregion.getCellTypes().get(1).getCellType());

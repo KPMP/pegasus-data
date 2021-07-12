@@ -49,11 +49,13 @@ public class CellTypeStructureRegionTest {
 	public void testSetCellTypeSubregionsWhenAddSameSubregion() {
 		CellType cellType1 = new CellType();
 		cellType1.setCellType("cell type 1");
+		cellType1.setCellTypeId(1);
 		CellTypeStructureSubregion expectedSubregion = new CellTypeStructureSubregion("subregion");
 		expectedSubregion.addCellType(cellType1);
 		region.addCellTypeSubregion(expectedSubregion);
 		CellType cellType2 = new CellType();
 		cellType2.setCellType("cell type 2");
+		cellType2.setCellTypeId(2);
 		CellTypeStructureSubregion expectedSubregion2 = new CellTypeStructureSubregion("subregion");
 		expectedSubregion2.addCellType(cellType2);
 		region.addCellTypeSubregion(expectedSubregion2);
