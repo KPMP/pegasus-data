@@ -2,6 +2,7 @@ package org.kpmp.autocomplete;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,6 +82,13 @@ public class AutocompleteService {
 				idsAdded.add(region.getCellTypeId());
 			}
 		}
+
+		autocompleteResults.sort(new Comparator<AutocompleteResult>() {
+			@Override
+			public int compare(final AutocompleteResult item1, AutocompleteResult item2) {
+				return item1.getValue().compareTo(item2.getValue());
+			}
+		});
 
 		return autocompleteResults;
 	}
