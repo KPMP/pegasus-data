@@ -1,39 +1,43 @@
 package org.kpmp.geneExpression;
 
 public interface RTExpressionData {
-    Integer getId();
+	Integer getId();
 
-    void setId(Integer id);
+	void setId(Integer id);
 
-    String getGeneSymbol();
+	String getGeneSymbol();
 
-    void setGeneSymbol(String geneSymbol);
+	void setGeneSymbol(String geneSymbol);
 
-    String getSegment();
+	String getSegment();
 
-    void setSegment(String segment);
+	void setSegment(String segment);
 
-    Double getFoldChange();
+	String getSegmentName();
 
-    void setFoldChange(Double foldChange);
+	void setSegmentName(String segmentName);
 
-    Double getPVal();
+	Double getFoldChange();
 
-    void setPVal(Double pVal);
+	void setFoldChange(Double foldChange);
 
-    Double getStdDev();
+	Double getPVal();
 
-    void setStdDev(Double stdDev);
+	void setPVal(Double pVal);
 
-    Double getPValLog10();
+	Double getStdDev();
 
-    void setPValLog10(Double pValLog10);
+	void setStdDev(Double stdDev);
 
-    String getTissueType();
+	Double getPValLog10();
 
-    void setTissueType(String tissueType);
+	void setPValLog10(Double pValLog10);
 
-    Integer getSampleCount();
+	String getTissueType();
 
-    void setSampleCount(Integer sampleCount);
+	void setTissueType(String tissueType);
+
+	Integer getSampleCount();
+
+	void setSampleCount(Integer sampleCount);
 }
