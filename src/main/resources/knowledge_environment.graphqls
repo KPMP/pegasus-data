@@ -108,6 +108,7 @@ type RTGeneExpression {
     id: ID
     geneSymbol: String
     segment: String
+    segmentName: String
     foldChange: Float
     pVal: Float
     stdDev: Float
