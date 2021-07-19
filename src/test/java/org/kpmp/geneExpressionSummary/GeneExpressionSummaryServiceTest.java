@@ -32,7 +32,7 @@ public class GeneExpressionSummaryServiceTest {
 	@Mock
 	private RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
 	@Mock
-	private RTSummaryRepository rtSummaryRepository;
+	private RTParticipantRepository rtParticipantRepository;
 
 	@Before
 	public void setUp() throws Exception {
@@ -41,7 +41,7 @@ public class GeneExpressionSummaryServiceTest {
 				snrnaGeneExpressionRepository,
 				scrnaParticipantRepository,
 				snrnaParticipantRepository,
-				rtSummaryRepository,
+				rtParticipantRepository,
 				rtExpressionDataAllSegmentsRepository);
 	}
 
@@ -190,13 +190,11 @@ public class GeneExpressionSummaryServiceTest {
 
 	@Test
 	public void testGetGeneDatasetInformation() throws Exception {
-		RTSummaryValue rtCountsByTissue = new RTSummaryValue();
-		rtCountsByTissue.setAkiCount(0);
-		rtCountsByTissue.setCkdCount(0);
-		rtCountsByTissue.setHrtCount(0);
-		rtCountsByTissue.setAllCount(0);
 
-		when(rtSummaryRepository.getCountByTissue()).thenReturn(rtCountsByTissue);
+		when(rtParticipantRepository.getCountByTissueType("aki")).thenReturn((long) 0);
+		when(rtParticipantRepository.getCountByTissueType("ckd")).thenReturn((long) 0);
+		when(rtParticipantRepository.getCountByTissueType("hrt")).thenReturn((long) 0);
+		when(rtParticipantRepository.getParticipantCount()).thenReturn((long) 0);
 		when(scrnaGeneExpressionRepository.getCountByTissue("aki")).thenReturn(Long.valueOf(0));
 		when(scrnaGeneExpressionRepository.getCountByTissue("ckd")).thenReturn(Long.valueOf(0));
 		when(scrnaGeneExpressionRepository.getCountByTissue("hrt")).thenReturn(Long.valueOf(0));

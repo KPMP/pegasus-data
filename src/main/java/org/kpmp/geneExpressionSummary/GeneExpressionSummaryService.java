@@ -20,7 +20,7 @@ public class GeneExpressionSummaryService {
 	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
 	private SCRNAParticipantRepository scrnaParticipantRepository;
 	private SNRNAParticipantRepository snrnaParticipantRepository;
-	private RTSummaryRepository rtSummaryRepository;
+	private RTParticipantRepository rtParticipantRepository;
 	RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
 
 	@Autowired
@@ -28,13 +28,13 @@ public class GeneExpressionSummaryService {
 			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
 			SCRNAParticipantRepository scrnaParticipantRepository,
 			SNRNAParticipantRepository snrnaParticipantRepository,
-			RTSummaryRepository rtSummaryRepository,
+			RTParticipantRepository rtParticipantRepository,
 			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
 		this.scrnaParticipantRepository = scrnaParticipantRepository;
 		this.snrnaParticipantRepository = snrnaParticipantRepository;
-		this.rtSummaryRepository = rtSummaryRepository;
+		this.rtParticipantRepository = rtParticipantRepository;
 		this.rtExpressionDataAllSegmentsRepository = rtExpressionDataAllSegmentsRepository;
 	}
 
@@ -110,7 +110,6 @@ public class GeneExpressionSummaryService {
 
 	public List<DatasetSummary> getGeneDatasetInformation(String geneSymbol) {
 		List<DatasetSummary> geneSummary = new ArrayList<>();
-		RTSummaryValue rtSummaryValue = rtSummaryRepository.getCountByTissue();
 		geneSummary.add(new DatasetSummary(
 			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
@@ -130,15 +129,14 @@ public class GeneExpressionSummaryService {
 			snrnaParticipantRepository.getParticipantCount()
 		));
 		geneSummary.add(new DatasetSummary(
-				OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFull(),
-				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
-				rtSummaryValue.getAkiCount().longValue(),
-				rtSummaryValue.getCkdCount().longValue(),
-				rtSummaryValue.getHrtCount().longValue(),
-				rtSummaryValue.getAllCount().longValue()
-		));
-
+			OmicsTypeEnum.NONE.getEnum(),
+			FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFull(),
+			DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
+			rtParticipantRepository.getCountByTissueType(TissueTypeEnum.AKI.getParticipantTissueType()),
+			rtParticipantRepository.getCountByTissueType(TissueTypeEnum.CKD.getParticipantTissueType()),
+			rtParticipantRepository.getCountByTissueType(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+			rtParticipantRepository.getParticipantCount()
+			));
 		return geneSummary;
 	}
 }
