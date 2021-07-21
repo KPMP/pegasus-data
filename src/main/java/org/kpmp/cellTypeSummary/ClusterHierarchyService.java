@@ -41,8 +41,13 @@ public class ClusterHierarchyService {
 
 			@Override
 			public int compare(ClusterHierarchy a, ClusterHierarchy b) {
-
-				return a.getStructureSubregion().compareTo(b.getStructureSubregion());
+				if (a.getStructureSubregion() != null && b.getStructureSubregion() != null) {
+					return a.getStructureSubregion().compareTo(b.getStructureSubregion());
+				} else if (a.getStructureSubregion() == null && b.getStructureSubregion() != null) {
+					return -1;
+				} else {
+					return 1;
+				}
 			}
 
 		});
