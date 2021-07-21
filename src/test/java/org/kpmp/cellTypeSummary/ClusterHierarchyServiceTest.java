@@ -40,6 +40,39 @@ public class ClusterHierarchyServiceTest {
 	}
 
 	@Test
+	public void testFindClustersByCellType_remvoesDups() {
+		ClusterHierarchy clusterHierarchy1 = new ClusterHierarchy();
+		clusterHierarchy1.setCellType("celltype");
+		clusterHierarchy1.setClusterName("cluster");
+		ClusterHierarchy clusterHierarchy2 = new ClusterHierarchy();
+		clusterHierarchy2.setCellType("cluster");
+		clusterHierarchy2.setClusterName("cluster");
+		List<ClusterHierarchy> hierarchies = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
+
+		when(clusterHierarchyRepo.findByCellType("cell type")).thenReturn(hierarchies);
+
+		assertEquals(Arrays.asList(clusterHierarchy2), service.findClustersByCellType("cell type"));
+	}
+
+	@Test
+	public void testFindClustersByCellType_sorts() {
+		ClusterHierarchy clusterHierarchy1 = new ClusterHierarchy();
+		clusterHierarchy1.setCellType("celltype");
+		clusterHierarchy1.setStructureSubregion("second region");
+		clusterHierarchy1.setClusterName("cluster");
+		ClusterHierarchy clusterHierarchy2 = new ClusterHierarchy();
+		clusterHierarchy2.setCellType("cluster");
+		clusterHierarchy2.setClusterName("another cluster");
+		clusterHierarchy2.setStructureSubregion("first region");
+
+		List<ClusterHierarchy> hierarchies = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
+
+		when(clusterHierarchyRepo.findByCellType("cell type")).thenReturn(hierarchies);
+
+		assertEquals(Arrays.asList(clusterHierarchy2, clusterHierarchy1), service.findClustersByCellType("cell type"));
+	}
+
+	@Test
 	public void testFindDataTypesByClusterNameWhenBothY() throws Exception {
 		ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
 		clusterHierarchy.setIsSingleCellCluster("Y");
