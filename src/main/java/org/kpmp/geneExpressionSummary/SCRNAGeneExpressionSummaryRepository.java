@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface SCRNAGeneExpressionSummaryRepository
 		extends CrudRepository<SCRNAGeneExpressionExpressionSummaryValue, GeneExpressionId> {
 
+	@Cacheable("scCounts")
 	@Query(value = "SELECT DISTINCT scc.cluster, scc.cluster_name, scc.cell_count, scc.cluster_id as id, IF(isnull(scr.tissue_type), :tissueType, scr.tissue_type) as tissue_type, IF(isnull(scr.gene), :geneSymbol, scr.gene) as gene, scr.p_val as p_val, scr.p_val_adj as p_val_adj, scr.fold_change, scr.pct_1, scr.pct_2, scr.avg_exp as avg_exp "
 			+ "FROM sc_cluster_v scc "
 			+ "LEFT JOIN sc_rnaseq scr ON scc.cluster = scr.cluster AND scr.gene = :geneSymbol AND scr.tissue_type = LCASE(:tissueType) "
@@ -19,6 +20,7 @@ public interface SCRNAGeneExpressionSummaryRepository
 	List<SCRNAGeneExpressionExpressionSummaryValue> findByTissueAndGeneAllClusters(
 			@Param("geneSymbol") String geneSymbol, @Param("tissueType") String tissueType);
 
+	@Cacheable("scCounts")
 	@Query(value = "SELECT DISTINCT scr.cluster, c.cluster_name, 0 as cell_count, scr.id, scr.tissue_type, scr.gene, scr.p_val as p_val, scr.p_val_adj as p_val_adj, scr.fold_change, scr.pct_1, scr.pct_2, scr.avg_exp as avg_exp "
 			+ "FROM sc_rnaseq scr " + "JOIN cluster c ON scr.cluster = c.abbreviation AND c.cluster_name = :cellType "
 			+ "WHERE scr.tissue_type = LCASE(:tissueType) " + "ORDER BY scr.fold_change DESC", nativeQuery = true)

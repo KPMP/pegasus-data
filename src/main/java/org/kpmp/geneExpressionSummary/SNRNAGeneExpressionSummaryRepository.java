@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface SNRNAGeneExpressionSummaryRepository
 		extends CrudRepository<SNRNAGeneExpressionExpressionSummaryValue, GeneExpressionId> {
 
+	@Cacheable("snCounts")
 	@Query(value = "SELECT DISTINCT snc.cluster, snc.cluster_name, snc.cell_count as cell_count, snc.cluster_id as id, IF(isnull(snr.tissue_type), :tissueType, snr.tissue_type) as tissue_type, IF(isnull(snr.gene), :geneSymbol, snr.gene) as gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
 			+ "FROM sn_cluster_v snc "
 			+ "LEFT JOIN sn_rnaseq snr ON snc.cluster = snr.cluster AND snr.gene = :geneSymbol AND snr.tissue_type = LCASE(:tissueType) "
@@ -19,6 +20,7 @@ public interface SNRNAGeneExpressionSummaryRepository
 	List<SNRNAGeneExpressionExpressionSummaryValue> findByTissueAndGeneAllClusters(
 			@Param("geneSymbol") String geneSymbol, @Param("tissueType") String tissueType);
 
+	@Cacheable("snCounts")
 	@Query(value = "SELECT DISTINCT snr.cluster, c.cluster_name, 0 as cell_count, snr.id, snr.tissue_type, snr.gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
 			+ "FROM sn_rnaseq snr " + "JOIN cluster c ON snr.cluster = c.abbreviation AND c.cluster_name = :cellType "
 			+ "WHERE snr.tissue_type = LCASE(:tissueType) " + "ORDER BY snr.fold_change DESC", nativeQuery = true)
