@@ -2,6 +2,7 @@ package org.kpmp.geneExpressionSummary;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -24,9 +25,11 @@ public interface SCRNAGeneExpressionSummaryRepository
 	List<SCRNAGeneExpressionExpressionSummaryValue> findExpressionSummaryPerGeneByCellTypeAndTissueType(
 			@Param("cellType") String cellType, @Param("tissueType") String tissueType);
 
+	@Cacheable("scCounts")
 	@Query(value = "SELECT COUNT(*) FROM sc_rnaseq scr WHERE scr.gene= :gene", nativeQuery = true)
 	long getCountByGene(@Param("gene") String gene);
 
+	@Cacheable("scCounts")
 	@Query(value = "select count(*) from (select p.redcap_id from sc_metadata sc "
 			+ "join participant p on sc.specimen_id = p.redcap_id "
 			+ "where p.tissue_type=:tissueType group by p.redcap_id) as mycount", nativeQuery = true)

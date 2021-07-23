@@ -2,6 +2,7 @@ package org.kpmp.geneExpressionSummary;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -24,11 +25,13 @@ public interface SNRNAGeneExpressionSummaryRepository
 	List<SNRNAGeneExpressionExpressionSummaryValue> findExpressionSummaryPerGeneByCellTypeAndTissueType(
 			@Param("cellType") String cellType, @Param("tissueType") String tissueType);
 
-	@Query(value = "select count(*) from (select p.redcap_id from sn_metadata sn "
+    @Cacheable("snCounts")
+    @Query(value = "select count(*) from (select p.redcap_id from sn_metadata sn "
 	+ "join participant p on sn.specimen_id = p.redcap_id "
 	+ "where p.tissue_type=:tissueType group by p.redcap_id) as mycount", nativeQuery = true)
 	long getCountByTissue(@Param("tissueType") String tissueType);
 
-	@Query(value = "SELECT COUNT(*) FROM sn_rnaseq snr WHERE snr.gene= :gene", nativeQuery = true)
+    @Cacheable("snCounts")
+    @Query(value = "SELECT COUNT(*) FROM sn_rnaseq snr WHERE snr.gene= :gene", nativeQuery = true)
 	long getCountByGene(@Param("gene") String gene);
 }
