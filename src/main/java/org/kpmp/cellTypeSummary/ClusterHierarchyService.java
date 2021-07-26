@@ -23,20 +23,23 @@ public class ClusterHierarchyService {
 
 	public List<ClusterHierarchy> findClustersByCellType(String cellType) {
 
+		ArrayList<ClusterHierarchy> result = new ArrayList<>();
 		Map<String, ClusterHierarchy> clusterToHierarchy = new HashMap<>();
 		List<ClusterHierarchy> clusterHierarchies = clusterHierarchyRepo.findByCellType(cellType);
 		for (ClusterHierarchy clusterHierarchy : clusterHierarchies) {
 			String clusterName = clusterHierarchy.getClusterName();
 			if (clusterToHierarchy.containsKey(clusterName)) {
-				if (clusterName == null
-						|| (clusterName != null && clusterName.equals(clusterHierarchy.getCellType()))) {
+				if (clusterName == null) {
+					result.add(clusterHierarchy);
+				} else if (clusterName != null && clusterName.equals(clusterHierarchy.getCellType())) {
 					clusterToHierarchy.put(clusterName, clusterHierarchy);
 				}
 			} else {
 				clusterToHierarchy.put(clusterName, clusterHierarchy);
 			}
 		}
-		ArrayList<ClusterHierarchy> result = new ArrayList<>(clusterToHierarchy.values());
+
+		result.addAll(clusterToHierarchy.values());
 		Collections.sort(result, new Comparator<ClusterHierarchy>() {
 
 			@Override

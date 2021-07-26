@@ -55,6 +55,24 @@ public class ClusterHierarchyServiceTest {
 	}
 
 	@Test
+	public void testFindClustersByCellType_remvoesDupsUnlessNull() {
+		ClusterHierarchy clusterHierarchy1 = new ClusterHierarchy();
+		clusterHierarchy1.setCellType("celltype");
+		clusterHierarchy1.setClusterName(null);
+		ClusterHierarchy clusterHierarchy2 = new ClusterHierarchy();
+		clusterHierarchy2.setCellType("cluster");
+		clusterHierarchy2.setClusterName(null);
+		List<ClusterHierarchy> hierarchies = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
+		when(clusterHierarchyRepo.findByCellType("cell type")).thenReturn(hierarchies);
+		List<ClusterHierarchy> expected = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
+
+		List<ClusterHierarchy> result = service.findClustersByCellType("cell type");
+
+		assertEquals(expected.size(), result.size());
+		assertEquals(true, result.containsAll(expected));
+	}
+
+	@Test
 	public void testFindClustersByCellType_sorts() {
 		ClusterHierarchy clusterHierarchy1 = new ClusterHierarchy();
 		clusterHierarchy1.setCellType("celltype");
