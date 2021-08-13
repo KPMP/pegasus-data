@@ -4,9 +4,9 @@ Repository for the Atlas Explorer Tool service layer
 
 # Relevant Knowledge Environment Tables
 
-* [Atlas Explorer UI Database Depencies](https://github.com/KPMP/KPMP-Documentation/blob/develop/atlasExplorerUIDBDependencies.md)
+* [Atlas Explorer UI Database Dependencies](https://github.com/KPMP/KPMP-Documentation/blob/develop/atlasExplorerUIDBDependencies.md)
 
-* [Atlas Explorer Database Depencies](https://github.com/KPMP/KPMP-Documentation/blob/develop/atlasExplorerDBDependencies.md)
+* [Atlas Explorer Database Dependencies](https://github.com/KPMP/KPMP-Documentation/blob/develop/atlasExplorerDBDependencies.md)
 
 # Test
 
