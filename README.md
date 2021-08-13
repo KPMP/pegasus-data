@@ -2,6 +2,12 @@
 
 Repository for the Atlas Explorer Tool service layer
 
+# Relevant Knowledge Environment Tables
+
+* [Atlas Explorer UI Database Depencies](https://github.com/KPMP/KPMP-Documentation/blob/develop/atlasExplorerUIDBDependencies.md)
+
+* [Atlas Explorer Database Depencies](https://github.com/KPMP/KPMP-Documentation/blob/develop/atlasExplorerDBDependencies.md)
+
 # Test
 
 `./gradlew test`
