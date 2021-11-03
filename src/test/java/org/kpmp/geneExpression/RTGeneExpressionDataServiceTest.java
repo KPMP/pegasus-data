@@ -58,8 +58,8 @@ public class RTGeneExpressionDataServiceTest {
         RTExpressionDataGTI ghrtData = new RTExpressionDataGTI();
         List<RTExpressionDataGTI> ghrtDataList = Arrays.asList(ghrtData);
 
-        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "hrt")).thenReturn(allhrtDataList);
-        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "hrt")).thenReturn(ghrtDataList);
+        when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "Healthy Reference")).thenReturn(allhrtDataList);
+        when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", "Healthy Reference")).thenReturn(ghrtDataList);
 
         RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
         RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
