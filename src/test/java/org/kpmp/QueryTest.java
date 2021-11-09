@@ -23,7 +23,6 @@ import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
-import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
@@ -182,22 +181,12 @@ public class QueryTest {
 	public void getGeneDatasetInformation() throws Exception {
 		List<DatasetSummary> expectedResult = new ArrayList<>();
 
-		expectedResult.add(new DatasetSummary(
-			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-			FullDataTypeEnum.SINGLE_CELL_FULL.getFull(),
-			DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-			Long.valueOf(0),
-			Long.valueOf(0),
-			Long.valueOf(0),
-			Long.valueOf(0)));
-		expectedResult.add(new DatasetSummary(
-			OmicsTypeEnum.NONE.getEnum(),
-		 	FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(),
-			DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
-			Long.valueOf(0),
-			Long.valueOf(0),
-			Long.valueOf(0),
-			Long.valueOf(0)));
+		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+				FullDataTypeEnum.SINGLE_CELL_FULL.getFull(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
+		expectedResult.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(),
+				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
 
 		List<DatasetSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
@@ -207,14 +196,16 @@ public class QueryTest {
 
 	@Test
 	public void testGetRTGeneExpression() throws Exception {
-		List data = Arrays.asList(new RTExpressionDataAllSegments());
+		List<RTExpressionDataAllSegments> data = Arrays.asList(new RTExpressionDataAllSegments());
 		RTExpressionByTissueType rtExpressionByTissueType = new RTExpressionByTissueType();
 		rtExpressionByTissueType.setAki(data);
-		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene")).thenReturn(rtExpressionByTissueType);
+		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene"))
+				.thenReturn(rtExpressionByTissueType);
 		assertEquals(rtExpressionByTissueType, query.getRTGeneExpressionByTissue("all_segments", "gene"));
 		assertEquals(rtExpressionByTissueType.getAki(), data);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test
 	public void testGetRTGeneExpressionByStructure() throws Exception {
 		List data = Arrays.asList(new RTExpressionDataAllSegments());

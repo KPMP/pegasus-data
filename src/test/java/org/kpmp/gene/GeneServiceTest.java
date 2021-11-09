@@ -1,8 +1,10 @@
 package org.kpmp.gene;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.io.InputStream;
@@ -108,5 +110,35 @@ public class GeneServiceTest {
 		assertEquals(Arrays.asList("APO-L", "APOL", "APOL-I", "FSGS4"), actualHits.get(0).getAlias());
 		assertEquals("APOL1", actualHits.get(0).getSymbol());
 		verify(connection).disconnect();
+	}
+
+	@Test
+	public void testQuery_400Response() throws Exception {
+		GeneService geneServicespy = Mockito.spy(geneService);
+		doReturn(connection).when(geneServicespy).getUrlConnection(any());
+		doReturn(400).when(connection).getResponseCode();
+
+		MyGeneInfoResult result = geneServicespy.query("http://google.com", "queryString");
+
+		assertEquals(0, result.getTotal());
+
+		verify(connection).disconnect();
+		verify(connection, times(0)).getInputStream();
+	}
+
+	@Test
+	public void testQuery_500Response() throws Exception {
+		GeneService geneServicespy = Mockito.spy(geneService);
+		doReturn(connection).when(geneServicespy).getUrlConnection(any());
+		doReturn(500).when(connection).getResponseCode();
+
+		try {
+			geneServicespy.query("http://google.com", "queryString");
+			fail("Should have thrown exception");
+		} catch (Exception expected) {
+			assertEquals("Unable to connect to mygene.info: 500", expected.getMessage());
+			verify(connection).disconnect();
+			verify(connection, times(0)).getInputStream();
+		}
 	}
 }

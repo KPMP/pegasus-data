@@ -1,35 +1,34 @@
 package org.kpmp.geneExpressionSummary;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-
-import static org.junit.Assert.assertEquals;
 
 public class SNRNAParticipantValueTest {
-    
-    SNRNAParticipantValue snrnaParticipantValue;
 
-    @Before
-    public void setUp() throws Exception {
-        snrnaParticipantValue = new SNRNAParticipantValue();
-    }
+	SNRNAParticipantValue snrnaParticipantValue;
 
-    @After
-    public void tearDown() throws Exception {
-        snrnaParticipantValue = null;
-    }
+	@Before
+	public void setUp() throws Exception {
+		snrnaParticipantValue = new SNRNAParticipantValue();
+	}
 
-    @Test
-    public void testSetTissueType() throws Exception {
-        snrnaParticipantValue.setTissueType("aki");
-        assertEquals("aki", snrnaParticipantValue.getTissueType());
-    }
+	@After
+	public void tearDown() throws Exception {
+		snrnaParticipantValue = null;
+	}
 
-    public void setRedcapId() throws Exception {
-        snrnaParticipantValue.setRedcapId("27-10039");
-        assertEquals("27-10039", snrnaParticipantValue.getRedcapId());
-    }
+	@Test
+	public void testSetTissueType() throws Exception {
+		snrnaParticipantValue.setTissueType("aki");
+		assertEquals("aki", snrnaParticipantValue.getTissueType());
+	}
+
+	public void setRedcapId() throws Exception {
+		snrnaParticipantValue.setRedcapId("27-10039");
+		assertEquals("27-10039", snrnaParticipantValue.getRedcapId());
+	}
 
 }

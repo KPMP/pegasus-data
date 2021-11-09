@@ -41,7 +41,7 @@ class AutocompleteServiceTest {
 	}
 
 	@Test
-	void query() throws IOException {
+	void query() throws IOException, Exception {
 		MyGeneInfoHit hit = new MyGeneInfoHit();
 		hit.setSymbol("symbol");
 		List<String> gAliases = new ArrayList<String>();

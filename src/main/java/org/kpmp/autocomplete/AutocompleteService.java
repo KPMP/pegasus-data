@@ -28,7 +28,7 @@ public class AutocompleteService {
 		this.cellTypeRepository = cellTypeRepository;
 	}
 
-	public List<AutocompleteResult> query(String searchTerm) throws IOException {
+	public List<AutocompleteResult> query(String searchTerm) throws IOException, Exception {
 		List<MyGeneInfoHit> myGeneInfoHits = geneService.querySymbolAndAlias(searchTerm);
 		List<CellType> cellTypes = cellTypeRepository.findByCellTypeContainingOrSynonymContaining(searchTerm);
 		List<CellType> regions = cellTypeRepository.findByStructureRegionContaining(searchTerm);
