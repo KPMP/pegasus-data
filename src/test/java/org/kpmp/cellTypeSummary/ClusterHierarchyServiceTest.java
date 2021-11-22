@@ -59,9 +59,11 @@ public class ClusterHierarchyServiceTest {
 		ClusterHierarchy clusterHierarchy1 = new ClusterHierarchy();
 		clusterHierarchy1.setCellType("celltype");
 		clusterHierarchy1.setClusterName(null);
+		clusterHierarchy1.setCellTypeOrder(3.2);
 		ClusterHierarchy clusterHierarchy2 = new ClusterHierarchy();
 		clusterHierarchy2.setCellType("cluster");
 		clusterHierarchy2.setClusterName(null);
+		clusterHierarchy2.setCellTypeOrder(2.0);
 		List<ClusterHierarchy> hierarchies = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
 		when(clusterHierarchyRepo.findByCellType("cell type")).thenReturn(hierarchies);
 		List<ClusterHierarchy> expected = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
@@ -78,28 +80,12 @@ public class ClusterHierarchyServiceTest {
 		clusterHierarchy1.setCellType("celltype");
 		clusterHierarchy1.setStructureSubregion("second region");
 		clusterHierarchy1.setClusterName("cluster");
+		clusterHierarchy1.setCellTypeOrder(5.0);
 		ClusterHierarchy clusterHierarchy2 = new ClusterHierarchy();
 		clusterHierarchy2.setCellType("cluster");
 		clusterHierarchy2.setClusterName("another cluster");
 		clusterHierarchy2.setStructureSubregion("first region");
-
-		List<ClusterHierarchy> hierarchies = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
-
-		when(clusterHierarchyRepo.findByCellType("cell type")).thenReturn(hierarchies);
-
-		assertEquals(Arrays.asList(clusterHierarchy2, clusterHierarchy1), service.findClustersByCellType("cell type"));
-	}
-
-	@Test
-	public void testFindClustersByCellType_sortsNullsFirst() {
-		ClusterHierarchy clusterHierarchy1 = new ClusterHierarchy();
-		clusterHierarchy1.setCellType("celltype");
-		clusterHierarchy1.setStructureSubregion("second region");
-		clusterHierarchy1.setClusterName("cluster");
-		ClusterHierarchy clusterHierarchy2 = new ClusterHierarchy();
-		clusterHierarchy2.setCellType("cluster");
-		clusterHierarchy2.setClusterName("another cluster");
-		clusterHierarchy2.setStructureSubregion(null);
+		clusterHierarchy2.setCellTypeOrder(1.0);
 
 		List<ClusterHierarchy> hierarchies = Arrays.asList(clusterHierarchy1, clusterHierarchy2);
 
