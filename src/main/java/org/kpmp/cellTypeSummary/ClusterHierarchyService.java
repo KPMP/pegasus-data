@@ -40,20 +40,12 @@ public class ClusterHierarchyService {
 		}
 
 		result.addAll(clusterToHierarchy.values());
-		Collections.sort(result, new Comparator<ClusterHierarchy>() {
-
-			@Override
-			public int compare(ClusterHierarchy a, ClusterHierarchy b) {
-				if (a.getStructureSubregion() != null && b.getStructureSubregion() != null) {
-					return a.getStructureSubregion().compareTo(b.getStructureSubregion());
-				} else if (a.getStructureSubregion() == null && b.getStructureSubregion() != null) {
-					return -1;
-				} else {
-					return 1;
-				}
-			}
-
-		});
+        Collections.sort(result, new Comparator<ClusterHierarchy>() {
+            @Override
+            public int compare(ClusterHierarchy a, ClusterHierarchy b) {
+                return a.getCellTypeOrder().compareTo(b.getCellTypeOrder());
+            }
+        });
 		return result;
 	}
 
