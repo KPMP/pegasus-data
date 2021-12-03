@@ -87,15 +87,25 @@ public class UmapDataService {
 			TissueTypeEnum tissueType) {
 		if (tissueType == TissueTypeEnum.ALL) {
 			if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL)) {
-				umapPoints = scMetadataRepo.findAll();
+				int pointCount = scMetadataRepo.findCount();
+				int limit = (int) Math.round(pointCount*.3);
+				umapPoints = scMetadataRepo.findLimited(limit);
 			} else if (dataTypeEnum.equals(DataTypeEnum.SINGLE_NUCLEUS)) {
-				umapPoints = snMetadataRepo.findAll();
+				int pointCount = snMetadataRepo.findCount();
+				int limit = (int) Math.round(pointCount*.3);
+				umapPoints = snMetadataRepo.findLimited(limit);
+				// umapPoints = snMetadataRepo.findAll();
+
 			}
 		} else if (tissueType != TissueTypeEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL)) {
-				umapPoints = scMetadataRepo.findByTissueType(tissueType.getParticipantTissueType());
+				int pointCount = scMetadataRepo.findCount();
+				int limit = (int) Math.round(pointCount*1);
+				umapPoints = scMetadataRepo.findLimitedWithTissueType(tissueType.getParticipantTissueType(), limit);
 			} else if (dataTypeEnum.equals(DataTypeEnum.SINGLE_NUCLEUS)) {
-				umapPoints = snMetadataRepo.findByTissueType(tissueType.getParticipantTissueType());
+				int pointCount = snMetadataRepo.findCount();
+				int limit = (int) Math.round(pointCount*1);
+				umapPoints = snMetadataRepo.findLimitedWithTissueType(tissueType.getParticipantTissueType(), limit);
 			}
 		}
 		return umapPoints;
