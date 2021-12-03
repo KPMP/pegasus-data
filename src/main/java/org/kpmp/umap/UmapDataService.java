@@ -93,8 +93,7 @@ public class UmapDataService {
 			} else if (dataTypeEnum.equals(DataTypeEnum.SINGLE_NUCLEUS)) {
 				int pointCount = snMetadataRepo.findCount();
 				int limit = (int) Math.round(pointCount*.3);
-				// umapPoints = snMetadataRepo.findLimited(limit);
-				umapPoints = snMetadataRepo.findAll();
+				umapPoints = snMetadataRepo.findLimited(limit);
 			}
 		} else if (tissueType != TissueTypeEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL)) {
