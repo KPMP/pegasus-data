@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
+import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
@@ -54,11 +54,11 @@ public class Query implements GraphQLQueryResolver {
 		this.rtExpressionDataService = rtExpressionDataService;
 	}
 
-	public List<MyGeneInfoHit> genes(String symbol) throws IOException {
+	public List<MyGeneInfoHit> genes(String symbol) throws IOException, Exception {
 		return geneService.querySymbolAndAlias(symbol);
 	}
 
-	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException {
+	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException, Exception {
 		return autocompleteService.query(searchTerm);
 	}
 
@@ -110,7 +110,8 @@ public class Query implements GraphQLQueryResolver {
 
 	}
 
-	public RTExpressionByTissueType getRTGeneExpressionByTissue(String comparisonType, String geneSymbol) throws Exception {
+	public RTExpressionByTissueType getRTGeneExpressionByTissue(String comparisonType, String geneSymbol)
+			throws Exception {
 		try {
 			return rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue(comparisonType, geneSymbol);
 		} catch (Exception e) {

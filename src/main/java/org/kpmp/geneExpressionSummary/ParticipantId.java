@@ -3,10 +3,11 @@ package org.kpmp.geneExpressionSummary;
 import java.io.Serializable;
 
 public class ParticipantId implements Serializable {
+	private static final long serialVersionUID = 8123478456751869304L;
 	private String tissueType;
 	private String redcapId;
 
-    public void SNRNAParticipantId(String tissueType, String redcapId) {
+	public void SNRNAParticipantId(String tissueType, String redcapId) {
 		this.tissueType = tissueType;
 		this.redcapId = redcapId;
 	}
