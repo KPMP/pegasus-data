@@ -22,7 +22,7 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 						+ "barcode, "
 						+ "tissue_type "
 					+ "FROM sn_umap_point_v "
-					+ "ORDER BY RAND() LIMIT :limit", nativeQuery = true)
+					+ "LIMIT :limit", nativeQuery = true)
 	List<SNMetadata> findLimited(@Param("limit") int limit);
 
 	@Query(value = "SELECT COUNT(umap_x) FROM sn_umap_point_v;", nativeQuery = true)
@@ -41,6 +41,6 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 						+ "tissue_type "
 					+ "FROM sn_umap_point_v "
 					+ "WHERE tissue_type=:tissueType "
-					+ "ORDER BY RAND() LIMIT :limit", nativeQuery = true)
+					+ "LIMIT :limit", nativeQuery = true)
 	List<SNMetadata> findLimitedWithTissueType(@Param("tissueType") String tissueType, @Param("limit") int limit);
 }
