@@ -23,7 +23,7 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 						+ "barcode, "
 						+ "tissue_type "
 					+ "FROM sc_umap_point_v "
-					+ "ORDER BY RAND() LIMIT :limit", nativeQuery = true)
+					+ "LIMIT :limit", nativeQuery = true)
 	List<SCMetadata> findLimited(@Param("limit") int limit);
 
 	@Cacheable("scMetadata")
@@ -43,6 +43,6 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 						+ "tissue_type "
 					+ "FROM sc_umap_point_v "
 					+ "WHERE tissue_type=:tissueType "
-					+ "ORDER BY RAND() LIMIT :limit", nativeQuery = true)
+					+ "LIMIT :limit", nativeQuery = true)
 	List<SCMetadata> findLimitedWithTissueType(@Param("tissueType") String tissueType, @Param("limit") int limit);
 }
