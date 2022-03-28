@@ -49,7 +49,7 @@ dependencies {
 }
 
 springBoot {
-    mainClassName = "org.kpmp.Application"
+    mainClass = "org.kpmp.Application"
 }
 
 task unpack(type: Copy) {
