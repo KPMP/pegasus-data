@@ -19,13 +19,14 @@ public class CellTypeServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 
 		service = new CellTypeService(cellTypeRepo);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		service = null;
 		cellTypeRepo = null;
 	}

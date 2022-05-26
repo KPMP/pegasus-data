@@ -20,12 +20,13 @@ public class ClusterServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		service = new ClusterService(clusterRepo);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		service = null;
 	}
 

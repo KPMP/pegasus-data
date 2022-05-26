@@ -23,12 +23,13 @@ public class ExpressionDataServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		service = new ExpressionDataService(snRepo, scRepo);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		service = null;
 	}
 
