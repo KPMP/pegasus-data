@@ -11,6 +11,7 @@ import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.datasetSummary.DatasetSummary;
+import org.kpmp.datasetSummary.DatasetSummaryService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
@@ -37,6 +38,7 @@ public class Query implements GraphQLQueryResolver {
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
+	private DatasetSummaryService datasetSummaryService;
 
 	private Logger logger = LoggerFactory.getLogger(Query.class);
 
@@ -123,6 +125,15 @@ public class Query implements GraphQLQueryResolver {
 	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(String structure) throws Exception {
 		try {
 			return rtExpressionDataService.getByStructure(structure);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	public List<DatasetSummary> getSummaryData(String datatype) throws Exception {
+		try {
+			return datasetSummaryService.getSummaryData(datatype);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
