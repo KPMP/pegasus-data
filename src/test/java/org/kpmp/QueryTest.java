@@ -20,6 +20,7 @@ import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.datasetSummary.DatasetSummary;
+import org.kpmp.datasetSummary.DatasetSummaryService;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
@@ -52,12 +53,14 @@ public class QueryTest {
 	private ClusterHierarchyService clusterHierarchyService;
 	@Mock
 	private RTExpressionDataService rtExpressionDataService;
+	@Mock
+	private DatasetSummaryService datasetSummaryService;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
-				clusterHierarchyService, rtExpressionDataService);
+				clusterHierarchyService, rtExpressionDataService, datasetSummaryService);
 	}
 
 	@After
@@ -211,5 +214,47 @@ public class QueryTest {
 		List data = Arrays.asList(new RTExpressionDataAllSegments());
 		when(rtExpressionDataService.getByStructure("tubulers")).thenReturn(data);
 		assertEquals(data, query.getRTGeneExpressionByStructure("tubulers"));
+	}
+
+	@Test
+	public void testGetSummaryData() throws Exception {
+		List<DatasetSummary> expectedResult = new ArrayList<>();
+
+		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFull(), DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(),
+				Long.valueOf(5), Long.valueOf(15), Long.valueOf(0), Long.valueOf(20)));
+
+		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+			FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFull(), DataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getAbbreviation(),
+			Long.valueOf(5), Long.valueOf(15), Long.valueOf(5), Long.valueOf(25)));
+
+		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+			FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull(), DataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getAbbreviation(),
+			Long.valueOf(5), Long.valueOf(15), Long.valueOf(2), Long.valueOf(22)));
+	
+		when(datasetSummaryService.getSummaryData()).thenReturn(expectedResult);
+
+		List<DatasetSummary> result = datasetSummaryService.getSummaryData();
+
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFull(), result.get(0).getDataType());
+		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(Long.valueOf(5), result.get(0).getAkiCount());
+		assertEquals(Long.valueOf(15), result.get(0).getCkdCount());
+		assertEquals(Long.valueOf(0), result.get(0).getHrtCount());
+		assertEquals(Long.valueOf(20), result.get(0).getParticipantCount());
+
+		assertEquals(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFull(), result.get(1).getDataType());
+		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(Long.valueOf(5), result.get(1).getAkiCount());
+		assertEquals(Long.valueOf(15), result.get(1).getCkdCount());
+		assertEquals(Long.valueOf(5), result.get(1).getHrtCount());
+		assertEquals(Long.valueOf(25), result.get(1).getParticipantCount());
+
+		assertEquals(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull(), result.get(2).getDataType());
+		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(Long.valueOf(5), result.get(2).getAkiCount());
+		assertEquals(Long.valueOf(15), result.get(2).getCkdCount());
+		assertEquals(Long.valueOf(2), result.get(2).getHrtCount());
+		assertEquals(Long.valueOf(22), result.get(2).getParticipantCount());
 	}
 }

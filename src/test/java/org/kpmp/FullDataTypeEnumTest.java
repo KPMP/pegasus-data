@@ -8,7 +8,7 @@ public class FullDataTypeEnumTest {
 
 	@Test
 	public void testGetLong() {
-		assertEquals(4, FullDataTypeEnum.values().length);
+		assertEquals(7, FullDataTypeEnum.values().length);
 		assertEquals("Single-nucleus RNA-seq (snRNA-seq)", FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull());
 		assertEquals("Single-cell RNA-seq (scRNA-seq)", FullDataTypeEnum.SINGLE_CELL_FULL.getFull());
 		assertEquals("Regional transcriptomics", FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFull());
