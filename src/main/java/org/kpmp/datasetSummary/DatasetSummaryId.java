@@ -11,14 +11,10 @@ public class DatasetSummaryId implements Serializable {
 	}
 
 	public DatasetSummaryId(Integer file_id) {
-
 		this.file_id = file_id;
 	}
 
 	public Integer getFileId() {
-		if (file_id == null)
-			return -1;
-		else
 			return file_id;
 	}
 

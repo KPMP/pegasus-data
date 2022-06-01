@@ -45,7 +45,8 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
-			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService) {
+			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService,
+			DatasetSummaryService datasetSummaryService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
@@ -131,9 +132,9 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<DatasetSummary> getSummaryData(String datatype) throws Exception {
+	public List<DatasetSummary> getSummaryData() throws Exception {
 		try {
-			return datasetSummaryService.getSummaryData(datatype);
+			return datasetSummaryService.getSummaryData();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

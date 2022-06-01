@@ -2,7 +2,10 @@ package org.kpmp;
 
 public enum TissueTypeEnum {
 
-	ALL("all", "all"), AKI("aki", "AKI"), CKD("ckd", "CKD"), HEALTHY_REFERENCE("hrt", "Healthy Reference"),
+	ALL("all", "all"),
+	AKI("aki", "AKI"),
+	CKD("ckd", "CKD"),
+	HEALTHY_REFERENCE("hrt", "Healthy Reference"),
 	UNKNOWN("", "");
 
 	private String requestType;
