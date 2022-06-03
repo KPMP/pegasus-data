@@ -22,12 +22,13 @@ public class ClusterHierarchyServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		service = new ClusterHierarchyService(clusterHierarchyRepo);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		service = null;
 	}
 

@@ -55,13 +55,14 @@ public class QueryTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
 				clusterHierarchyService, rtExpressionDataService);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		query = null;
 	}
 

@@ -28,12 +28,13 @@ public class UmapDataServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		service = new UmapDataService(scMetadataRepository, snMetadataRepository, expressionDataService);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		service = null;
 	}
 
@@ -79,7 +80,6 @@ public class UmapDataServiceTest {
 		assertEquals(1, featureDataWithZeroExpressionValue.getExpression().size());
 		assertEquals(0d, featureDataWithZeroExpressionValue.getExpression().get(0), DOUBLE_PRECISION);
 		assertEquals("clusterName", featureDataWithZeroExpressionValue.getHoverDisplay().get(0));
-
 
 	}
 

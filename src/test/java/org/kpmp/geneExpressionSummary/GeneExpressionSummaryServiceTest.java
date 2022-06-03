@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.kpmp.datasetSummary.DatasetSummary;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kpmp.DataTypeEnum;
+import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -36,17 +35,15 @@ public class GeneExpressionSummaryServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		geneExpressionService = new GeneExpressionSummaryService(scrnaGeneExpressionRepository,
-				snrnaGeneExpressionRepository,
-				scrnaParticipantRepository,
-				snrnaParticipantRepository,
-				rtParticipantRepository,
-				rtExpressionDataAllSegmentsRepository);
+				snrnaGeneExpressionRepository, scrnaParticipantRepository, snrnaParticipantRepository,
+				rtParticipantRepository, rtExpressionDataAllSegmentsRepository);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		geneExpressionService = null;
 	}
 
@@ -141,7 +138,8 @@ public class GeneExpressionSummaryServiceTest {
 
 		assertEquals(3, dataTypes.size());
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
+				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()),
+				dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
@@ -156,7 +154,8 @@ public class GeneExpressionSummaryServiceTest {
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
 		assertEquals(2, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
+		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
