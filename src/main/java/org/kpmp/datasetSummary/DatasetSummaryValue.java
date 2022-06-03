@@ -1,19 +1,14 @@
 package org.kpmp.datasetSummary;
 
-import java.beans.Transient;
-
-import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import org.kpmp.DataTypeEnum;
-
 @Entity
-@IdClass(DatasetSummaryId.class)
 @Table(name = "sv_file_v")
+@IdClass(DatasetSummaryId.class)
 public class DatasetSummaryValue {
 	@Id
 	@Column(name = "file_id")
