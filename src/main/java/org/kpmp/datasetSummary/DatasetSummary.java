@@ -23,52 +23,52 @@ public class DatasetSummary {
     }
     public void setOmicsType(String omicsType) {
       this.omicsType = omicsType;
-  }
+    }
+      
+    public String getDataType() {
+      return this.dataType;
+    }
+
+    public void setDataTypeType(String dataType) {
+      this.dataType = dataType;
+    }
     
-  public String getDataType() {
-    return this.dataType;
-  }
+    public String getDataTypeShort() {
+      return this.dataTypeShort;
+    }
+    public void setDataTypeShort(String dataTypeShort) {
+      this.dataTypeShort = dataTypeShort;
+    }
 
-  public void setDataTypeType(String dataType) {
-    this.dataType = dataType;
-  }
-  
-  public String getDataTypeShort() {
-    return this.dataTypeShort;
-  }
-  public void setDataTypeShort(String dataTypeShort) {
-    this.dataTypeShort = dataTypeShort;
-  }
+    public Long getAkiCount() {
+      return this.akiCount;
+    }
 
-  public Long getAkiCount() {
-    return this.akiCount;
-  }
+    public void setAkiCount(Long akiCount) {
+      this.akiCount = akiCount;
+    }
 
-  public void setAkiCount(Long akiCount) {
-    this.akiCount = akiCount;
-  }
+    public Long getCkdCount() {
+      return this.ckdCount;
+    }
 
-  public Long getCkdCount() {
-    return this.ckdCount;
-  }
+    public void setCkdCount(Long ckdCount) {
+      this.ckdCount = ckdCount;
+    }
 
-  public void setCkdCount(Long ckdCount) {
-    this.ckdCount = ckdCount;
-  }
+    public Long getHrtCount() {
+      return this.hrtCount;
+    }
 
-  public Long getHrtCount() {
-    return this.hrtCount;
-  }
+    public void setHrtCount(Long hrtCount) {
+      this.hrtCount = hrtCount;
+    }
 
-  public void setHrtCount(Long hrtCount) {
-    this.hrtCount = hrtCount;
-  }
+    public Long getParticipantCount() {
+      return this.participantCount;
+    }
 
-  public Long getParticipantCount() {
-    return this.participantCount;
-  }
-
-  public void setParticipantCount(Long participantCount) {
-    this.participantCount = participantCount;
-  }
+    public void setParticipantCount(Long participantCount) {
+      this.participantCount = participantCount;
+    }
 }

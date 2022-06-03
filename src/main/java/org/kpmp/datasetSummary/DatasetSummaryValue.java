@@ -3,12 +3,10 @@ package org.kpmp.datasetSummary;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "sv_file_v")
-@IdClass(DatasetSummaryId.class)
 public class DatasetSummaryValue {
 	@Id
 	@Column(name = "file_id")

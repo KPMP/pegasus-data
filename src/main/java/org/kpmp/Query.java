@@ -27,7 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @Component
 public class Query implements GraphQLQueryResolver {
 
@@ -134,6 +135,8 @@ public class Query implements GraphQLQueryResolver {
 
 	public List<DatasetSummary> getSummaryData() throws Exception {
 		try {
+			Logger log = LoggerFactory.getLogger(this.getClass());
+			log.warn("About to getSummaryData");
 			return datasetSummaryService.getSummaryData();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
