@@ -49,6 +49,15 @@ public class DataSummaryService {
 			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull()),
 			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull()),
 			dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull())));
+
+		summaryData.add(new DatasetSummary(
+			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+			FullDataTypeEnum.CODEX_FULL.getFull(),
+			DataTypeEnum.CODEX.getAbbreviation(),
+			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.CODEX_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.CODEX_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.CODEX_FULL.getFull()),
+			dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX_FULL.getFull())));
 		return summaryData;
 	}
 }

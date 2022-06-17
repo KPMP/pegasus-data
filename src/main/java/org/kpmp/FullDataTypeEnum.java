@@ -8,6 +8,7 @@ public enum FullDataTypeEnum {
 	SPATIAL_TRANSCRIPTOMICS_FULL("Spatial Transcriptomics"),
 	TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL("3D Tissue Imaging and Cytometry"),
 	LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL("Light Microscopic Whole Slide Images"),
+	CODEX_FULL("CODEX"),
 	UNKNOWN_FULL("");
 
 	private String dataEnum;
@@ -33,6 +34,8 @@ public enum FullDataTypeEnum {
 			return TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL;
 		} else if (LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.dataEnum.equals(dataEnum)) {
 			return LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL;
+		} else if (CODEX_FULL.dataEnum.equals(dataEnum)) {
+			return CODEX_FULL;
 		}
 		return UNKNOWN_FULL;
 	}

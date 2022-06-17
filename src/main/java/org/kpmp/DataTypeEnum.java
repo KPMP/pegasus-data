@@ -8,6 +8,7 @@ public enum DataTypeEnum {
 	SPATIAL_TRANSCRIPTOMICS("st"),
 	TISSUE_IMAGING_AND_CYTOMETRY_3D("3d"),
 	LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES("wsi"),
+	CODEX("codex"),
 	UNKNOWN("");
 
 	private String abbreviation;
@@ -33,6 +34,8 @@ public enum DataTypeEnum {
 			return TISSUE_IMAGING_AND_CYTOMETRY_3D;
 		} else if (LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.abbreviation.equals(abbreviation)) {
 			return LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES;
+		} else if (CODEX.abbreviation.equals(abbreviation)) {
+			return CODEX;
 		}
 		return UNKNOWN;
 	}
