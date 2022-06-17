@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GeneExpressionSummaryService {
-
 	private SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository;
 	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
 	private SCRNAParticipantRepository scrnaParticipantRepository;
@@ -24,7 +23,8 @@ public class GeneExpressionSummaryService {
 	RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
 
 	@Autowired
-	public GeneExpressionSummaryService(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
+	public GeneExpressionSummaryService(
+			SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
 			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
 			SCRNAParticipantRepository scrnaParticipantRepository,
 			SNRNAParticipantRepository snrnaParticipantRepository, RTParticipantRepository rtParticipantRepository,
@@ -137,4 +137,36 @@ public class GeneExpressionSummaryService {
 				rtParticipantRepository.getParticipantCount()));
 		return geneSummary;
 	}
+
+	// public List<DatasetSummary> getSummaryData() {
+	// 	List<DatasetSummary> summaryData = new ArrayList<>();
+
+	// 	summaryData.add(new DatasetSummary(
+	// 		OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+	// 		FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFull(),
+	// 		DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFull()),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFull()),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFull()),
+	// 		datasetSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFull())));
+
+	// 	summaryData.add(new DatasetSummary(
+	// 		OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+	// 		FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFull(),
+	// 		DataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getAbbreviation(),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFull()),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFull()),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFull()),
+	// 		datasetSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFull())));
+
+	// 	summaryData.add(new DatasetSummary(
+	// 		OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+	// 		FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull(),
+	// 		DataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getAbbreviation(),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull()),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull()),
+	// 		datasetSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull()),
+	// 		datasetSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFull())));
+	// 	return summaryData;
+	// }
 }

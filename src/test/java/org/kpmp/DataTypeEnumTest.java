@@ -8,7 +8,7 @@ public class DataTypeEnumTest {
 
 	@Test
 	public void testGetAbbreviation() {
-		assertEquals(4, DataTypeEnum.values().length);
+		assertEquals(7, DataTypeEnum.values().length);
 		assertEquals("sn", DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 		assertEquals("sc", DataTypeEnum.SINGLE_CELL.getAbbreviation());
 		assertEquals("rt", DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
