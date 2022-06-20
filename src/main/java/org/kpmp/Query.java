@@ -18,6 +18,7 @@ import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ public class Query implements GraphQLQueryResolver {
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
 	private GeneExpressionSummaryService geneExpressionSummaryService;
+	private DataSummaryService dataSummaryService;
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
@@ -43,6 +45,7 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
+			DataSummaryService dataSummaryService,
 			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService) {
 
 		this.geneService = geneService;
@@ -50,6 +53,7 @@ public class Query implements GraphQLQueryResolver {
 		this.cellTypeService = cellTypeService;
 		this.umapService = umapService;
 		this.geneExpressionSummaryService = geneExpressionSummaryService;
+		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
 	}
@@ -94,6 +98,15 @@ public class Query implements GraphQLQueryResolver {
 	public List<DatasetSummary> getGeneDatasetInformation(String geneSymbol) throws Exception {
 		try {
 			return geneExpressionSummaryService.getGeneDatasetInformation(geneSymbol);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	public List<DatasetSummary> getSummaryData() throws Exception {
+		try {
+			return dataSummaryService.getSummaryData();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

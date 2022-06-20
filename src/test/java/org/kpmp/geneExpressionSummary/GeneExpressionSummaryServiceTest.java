@@ -36,7 +36,8 @@ public class GeneExpressionSummaryServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		geneExpressionService = new GeneExpressionSummaryService(scrnaGeneExpressionRepository,
+		geneExpressionService = new GeneExpressionSummaryService(
+				scrnaGeneExpressionRepository,
 				snrnaGeneExpressionRepository, scrnaParticipantRepository, snrnaParticipantRepository,
 				rtParticipantRepository, rtExpressionDataAllSegmentsRepository);
 	}
