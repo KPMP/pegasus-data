@@ -2,7 +2,14 @@ package org.kpmp;
 
 public enum FullDataTypeEnum {
 
-	SINGLE_CELL_FULL("Single-cell RNA-seq (scRNA-seq)"), SINGLE_NUCLEUS_FULL("Single-nucleus RNA-seq (snRNA-seq)"), REGIONAL_TRANSCRIPTOMICS_FULL("Regional transcriptomics"), UNKNOWN_FULL("");
+	SINGLE_CELL_FULL("Single-cell RNA-seq (scRNA-seq)"),
+	SINGLE_NUCLEUS_FULL("Single-nucleus RNA-seq (snRNA-seq)"),
+	REGIONAL_TRANSCRIPTOMICS_FULL("Regional transcriptomics"),
+	SPATIAL_TRANSCRIPTOMICS_FULL("Spatial Transcriptomics"),
+	TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL("3D Tissue Imaging and Cytometry"),
+	LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL("Light Microscopic Whole Slide Images"),
+	CODEX_FULL("CODEX"),
+	UNKNOWN_FULL("");
 
 	private String dataEnum;
 
@@ -21,6 +28,14 @@ public enum FullDataTypeEnum {
 			return SINGLE_NUCLEUS_FULL;
 		} else if (REGIONAL_TRANSCRIPTOMICS_FULL.dataEnum.equals(dataEnum)) {
 			return REGIONAL_TRANSCRIPTOMICS_FULL;
+		} else if (SPATIAL_TRANSCRIPTOMICS_FULL.dataEnum.equals(dataEnum)) {
+			return SPATIAL_TRANSCRIPTOMICS_FULL;
+		} else if (TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.dataEnum.equals(dataEnum)) {
+			return TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL;
+		} else if (LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.dataEnum.equals(dataEnum)) {
+			return LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL;
+		} else if (CODEX_FULL.dataEnum.equals(dataEnum)) {
+			return CODEX_FULL;
 		}
 		return UNKNOWN_FULL;
 	}

@@ -32,12 +32,13 @@ class AutocompleteServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		autocompleteService = new AutocompleteService(geneService, cellTypeRepository);
 	}
 
 	@AfterEach
-	void tearDown() {
+	void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 	}
 
 	@Test

@@ -19,6 +19,7 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
+import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
@@ -45,6 +46,8 @@ public class QueryTest {
 	private GeneService geneService;
 	@Mock
 	private GeneExpressionSummaryService geneExpressionService;
+	@Mock
+	private DataSummaryService dataSummaryService;
 	private Query query;
 	@Mock
 	private UmapDataService umapDataService;
@@ -55,13 +58,14 @@ public class QueryTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
+		MockitoAnnotations.openMocks(this);
+		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,dataSummaryService, 
 				clusterHierarchyService, rtExpressionDataService);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		query = null;
 	}
 
