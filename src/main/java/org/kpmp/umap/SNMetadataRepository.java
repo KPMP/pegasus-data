@@ -13,34 +13,19 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 	@Override
 	List<SNMetadata> findAll();
 
-	@Query(value = "SELECT "
-						+ "umap_x, "
-						+ "umap_y, "
-						+ "cluster_abbreviation, "
-						+ "cluster_name, "
-						+ "cluster_color, "
-						+ "barcode, "
-						+ "tissue_type "
-					+ "FROM sn_umap_point_v "
-					+ "LIMIT :limit", nativeQuery = true)
+	@Query(value = "SELECT " + "umap_x, " + "umap_y, " + "cluster_abbreviation, " + "cluster_name, " + "cluster_color, "
+			+ "barcode, " + "tissue_type " + "FROM sn_umap_point_v " + "LIMIT :limit", nativeQuery = true)
+
 	List<SNMetadata> findLimited(@Param("limit") int limit);
 
+	@Cacheable("snMetadataCount")
 	@Query(value = "SELECT COUNT(umap_x) FROM sn_umap_point_v;", nativeQuery = true)
 	int findCount();
 
 	List<SNMetadata> findByTissueType(String tissueType);
-	
-	@Cacheable("snMetadata")
-	@Query(value = "SELECT "
-						+ "umap_x, "
-						+ "umap_y, "
-						+ "cluster_abbreviation, "
-						+ "cluster_name, "
-						+ "cluster_color, "
-						+ "barcode, "
-						+ "tissue_type "
-					+ "FROM sn_umap_point_v "
-					+ "WHERE tissue_type=:tissueType "
-					+ "LIMIT :limit", nativeQuery = true)
+
+	@Query(value = "SELECT " + "umap_x, " + "umap_y, " + "cluster_abbreviation, " + "cluster_name, " + "cluster_color, "
+			+ "barcode, " + "tissue_type " + "FROM sn_umap_point_v " + "WHERE tissue_type=:tissueType "
+			+ "LIMIT :limit", nativeQuery = true)
 	List<SNMetadata> findLimitedWithTissueType(@Param("tissueType") String tissueType, @Param("limit") int limit);
 }
