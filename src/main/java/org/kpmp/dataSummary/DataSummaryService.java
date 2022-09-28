@@ -63,28 +63,28 @@ public class DataSummaryService {
 			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 			FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull(),
 			DataTypeEnum.SPATIAL_LIPIDOMICS.getAbbreviation(),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull()),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull()),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull()),
-			dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())));
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull()),
+			dataSummaryRepository.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())));
 		
 			summaryData.add(new DatasetSummary(
 			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 			FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull(),
 			DataTypeEnum.SPATIAL_METABOLOMICS.getAbbreviation(),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull()),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull()),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull()),
-			dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())));
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull()),
+			dataSummaryRepository.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())));
 
 		summaryData.add(new DatasetSummary(
 			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 			FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull(),
 			DataTypeEnum.SPATIAL_NGLYCOMICS.getAbbreviation(),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull()),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull()),
-			dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull()),
-			dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())));
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull()),
+			dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull()),
+			dataSummaryRepository.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())));
 		return summaryData;
 	}
 }

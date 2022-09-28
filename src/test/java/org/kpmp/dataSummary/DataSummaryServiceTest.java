@@ -61,20 +61,20 @@ public class DataSummaryServiceTest {
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.CODEX_FULL.getFull())).thenReturn(Long.valueOf(2));
 		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX_FULL.getFull())).thenReturn(Long.valueOf(22));
 
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(22));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(5));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(15));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFull())).thenReturn(Long.valueOf(22));
 
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(22));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(5));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(15));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFull())).thenReturn(Long.valueOf(22));
 
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(22));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(5));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(15));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFull())).thenReturn(Long.valueOf(22));
 
 
 		List<DatasetSummary> result = dataSummaryService.getSummaryData();
