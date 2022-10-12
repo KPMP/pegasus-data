@@ -16,8 +16,19 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	+ "where sv.config_type = :data_type "
 	+ "and p.tissue_type = :tissue_type", nativeQuery = true)
 	Long getDataSummaryCount(@Param("tissue_type") String tissue_type, @Param("data_type") String data_type);
-	
+
+	@Cacheable("dataSummaryLinkCount")
+	@Query(value = "select count(distinct(redcap_id)) "
+	+ "from sv_link_v "
+	+ "where data_type = :data_type "
+ 	+ "and tissue_type = :tissue_type", nativeQuery = true)
+	Long getDataSummaryLinkCount(@Param("tissue_type") String tissue_type, @Param("data_type") String data_type);
+
 	@Cacheable("dataParticipantSummaryCount")
 	@Query(value = "SELECT count(*) FROM sv_file_v WHERE data_type= :data_type", nativeQuery = true)
 	Long getParticipantSummaryCount(@Param("data_type") String data_type);
+
+	@Cacheable("dataParticipantSummaryLinkCount")
+	@Query(value = "SELECT count(*) FROM sv_link_v WHERE data_type= :data_type", nativeQuery = true)
+	Long getParticipantSummaryLinkCount(@Param("data_type") String data_type);
 }
