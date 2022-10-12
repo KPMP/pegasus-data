@@ -10,6 +10,7 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
+import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
@@ -18,7 +19,6 @@ import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
-import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;
@@ -45,8 +45,8 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
-			DataSummaryService dataSummaryService,
-			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService) {
+			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
+			RTExpressionDataService rtExpressionDataService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
@@ -140,5 +140,9 @@ public class Query implements GraphQLQueryResolver {
 			logger.error(e.getMessage());
 			throw e;
 		}
+	}
+
+	public void getExperimentalStrategyInformationByParticipant(String participantId) {
+
 	}
 }

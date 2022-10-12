@@ -10,14 +10,17 @@ import org.springframework.stereotype.Repository;
 public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, Integer> {
 	@Cacheable("dataSummaryCount")
 	@Query(value = "select count(distinct(redcap_id)) from participant p "
-	+ "join file_participant fp on p.participant_id = fp.participant_id "
-	+ "join file f on f.file_id= fp.file_id "
-	+ "join sv_file_info sv on sv.file_id = f.file_id " 
-	+ "where sv.config_type = :data_type "
-	+ "and p.tissue_type = :tissue_type", nativeQuery = true)
+			+ "join file_participant fp on p.participant_id = fp.participant_id "
+			+ "join file f on f.file_id= fp.file_id " + "join sv_file_info sv on sv.file_id = f.file_id "
+			+ "where sv.config_type = :data_type " + "and p.tissue_type = :tissue_type", nativeQuery = true)
 	Long getDataSummaryCount(@Param("tissue_type") String tissue_type, @Param("data_type") String data_type);
-	
+
 	@Cacheable("dataParticipantSummaryCount")
 	@Query(value = "SELECT count(*) FROM sv_file_v WHERE data_type= :data_type", nativeQuery = true)
 	Long getParticipantSummaryCount(@Param("data_type") String data_type);
+
+	@Query(value = "SELECT count(*) from sv_file_v f join participant p on f.participan_id = p.participant_id "
+			+ "WHERE f.data_type= :data_type AND p.redcap_id= :participant_id")
+	Long getSummaryCountByParticipantByDataType(@Param("participant_id") String participantId,
+			@Param("data_type") String dataType);
 }
