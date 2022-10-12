@@ -9,6 +9,9 @@ public enum DataTypeEnum {
 	TISSUE_IMAGING_AND_CYTOMETRY_3D("3d"),
 	LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES("wsi"),
 	CODEX("codex"),
+	SPATIAL_LIPIDOMICS("sl"),
+	SPATIAL_METABOLOMICS("sm"),
+	SPATIAL_NGLYCOMICS("sng"),
 	UNKNOWN("");
 
 	private String abbreviation;
@@ -36,6 +39,12 @@ public enum DataTypeEnum {
 			return LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES;
 		} else if (CODEX.abbreviation.equals(abbreviation)) {
 			return CODEX;
+		} else if (SPATIAL_LIPIDOMICS.abbreviation.equals(abbreviation)) {
+			return SPATIAL_LIPIDOMICS;
+		} else if (SPATIAL_METABOLOMICS.abbreviation.equals(abbreviation)) {
+			return SPATIAL_METABOLOMICS;
+		} else if (SPATIAL_NGLYCOMICS.abbreviation.equals(abbreviation)) {
+			return SPATIAL_NGLYCOMICS;
 		}
 		return UNKNOWN;
 	}
