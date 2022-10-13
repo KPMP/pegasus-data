@@ -2,6 +2,7 @@ package org.kpmp;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,6 +30,8 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.participants.ParticipantDataTypeSummary;
+import org.kpmp.participants.ParticipantService;
 import org.kpmp.umap.FeatureData;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.ReferenceCluster;
@@ -55,12 +58,14 @@ public class QueryTest {
 	private ClusterHierarchyService clusterHierarchyService;
 	@Mock
 	private RTExpressionDataService rtExpressionDataService;
+	@Mock
+	private ParticipantService participantService;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,dataSummaryService, 
-				clusterHierarchyService, rtExpressionDataService);
+		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
+				dataSummaryService, clusterHierarchyService, rtExpressionDataService, participantService);
 	}
 
 	@After
@@ -215,5 +220,16 @@ public class QueryTest {
 		List data = Arrays.asList(new RTExpressionDataAllSegments());
 		when(rtExpressionDataService.getByStructure("tubulers")).thenReturn(data);
 		assertEquals(data, query.getRTGeneExpressionByStructure("tubulers"));
+	}
+
+	@Test
+	public void testGetDataTypeInformationByParticipant() throws Exception {
+		ParticipantDataTypeSummary expected = mock(ParticipantDataTypeSummary.class);
+		when(participantService.getExperimentCounts("123")).thenReturn(expected);
+
+		ParticipantDataTypeSummary result = query.getDataTypeInformationByParticipant("123");
+
+		assertEquals(expected, result);
+
 	}
 }

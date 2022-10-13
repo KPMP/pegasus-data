@@ -10,6 +10,18 @@ type Query {
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [GeneDatasetInformation]
+  getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary 
+}
+
+type ParticipantDataTypeSummary {
+  spatialViewerDataTypes: [ParticipantDataTypeInformation]
+  explorerDataTypes: [ParticipantDataTypeInformation]
+}
+
+type ParticipantDataTypeInformation {
+  dataType: String
+  count: Long
+  isAggregatedData: Boolean
 }
 
 type GeneDatasetInformation {

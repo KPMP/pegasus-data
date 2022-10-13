@@ -19,6 +19,8 @@ import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.participants.ParticipantDataTypeSummary;
+import org.kpmp.participants.ParticipantService;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;
@@ -41,12 +43,13 @@ public class Query implements GraphQLQueryResolver {
 	private RTExpressionDataService rtExpressionDataService;
 
 	private Logger logger = LoggerFactory.getLogger(Query.class);
+	private ParticipantService participantService;
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
-			RTExpressionDataService rtExpressionDataService) {
+			RTExpressionDataService rtExpressionDataService, ParticipantService participantService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
@@ -56,6 +59,7 @@ public class Query implements GraphQLQueryResolver {
 		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
+		this.participantService = participantService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException, Exception {
@@ -142,7 +146,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public void getExperimentalStrategyInformationByParticipant(String participantId) {
-
+	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(String redcapId) {
+		return participantService.getExperimentCounts(redcapId);
 	}
 }
