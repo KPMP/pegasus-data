@@ -19,6 +19,8 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.dataSummary.DataSummaryService;
+import org.kpmp.participant.ParticipantService;
+import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;
@@ -39,14 +41,15 @@ public class Query implements GraphQLQueryResolver {
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
-
+	private ParticipantService participantService;
 	private Logger logger = LoggerFactory.getLogger(Query.class);
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService,
-			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService) {
+			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService,
+			ParticipantService participantSummaryDatasetService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
@@ -56,6 +59,7 @@ public class Query implements GraphQLQueryResolver {
 		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
+		this.participantService = participantSummaryDatasetService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException, Exception {
@@ -139,6 +143,18 @@ public class Query implements GraphQLQueryResolver {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
+		}
+	}
+
+	public ParticipantSummaryDataset participantSummaryDataset(String participant_id) throws Exception {
+		try {
+			return participantService.getParticipantSummaryDataset(participant_id);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			ParticipantSummaryDataset emptyResult = new ParticipantSummaryDataset();
+			emptyResult.setRedcapId(participant_id);
+
+			return emptyResult;
 		}
 	}
 }
