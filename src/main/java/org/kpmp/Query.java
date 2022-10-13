@@ -146,13 +146,13 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public ParticipantSummaryDataset participantSummaryDataset(String participant_id) throws Exception {
+	public ParticipantSummaryDataset participantSummaryDataset(String redcap_id) throws Exception {
 		try {
-			return participantService.getParticipantSummaryDataset(participant_id);
+			return participantService.getParticipantSummaryDataset(redcap_id);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			ParticipantSummaryDataset emptyResult = new ParticipantSummaryDataset();
-			emptyResult.setRedcapId(participant_id);
+			emptyResult.setRedcapId(redcap_id);
 
 			return emptyResult;
 		}

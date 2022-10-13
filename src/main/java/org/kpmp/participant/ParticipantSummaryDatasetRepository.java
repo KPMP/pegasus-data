@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface ParticipantSummaryDatasetRepository
     extends CrudRepository<ParticipantSummaryDataset, Integer> {
 
-      @Query(value = "SELECT * FROM participant WHERE redcap_id = :participant_id", nativeQuery = true)
+      @Query(value = "SELECT * FROM participant WHERE redcap_id = :redcap_id", nativeQuery = true)
       ParticipantSummaryDataset findByParticipantSummaryDataset(
-      @Param("participant_id") String participant_id);
+      @Param("redcap_id") String redcap_id);
     
 }
