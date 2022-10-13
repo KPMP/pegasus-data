@@ -52,17 +52,6 @@ public class ParticipantServiceTest {
 
 		ParticipantSummaryDataset result = participantService.getParticipantSummaryDataset("1");
 
-		System.out.println("result: " + result.getAgeBinned());
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-		System.out.println("result: " + result);
-
 		assertEquals(1, result.getParticipantId());
 		assertEquals("2", result.getOldParticipantId());
 		assertEquals("3", result.getRedcapId());
