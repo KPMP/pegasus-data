@@ -29,6 +29,8 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.participant.ParticipantService;
+import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.FeatureData;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.ReferenceCluster;
@@ -55,12 +57,14 @@ public class QueryTest {
 	private ClusterHierarchyService clusterHierarchyService;
 	@Mock
 	private RTExpressionDataService rtExpressionDataService;
+	@Mock
+	private ParticipantService participantService;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,dataSummaryService, 
-				clusterHierarchyService, rtExpressionDataService);
+				clusterHierarchyService, rtExpressionDataService, participantService);
 	}
 
 	@After
@@ -216,4 +220,15 @@ public class QueryTest {
 		when(rtExpressionDataService.getByStructure("tubulers")).thenReturn(data);
 		assertEquals(data, query.getRTGeneExpressionByStructure("tubulers"));
 	}
+
+	@Test
+	public void testParticipantSummaryDataset() throws Exception {
+		ParticipantSummaryDataset expected =  new ParticipantSummaryDataset();
+		when(participantService.getParticipantSummaryDataset("participant_id"))
+			.thenReturn(expected);
+
+		assertEquals(expected, query.participantSummaryDataset("participant_id"));
+		verify(participantService).getParticipantSummaryDataset("participant_id");
+	}
+		
 }
