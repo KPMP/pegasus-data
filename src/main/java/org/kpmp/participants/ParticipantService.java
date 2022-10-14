@@ -6,6 +6,8 @@ import java.util.List;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.RTParticipantRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class ParticipantService {
 	private DataSummaryRepository dataSummaryRepo;
 	private SpatialViewerTypeRepository svTypeRepo;
 	private SingleCellMetadataRepository scMetadataRepo;
+	private Logger logger = LoggerFactory.getLogger(ParticipantService.class);
 
 	private final String SPATIAL_VIEWER_FILE_VIEW = "sv_file_v";
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
@@ -87,6 +90,8 @@ public class ParticipantService {
 				ParticipantDataTypeInformation dataTypeInfo = new ParticipantDataTypeInformation(dataType, count,
 						false);
 				spatialViewerExperiments.add(dataTypeInfo);
+			} else {
+				logger.error("Unable to query for data type: " + dataType + ". Need to change code to handle.");
 			}
 		}
 		return spatialViewerExperiments;
