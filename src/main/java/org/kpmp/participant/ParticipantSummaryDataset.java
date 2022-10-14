@@ -10,54 +10,54 @@ import javax.persistence.Table;
 public class ParticipantSummaryDataset  {
     @Id
     @Column(name = "participant_id")
-    private int participant_id;
+    private int participantId;
     @Column(name = "old_participant_id")
-    private String oldparticipant_id;
+    private String oldparticipantId;
     @Column(name = "redcap_id")
-    private String redcap_id;
+    private String redcapId;
     @Column(name = "age_binned")
-    private String age_binned;
+    private String ageBinned;
     private String sex;
     @Column(name = "tissue_source")
-    private String tissue_source;
+    private String tissueSource;
     private String protocol;
     @Column(name = "sample_type")
-    private String sample_type;
+    private String sampleType;
     @Column(name = "tissue_type")
-    private String tissue_type;
+    private String tissueType;
     @Column(name = "clinical_data")
-    private String clinical_data;
+    private String clinicalData;
     
     public int getParticipantId() {
-        return participant_id;
+        return participantId;
     }
 
     public void setParticipantId(int participantId) {
-        this.participant_id = participantId;
+        this.participantId = participantId;
     }
 
     public String getOldParticipantId() {
-        return oldparticipant_id;
+        return oldparticipantId;
     }
 
-    public void setOldParticipantId(String oldparticipant_id) {
-        this.oldparticipant_id = oldparticipant_id;
+    public void setOldParticipantId(String oldparticipantId) {
+        this.oldparticipantId = oldparticipantId;
     }
 
     public String getRedcapId() {
-        return redcap_id;
+        return redcapId;
     }
 
-    public void setRedcapId(String redcap_id) {
-        this.redcap_id = redcap_id;
+    public void setRedcapId(String redcapId) {
+        this.redcapId = redcapId;
     }
 
     public String getAgeBinned() {
-        return age_binned;
+        return ageBinned;
     }
 
-    public void setAgeBinned(String age_binned) {
-        this.age_binned = age_binned;
+    public void setAgeBinned(String ageBinned) {
+        this.ageBinned = ageBinned;
     }
 
     public String getSex() {
@@ -69,11 +69,11 @@ public class ParticipantSummaryDataset  {
     }
 
     public String getTissueSource() {
-        return tissue_source;
+        return tissueSource;
     }
 
-    public void setTissueSource(String tissue_source) {
-        this.tissue_source = tissue_source;
+    public void setTissueSource(String tissueSource) {
+        this.tissueSource = tissueSource;
     }
 
     public String getProtocol() {
@@ -85,27 +85,27 @@ public class ParticipantSummaryDataset  {
     }
 
     public String getSampleType() {
-        return sample_type;
+        return sampleType;
     }
 
-    public void setSampleType(String sample_type) {
-        this.sample_type = sample_type;
+    public void setSampleType(String sampleType) {
+        this.sampleType = sampleType;
     }
 
     public String getTissueType() {
-        return tissue_type;
+        return tissueType;
     }
 
-    public void setTissueType(String tissue_type) {
-        this.tissue_type = tissue_type;
+    public void setTissueType(String tissueType) {
+        this.tissueType = tissueType;
     }
 
     public String getClinicalData() {
-        return clinical_data;
+        return clinicalData;
     }
 
-    public void setClinicalData(String clinical_data) {
-        this.clinical_data = clinical_data;
+    public void setClinicalData(String clinicalData) {
+        this.clinicalData = clinicalData;
     }
 
 }

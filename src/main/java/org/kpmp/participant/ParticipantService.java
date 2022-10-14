@@ -13,7 +13,7 @@ public class ParticipantService {
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 	}
 
-	public ParticipantSummaryDataset getParticipantSummaryDataset(String participant_id) {
-		return participantSummaryDatasetRepository.findByParticipantSummaryDataset(participant_id);
+	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
+		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
 	}
 }

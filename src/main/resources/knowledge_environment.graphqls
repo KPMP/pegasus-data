@@ -10,7 +10,7 @@ type Query {
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [GeneDatasetInformation]
-  participantSummaryDataset(redcap_id: String): ParticipantSummaryDataset
+  participantSummaryDataset(redcapId: String): ParticipantSummaryDataset
 }
 
 type GeneDatasetInformation {
@@ -127,7 +127,7 @@ type RTGeneExpressionByTissue {
 }
 
 type ParticipantSummaryDataset {
-  participant_id: String
-  redcap_id: String
-  tissue_type: String
+  participantId: String
+  redcapId: String
+  tissueType: String
 }

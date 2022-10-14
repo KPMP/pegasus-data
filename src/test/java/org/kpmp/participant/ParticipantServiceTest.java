@@ -44,8 +44,8 @@ public class ParticipantServiceTest {
 		expectedResult.setSampleType("8");
 		expectedResult.setTissueType("9");
 		expectedResult.setClinicalData("10");
-		
-		when(participantSummaryDatasetRepository.findByParticipantSummaryDataset("1")).thenReturn(expectedResult);
+
+		when(participantSummaryDatasetRepository.findByRedcapId("1")).thenReturn(expectedResult);
 			
 		when(participantService.getParticipantSummaryDataset("1") )
 			.thenReturn(expectedResult);
