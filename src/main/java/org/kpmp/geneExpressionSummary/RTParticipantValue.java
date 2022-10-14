@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rt_participant_tissue_v")
 @IdClass(ParticipantId.class)
-public class RTParticipantValue implements Participant {
+class RTParticipantValue implements Participant {
 
 	@Column(name = "tissue_type")
 	private String tissueType;

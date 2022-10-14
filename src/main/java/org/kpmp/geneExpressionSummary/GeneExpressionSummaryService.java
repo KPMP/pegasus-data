@@ -113,13 +113,13 @@ public class GeneExpressionSummaryService {
 	public List<DatasetSummary> getGeneDatasetInformation(String geneSymbol) {
 		List<DatasetSummary> geneSummary = new ArrayList<>();
 		geneSummary.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SINGLE_CELL_FULL.getFull(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
 				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
 				scrnaGeneExpressionRepository
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				scrnaParticipantRepository.getParticipantCount()));
-		geneSummary.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(), FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(),
+		geneSummary.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(), FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(),
 				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
 				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
@@ -127,7 +127,7 @@ public class GeneExpressionSummaryService {
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				snrnaParticipantRepository.getParticipantCount()));
 		geneSummary.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFull(),
+				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(),
 				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
 				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.AKI.getParticipantTissueType()),
 				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.CKD.getParticipantTissueType()),

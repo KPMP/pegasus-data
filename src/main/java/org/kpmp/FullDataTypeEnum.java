@@ -20,7 +20,7 @@ public enum FullDataTypeEnum {
 		this.dataEnum = dataEnum;
 	}
 
-	public String getFull() {
+	public String getFullName() {
 		return this.dataEnum;
 	}
 

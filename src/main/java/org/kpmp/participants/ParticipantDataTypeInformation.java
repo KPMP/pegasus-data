@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 public class ParticipantDataTypeInformation {
 
 	private String dataType;
-	private Long count;
+	private Integer count;
 	private Boolean isAggregatedData;
 
 	public ParticipantDataTypeInformation() {
 		// default constructor so spring does not complain
 	}
 
-	public ParticipantDataTypeInformation(String dataType, Long count, boolean isAggregatedData) {
+	public ParticipantDataTypeInformation(String dataType, Integer count, boolean isAggregatedData) {
 		this.dataType = dataType;
 		this.count = count;
 		this.isAggregatedData = isAggregatedData;
@@ -28,11 +28,11 @@ public class ParticipantDataTypeInformation {
 		this.dataType = dataType;
 	}
 
-	public Long getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(Long count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 

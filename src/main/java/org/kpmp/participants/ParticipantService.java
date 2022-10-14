@@ -3,7 +3,9 @@ package org.kpmp.participants;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kpmp.FullDataTypeEnum;
 import org.kpmp.dataSummary.DataSummaryRepository;
+import org.kpmp.geneExpressionSummary.RTParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +14,60 @@ public class ParticipantService {
 
 	private DataSummaryRepository dataSummaryRepo;
 	private SpatialViewerTypeRepository svTypeRepo;
+	private SingleCellMetadataRepository scMetadataRepo;
+
+	private final String SPATIAL_VIEWER_FILE_VIEW = "sv_file_v";
+	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
+	private SingleNucleusMetadataRepository snMetadataRepo;
+	private RTParticipantRepository rtParticipantRepo;
 
 	@Autowired
-	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo) {
+	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
+			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
+			RTParticipantRepository rtParticipantRepo) {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
+		this.scMetadataRepo = scMetadataRepo;
+		this.snMetadataRepo = snMetadataRepo;
+		this.rtParticipantRepo = rtParticipantRepo;
 	}
 
-	public ParticipantDataTypeSummary getExperimentCounts(String participantId) {
+	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
 		ParticipantDataTypeSummary summaryData = new ParticipantDataTypeSummary();
-		List<ParticipantDataTypeInformation> spatialViewerExperiments = getSpatialViewerCounts(participantId);
-		summaryData.setSpatialViewerDataTypes(spatialViewerExperiments);
+		summaryData.setSpatialViewerDataTypes(getSpatialViewerCounts(redcapId));
+		summaryData.setExplorerDataTypes(getExplorerCounts(redcapId));
 
 		return summaryData;
+	}
+
+	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId) {
+		List<ParticipantDataTypeInformation> explorerExperiments = new ArrayList<>();
+		int scCount = 0;
+		if (scMetadataRepo.existsByRedcapId(redcapId)) {
+			scCount = 1;
+		}
+
+		ParticipantDataTypeInformation singleCellData = new ParticipantDataTypeInformation(
+				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), scCount, true);
+		explorerExperiments.add(singleCellData);
+
+		int snCount = 0;
+		if (snMetadataRepo.existsByRedcapId(redcapId)) {
+			snCount = 1;
+		}
+		ParticipantDataTypeInformation singleNucData = new ParticipantDataTypeInformation(
+				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), snCount, true);
+		explorerExperiments.add(singleNucData);
+
+		int regionalTranscriptomicsCount = 0;
+		if (rtParticipantRepo.existsByRedcapId(redcapId)) {
+			regionalTranscriptomicsCount = 1;
+		}
+		ParticipantDataTypeInformation regionalTranscriptomicsData = new ParticipantDataTypeInformation(
+				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(), regionalTranscriptomicsCount, true);
+		explorerExperiments.add(regionalTranscriptomicsData);
+
+		return explorerExperiments;
 	}
 
 	private List<ParticipantDataTypeInformation> getSpatialViewerCounts(String redcapId) {
@@ -33,14 +76,14 @@ public class ParticipantService {
 		List<SpatialViewerDataType> spatialViewerDataTypes = svTypeRepo.findAll();
 		for (SpatialViewerDataType spatialViewerDataType : spatialViewerDataTypes) {
 			String dataType = spatialViewerDataType.getDataType();
-			if (spatialViewerDataType.getTableName().equals("sv_file_v")) {
+			if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_FILE_VIEW)) {
 
-				Long count = dataSummaryRepo.getParticipantSvFileDataTypeCount(redcapId, dataType);
+				Integer count = dataSummaryRepo.getParticipantSvFileDataTypeCount(redcapId, dataType);
 				ParticipantDataTypeInformation dataTypeInfo = new ParticipantDataTypeInformation(dataType, count,
 						false);
 				spatialViewerExperiments.add(dataTypeInfo);
-			} else if (spatialViewerDataType.getTableName().equals("sv_link_v")) {
-				Long count = dataSummaryRepo.getParticipantSvLinkDataTypeCount(redcapId, dataType);
+			} else if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_LINK_VIEW)) {
+				Integer count = dataSummaryRepo.getParticipantSvLinkDataTypeCount(redcapId, dataType);
 				ParticipantDataTypeInformation dataTypeInfo = new ParticipantDataTypeInformation(dataType, count,
 						false);
 				spatialViewerExperiments.add(dataTypeInfo);
@@ -50,16 +93,3 @@ public class ParticipantService {
 	}
 
 }
-
-/*
- * Order of operations for spatial viewer data 1) Get all data types from
- * spatial viewer 2) loop through the results and get counts for each data type
- * for given participant and fill in summary object 3) Make sure to set all to
- * not aggregated
- */
-
-/*
- * For Explorer data types will need to have a list of data types that we know
- * ahead of time and query those for the participant since we don't have this
- * coded anywhere
- */

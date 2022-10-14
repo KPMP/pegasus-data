@@ -191,10 +191,10 @@ public class QueryTest {
 		List<DatasetSummary> expectedResult = new ArrayList<>();
 
 		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SINGLE_CELL_FULL.getFull(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		expectedResult.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
 
