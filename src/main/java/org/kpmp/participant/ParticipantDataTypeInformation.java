@@ -1,4 +1,4 @@
-package org.kpmp.participants;
+package org.kpmp.participant;
 
 import org.springframework.stereotype.Component;
 

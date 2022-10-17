@@ -18,12 +18,10 @@ import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
-import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;<<<<<<<HEAD
-import org.kpmp.participants.ParticipantDataTypeSummary;
-import org.kpmp.participants.ParticipantService;=======
-import org.kpmp.dataSummary.DataSummaryService;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
-import org.kpmp.participant.ParticipantSummaryDataset;>>>>>>>develop
+import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;

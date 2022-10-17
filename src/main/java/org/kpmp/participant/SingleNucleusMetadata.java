@@ -1,4 +1,4 @@
-package org.kpmp.participants;
+package org.kpmp.participant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

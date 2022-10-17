@@ -1,4 +1,4 @@
-package org.kpmp.participants;
+package org.kpmp.participant;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -26,8 +26,7 @@ public class ParticipantDataTypeSummaryTest {
 
 	@Test
 	public void testSetSpatialViewerDataTypes() {
-		List<ParticipantDataTypeInformation> experimentInfo = Arrays
-				.asList(mock(ParticipantDataTypeInformation.class));
+		List<ParticipantDataTypeInformation> experimentInfo = Arrays.asList(mock(ParticipantDataTypeInformation.class));
 
 		summary.setSpatialViewerDataTypes(experimentInfo);
 
@@ -36,8 +35,7 @@ public class ParticipantDataTypeSummaryTest {
 
 	@Test
 	public void testSetExplorerDataType() {
-		List<ParticipantDataTypeInformation> experimentInfo = Arrays
-				.asList(mock(ParticipantDataTypeInformation.class));
+		List<ParticipantDataTypeInformation> experimentInfo = Arrays.asList(mock(ParticipantDataTypeInformation.class));
 
 		summary.setExplorerDataTypes(experimentInfo);
 
