@@ -10,6 +10,7 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
+import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
@@ -18,7 +19,7 @@ import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
-import org.kpmp.dataSummary.DataSummaryService;
+import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.PlotData;
@@ -47,9 +48,8 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
-			DataSummaryService dataSummaryService,
-			ClusterHierarchyService clusterHierarchyService, RTExpressionDataService rtExpressionDataService,
-			ParticipantService participantSummaryDatasetService) {
+			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
+			RTExpressionDataService rtExpressionDataService, ParticipantService participantService) {
 
 		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
@@ -59,7 +59,7 @@ public class Query implements GraphQLQueryResolver {
 		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
-		this.participantService = participantSummaryDatasetService;
+		this.participantService = participantService;
 	}
 
 	public List<MyGeneInfoHit> genes(String symbol) throws IOException, Exception {
@@ -144,6 +144,10 @@ public class Query implements GraphQLQueryResolver {
 			logger.error(e.getMessage());
 			throw e;
 		}
+	}
+
+	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(String redcapId) {
+		return participantService.getExperimentCounts(redcapId);
 	}
 
 	public ParticipantSummaryDataset participantSummaryDataset(String redcap_id) throws Exception {

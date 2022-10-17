@@ -2,6 +2,7 @@ package org.kpmp;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,6 +30,7 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.FeatureData;
@@ -63,8 +65,8 @@ public class QueryTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,dataSummaryService, 
-				clusterHierarchyService, rtExpressionDataService, participantService);
+		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
+				dataSummaryService, clusterHierarchyService, rtExpressionDataService, participantService);
 	}
 
 	@After
@@ -190,10 +192,10 @@ public class QueryTest {
 		List<DatasetSummary> expectedResult = new ArrayList<>();
 
 		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SINGLE_CELL_FULL.getFull(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		expectedResult.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFull(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
 
@@ -222,13 +224,22 @@ public class QueryTest {
 	}
 
 	@Test
+	public void testGetDataTypeInformationByParticipant() throws Exception {
+		ParticipantDataTypeSummary expected = mock(ParticipantDataTypeSummary.class);
+		when(participantService.getExperimentCounts("123")).thenReturn(expected);
+
+		ParticipantDataTypeSummary result = query.getDataTypeInformationByParticipant("123");
+
+		assertEquals(expected, result);
+
+	}
+
 	public void testParticipantSummaryDataset() throws Exception {
-		ParticipantSummaryDataset expected =  new ParticipantSummaryDataset();
-		when(participantService.getParticipantSummaryDataset("participant_id"))
-			.thenReturn(expected);
+		ParticipantSummaryDataset expected = new ParticipantSummaryDataset();
+		when(participantService.getParticipantSummaryDataset("participant_id")).thenReturn(expected);
 
 		assertEquals(expected, query.participantSummaryDataset("participant_id"));
 		verify(participantService).getParticipantSummaryDataset("participant_id");
 	}
-		
+
 }

@@ -6,12 +6,14 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RTParticipantRepository extends CrudRepository<RTParticipantValue, String> {
 
-    @Cacheable("rtCounts")
-    @Query(value = "SELECT COUNT(DISTINCT rtp.redcap_id) FROM rt_participant_tissue_v rtp", nativeQuery = true)
-    Long getParticipantCount();
+	@Cacheable("rtCounts")
+	@Query(value = "SELECT COUNT(DISTINCT rtp.redcap_id) FROM rt_participant_tissue_v rtp", nativeQuery = true)
+	Long getParticipantCount();
 
-    @Cacheable("rtCounts")
-    @Query(value = "SELECT COUNT(DISTINCT rtp.redcap_id) FROM rt_participant_tissue_v rtp WHERE rtp.tissue_type = :tissueType", nativeQuery = true)
-    Long getCountByTissueType(String tissueType);
+	@Cacheable("rtCounts")
+	@Query(value = "SELECT COUNT(DISTINCT rtp.redcap_id) FROM rt_participant_tissue_v rtp WHERE rtp.tissue_type = :tissueType", nativeQuery = true)
+	Long getCountByTissueType(String tissueType);
+
+	boolean existsByRedcapId(String redcapId);
 
 }
