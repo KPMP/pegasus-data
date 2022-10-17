@@ -18,9 +18,12 @@ import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
-import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;<<<<<<<HEAD
 import org.kpmp.participants.ParticipantDataTypeSummary;
-import org.kpmp.participants.ParticipantService;
+import org.kpmp.participants.ParticipantService;=======
+import org.kpmp.dataSummary.DataSummaryService;
+import org.kpmp.participant.ParticipantService;
+import org.kpmp.participant.ParticipantSummaryDataset;>>>>>>>develop
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;
@@ -41,9 +44,8 @@ public class Query implements GraphQLQueryResolver {
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
-
-	private Logger logger = LoggerFactory.getLogger(Query.class);
 	private ParticipantService participantService;
+	private Logger logger = LoggerFactory.getLogger(Query.class);
 
 	@Autowired
 	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
@@ -148,5 +150,17 @@ public class Query implements GraphQLQueryResolver {
 
 	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(String redcapId) {
 		return participantService.getExperimentCounts(redcapId);
+	}
+
+	public ParticipantSummaryDataset participantSummaryDataset(String redcap_id) throws Exception {
+		try {
+			return participantService.getParticipantSummaryDataset(redcap_id);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			ParticipantSummaryDataset emptyResult = new ParticipantSummaryDataset();
+			emptyResult.setRedcapId(redcap_id);
+
+			return emptyResult;
+		}
 	}
 }

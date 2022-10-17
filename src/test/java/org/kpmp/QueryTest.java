@@ -30,6 +30,7 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.participants.ParticipantDataTypeSummary;
 import org.kpmp.participants.ParticipantService;
 import org.kpmp.umap.FeatureData;
@@ -232,4 +233,13 @@ public class QueryTest {
 		assertEquals(expected, result);
 
 	}
+
+	public void testParticipantSummaryDataset() throws Exception {
+		ParticipantSummaryDataset expected = new ParticipantSummaryDataset();
+		when(participantService.getParticipantSummaryDataset("participant_id")).thenReturn(expected);
+
+		assertEquals(expected, query.participantSummaryDataset("participant_id"));
+		verify(participantService).getParticipantSummaryDataset("participant_id");
+	}
+
 }
