@@ -161,4 +161,8 @@ public class Query implements GraphQLQueryResolver {
 			return emptyResult;
 		}
 	}
+
+	public ParticipantSummaryDataset participantClinicalDataset(String redcap_id) throws Exception {
+		return this.participantSummaryDataset(redcap_id);
+	}
 }
