@@ -12,6 +12,7 @@ type Query {
   getSummaryData: [GeneDatasetInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
+  participantClinicalDataset(redcapId: String): ParticipantSummaryDataset
 }
 
 type ParticipantDataTypeSummary {
@@ -143,4 +144,5 @@ type ParticipantSummaryDataset {
   participantId: String
   redcapId: String
   tissueType: String
+  clinicalData: String
 }

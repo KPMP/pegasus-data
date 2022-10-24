@@ -242,4 +242,11 @@ public class QueryTest {
 		verify(participantService).getParticipantSummaryDataset("participant_id");
 	}
 
+	public void testParticipantClinicalDataset() throws Exception {
+		ParticipantSummaryDataset expected = new ParticipantSummaryDataset();
+		when(participantService.getParticipantSummaryDataset("participant_id")).thenReturn(expected);
+
+		assertEquals(expected, query.participantClinicalDataset("participant_id"));
+	}
+	
 }
