@@ -11,6 +11,7 @@ import org.kpmp.cellType.CellTypeRepository;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +29,7 @@ public class AutocompleteService {
 		this.cellTypeRepository = cellTypeRepository;
 	}
 
+	@Cacheable("autocompleteQuery")
 	public List<AutocompleteResult> query(String searchTerm) throws IOException, Exception {
 		List<MyGeneInfoHit> myGeneInfoHits = geneService.querySymbolAndAlias(searchTerm);
 		List<CellType> cellTypes = cellTypeRepository.findByCellTypeContainingOrSynonymContaining(searchTerm);
@@ -40,6 +42,7 @@ public class AutocompleteService {
 		return myGeneResults;
 	}
 
+	@Cacheable("myGeneInfoHitsToAutocompleteResults")
 	public List<AutocompleteResult> convertMyGeneInfoHitsToAutocompleteResults(List<MyGeneInfoHit> hits) {
 		List<AutocompleteResult> autocompleteResults = new ArrayList<>();
 		for (MyGeneInfoHit hit : hits) {
@@ -49,6 +52,7 @@ public class AutocompleteService {
 		return autocompleteResults;
 	}
 
+	@Cacheable("cellTypesToAutocompleteResults")
 	public List<AutocompleteResult> convertCellTypesToAutocompleteResults(List<CellType> cellTypes,
 			List<CellType> regions, List<CellType> subregions) {
 		List<CellType> cellTypeListNoDupes = cellTypes.stream().distinct().collect(Collectors.toList());
