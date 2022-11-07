@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface SCMetadataRepository extends CrudRepository<SCMetadata, String> {
 
-	@Cacheable("scMetadata")
+	@Cacheable("scMetadataAll")
 	@Override
 	List<SCMetadata> findAll();
 	
-	@Cacheable("scMetadata")
+	@Cacheable("scMetadataLimited")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "
@@ -26,13 +26,13 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 					+ "LIMIT :limit", nativeQuery = true)
 	List<SCMetadata> findLimited(@Param("limit") int limit);
 
-	@Cacheable("scMetadata")
+	@Cacheable("scMetadataCount")
 	@Query(value = "SELECT COUNT(umap_x) FROM sc_umap_point_v;", nativeQuery = true)
 	int findCount();
 
 	List<SCMetadata> findByTissueType(String tissueType);
 
-	@Cacheable("scMetadata")
+	@Cacheable("scMetadataWithTissue")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "

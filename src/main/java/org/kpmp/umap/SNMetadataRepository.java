@@ -9,10 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 
-	@Cacheable("snMetadata")
+	@Cacheable("snMetadataAll")
 	@Override
 	List<SNMetadata> findAll();
 
+	@Cacheable("snMetadataLimited")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "
@@ -25,12 +26,14 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 					+ "LIMIT :limit", nativeQuery = true)
 	List<SNMetadata> findLimited(@Param("limit") int limit);
 
+	@Cacheable("snMetadataCount")
 	@Query(value = "SELECT COUNT(umap_x) FROM sn_umap_point_v;", nativeQuery = true)
 	int findCount();
 
+	@Cacheable("snMetadataByTissue")
 	List<SNMetadata> findByTissueType(String tissueType);
 	
-	@Cacheable("snMetadata")
+	@Cacheable("snMetadataWithTissue")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "
