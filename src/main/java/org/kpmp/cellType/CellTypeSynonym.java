@@ -8,11 +8,12 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "celltype_synonym")
 @IdClass(CellTypeSynonymId.class)
-public class CellTypeSynonym {
+public class CellTypeSynonym implements Serializable {
 
     @Id
     @Column(name="cell_type_id")

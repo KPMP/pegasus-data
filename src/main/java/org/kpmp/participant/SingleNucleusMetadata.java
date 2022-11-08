@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "sn_metadata")
-class SingleNucleusMetadata {
+class SingleNucleusMetadata implements Serializable {
 
 	@Id
 	private String barcode;

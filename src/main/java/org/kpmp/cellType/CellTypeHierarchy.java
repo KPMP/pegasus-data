@@ -1,5 +1,6 @@
 package org.kpmp.cellType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CellTypeHierarchy  {
+public class CellTypeHierarchy implements Serializable {
 	
 	private Map<String, CellTypeStructureRegion> cellTypeRegionMap = new HashMap<>();
 

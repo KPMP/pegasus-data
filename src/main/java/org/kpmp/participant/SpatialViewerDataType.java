@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "sv_data_type_v")
-class SpatialViewerDataType {
+class SpatialViewerDataType implements Serializable {
 
 	@Id
 	@Column(name = "data_type")

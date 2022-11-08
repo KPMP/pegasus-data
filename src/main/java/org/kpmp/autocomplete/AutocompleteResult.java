@@ -1,8 +1,9 @@
 package org.kpmp.autocomplete;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AutocompleteResult {
+public class AutocompleteResult implements Serializable {
 
 	private String value;
 	private String name;

@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "participant")
-public class ParticipantSummaryDataset  {
+public class ParticipantSummaryDataset  implements Serializable {
     @Id
     @Column(name = "participant_id")
     private int participantId;

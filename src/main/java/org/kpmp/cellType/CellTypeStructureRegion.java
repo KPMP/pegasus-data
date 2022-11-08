@@ -1,11 +1,12 @@
 package org.kpmp.cellType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CellTypeStructureRegion {
+public class CellTypeStructureRegion implements Serializable {
 
 	private String regionName;
 	private Map<String, CellTypeStructureSubregion> subregionMap = new HashMap<>();

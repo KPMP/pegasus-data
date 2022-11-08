@@ -1,9 +1,10 @@
 package org.kpmp.umap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReferenceCluster {
+public class ReferenceCluster implements Serializable {
 
 	private List<Double> xValues = new ArrayList<>();
 	private List<Double> yValues = new ArrayList<>();

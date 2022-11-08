@@ -9,11 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "sn_rnaseq")
 @IdClass(GeneExpressionId.class)
-public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary {
+public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary, Serializable {
 
 	@Column(name = "id")
 	private Integer id;

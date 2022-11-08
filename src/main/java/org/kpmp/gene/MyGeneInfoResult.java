@@ -1,8 +1,9 @@
 package org.kpmp.gene;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MyGeneInfoResult {
+public class MyGeneInfoResult implements Serializable {
     private int total;
     private List<MyGeneInfoHit> hits;
 
