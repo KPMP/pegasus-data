@@ -20,17 +20,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = { "org.kpmp" })
 public class Application {
 
-//	@Bean
-//	@Profile("client")
-//	HazelcastInstance hazelcastInstance() {
-//		return HazelcastClient.newHazelcastClient();    // (2)
-//	}
-//
-//	@Bean
-//	CacheManager cacheManager() {
-//		return new HazelcastCacheManager(hazelcastInstance()); // (3)
-//	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
