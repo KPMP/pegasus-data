@@ -47,7 +47,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.0.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.hazelcast:hazelcast-all:4.2.5'
-//    implementation 'com.hazelcast:hazelcast-spring:4.1'
 }
 
 springBoot {
