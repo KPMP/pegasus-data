@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "rt_gti")
-public class RTExpressionDataGTI implements RTExpressionData {
+public class RTExpressionDataGTI implements RTExpressionData, Serializable {
 
 	@Id
 	@Column(name = "id")

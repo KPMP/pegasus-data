@@ -1,11 +1,12 @@
 package org.kpmp.gene;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MyGeneInfoHit implements Comparable<MyGeneInfoHit> {
+public class MyGeneInfoHit implements Comparable<MyGeneInfoHit>, Serializable {
     private String id;
     private String symbol;
     private String name;

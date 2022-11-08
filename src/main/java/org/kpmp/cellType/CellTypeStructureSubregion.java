@@ -1,11 +1,12 @@
 package org.kpmp.cellType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.base.Objects;
 
-public class CellTypeStructureSubregion {
+public class CellTypeStructureSubregion implements Serializable {
 
 	private String subregionName;
 	private List<CellType> cellTypes = new ArrayList<>();

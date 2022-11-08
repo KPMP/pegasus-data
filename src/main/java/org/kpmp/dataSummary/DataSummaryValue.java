@@ -5,10 +5,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "sv_file_v")
-public class DataSummaryValue {
+public class DataSummaryValue implements Serializable {
 	@Id
 	@Column(name = "file_id")
 	private Integer fileId;

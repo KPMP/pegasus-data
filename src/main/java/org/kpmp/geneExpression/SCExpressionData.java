@@ -8,9 +8,11 @@ import javax.persistence.Table;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "sc_feature_data")
-class SCExpressionData {
+class SCExpressionData implements Serializable {
 
 	@Id
 	@Column(name = "gene_symbol")

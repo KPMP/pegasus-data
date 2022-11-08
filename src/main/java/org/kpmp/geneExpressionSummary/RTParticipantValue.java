@@ -5,11 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "rt_participant_tissue_v")
 @IdClass(ParticipantId.class)
-class RTParticipantValue implements Participant {
+class RTParticipantValue implements Participant, Serializable {
 
 	@Column(name = "tissue_type")
 	private String tissueType;

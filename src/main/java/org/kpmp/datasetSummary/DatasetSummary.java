@@ -1,6 +1,8 @@
 package org.kpmp.datasetSummary;
 
-public class DatasetSummary {
+import java.io.Serializable;
+
+public class DatasetSummary implements Serializable {
     private String omicsType;
     private String dataType;
     private String dataTypeShort;

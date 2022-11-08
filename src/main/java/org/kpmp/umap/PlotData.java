@@ -1,8 +1,9 @@
 package org.kpmp.umap;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PlotData {
+public class PlotData implements Serializable {
 
 	private List<ReferenceCluster> referenceData;
 	private List<FeatureData> featureData;

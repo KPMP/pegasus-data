@@ -1,6 +1,8 @@
 package org.kpmp.geneExpressionSummary;
 
-public interface GeneExpressionSummary {
+import java.io.Serializable;
+
+public interface GeneExpressionSummary implements Serializable {
 
     Integer getId();
 

@@ -5,10 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "sc_umap_point_v")
-public class SCMetadata implements UmapPoint {
+public class SCMetadata implements UmapPoint, Serializable {
 
 	@Column(name = "umap_x")
 	private double umapX;
