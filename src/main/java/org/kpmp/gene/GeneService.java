@@ -73,7 +73,7 @@ public class GeneService {
 		List<MyGeneInfoHit> finalResults = new ArrayList<>();
 		finalResults.addAll(sortAndSlice(symbolResults, 10));
 		finalResults.addAll(sortAndSlice(aliasResults, 10));
-		return finalResults.size() <= 10 ? finalResults : finalResults.subList(0, 10);
+		return finalResults.size() <= 10 ? finalResults : new ArrayList<>(finalResults.subList(0, 10));
 	}
 
 	private List<MyGeneInfoHit> sortAndSlice(List<MyGeneInfoHit> hits, int max) {
@@ -81,7 +81,7 @@ public class GeneService {
 			return new ArrayList<MyGeneInfoHit>();
 		}
 		Collections.sort(hits);
-		return hits.size() <= max ? hits : hits.subList(0, max);
+		return hits.size() <= max ? hits : new ArrayList<>(hits.subList(0, max));
 	}
 
 }
