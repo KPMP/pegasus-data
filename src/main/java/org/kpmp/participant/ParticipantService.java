@@ -1,9 +1,12 @@
 package org.kpmp.participant;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.kpmp.FullDataTypeEnum;
+import org.kpmp.TissueTypeEnum;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.RTParticipantRepository;
 import org.slf4j.Logger;
@@ -38,7 +41,11 @@ public class ParticipantService {
 	}
 
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
-		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
+		Map<String, Integer> participantSummaryDatasetMap = new HashMap<>();
+		participantSummaryDatasetMap.put("AKI", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()));
+		participantSummaryDatasetMap.put("CKD", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()));
+		participantSummaryDatasetMap.put("Healthy Reference", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
+		return (ParticipantSummaryDataset) participantSummaryDatasetMap;
 	}
 
 	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
