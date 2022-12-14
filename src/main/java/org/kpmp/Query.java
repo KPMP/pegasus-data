@@ -3,6 +3,7 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
@@ -150,7 +151,7 @@ public class Query implements GraphQLQueryResolver {
 		return participantService.getExperimentCounts(redcapId);
 	}
 
-	public ParticipantSummaryDataset participantSummaryDataset(String redcap_id) throws Exception {
+	public Map<String, Integer> participantSummaryDataset(String redcap_id) throws Exception {
 		try {
 			return participantService.getParticipantSummaryDataset(redcap_id);
 		} catch (Exception e) {
@@ -162,7 +163,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public ParticipantSummaryDataset participantClinicalDataset(String redcap_id) throws Exception {
+	public Map<String, Integer> participantClinicalDataset(String redcap_id) throws Exception {
 		return this.participantSummaryDataset(redcap_id);
 	}
 }
