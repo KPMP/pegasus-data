@@ -44,7 +44,7 @@ public class ParticipantService {
 		Map<String, Integer> participantSummaryDatasetMap = new HashMap<>();
 		participantSummaryDatasetMap.put("AKI", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()));
 		participantSummaryDatasetMap.put("CKD", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()));
-		participantSummaryDatasetMap.put("Healthy Reference", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
+		participantSummaryDatasetMap.put("HEALTHY_REFERENCE", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
 		return (ParticipantSummaryDataset) participantSummaryDatasetMap;
 	}
 
