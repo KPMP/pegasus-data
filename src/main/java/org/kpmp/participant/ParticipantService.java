@@ -1,9 +1,7 @@
 package org.kpmp.participant;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
@@ -26,22 +24,36 @@ public class ParticipantService {
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
 	private SingleNucleusMetadataRepository snMetadataRepo;
 	private RTParticipantRepository rtParticipantRepo;
+	private ParticipantTissueTypeSummary particpantTissueTypeSummary;
 
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
 			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
 			RTParticipantRepository rtParticipantRepo,
-			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository) {
+			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository,
+			ParticipantTissueTypeSummary participantTissueTypeSummary) {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
 		this.scMetadataRepo = scMetadataRepo;
 		this.snMetadataRepo = snMetadataRepo;
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
+		this.particpantTissueTypeSummary = participantTissueTypeSummary;
+	}
+  
+	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
+		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
 	}
 
+	public List<ParticipantTissueTypeSummary> getTissueData(){
+		List<ParticipantTissueTypeSummary> tissueData = new ArrayList<>();
 
-	public List<ParticipantDataTypeSummary> get
+		tissueData.add(new ParticipantTissueTypeSummary(
+			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()), 
+			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()), 
+			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())));
+		return tissueData;
+	}
 
 	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
 		ParticipantDataTypeSummary summaryData = new ParticipantDataTypeSummary();
