@@ -40,13 +40,8 @@ public class ParticipantService {
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 	}
 
-	public Map<String, Integer> getParticipantSummaryDataset(String redcapId) {
-		Map<String, Integer> participantSummaryDatasetMap = new HashMap<>();
-		participantSummaryDatasetMap.put("AKI", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()));
-		participantSummaryDatasetMap.put("CKD", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()));
-		participantSummaryDatasetMap.put("HEALTHY_REFERENCE", participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
-		return participantSummaryDatasetMap;
-	}
+
+	public List<ParticipantDataTypeSummary> get
 
 	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
 		ParticipantDataTypeSummary summaryData = new ParticipantDataTypeSummary();
