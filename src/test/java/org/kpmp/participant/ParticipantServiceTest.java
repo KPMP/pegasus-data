@@ -124,4 +124,15 @@ public class ParticipantServiceTest {
 
 	}
 
+	@Test
+	public void testGetTissueCounts() throws Exception {
+		List<ParticipantTissueTypeSummary> result = participantService.getTissueData();
+		ParticipantTissueTypeSummary resultDataAki = result.get(0);
+		ParticipantTissueTypeSummary resultDataCkd = result.get(1);
+		ParticipantTissueTypeSummary resultDataHrt = result.get(2);
+
+		assertEquals(Integer.valueOf(0), resultDataAki.getAkiCount());
+		assertEquals(Integer.valueOf(0), resultDataCkd.getCkdCount());
+		assertEquals(Integer.valueOf(0), resultDataHrt.getHrtCount());
+	}
 }
