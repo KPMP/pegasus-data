@@ -24,21 +24,18 @@ public class ParticipantService {
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
 	private SingleNucleusMetadataRepository snMetadataRepo;
 	private RTParticipantRepository rtParticipantRepo;
-	private ParticipantTissueTypeSummary particpantTissueTypeSummary;
 
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
 			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
 			RTParticipantRepository rtParticipantRepo,
-			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository,
-			ParticipantTissueTypeSummary participantTissueTypeSummary) {
+			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository) {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
 		this.scMetadataRepo = scMetadataRepo;
 		this.snMetadataRepo = snMetadataRepo;
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
-		this.particpantTissueTypeSummary = participantTissueTypeSummary;
 	}
   
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
