@@ -3,37 +3,37 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ParticipantTissueTypeSummary {
-	private Integer akiCount;
-	private Integer ckdCount;
-	private Integer hrtCount;
+	private Long akiCount;
+	private Long ckdCount;
+	private Long hrtCount;
 
-	public ParticipantTissueTypeSummary(Integer akiCount, Integer ckdCount, Integer hrtCount) {
+	public ParticipantTissueTypeSummary(Long akiCount, Long ckdCount, Long hrtCount) {
 		this.akiCount = akiCount;
 		this.ckdCount = ckdCount;
 		this.hrtCount = hrtCount;
 	}
 
-	public Integer getAkiCount() {
+	public Long getAkiCount() {
     return this.akiCount;
   }
 
-  public void setAkiCount(Integer akiCount) {
+  public void setAkiCount(Long akiCount) {
     this.akiCount = akiCount;
   }
 
-  public Integer getCkdCount() {
+  public Long getCkdCount() {
     return this.ckdCount;
   }
 
-  public void setCkdCount(Integer ckdCount) {
+  public void setCkdCount(Long ckdCount) {
     this.ckdCount = ckdCount;
   }
 
-  public Integer getHrtCount() {
+  public Long getHrtCount() {
     return this.hrtCount;
   }
 
-  public void setHrtCount(Integer hrtCount) {
+  public void setHrtCount(Long hrtCount) {
     this.hrtCount = hrtCount;
   }
 }

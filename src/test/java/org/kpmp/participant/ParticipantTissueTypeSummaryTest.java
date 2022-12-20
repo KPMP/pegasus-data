@@ -10,7 +10,7 @@ public class ParticipantTissueTypeSummaryTest {
 
   @Before
   public void setUp() {
-    tissueSummary = new ParticipantTissueTypeSummary(Integer.valueOf(2), Integer.valueOf(6), Integer.valueOf(1));
+    tissueSummary = new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6));
   }
 
   @After
@@ -20,26 +20,26 @@ public class ParticipantTissueTypeSummaryTest {
 
   @Test
   public void testInitialSetup() throws Exception {
-    assertEquals(Integer.valueOf(2), tissueSummary.getAkiCount());
-    assertEquals(Integer.valueOf(6), tissueSummary.getCkdCount());
-    assertEquals(Integer.valueOf(1), tissueSummary.getHrtCount());
+    assertEquals(Long.valueOf(4), tissueSummary.getAkiCount());
+    assertEquals(Long.valueOf(5), tissueSummary.getCkdCount());
+    assertEquals(Long.valueOf(6), tissueSummary.getHrtCount());
   }
 
   @Test
   public void testSetAkiCount() throws Exception {
-    tissueSummary.setAkiCount(Integer.valueOf(4*10));
-    assertEquals(Integer.valueOf(2*9), tissueSummary.getAkiCount());
+    tissueSummary.setAkiCount(Long.valueOf(4*10));
+    assertEquals(Long.valueOf(4*10), tissueSummary.getAkiCount());
   }
 
   @Test
   public void testSetCkdCount() throws Exception {
-    tissueSummary.setCkdCount(Integer.valueOf(5*10));
-    assertEquals(Integer.valueOf(5*10), tissueSummary.getCkdCount());
+    tissueSummary.setCkdCount(Long.valueOf(5*10));
+    assertEquals(Long.valueOf(5*10), tissueSummary.getCkdCount());
   }
 
   @Test
   public void testSetHrtCount() throws Exception {
-    tissueSummary.setHrtCount(Integer.valueOf(6*10));
-    assertEquals(Integer.valueOf(6*10), tissueSummary.getHrtCount());
+    tissueSummary.setHrtCount(Long.valueOf(6*10));
+    assertEquals(Long.valueOf(6*10), tissueSummary.getHrtCount());
   }
 }

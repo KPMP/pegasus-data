@@ -14,5 +14,5 @@ public interface ParticipantSummaryDatasetRepository extends CrudRepository<Part
 
 	@Cacheable("partipantByTissueType")
 	@Query(value = "select count(*) from participant where tissue_type= :tissue_type", nativeQuery = true)
-	Integer getDataSummaryCount(@Param("tissue_type") String tissue_type);
+	Long getDataSummaryCount(@Param("tissue_type") String tissue_type);
 }

@@ -255,7 +255,7 @@ public class QueryTest {
 	public void getParticipantTissueTypeSummary() throws Exception {
 		List<ParticipantTissueTypeSummary> expectedResult = new ArrayList<>();
 
-		expectedResult.add(new ParticipantTissueTypeSummary(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0)));
+		expectedResult.add(new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6)));
 		
 		List<ParticipantTissueTypeSummary> tissueSummary = query.getTissueTypeSummaryData();
 
