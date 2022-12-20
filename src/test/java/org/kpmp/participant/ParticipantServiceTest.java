@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-
+import org.kpmp.TissueTypeEnum;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -126,13 +126,18 @@ public class ParticipantServiceTest {
 
 	@Test
 	public void testGetTissueCounts() throws Exception {
+		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType())).thenReturn(Long .valueOf(4));
+		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType())).thenReturn(Long .valueOf(5));
+		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())).thenReturn(Long .valueOf(6));
+
 		List<ParticipantTissueTypeSummary> result = participantService.getTissueData();
 		ParticipantTissueTypeSummary resultDataAki = result.get(0);
-		ParticipantTissueTypeSummary resultDataCkd = result.get(1);
-		ParticipantTissueTypeSummary resultDataHrt = result.get(2);
+		ParticipantTissueTypeSummary resultDataCkd = result.get(0);
+		ParticipantTissueTypeSummary resultDataHrt = result.get(0);
 
-		assertEquals(Integer.valueOf(0), resultDataAki.getAkiCount());
-		assertEquals(Integer.valueOf(0), resultDataCkd.getCkdCount());
-		assertEquals(Integer.valueOf(0), resultDataHrt.getHrtCount());
+
+		assertEquals(Long.valueOf(4), resultDataAki.getAkiCount());
+		assertEquals(Long.valueOf(5), resultDataCkd.getCkdCount());
+		assertEquals(Long.valueOf(6), resultDataHrt.getHrtCount());
 	}
 }
