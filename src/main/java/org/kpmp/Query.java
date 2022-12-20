@@ -20,6 +20,7 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.participant.ParticipantDataTypeSummary;
+import org.kpmp.participant.ParticipantTissueTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.PlotData;
@@ -164,5 +165,14 @@ public class Query implements GraphQLQueryResolver {
 
 	public ParticipantSummaryDataset participantClinicalDataset(String redcap_id) throws Exception {
 		return this.participantSummaryDataset(redcap_id);
+	}
+
+	public List<ParticipantTissueTypeSummary> getTissueTypeSummaryData() throws Exception {
+		try {
+			return participantService.getTissueData();
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}	
 	}
 }

@@ -31,6 +31,7 @@ import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
+import org.kpmp.participant.ParticipantTissueTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.FeatureData;
@@ -61,6 +62,8 @@ public class QueryTest {
 	private RTExpressionDataService rtExpressionDataService;
 	@Mock
 	private ParticipantService participantService;
+	@Mock
+	private ParticipantTissueTypeSummary participantTissueTypeSummary;
 
 	@Before
 	public void setUp() throws Exception {
@@ -249,4 +252,13 @@ public class QueryTest {
 		assertEquals(expected, query.participantClinicalDataset("participant_id"));
 	}
 	
+	public void getParticipantTissueTypeSummary() throws Exception {
+		List<ParticipantTissueTypeSummary> expectedResult = new ArrayList<>();
+
+		expectedResult.add(new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6)));
+		
+		List<ParticipantTissueTypeSummary> tissueSummary = query.getTissueTypeSummaryData();
+
+		assertEquals(expectedResult, tissueSummary);
+	}
 }
