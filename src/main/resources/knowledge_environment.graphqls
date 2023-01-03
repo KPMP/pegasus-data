@@ -13,6 +13,13 @@ type Query {
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
   participantClinicalDataset(redcapId: String): ParticipantSummaryDataset
+  participantTissueTypeSummary(akiCount: Long, ckdCount: Long, hrtCount: Long): ParticipantTissueTypeSummary
+}
+
+type ParticipantTissueTypeSummary {
+  akiCount: Long
+  ckdCount: Long
+  hrtCount: Long
 }
 
 type ParticipantDataTypeSummary {
