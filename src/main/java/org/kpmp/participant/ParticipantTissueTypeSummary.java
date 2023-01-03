@@ -1,8 +1,7 @@
 package org.kpmp.participant;
-import org.springframework.stereotype.Component;
-
-@Component
-public class ParticipantTissueTypeSummary {
+import java.io.Serializable;
+import java.lang.Long;
+public class ParticipantTissueTypeSummary implements Serializable{
 	private Long akiCount;
 	private Long ckdCount;
 	private Long hrtCount;
