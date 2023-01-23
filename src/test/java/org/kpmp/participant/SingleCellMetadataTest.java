@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SingleCellMetadataTest extends SingleCellMetadata {
+public class SingleCellMetadataTest {
 
 	private SingleCellMetadata scMetadata;
 

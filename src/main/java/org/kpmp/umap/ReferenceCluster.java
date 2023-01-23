@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ReferenceCluster implements Serializable {
 
+	private static final long serialVersionUID = -3963666320832242935L;
 	private List<Double> xValues = new ArrayList<>();
 	private List<Double> yValues = new ArrayList<>();
 	private String color;
@@ -57,11 +58,11 @@ public class ReferenceCluster implements Serializable {
 		this.clusterName = clusterName;
 	}
 
-    public String getClusterAbbreviation() {
-        return clusterAbbreviation;
-    }
+	public String getClusterAbbreviation() {
+		return clusterAbbreviation;
+	}
 
-    public void setClusterAbbreviation(String clusterAbbreviation) {
-        this.clusterAbbreviation = clusterAbbreviation;
-    }
+	public void setClusterAbbreviation(String clusterAbbreviation) {
+		this.clusterAbbreviation = clusterAbbreviation;
+	}
 }

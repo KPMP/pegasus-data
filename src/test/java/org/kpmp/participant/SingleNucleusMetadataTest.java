@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SingleNucleusMetadataTest extends SingleNucleusMetadata {
+public class SingleNucleusMetadataTest {
 
 	private SingleNucleusMetadata snMetadata;
 

@@ -17,6 +17,7 @@ import org.kpmp.DataTypeEnum;
 @IdClass(GeneExpressionId.class)
 public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary, Serializable {
 
+	private static final long serialVersionUID = 7265280085624504185L;
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "tissue_type")

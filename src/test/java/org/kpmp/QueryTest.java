@@ -21,7 +21,6 @@ import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.DataSummaryService;
-import org.kpmp.datasetSummary.DatasetSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
@@ -32,6 +31,7 @@ import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantTissueTypeSummary;
+import org.kpmp.repositorySummary.TissueTypeSummaryByDataType;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.FeatureData;
@@ -192,17 +192,17 @@ public class QueryTest {
 
 	@Test
 	public void getGeneDatasetInformation() throws Exception {
-		List<DatasetSummary> expectedResult = new ArrayList<>();
+		List<TissueTypeSummaryByDataType> expectedResult = new ArrayList<>();
 
-		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+		expectedResult.add(new TissueTypeSummaryByDataType(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
-		expectedResult.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(),
+		expectedResult.add(new TissueTypeSummaryByDataType(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
 
-		List<DatasetSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
+		List<TissueTypeSummaryByDataType> datasetSummary = query.getGeneDatasetInformation("AAA");
 
 		assertEquals(expectedResult, datasetSummary);
 	}

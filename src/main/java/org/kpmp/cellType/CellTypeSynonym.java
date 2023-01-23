@@ -1,45 +1,48 @@
 package org.kpmp.cellType;
 
-import javax.persistence.FetchType;
-import javax.persistence.Id;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "celltype_synonym")
 @IdClass(CellTypeSynonymId.class)
 public class CellTypeSynonym implements Serializable {
 
-    @Id
-    @Column(name="cell_type_id")
-    private int cellTypeId;
+	private static final long serialVersionUID = -5650797130903696615L;
 
-    @Id
-    @Column(name="cell_type_synonym")
-    private String cellTypeSynonym;
+	@Id
+	@Column(name = "cell_type_id")
+	private int cellTypeId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="cell_type_id", nullable = false, insertable = false, updatable = false)
-    private CellType cellType;
+	@Id
+	@Column(name = "cell_type_synonym")
+	private String cellTypeSynonym;
 
-    public int getCellTypeId() {
-        return cellTypeId;
-    }
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cell_type_id", nullable = false, insertable = false, updatable = false)
+	private CellType cellType;
 
-    public void setCellTypeId(int cellTypeId) {
-        this.cellTypeId = cellTypeId;
-    }
+	public int getCellTypeId() {
+		return cellTypeId;
+	}
 
-    public String getCellTypeSynonym() {
-        return cellTypeSynonym;
-    }
+	public void setCellTypeId(int cellTypeId) {
+		this.cellTypeId = cellTypeId;
+	}
 
-    public void setCellTypeSynonym(String cellTypeSynonym) {
-        this.cellTypeSynonym = cellTypeSynonym;
-    }
+	public String getCellTypeSynonym() {
+		return cellTypeSynonym;
+	}
+
+	public void setCellTypeSynonym(String cellTypeSynonym) {
+		this.cellTypeSynonym = cellTypeSynonym;
+	}
 }
