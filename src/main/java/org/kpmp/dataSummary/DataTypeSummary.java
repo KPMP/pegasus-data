@@ -1,8 +1,8 @@
-package org.kpmp.repositorySummary;
+package org.kpmp.dataSummary;
 
 import java.io.Serializable;
 
-public class TissueTypeSummaryByDataType implements Serializable {
+public class DataTypeSummary implements Serializable {
 	private static final long serialVersionUID = 114808450473696153L;
 	private String omicsType;
 	private String dataType;
@@ -12,7 +12,7 @@ public class TissueTypeSummaryByDataType implements Serializable {
 	private Long hrtCount;
 	private Long participantCount;
 
-	public TissueTypeSummaryByDataType(String omicsType, String dataType, String dataTypeShort, Long akiCount, Long ckdCount,
+	public DataTypeSummary(String omicsType, String dataType, String dataTypeShort, Long akiCount, Long ckdCount,
 			Long hrtCount, Long participantCount) {
 		this.omicsType = omicsType;
 		this.dataType = dataType;

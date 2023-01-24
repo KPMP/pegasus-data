@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
-import org.kpmp.repositorySummary.TissueTypeSummaryByDataType;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -103,7 +102,7 @@ public class DataSummaryServiceTest {
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
-		List<TissueTypeSummaryByDataType> result = dataSummaryService.getSummaryData();
+		List<DataTypeSummary> result = dataSummaryService.getSummaryData();
 
 		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName(), result.get(0).getDataType());
 		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());

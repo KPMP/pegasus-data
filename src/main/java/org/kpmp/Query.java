@@ -11,6 +11,7 @@ import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.DataSummaryService;
+import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
@@ -20,7 +21,6 @@ import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantTissueTypeSummary;
-import org.kpmp.repositorySummary.TissueTypeSummaryByDataType;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.umap.PlotData;
@@ -100,7 +100,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<TissueTypeSummaryByDataType> getGeneDatasetInformation(String geneSymbol) throws Exception {
+	public List<DataTypeSummary> getGeneDatasetInformation(String geneSymbol) throws Exception {
 		try {
 			return geneExpressionSummaryService.getGeneDatasetInformation(geneSymbol);
 		} catch (Exception e) {
@@ -109,7 +109,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<TissueTypeSummaryByDataType> getSummaryData() throws Exception {
+	public List<DataTypeSummary> getSummaryData() throws Exception {
 		try {
 			return dataSummaryService.getSummaryData();
 		} catch (Exception e) {
