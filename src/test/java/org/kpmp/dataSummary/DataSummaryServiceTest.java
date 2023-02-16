@@ -18,11 +18,13 @@ public class DataSummaryServiceTest {
 	private DataSummaryService dataSummaryService;
 	@Mock
 	private DataSummaryRepository dataSummaryRepository;
+	@Mock
+	private AtlasRepoSummaryRepository atlasRepoSummaryRepository;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		dataSummaryService = new DataSummaryService(dataSummaryRepository);
+		dataSummaryService = new DataSummaryService(dataSummaryRepository, atlasRepoSummaryRepository);
 	}
 
 	@After
