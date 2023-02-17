@@ -1,29 +1,52 @@
 package org.kpmp.dataSummary;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import java.util.List;
 
-class AtlasRepoSummaryResultTest {
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
 
-	@BeforeEach
-	void setUp() throws Exception {
+public class AtlasRepoSummaryResultTest {
+
+	private AtlasRepoSummaryResult result;
+	@Mock
+	private List<AtlasRepoSummaryRow> summaryRows;
+
+	@Before
+	public void setUp() throws Exception {
+		result = new AtlasRepoSummaryResult();
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
+		result = null;
 	}
 
 	@Test
-	void testSetSummaryRows() {
-		fail("Not yet implemented");
+	public void testConstructor() throws Exception {
+		int totalFiles = 5;
+		AtlasRepoSummaryResult constructorTest = new AtlasRepoSummaryResult(summaryRows, totalFiles);
+
+		assertEquals(summaryRows, constructorTest.getSummaryRows());
+		assertEquals(5, constructorTest.getTotalFiles());
+
 	}
 
 	@Test
-	void testSetTotalFiles() {
-		fail("Not yet implemented");
+	public void testSetSummaryRows() {
+		result.setSummaryRows(summaryRows);
+
+		assertEquals(summaryRows, result.getSummaryRows());
+	}
+
+	@Test
+	public void testSetTotalFiles() {
+		result.setTotalFiles(58);
+
+		assertEquals(58, result.getTotalFiles());
 	}
 
 }

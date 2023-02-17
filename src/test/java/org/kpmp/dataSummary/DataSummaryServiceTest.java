@@ -3,6 +3,7 @@ package org.kpmp.dataSummary;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
@@ -31,6 +32,66 @@ public class DataSummaryServiceTest {
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		dataSummaryService = null;
+	}
+
+	@Test
+	public void testGetAtlasRepoSummary() throws Exception {
+		ExperimentalStrategyValue clinicalData = new ExperimentalStrategyValue();
+		clinicalData.setDataCategory("stuff");
+		clinicalData.setExperimentalStrategy("");
+		clinicalData.setDataType("Clinical Study Data");
+		clinicalData.setCount(1);
+		clinicalData.setAccess("open");
+		ExperimentalStrategyValue biomarker1 = new ExperimentalStrategyValue();
+		biomarker1.setDataCategory("Biomarker");
+		biomarker1.setExperimentalStrategy("something");
+		biomarker1.setDataType("stuff");
+		biomarker1.setDataCategory("Biomarker");
+		biomarker1.setCount(5);
+		biomarker1.setAccess("open");
+		ExperimentalStrategyValue biomarker2 = new ExperimentalStrategyValue();
+		biomarker2.setDataCategory("Biomarker");
+		biomarker2.setDataType("more stuff");
+		biomarker2.setExperimentalStrategy("something else");
+		biomarker2.setDataCategory("Biomarker");
+		biomarker2.setCount(10);
+		biomarker2.setAccess("open");
+		ExperimentalStrategyValue other1 = new ExperimentalStrategyValue();
+		other1.setDataCategory("data category");
+		other1.setDataType("different stuff");
+		other1.setExperimentalStrategy("strategy1");
+		other1.setCount(10);
+		other1.setAccess("open");
+		ExperimentalStrategyValue other2 = new ExperimentalStrategyValue();
+		other2.setDataCategory("data category2");
+		other2.setDataType("even more different stuff");
+		other2.setExperimentalStrategy("strategy1");
+		other2.setCount(10);
+		other2.setAccess("controlled");
+		List<ExperimentalStrategyValue> strategyValues = Arrays.asList(clinicalData, biomarker1, biomarker2, other1,
+				other2);
+		when(atlasRepoSummaryRepository.findAll()).thenReturn(strategyValues);
+
+		AtlasRepoSummaryResult result = dataSummaryService.getAtlasRepoSummary();
+		List<AtlasRepoSummaryRow> summaryRows = result.getSummaryRows();
+		assertEquals(3, summaryRows.size());
+		assertEquals("Biomarkers", summaryRows.get(0).getOmicsType());
+		assertEquals(0, summaryRows.get(0).getControlledCount());
+		assertEquals(15, summaryRows.get(0).getOpenCount());
+		assertEquals(new AtlasRepoSummaryLinkInformation("data_category", "Biomarker"),
+				summaryRows.get(0).getLinkInformation());
+		assertEquals("Clinical Study Data", summaryRows.get(1).getOmicsType());
+		assertEquals(0, summaryRows.get(1).getControlledCount());
+		assertEquals(1, summaryRows.get(1).getOpenCount());
+		assertEquals(new AtlasRepoSummaryLinkInformation("data_category", "stuff"),
+				summaryRows.get(1).getLinkInformation());
+		assertEquals("strategy1", summaryRows.get(2).getOmicsType());
+		assertEquals(10, summaryRows.get(2).getControlledCount());
+		assertEquals(10, summaryRows.get(2).getOpenCount());
+		assertEquals(new AtlasRepoSummaryLinkInformation("experimental_strategy", "strategy1"),
+				summaryRows.get(2).getLinkInformation());
+		assertEquals(36, result.getTotalFiles());
+
 	}
 
 	@Test
