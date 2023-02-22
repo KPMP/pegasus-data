@@ -8,6 +8,7 @@ import com.google.common.base.Objects;
 
 public class CellTypeStructureSubregion implements Serializable {
 
+	private static final long serialVersionUID = 1366955014710403152L;
 	private String subregionName;
 	private List<CellType> cellTypes = new ArrayList<>();
 

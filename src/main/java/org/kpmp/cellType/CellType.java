@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @Table(name = "cell_type")
 public class CellType implements Serializable {
 
+	private static final long serialVersionUID = -7240769211757430938L;
+
 	@Id
 	@Column(name = "cell_type_id")
 	private int cellTypeId;

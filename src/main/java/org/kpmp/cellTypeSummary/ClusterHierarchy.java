@@ -1,19 +1,21 @@
 package org.kpmp.cellTypeSummary;
 
-import org.springframework.lang.Nullable;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-import java.io.Serializable;
+
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "cluster_hierarchy_v")
 @IdClass(ClusterHierarchyId.class)
 public class ClusterHierarchy implements Serializable {
 
+	private static final long serialVersionUID = -7707637379989017634L;
 	@Id
 	@Column(name = "cell_type_id")
 	private int cellTypeId;
@@ -31,11 +33,11 @@ public class ClusterHierarchy implements Serializable {
 	@Column(name = "is_single_nuc")
 	private String isSingleNucCluster;
 	@Column(name = "is_rt")
-    private String isRegionalTranscriptomics;
+	private String isRegionalTranscriptomics;
 	@Column(name = "cell_type")
 	private String cellType;
 	@Column(name = "cell_type_order")
-    private Double cellTypeOrder;
+	private Double cellTypeOrder;
 
 	public int getCellTypeId() {
 		return cellTypeId;
@@ -45,7 +47,7 @@ public class ClusterHierarchy implements Serializable {
 		this.cellTypeId = cellTypeId;
 	}
 
-    @Nullable
+	@Nullable
 	public int getClusterId() {
 		return clusterId;
 	}
@@ -62,7 +64,7 @@ public class ClusterHierarchy implements Serializable {
 		this.structureRegion = structureRegion;
 	}
 
-    @Nullable
+	@Nullable
 	public String getStructureSubregion() {
 		return structureSubregion;
 	}
@@ -71,7 +73,7 @@ public class ClusterHierarchy implements Serializable {
 		this.structureSubregion = structureSubregion;
 	}
 
-    @Nullable
+	@Nullable
 	public String getClusterName() {
 		return clusterName;
 	}
@@ -96,29 +98,29 @@ public class ClusterHierarchy implements Serializable {
 		this.isSingleNucCluster = isSingleNucCluster;
 	}
 
-    public String getIsRegionalTranscriptomics() {
-        return isRegionalTranscriptomics;
-    }
+	public String getIsRegionalTranscriptomics() {
+		return isRegionalTranscriptomics;
+	}
 
-    public void setIsRegionalTranscriptomics(String isRegionalTranscriptomics) {
-        this.isRegionalTranscriptomics = isRegionalTranscriptomics;
-    }
+	public void setIsRegionalTranscriptomics(String isRegionalTranscriptomics) {
+		this.isRegionalTranscriptomics = isRegionalTranscriptomics;
+	}
 
-    @Nullable
-    public Double getCellTypeOrder() {
-        return cellTypeOrder;
-    }
+	@Nullable
+	public Double getCellTypeOrder() {
+		return cellTypeOrder;
+	}
 
-    public void setCellTypeOrder(Double cellTypeOrder) {
-        this.cellTypeOrder = cellTypeOrder;
-    }
+	public void setCellTypeOrder(Double cellTypeOrder) {
+		this.cellTypeOrder = cellTypeOrder;
+	}
 
-    @Nullable
-    public String getCellType() {
-        return cellType;
-    }
+	@Nullable
+	public String getCellType() {
+		return cellType;
+	}
 
-    public void setCellType(String cellType) {
-        this.cellType = cellType;
-    }
+	public void setCellType(String cellType) {
+		this.cellType = cellType;
+	}
 }

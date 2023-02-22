@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CellTypeHierarchy implements Serializable {
-	
+
+	private static final long serialVersionUID = 4174487460309851924L;
 	private Map<String, CellTypeStructureRegion> cellTypeRegionMap = new HashMap<>();
 
 	public List<CellTypeStructureRegion> getCellTypeRegions() {
@@ -20,7 +21,7 @@ public class CellTypeHierarchy implements Serializable {
 	}
 
 	public void addCellTypeStructureRegion(CellTypeStructureRegion region) {
-		
+
 		if (cellTypeRegionMap.containsKey(region.getRegionName())) {
 			CellTypeStructureRegion existingRegion = cellTypeRegionMap.get(region.getRegionName());
 			List<CellTypeStructureSubregion> subregions = region.getCellTypeSubregions();
@@ -32,7 +33,4 @@ public class CellTypeHierarchy implements Serializable {
 		}
 	}
 
-	
-	
 }
-

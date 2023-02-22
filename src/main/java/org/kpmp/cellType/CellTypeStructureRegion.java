@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class CellTypeStructureRegion implements Serializable {
 
+	private static final long serialVersionUID = 3141535632314917816L;
 	private String regionName;
 	private Map<String, CellTypeStructureSubregion> subregionMap = new HashMap<>();
 	private List<String> subregionOrderdList = new ArrayList<>();

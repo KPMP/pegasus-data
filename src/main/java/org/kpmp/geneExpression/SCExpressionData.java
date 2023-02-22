@@ -1,5 +1,7 @@
 package org.kpmp.geneExpression;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,12 +10,11 @@ import javax.persistence.Table;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "sc_feature_data")
 class SCExpressionData implements Serializable {
 
+	private static final long serialVersionUID = 1079445825708102694L;
 	@Id
 	@Column(name = "gene_symbol")
 	private String geneSymbol;

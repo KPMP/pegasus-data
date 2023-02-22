@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kpmp.DataTypeEnum;
-import org.kpmp.datasetSummary.DatasetSummary;
+import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -204,10 +204,10 @@ public class GeneExpressionSummaryServiceTest {
 		when(snrnaGeneExpressionRepository.getCountByTissue("hrt")).thenReturn(Long.valueOf(0));
 		when(snrnaParticipantRepository.getParticipantCount()).thenReturn(Long.valueOf(0));
 
-		List<DatasetSummary> result = geneExpressionService.getGeneDatasetInformation("AAA");
-		DatasetSummary resultDataSC = result.get(0);
-		DatasetSummary resultDataSN = result.get(1);
-		DatasetSummary resultDataRt = result.get(2);
+		List<DataTypeSummary> result = geneExpressionService.getGeneDatasetInformation("AAA");
+		DataTypeSummary resultDataSC = result.get(0);
+		DataTypeSummary resultDataSN = result.get(1);
+		DataTypeSummary resultDataRt = result.get(2);
 
 		assertEquals(Long.valueOf(0), resultDataSC.getAkiCount());
 		assertEquals(Long.valueOf(0), resultDataSC.getCkdCount());

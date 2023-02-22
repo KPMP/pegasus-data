@@ -6,13 +6,13 @@ import java.util.List;
 
 public class FeatureData implements Serializable {
 
+	private static final long serialVersionUID = 6332061560137675936L;
 	private List<Double> xValues = new ArrayList<>();
 	private List<Double> yValues = new ArrayList<>();
 	private List<Double> expression = new ArrayList<>();
-    private List<String> hoverDisplay = new ArrayList<>();
+	private List<String> hoverDisplay = new ArrayList<>();
 
-
-    public List<Double> getXValues() {
+	public List<Double> getXValues() {
 		return xValues;
 	}
 
@@ -48,16 +48,16 @@ public class FeatureData implements Serializable {
 		this.expression.add(expressionValue);
 	}
 
-    public List<String> getHoverDisplay() {
-        return hoverDisplay;
-    }
+	public List<String> getHoverDisplay() {
+		return hoverDisplay;
+	}
 
-    public void setHoverDisplay(List<String> hoverDisplay) {
-        this.hoverDisplay = hoverDisplay;
-    }
+	public void setHoverDisplay(List<String> hoverDisplay) {
+		this.hoverDisplay = hoverDisplay;
+	}
 
-    public void addHoverDisplay(String hoverDisplay) {
-        this.hoverDisplay.add(hoverDisplay);
-    }
+	public void addHoverDisplay(String hoverDisplay) {
+		this.hoverDisplay.add(hoverDisplay);
+	}
 
 }

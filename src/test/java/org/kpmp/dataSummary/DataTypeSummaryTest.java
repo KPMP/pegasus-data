@@ -1,4 +1,4 @@
-package org.kpmp.datasetSummary;
+package org.kpmp.dataSummary;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,14 +9,14 @@ import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 
-public class DatasetSummaryTest {
+public class DataTypeSummaryTest {
 
-	private DatasetSummary datasetSummary;
+	private DataTypeSummary datasetSummary;
 
 	@Before
 	public void setUp() {
 
-		datasetSummary = new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+		datasetSummary = new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				Long.valueOf(2), Long.valueOf(4), Long.valueOf(6), Long.valueOf(8));
 	}

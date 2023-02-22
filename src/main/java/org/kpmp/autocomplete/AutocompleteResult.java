@@ -5,6 +5,7 @@ import java.util.List;
 
 public class AutocompleteResult implements Serializable {
 
+	private static final long serialVersionUID = 762733408490639258L;
 	private String value;
 	private String name;
 	private String id;

@@ -1,6 +1,7 @@
 package org.kpmp;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -20,8 +21,9 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
+import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
-import org.kpmp.datasetSummary.DatasetSummary;
+import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.gene.GeneService;
 import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
@@ -31,9 +33,9 @@ import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
-import org.kpmp.participant.ParticipantTissueTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
+import org.kpmp.participant.ParticipantTissueTypeSummary;
 import org.kpmp.umap.FeatureData;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.ReferenceCluster;
@@ -76,6 +78,26 @@ public class QueryTest {
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		query = null;
+	}
+
+	@Test
+	public void testGetAtlasSummaryRows() throws Exception {
+		AtlasRepoSummaryResult expectedResult = mock(AtlasRepoSummaryResult.class);
+		when(dataSummaryService.getAtlasRepoSummary()).thenReturn(expectedResult);
+
+		assertEquals(expectedResult, query.getAtlasSummaryRows());
+	}
+
+	@Test
+	public void testGetAtlasSummaryRows_throwsException() throws Exception {
+		when(dataSummaryService.getAtlasRepoSummary()).thenThrow(new Exception("ack"));
+
+		try {
+			query.getAtlasSummaryRows();
+			fail("Should have thrown exception");
+		} catch (Exception e) {
+			assertEquals("ack", e.getMessage());
+		}
 	}
 
 	@Test
@@ -192,17 +214,17 @@ public class QueryTest {
 
 	@Test
 	public void getGeneDatasetInformation() throws Exception {
-		List<DatasetSummary> expectedResult = new ArrayList<>();
+		List<DataTypeSummary> expectedResult = new ArrayList<>();
 
-		expectedResult.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+		expectedResult.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
-		expectedResult.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(),
+		expectedResult.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
 
-		List<DatasetSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
+		List<DataTypeSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
 
 		assertEquals(expectedResult, datasetSummary);
 	}
@@ -251,12 +273,12 @@ public class QueryTest {
 
 		assertEquals(expected, query.participantClinicalDataset("participant_id"));
 	}
-	
+
 	public void getParticipantTissueTypeSummary() throws Exception {
 		List<ParticipantTissueTypeSummary> expectedResult = new ArrayList<>();
 
 		expectedResult.add(new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6)));
-		
+
 		List<ParticipantTissueTypeSummary> tissueSummary = query.getTissueTypeSummaryData();
 
 		assertEquals(expectedResult, tissueSummary);

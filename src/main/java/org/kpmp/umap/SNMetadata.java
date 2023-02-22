@@ -1,22 +1,24 @@
 package org.kpmp.umap;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "sn_umap_point_v")
 public class SNMetadata implements UmapPoint, Serializable {
 
+	private static final long serialVersionUID = -8871186152958713643L;
 	@Column(name = "umap_x")
 	private double umapX;
 	@Column(name = "umap_y")
 	private double umapY;
 	@Column(name = "cluster_abbreviation")
-    private String clusterAbbreviation;
+	private String clusterAbbreviation;
 	@Column(name = "cluster_name")
 	private String clusterName;
 	@Column(name = "cluster_color")
@@ -59,17 +61,17 @@ public class SNMetadata implements UmapPoint, Serializable {
 		this.clusterName = clusterName;
 	}
 
-    @Override
-    public String getClusterAbbreviation() {
-        return clusterAbbreviation;
-    }
+	@Override
+	public String getClusterAbbreviation() {
+		return clusterAbbreviation;
+	}
 
-    @Override
-    public void setClusterAbbreviation(String clusterAbbreviation) {
-        this.clusterAbbreviation = clusterAbbreviation;
-    }
+	@Override
+	public void setClusterAbbreviation(String clusterAbbreviation) {
+		this.clusterAbbreviation = clusterAbbreviation;
+	}
 
-    @Override
+	@Override
 	public String getClusterColor() {
 		return clusterColor;
 	}
