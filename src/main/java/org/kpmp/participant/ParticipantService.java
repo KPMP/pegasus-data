@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kpmp.FullDataTypeEnum;
+import org.kpmp.TissueTypeEnum;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.RTParticipantRepository;
 import org.slf4j.Logger;
@@ -36,9 +37,19 @@ public class ParticipantService {
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 	}
-
+  
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
 		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
+	}
+
+	public List<ParticipantTissueTypeSummary> getTissueData(){
+		List<ParticipantTissueTypeSummary> tissueData = new ArrayList<>();
+
+		tissueData.add(new ParticipantTissueTypeSummary(
+			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()), 
+			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()), 
+			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())));
+		return tissueData;
 	}
 
 	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {

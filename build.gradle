@@ -21,7 +21,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName='pegasus-data'
-    version= '2.0'
+    version= '1.7'
 }
 
 repositories {
@@ -46,6 +46,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.0.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.hazelcast:hazelcast-all:4.2.5'
 }
 
 springBoot {

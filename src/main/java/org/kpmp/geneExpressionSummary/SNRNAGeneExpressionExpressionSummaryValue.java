@@ -1,7 +1,6 @@
 package org.kpmp.geneExpressionSummary;
 
-import org.kpmp.DataTypeEnum;
-import org.springframework.lang.Nullable;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +9,15 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.kpmp.DataTypeEnum;
+import org.springframework.lang.Nullable;
+
 @Entity
 @Table(name = "sn_rnaseq")
 @IdClass(GeneExpressionId.class)
-public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary {
+public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary, Serializable {
+
+	private static final long serialVersionUID = -443713903175981503L;
 
 	@Column(name = "id")
 	private Integer id;
@@ -95,20 +99,24 @@ public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		this.gene = gene;
 	}
 
+	@Override
 	@Nullable
 	public Double getPVal() {
 		return pVal;
 	}
 
+	@Override
 	public void setPVal(Double pVal) {
 		this.pVal = pVal;
 	}
 
+	@Override
 	@Nullable
 	public Double getPValAdj() {
 		return pValAdj;
 	}
 
+	@Override
 	public void setPValAdj(Double pValAdj) {
 		this.pValAdj = pValAdj;
 	}
@@ -202,6 +210,7 @@ public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 		if (!(obj instanceof SNRNAGeneExpressionExpressionSummaryValue))
 			return false;
 		SNRNAGeneExpressionExpressionSummaryValue snrnaGeneExpressionExpressionSummaryValue = (SNRNAGeneExpressionExpressionSummaryValue) obj;
-		return (snrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene()) && snrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
+		return (snrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene())
+				&& snrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
 	}
 }

@@ -31,3 +31,4 @@ build
 .settings
 bin
 .gradle
+.DS_Store

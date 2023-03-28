@@ -28,9 +28,11 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "SELECT count(*) FROM sv_link_v WHERE data_type= :data_type", nativeQuery = true)
 	Long getParticipantSummaryLinkCount(@Param("data_type") String data_type);
 
+	@Cacheable("dataParticipantSvFileDataTypeCount")
 	@Query(value = "SELECT count(*) from sv_file_v WHERE data_type= :data_type AND redcap_id= :redcap_id", nativeQuery = true)
 	Integer getParticipantSvFileDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
 
+	@Cacheable("dataParticipantSvLinkDataTypeCount")
 	@Query(value = "SELECT count(*) from sv_link_v WHERE data_type= :data_type AND redcap_id= :redcap_id", nativeQuery = true)
 	Integer getParticipantSvLinkDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
 }

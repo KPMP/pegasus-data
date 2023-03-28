@@ -8,7 +8,7 @@ import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 import org.kpmp.TissueTypeEnum;
-import org.kpmp.datasetSummary.DatasetSummary;
+import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -110,23 +110,23 @@ public class GeneExpressionSummaryService {
 		return dataTypes;
 	}
 
-	public List<DatasetSummary> getGeneDatasetInformation(String geneSymbol) {
-		List<DatasetSummary> geneSummary = new ArrayList<>();
-		geneSummary.add(new DatasetSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+	public List<DataTypeSummary> getGeneDatasetInformation(String geneSymbol) {
+		List<DataTypeSummary> geneSummary = new ArrayList<>();
+		geneSummary.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
 				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
 				scrnaGeneExpressionRepository
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				scrnaParticipantRepository.getParticipantCount()));
-		geneSummary.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(), FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(),
+		geneSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(), FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(),
 				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
 				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
 				snrnaGeneExpressionRepository
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				snrnaParticipantRepository.getParticipantCount()));
-		geneSummary.add(new DatasetSummary(OmicsTypeEnum.NONE.getEnum(),
+		geneSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(),
 				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
 				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.AKI.getParticipantTissueType()),

@@ -1,5 +1,7 @@
 package org.kpmp.participant;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,8 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sn_metadata")
-class SingleNucleusMetadata {
+class SingleNucleusMetadata implements Serializable {
 
+	private static final long serialVersionUID = -504357775835334661L;
 	@Id
 	private String barcode;
 	@Column(name = "specimen_id")

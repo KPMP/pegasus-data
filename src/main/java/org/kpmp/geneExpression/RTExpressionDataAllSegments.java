@@ -1,5 +1,7 @@
 package org.kpmp.geneExpression;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,8 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "rt_segments")
-public class RTExpressionDataAllSegments implements RTExpressionData {
+public class RTExpressionDataAllSegments implements RTExpressionData, Serializable {
 
+	private static final long serialVersionUID = 9029734049386312455L;
 	@Id
 	@Column(name = "id")
 	private Integer id;
@@ -121,10 +124,12 @@ public class RTExpressionDataAllSegments implements RTExpressionData {
 		this.sampleCount = sampleCount;
 	}
 
+	@Override
 	public String getSegmentName() {
 		return segmentName;
 	}
 
+	@Override
 	public void setSegmentName(String segmentName) {
 		this.segmentName = segmentName;
 	}

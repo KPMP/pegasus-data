@@ -13,6 +13,31 @@ type Query {
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
   participantClinicalDataset(redcapId: String): ParticipantSummaryDataset
+  getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
+  getAtlasSummaryRows: AtlasRepoSummaryResult
+}
+
+type AtlasRepoSummaryResult {
+  totalFiles: Int
+  summaryRows: [AtlasRepoSummaryRow]
+}
+
+type AtlasRepoSummaryRow {
+  openCount: Int
+  controlledCount: Int
+  omicsType: String
+  linkInformation: AtlasRepoSummaryLinkInformation
+}
+
+type AtlasRepoSummaryLinkInformation {
+  linkType: String
+  linkValue: String
+}
+
+type ParticipantTissueTypeSummary {
+  akiCount: Long
+  ckdCount: Long
+  hrtCount: Long
 }
 
 type ParticipantDataTypeSummary {

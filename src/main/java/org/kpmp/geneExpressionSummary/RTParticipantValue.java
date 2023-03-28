@@ -1,5 +1,7 @@
 package org.kpmp.geneExpressionSummary;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +11,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rt_participant_tissue_v")
 @IdClass(ParticipantId.class)
-class RTParticipantValue implements Participant {
+class RTParticipantValue implements Participant, Serializable {
+
+	private static final long serialVersionUID = 5368734102102552073L;
 
 	@Column(name = "tissue_type")
 	private String tissueType;

@@ -1,9 +1,11 @@
 package org.kpmp.umap;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PlotData {
+public class PlotData implements Serializable {
 
+	private static final long serialVersionUID = 7957121452487372467L;
 	private List<ReferenceCluster> referenceData;
 	private List<FeatureData> featureData;
 

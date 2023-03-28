@@ -1,6 +1,7 @@
 package org.kpmp.geneExpressionSummary;
 
 import java.beans.Transient;
+import java.io.Serializable;
 
 import javax.annotation.Nullable;
 import javax.persistence.Column;
@@ -14,8 +15,9 @@ import org.kpmp.DataTypeEnum;
 @Entity
 @Table(name = "sc_rnaseq")
 @IdClass(GeneExpressionId.class)
-public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary {
+public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpressionSummary, Serializable {
 
+	private static final long serialVersionUID = 7265280085624504185L;
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "tissue_type")

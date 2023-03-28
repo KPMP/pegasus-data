@@ -1,5 +1,7 @@
 package org.kpmp.geneExpressionSummary;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +11,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sn_participant_tissue_v")
 @IdClass(ParticipantId.class)
-public class SNRNAParticipantValue implements Participant {
+public class SNRNAParticipantValue implements Participant, Serializable {
+
+	private static final long serialVersionUID = -2404700991479961255L;
 
 	@Column(name = "tissue_type")
 	private String tissueType;

@@ -1,12 +1,14 @@
 package org.kpmp.cellType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CellTypeStructureRegion {
+public class CellTypeStructureRegion implements Serializable {
 
+	private static final long serialVersionUID = 3141535632314917816L;
 	private String regionName;
 	private Map<String, CellTypeStructureSubregion> subregionMap = new HashMap<>();
 	private List<String> subregionOrderdList = new ArrayList<>();

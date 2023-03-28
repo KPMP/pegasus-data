@@ -14,6 +14,7 @@ import java.util.List;
 import org.kpmp.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -65,13 +66,14 @@ public class GeneService {
 		return (HttpURLConnection) queryUrl.openConnection();
 	}
 
+	@Cacheable("geneSymbolAlias")
 	public List<MyGeneInfoHit> querySymbolAndAlias(String queryString) throws IOException, Exception {
 		List<MyGeneInfoHit> symbolResults = query(GET_MY_GENE_INFO_QUERY_SYMBOL, queryString).getHits();
 		List<MyGeneInfoHit> aliasResults = query(GET_MY_GENE_INFO_QUERY_ALIAS, queryString).getHits();
 		List<MyGeneInfoHit> finalResults = new ArrayList<>();
 		finalResults.addAll(sortAndSlice(symbolResults, 10));
 		finalResults.addAll(sortAndSlice(aliasResults, 10));
-		return finalResults.size() <= 10 ? finalResults : finalResults.subList(0, 10);
+		return finalResults.size() <= 10 ? finalResults : new ArrayList<>(finalResults.subList(0, 10));
 	}
 
 	private List<MyGeneInfoHit> sortAndSlice(List<MyGeneInfoHit> hits, int max) {
@@ -79,7 +81,7 @@ public class GeneService {
 			return new ArrayList<MyGeneInfoHit>();
 		}
 		Collections.sort(hits);
-		return hits.size() <= max ? hits : hits.subList(0, max);
+		return hits.size() <= max ? hits : new ArrayList<>(hits.subList(0, max));
 	}
 
 }

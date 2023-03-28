@@ -1,5 +1,6 @@
 package org.kpmp.cellType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +9,9 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CellTypeHierarchy  {
-	
+public class CellTypeHierarchy implements Serializable {
+
+	private static final long serialVersionUID = 4174487460309851924L;
 	private Map<String, CellTypeStructureRegion> cellTypeRegionMap = new HashMap<>();
 
 	public List<CellTypeStructureRegion> getCellTypeRegions() {
@@ -19,7 +21,7 @@ public class CellTypeHierarchy  {
 	}
 
 	public void addCellTypeStructureRegion(CellTypeStructureRegion region) {
-		
+
 		if (cellTypeRegionMap.containsKey(region.getRegionName())) {
 			CellTypeStructureRegion existingRegion = cellTypeRegionMap.get(region.getRegionName());
 			List<CellTypeStructureSubregion> subregions = region.getCellTypeSubregions();
@@ -31,7 +33,4 @@ public class CellTypeHierarchy  {
 		}
 	}
 
-	
-	
 }
-
