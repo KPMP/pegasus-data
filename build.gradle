@@ -21,7 +21,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName='pegasus-data'
-    version= '1.6.2'
+    version= '1.6.3'
 }
 
 repositories {
