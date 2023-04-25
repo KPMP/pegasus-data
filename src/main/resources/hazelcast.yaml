@@ -3,3 +3,10 @@ hazelcast:
     join:
       multicast:
         enabled: true
+  map:
+    default:
+      in-memory-format: BINARY
+      eviction:
+        eviction-policy: LFU
+        max-size-policy: USED_HEAP_PERCENTAGE
+        size: 25
