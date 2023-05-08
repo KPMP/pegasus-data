@@ -3,7 +3,7 @@ package org.kpmp;
 public enum TissueTypeEnum {
 
 	ALL("all", "all"), AKI("aki", "AKI"), CKD("ckd", "CKD"), HEALTHY_REFERENCE("hrt", "Healthy Reference"),
-	RESISTOR("resistor", "resistor"), UNKNOWN("", "");
+	RESISTOR("resistor", "Resistor"), UNKNOWN("", "");
 
 	private String requestType;
 	private String participantTissueType;
