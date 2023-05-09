@@ -102,6 +102,8 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(0));
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(20));
@@ -112,6 +114,8 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(5));
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()))
 						.thenReturn(Long.valueOf(25));
@@ -122,6 +126,8 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
@@ -132,6 +138,8 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX_FULL.getFullName()))
 				.thenReturn(Long.valueOf(22));
 
@@ -141,6 +149,8 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
@@ -151,6 +161,8 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
@@ -161,6 +173,8 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
@@ -172,6 +186,7 @@ public class DataSummaryServiceTest {
 		assertEquals(Long.valueOf(5), result.get(0).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(0).getCkdCount());
 		assertEquals(Long.valueOf(0), result.get(0).getHrtCount());
+		assertEquals(Long.valueOf(88), result.get(0).getResistorCount());
 		assertEquals(Long.valueOf(20), result.get(0).getParticipantCount());
 
 		assertEquals(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName(), result.get(1).getDataType());
@@ -179,6 +194,7 @@ public class DataSummaryServiceTest {
 		assertEquals(Long.valueOf(5), result.get(1).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(1).getCkdCount());
 		assertEquals(Long.valueOf(5), result.get(1).getHrtCount());
+		assertEquals(Long.valueOf(88), result.get(1).getResistorCount());
 		assertEquals(Long.valueOf(25), result.get(1).getParticipantCount());
 
 		assertEquals(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName(),
@@ -187,6 +203,7 @@ public class DataSummaryServiceTest {
 		assertEquals(Long.valueOf(5), result.get(2).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(2).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(2).getHrtCount());
+		assertEquals(Long.valueOf(88), result.get(2).getResistorCount());
 		assertEquals(Long.valueOf(22), result.get(2).getParticipantCount());
 
 		assertEquals(FullDataTypeEnum.CODEX_FULL.getFullName(), result.get(3).getDataType());
@@ -194,6 +211,7 @@ public class DataSummaryServiceTest {
 		assertEquals(Long.valueOf(5), result.get(3).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(3).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(3).getHrtCount());
+		assertEquals(Long.valueOf(88), result.get(3).getResistorCount());
 		assertEquals(Long.valueOf(22), result.get(3).getParticipantCount());
 
 		assertEquals(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName(), result.get(4).getDataType());
@@ -201,6 +219,7 @@ public class DataSummaryServiceTest {
 		assertEquals(Long.valueOf(5), result.get(4).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(4).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(4).getHrtCount());
+		assertEquals(Long.valueOf(88), result.get(4).getResistorCount());
 		assertEquals(Long.valueOf(22), result.get(4).getParticipantCount());
 
 		assertEquals(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName(), result.get(5).getDataType());
@@ -208,6 +227,7 @@ public class DataSummaryServiceTest {
 		assertEquals(Long.valueOf(5), result.get(5).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(5).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(5).getHrtCount());
+		assertEquals(Long.valueOf(88), result.get(5).getResistorCount());
 		assertEquals(Long.valueOf(22), result.get(5).getParticipantCount());
 
 		assertEquals(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName(), result.get(6).getDataType());
@@ -215,6 +235,7 @@ public class DataSummaryServiceTest {
 		assertEquals(Long.valueOf(5), result.get(6).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(6).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(6).getHrtCount());
+		assertEquals(Long.valueOf(88), result.get(6).getResistorCount());
 		assertEquals(Long.valueOf(22), result.get(6).getParticipantCount());
 	}
 }
