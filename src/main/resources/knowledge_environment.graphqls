@@ -38,6 +38,7 @@ type ParticipantTissueTypeSummary {
   akiCount: Long
   ckdCount: Long
   hrtCount: Long
+  resistorCount: Long
 }
 
 type ParticipantDataTypeSummary {

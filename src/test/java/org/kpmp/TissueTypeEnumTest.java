@@ -8,10 +8,11 @@ public class TissueTypeEnumTest {
 
 	@Test
 	public void testGetParticipantTissueType() {
-		assertEquals(5, TissueTypeEnum.values().length);
+		assertEquals(6, TissueTypeEnum.values().length);
 		assertEquals("all", TissueTypeEnum.ALL.getParticipantTissueType());
 		assertEquals("AKI", TissueTypeEnum.AKI.getParticipantTissueType());
 		assertEquals("CKD", TissueTypeEnum.CKD.getParticipantTissueType());
+		assertEquals("Resistor", TissueTypeEnum.RESISTOR.getParticipantTissueType());
 		assertEquals("Healthy Reference", TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType());
 		assertEquals("", TissueTypeEnum.UNKNOWN.getParticipantTissueType());
 	}
