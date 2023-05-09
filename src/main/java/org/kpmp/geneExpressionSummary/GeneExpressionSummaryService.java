@@ -118,13 +118,15 @@ public class GeneExpressionSummaryService {
 				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
 				scrnaGeneExpressionRepository
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.RESISTOR.getParticipantTissueType()),
 				scrnaParticipantRepository.getParticipantCount()));
-		geneSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(), FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(),
-				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+		geneSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
+				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
 				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
 				snrnaGeneExpressionRepository
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.RESISTOR.getParticipantTissueType()),
 				snrnaParticipantRepository.getParticipantCount()));
 		geneSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(),
@@ -133,6 +135,7 @@ public class GeneExpressionSummaryService {
 				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.CKD.getParticipantTissueType()),
 				rtParticipantRepository
 						.getCountByTissueType(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.RESISTOR.getParticipantTissueType()),
 				rtParticipantRepository.getParticipantCount()));
 		return geneSummary;
 	}
