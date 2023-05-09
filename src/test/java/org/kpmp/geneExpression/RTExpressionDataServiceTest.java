@@ -141,8 +141,8 @@ public class RTExpressionDataServiceTest {
 		RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService
 				.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
 
-		assertEquals(rtExpressionByTissueTypeAll.getAki(), allResistorDataList);
-		assertEquals(rtExpressionByTissueTypeGti.getAki(), gResistorDataList);
+		assertEquals(rtExpressionByTissueTypeAll.getResistor(), allResistorDataList);
+		assertEquals(rtExpressionByTissueTypeGti.getResistor(), gResistorDataList);
 
 	}
 }
