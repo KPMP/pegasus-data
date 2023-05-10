@@ -218,10 +218,10 @@ public class QueryTest {
 
 		expectedResult.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
+				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		expectedResult.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
-				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
+				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
 		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
 
 		List<DataTypeSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
@@ -277,7 +277,8 @@ public class QueryTest {
 	public void getParticipantTissueTypeSummary() throws Exception {
 		List<ParticipantTissueTypeSummary> expectedResult = new ArrayList<>();
 
-		expectedResult.add(new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6), Long.valueOf(7)));
+		expectedResult.add(
+				new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6), Long.valueOf(7)));
 
 		List<ParticipantTissueTypeSummary> tissueSummary = query.getTissueTypeSummaryData();
 

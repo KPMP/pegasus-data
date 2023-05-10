@@ -18,7 +18,7 @@ public class DataTypeSummaryTest {
 
 		datasetSummary = new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				Long.valueOf(2), Long.valueOf(4), Long.valueOf(6), Long.valueOf(8));
+				Long.valueOf(2), Long.valueOf(4), Long.valueOf(6), Long.valueOf(7), Long.valueOf(8));
 	}
 
 	@After
@@ -34,6 +34,7 @@ public class DataTypeSummaryTest {
 		assertEquals(Long.valueOf(2), datasetSummary.getAkiCount());
 		assertEquals(Long.valueOf(4), datasetSummary.getCkdCount());
 		assertEquals(Long.valueOf(6), datasetSummary.getHrtCount());
+		assertEquals(Long.valueOf(7), datasetSummary.getResistorCount());
 		assertEquals(Long.valueOf(8), datasetSummary.getParticipantCount());
 	}
 
@@ -71,6 +72,12 @@ public class DataTypeSummaryTest {
 	public void testSetHrtCount() throws Exception {
 		datasetSummary.setHrtCount(Long.valueOf(6 * 10));
 		assertEquals(Long.valueOf(6 * 10), datasetSummary.getHrtCount());
+	}
+
+	@Test
+	public void testSetResistorCount() throws Exception {
+		datasetSummary.setResistorCount(Long.valueOf(7 * 10));
+		assertEquals(Long.valueOf(7 * 10), datasetSummary.getResistorCount());
 	}
 
 	@Test

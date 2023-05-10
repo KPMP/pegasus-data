@@ -20,6 +20,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry sourcepath="/Users/rlreamy/.gradle/caches/modules-2/files-2.1/com.graphql-java/graphql-spring-boot-starter/5.0.2/9ca9940499777b84ce5e8dcd82163c574593a2cf/graphql-spring-boot-starter-5.0.2-sources.jar" kind="lib" path="/Users/rlreamy/.gradle/caches/modules-2/files-2.1/com.graphql-java/graphql-spring-boot-starter/5.0.2/c7d8d5e006374ca63611ff406d13dfee879c6a16/graphql-spring-boot-starter-5.0.2.jar">

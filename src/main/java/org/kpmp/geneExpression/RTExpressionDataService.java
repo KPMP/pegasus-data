@@ -38,6 +38,9 @@ public class RTExpressionDataService {
 			rtExpressionByTissueType
 					.setHrt(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol,
 							TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
+			rtExpressionByTissueType.setResistor(
+					rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol,
+							TissueTypeEnum.RESISTOR.getParticipantTissueType()));
 			break;
 		case GLOM_V_TI:
 			rtExpressionByTissueType.setAki(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
@@ -48,6 +51,8 @@ public class RTExpressionDataService {
 					geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()));
 			rtExpressionByTissueType.setHrt(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
 					geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
+			rtExpressionByTissueType.setResistor(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
+					geneSymbol, TissueTypeEnum.RESISTOR.getParticipantTissueType()));
 			break;
 		case UNKNOWN:
 			rtExpressionByTissueType = null;
