@@ -21,7 +21,7 @@ public class DataTypeSummary implements Serializable {
 		this.akiCount = akiCount;
 		this.ckdCount = ckdCount;
 		this.hrtCount = hrtCount;
-		this.setResistorCount(resistorCount);
+		this.resistorCount = resistorCount;
 		this.participantCount = participantCount;
 	}
 
@@ -82,7 +82,7 @@ public class DataTypeSummary implements Serializable {
 	}
 
 	public Long getResistorCount() {
-		return resistorCount;
+		return this.resistorCount;
 	}
 
 	public void setResistorCount(Long resistorCount) {
