@@ -102,7 +102,7 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(0));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()))
@@ -114,7 +114,7 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()))
@@ -126,7 +126,7 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()))
@@ -138,7 +138,7 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX_FULL.getFullName()))
 				.thenReturn(Long.valueOf(22));
@@ -149,7 +149,7 @@ public class DataSummaryServiceTest {
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.RESISTOR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()))

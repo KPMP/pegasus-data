@@ -38,7 +38,7 @@ type ParticipantTissueTypeSummary {
   akiCount: Long
   ckdCount: Long
   hrtCount: Long
-  resistorCount: Long
+  dmrCount: Long
 }
 
 type ParticipantDataTypeSummary {
@@ -60,7 +60,7 @@ type GeneDatasetInformation {
   akiCount: Long
   ckdCount: Long
   hrtCount: Long
-  resistorCount: Long
+  dmrCount: Long
   participantCount: Long
 }
 
@@ -164,7 +164,7 @@ type RTGeneExpressionByTissue {
     all: [RTGeneExpression]
     hrt: [RTGeneExpression]
     ckd: [RTGeneExpression]
-    resistor: [RTGeneExpression]
+    dmr: [RTGeneExpression]
     aki: [RTGeneExpression]
 }
 

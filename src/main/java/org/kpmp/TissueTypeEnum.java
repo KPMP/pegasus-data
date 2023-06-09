@@ -3,7 +3,7 @@ package org.kpmp;
 public enum TissueTypeEnum {
 
 	ALL("all", "all"), AKI("aki", "AKI"), CKD("ckd", "CKD"), HEALTHY_REFERENCE("hrt", "Healthy Reference"),
-	RESISTOR("resistor", "Resistor"), UNKNOWN("", "");
+	DMR("dmr", "DM-R"), UNKNOWN("", "");
 
 	private String requestType;
 	private String participantTissueType;
@@ -31,8 +31,8 @@ public enum TissueTypeEnum {
 			return CKD;
 		} else if (HEALTHY_REFERENCE.requestType.equalsIgnoreCase(requestType)) {
 			return HEALTHY_REFERENCE;
-		}  else if (RESISTOR.requestType.equalsIgnoreCase(requestType)) {
-			return RESISTOR;
+		}  else if (DMR.requestType.equalsIgnoreCase(requestType)) {
+			return DMR;
 		}
 		else {
 			return UNKNOWN;
