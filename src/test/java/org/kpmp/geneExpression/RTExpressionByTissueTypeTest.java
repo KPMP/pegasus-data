@@ -60,12 +60,12 @@ public class RTExpressionByTissueTypeTest {
 	}
 
 	@Test
-	public void setResistor() {
-		RTExpressionDataAllSegments allResistorData = new RTExpressionDataAllSegments();
-		List<? extends RTExpressionData> allResistorDataList = Arrays.asList(allResistorData);
-		rtExpressionByTissueType.setResistor(allResistorDataList);
-		List<? extends RTExpressionData> actual = rtExpressionByTissueType.getResistor();
-		assertEquals(allResistorDataList, actual);
+	public void setDmr() {
+		RTExpressionDataAllSegments allDmrData = new RTExpressionDataAllSegments();
+		List<? extends RTExpressionData> allDmrDataList = Arrays.asList(allDmrData);
+		rtExpressionByTissueType.setDmr(allDmrDataList);
+		List<? extends RTExpressionData> actual = rtExpressionByTissueType.getDmr();
+		assertEquals(allDmrDataList, actual);
 	}
 
 }

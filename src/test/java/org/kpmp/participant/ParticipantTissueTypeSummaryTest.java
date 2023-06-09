@@ -23,7 +23,7 @@ public class ParticipantTissueTypeSummaryTest {
     assertEquals(Long.valueOf(4), tissueSummary.getAkiCount());
     assertEquals(Long.valueOf(5), tissueSummary.getCkdCount());
     assertEquals(Long.valueOf(6), tissueSummary.getHrtCount());
-    assertEquals(Long.valueOf(7), tissueSummary.getResistorCount());
+    assertEquals(Long.valueOf(7), tissueSummary.getDmrCount());
   }
 
   @Test
