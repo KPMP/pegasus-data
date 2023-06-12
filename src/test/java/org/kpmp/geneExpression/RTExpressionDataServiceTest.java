@@ -125,24 +125,24 @@ public class RTExpressionDataServiceTest {
 	}
 
 	@Test
-	public void testGetByComparisonTypeAndGeneSymbolPerTissue_resistor() throws Exception {
-		RTExpressionDataAllSegments allResistorData = new RTExpressionDataAllSegments();
-		List<RTExpressionDataAllSegments> allResistorDataList = Arrays.asList(allResistorData);
-		RTExpressionDataGTI gResistorData = new RTExpressionDataGTI();
-		List<RTExpressionDataGTI> gResistorDataList = Arrays.asList(gResistorData);
+	public void testGetByComparisonTypeAndGeneSymbolPerTissue_dmr() throws Exception {
+		RTExpressionDataAllSegments allDmrData = new RTExpressionDataAllSegments();
+		List<RTExpressionDataAllSegments> allDmrDataList = Arrays.asList(allDmrData);
+		RTExpressionDataGTI gDmrData = new RTExpressionDataGTI();
+		List<RTExpressionDataGTI> gDmrDataList = Arrays.asList(gDmrData);
 
 		when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene",
-				TissueTypeEnum.RESISTOR.getParticipantTissueType())).thenReturn(allResistorDataList);
+				TissueTypeEnum.DMR.getParticipantTissueType())).thenReturn(allDmrDataList);
 		when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene",
-				TissueTypeEnum.RESISTOR.getParticipantTissueType())).thenReturn(gResistorDataList);
+				TissueTypeEnum.DMR.getParticipantTissueType())).thenReturn(gDmrDataList);
 
 		RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService
 				.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
 		RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService
 				.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
 
-		assertEquals(rtExpressionByTissueTypeAll.getResistor(), allResistorDataList);
-		assertEquals(rtExpressionByTissueTypeGti.getResistor(), gResistorDataList);
+		assertEquals(rtExpressionByTissueTypeAll.getDmr(), allDmrDataList);
+		assertEquals(rtExpressionByTissueTypeGti.getDmr(), gDmrDataList);
 
 	}
 }

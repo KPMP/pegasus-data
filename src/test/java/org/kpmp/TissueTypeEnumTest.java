@@ -12,7 +12,7 @@ public class TissueTypeEnumTest {
 		assertEquals("all", TissueTypeEnum.ALL.getParticipantTissueType());
 		assertEquals("AKI", TissueTypeEnum.AKI.getParticipantTissueType());
 		assertEquals("CKD", TissueTypeEnum.CKD.getParticipantTissueType());
-		assertEquals("Resistor", TissueTypeEnum.RESISTOR.getParticipantTissueType());
+		assertEquals("DM-R", TissueTypeEnum.DMR.getParticipantTissueType());
 		assertEquals("Healthy Reference", TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType());
 		assertEquals("", TissueTypeEnum.UNKNOWN.getParticipantTissueType());
 	}

@@ -8,7 +8,7 @@ public class RTExpressionByTissueType {
 	private List<? extends RTExpressionData> aki;
 	private List<? extends RTExpressionData> ckd;
 	private List<? extends RTExpressionData> hrt;
-	private List<? extends RTExpressionData> resistor;
+	private List<? extends RTExpressionData> dmr;
 
 	public List<? extends RTExpressionData> getAll() {
 		return all;
@@ -42,11 +42,11 @@ public class RTExpressionByTissueType {
 		this.hrt = hrt;
 	}
 
-	public List<? extends RTExpressionData> getResistor() {
-		return resistor;
+	public List<? extends RTExpressionData> getDmr() {
+		return dmr;
 	}
 
-	public void setResistor(List<? extends RTExpressionData> resistor) {
-		this.resistor = resistor;
+	public void setDmr(List<? extends RTExpressionData> dmr) {
+		this.dmr = dmr;
 	}
 }

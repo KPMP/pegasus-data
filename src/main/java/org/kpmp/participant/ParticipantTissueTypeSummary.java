@@ -8,12 +8,12 @@ public class ParticipantTissueTypeSummary implements Serializable {
 	private Long ckdCount;
 	private Long hrtCount;
 
-	private Long resistorCount;
-	public ParticipantTissueTypeSummary(Long akiCount, Long ckdCount, Long hrtCount, Long resistorCount) {
+	private Long dmrCount;
+	public ParticipantTissueTypeSummary(Long akiCount, Long ckdCount, Long hrtCount, Long dmrCount) {
 		this.akiCount = akiCount;
 		this.ckdCount = ckdCount;
 		this.hrtCount = hrtCount;
-		this.resistorCount = resistorCount;
+		this.dmrCount = dmrCount;
 	}
 	public Long getAkiCount() {
 		return this.akiCount;
@@ -39,11 +39,11 @@ public class ParticipantTissueTypeSummary implements Serializable {
 		this.hrtCount = hrtCount;
 	}
 
-	public Long getResistorCount() {
-		return resistorCount;
+	public Long getDmrCount() {
+		return dmrCount;
 	}
 
-	public void setResistorCount(Long resistorCount) {
-		this.resistorCount = resistorCount;
+	public void setDmrCount(Long dmrCount) {
+		this.dmrCount = dmrCount;
 	}
 }
