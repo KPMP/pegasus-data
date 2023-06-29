@@ -11,6 +11,7 @@ import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 import org.kpmp.TissueTypeEnum;
+import org.kpmp.file.ARFileInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,18 +27,20 @@ public class DataSummaryService {
 
 	private DataSummaryRepository dataSummaryRepository;
 	private AtlasRepoSummaryRepository repoSummaryRepository;
+	private ARFileInfoService fileInfoService;
 
 	@Autowired
 	public DataSummaryService(DataSummaryRepository dataSummaryRepository,
-			AtlasRepoSummaryRepository repoSummaryRepository) {
+			AtlasRepoSummaryRepository repoSummaryRepository, ARFileInfoService fileInfoService) {
 		this.dataSummaryRepository = dataSummaryRepository;
 		this.repoSummaryRepository = repoSummaryRepository;
+		this.fileInfoService = fileInfoService;
 	}
 
 	public AtlasRepoSummaryResult getAtlasRepoSummary() throws Exception {
 		List<ExperimentalStrategyValue> experimentalStrategies = repoSummaryRepository.findAll();
 		Map<String, AtlasRepoSummaryRow> summaryMap = new HashMap<>();
-		int totalFiles = 0;
+		
 		for (ExperimentalStrategyValue experimentalStrategyValue : experimentalStrategies) {
 			String experimentalStrategy = experimentalStrategyValue.getExperimentalStrategy();
 			if (experimentalStrategy.isEmpty()
@@ -50,13 +53,11 @@ public class DataSummaryService {
 			if (summaryMap.containsKey(experimentalStrategy)) {
 				AtlasRepoSummaryRow atlasRepoSummaryRow = summaryMap.get(experimentalStrategy);
 				setCounts(experimentalStrategyValue, atlasRepoSummaryRow);
-				totalFiles += experimentalStrategyValue.getCount();
 			} else {
 				AtlasRepoSummaryRow row = new AtlasRepoSummaryRow(experimentalStrategy,
 						getLinkInformation(experimentalStrategyValue));
 				setCounts(experimentalStrategyValue, row);
 				summaryMap.put(experimentalStrategy, row);
-				totalFiles += experimentalStrategyValue.getCount();
 			}
 		}
 
@@ -69,7 +70,7 @@ public class DataSummaryService {
 			}
 		});
 
-		return new AtlasRepoSummaryResult(results, totalFiles);
+		return new AtlasRepoSummaryResult(results, fileInfoService.getRepositoryTotalFileCount());
 	}
 
 	private AtlasRepoSummaryLinkInformation getLinkInformation(ExperimentalStrategyValue experimentalStrategy) {

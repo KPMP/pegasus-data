@@ -27,11 +27,11 @@ public class AtlasRepoSummaryResultTest {
 
 	@Test
 	public void testConstructor() throws Exception {
-		int totalFiles = 5;
+		Long totalFiles = 5l;
 		AtlasRepoSummaryResult constructorTest = new AtlasRepoSummaryResult(summaryRows, totalFiles);
 
 		assertEquals(summaryRows, constructorTest.getSummaryRows());
-		assertEquals(5, constructorTest.getTotalFiles());
+		assertEquals(totalFiles, constructorTest.getTotalFiles());
 
 	}
 
@@ -44,9 +44,10 @@ public class AtlasRepoSummaryResultTest {
 
 	@Test
 	public void testSetTotalFiles() {
-		result.setTotalFiles(58);
+		Long totalFiles = 58l;
+		result.setTotalFiles(totalFiles);
 
-		assertEquals(58, result.getTotalFiles());
+		assertEquals(totalFiles, result.getTotalFiles());
 	}
 
 }
