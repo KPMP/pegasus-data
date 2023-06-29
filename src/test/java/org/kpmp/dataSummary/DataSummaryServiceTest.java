@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
+import org.kpmp.file.ARFileInfoService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -21,11 +22,13 @@ public class DataSummaryServiceTest {
 	private DataSummaryRepository dataSummaryRepository;
 	@Mock
 	private AtlasRepoSummaryRepository atlasRepoSummaryRepository;
+	@Mock
+	private ARFileInfoService fileInfoService;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		dataSummaryService = new DataSummaryService(dataSummaryRepository, atlasRepoSummaryRepository);
+		dataSummaryService = new DataSummaryService(dataSummaryRepository, atlasRepoSummaryRepository, fileInfoService);
 	}
 
 	@After
@@ -71,6 +74,7 @@ public class DataSummaryServiceTest {
 		List<ExperimentalStrategyValue> strategyValues = Arrays.asList(clinicalData, biomarker1, biomarker2, other1,
 				other2);
 		when(atlasRepoSummaryRepository.findAll()).thenReturn(strategyValues);
+		when(fileInfoService.getRepositoryTotalFileCount()).thenReturn(36l);
 
 		AtlasRepoSummaryResult result = dataSummaryService.getAtlasRepoSummary();
 		List<AtlasRepoSummaryRow> summaryRows = result.getSummaryRows();
@@ -90,7 +94,7 @@ public class DataSummaryServiceTest {
 		assertEquals(10, summaryRows.get(2).getOpenCount());
 		assertEquals(new AtlasRepoSummaryLinkInformation("experimental_strategy", "strategy1"),
 				summaryRows.get(2).getLinkInformation());
-		assertEquals(36, result.getTotalFiles());
+		assertEquals(new Long(36), result.getTotalFiles());
 
 	}
 
