@@ -10,7 +10,7 @@ public class ParticipantTissueTypeSummaryTest {
 
   @Before
   public void setUp() {
-    tissueSummary = new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6));
+    tissueSummary = new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6), Long.valueOf(7));
   }
 
   @After
@@ -23,6 +23,7 @@ public class ParticipantTissueTypeSummaryTest {
     assertEquals(Long.valueOf(4), tissueSummary.getAkiCount());
     assertEquals(Long.valueOf(5), tissueSummary.getCkdCount());
     assertEquals(Long.valueOf(6), tissueSummary.getHrtCount());
+    assertEquals(Long.valueOf(7), tissueSummary.getDmrCount());
   }
 
   @Test

@@ -6,9 +6,9 @@ import java.util.List;
 public class AtlasRepoSummaryResult {
 
 	private List<AtlasRepoSummaryRow> summaryRows;
-	private int totalFiles;
+	private Long totalFiles;
 
-	public AtlasRepoSummaryResult(List<AtlasRepoSummaryRow> summaryRows, int totalFiles) {
+	public AtlasRepoSummaryResult(List<AtlasRepoSummaryRow> summaryRows, Long totalFiles) {
 		this.summaryRows = summaryRows;
 		this.totalFiles = totalFiles;
 
@@ -26,11 +26,11 @@ public class AtlasRepoSummaryResult {
 		this.summaryRows = summaryRows;
 	}
 
-	public int getTotalFiles() {
+	public Long getTotalFiles() {
 		return totalFiles;
 	}
 
-	public void setTotalFiles(int totalFiles) {
+	public void setTotalFiles(Long totalFiles) {
 		this.totalFiles = totalFiles;
 	}
 

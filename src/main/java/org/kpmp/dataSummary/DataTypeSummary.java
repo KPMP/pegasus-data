@@ -11,15 +11,17 @@ public class DataTypeSummary implements Serializable {
 	private Long ckdCount;
 	private Long hrtCount;
 	private Long participantCount;
+	private Long dmrCount;
 
 	public DataTypeSummary(String omicsType, String dataType, String dataTypeShort, Long akiCount, Long ckdCount,
-			Long hrtCount, Long participantCount) {
+			Long hrtCount, Long dmrCount, Long participantCount) {
 		this.omicsType = omicsType;
 		this.dataType = dataType;
 		this.dataTypeShort = dataTypeShort;
 		this.akiCount = akiCount;
 		this.ckdCount = ckdCount;
 		this.hrtCount = hrtCount;
+		this.dmrCount = dmrCount;
 		this.participantCount = participantCount;
 	}
 
@@ -77,5 +79,13 @@ public class DataTypeSummary implements Serializable {
 
 	public void setParticipantCount(Long participantCount) {
 		this.participantCount = participantCount;
+	}
+
+	public Long getDmrCount() {
+		return this.dmrCount;
+	}
+
+	public void setDmrCount(Long dmrCount) {
+		this.dmrCount = dmrCount;
 	}
 }

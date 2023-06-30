@@ -9,10 +9,11 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.TissueTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class RTGeneExpressionDataServiceTest {
+public class RTExpressionDataServiceTest {
 
 	@Mock
 	private RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
@@ -120,6 +121,28 @@ public class RTGeneExpressionDataServiceTest {
 
 		assertEquals(rtExpressionByTissueTypeAll.getAki(), allAkiDataList);
 		assertEquals(rtExpressionByTissueTypeGti.getAki(), gAkiDataList);
+
+	}
+
+	@Test
+	public void testGetByComparisonTypeAndGeneSymbolPerTissue_dmr() throws Exception {
+		RTExpressionDataAllSegments allDmrData = new RTExpressionDataAllSegments();
+		List<RTExpressionDataAllSegments> allDmrDataList = Arrays.asList(allDmrData);
+		RTExpressionDataGTI gDmrData = new RTExpressionDataGTI();
+		List<RTExpressionDataGTI> gDmrDataList = Arrays.asList(gDmrData);
+
+		when(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts("gene",
+				TissueTypeEnum.DMR.getParticipantTissueType())).thenReturn(allDmrDataList);
+		when(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts("gene",
+				TissueTypeEnum.DMR.getParticipantTissueType())).thenReturn(gDmrDataList);
+
+		RTExpressionByTissueType rtExpressionByTissueTypeGti = rtExpressionDataService
+				.getByComparisonTypeAndGeneSymbolPerTissue("glom_tub", "gene");
+		RTExpressionByTissueType rtExpressionByTissueTypeAll = rtExpressionDataService
+				.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene");
+
+		assertEquals(rtExpressionByTissueTypeAll.getDmr(), allDmrDataList);
+		assertEquals(rtExpressionByTissueTypeGti.getDmr(), gDmrDataList);
 
 	}
 }
