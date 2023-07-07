@@ -42,3 +42,8 @@ If you have already followed these steps and are still having trouble connecting
 1. Start up your atlas/knowledge-environment server
 2. Open a tool like GraphQLPlayground and connect to "http://localhost:3030/graphql"
 3. Write and execute your query
+
+# Buyer BEWARE
+Notes to ourselves about the non-dynamic nature of some things in the app (this is not exhaustive)
+
+1. The endpoint `getDataTypeInformationByParticipant` is only partially dynamic. If we add new data types to the Spatial Viewer, it will pick those up without an issue, BUT if/when we add new data types to the Explorer, we will need to update the code that gets counts for data types in Explorer to include the new one.
