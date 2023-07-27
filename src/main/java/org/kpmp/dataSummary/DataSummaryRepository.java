@@ -43,7 +43,7 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	Integer getParticipantRepoFileDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
 
     @Cacheable("repoDataTypes")
-	@Query(value = "SELECT distinct(data_type) FROM repository_summary_v", nativeQuery = true)
+	@Query(value = "SELECT distinct(data_type) FROM repository_summary_v ORDER BY data_type ASC", nativeQuery = true)
 	List<String> getRepoDataTypes();
 
 }
