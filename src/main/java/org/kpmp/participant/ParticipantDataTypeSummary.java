@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class ParticipantDataTypeSummary {
 	private List<ParticipantDataTypeInformation> spatialViewerDataTypes;
 	private List<ParticipantDataTypeInformation> explorerDataTypes;
+	private List<ParticipantDataTypeInformation> repositoryDataTypes;
 	public List<ParticipantDataTypeInformation> getSpatialViewerDataTypes() {
 		return spatialViewerDataTypes;
 	}
@@ -22,5 +23,13 @@ public class ParticipantDataTypeSummary {
 
 	public void setExplorerDataTypes(List<ParticipantDataTypeInformation> explorerDataTypes) {
 		this.explorerDataTypes = explorerDataTypes;
+	}
+
+	public List<ParticipantDataTypeInformation> getRepositoryDataTypes() {
+		return repositoryDataTypes;
+	}
+
+	public void setRepositoryDataTypes(List<ParticipantDataTypeInformation> repositoryDataTypes) {
+		this.repositoryDataTypes = repositoryDataTypes;
 	}
 }

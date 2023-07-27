@@ -42,4 +42,13 @@ public class ParticipantDataTypeSummaryTest {
 		assertEquals(experimentInfo, summary.getExplorerDataTypes());
 	}
 
+	@Test
+	public void testSetRepositoryDataTypes() {
+		List<ParticipantDataTypeInformation> experimentInfo = Arrays.asList(mock(ParticipantDataTypeInformation.class));
+
+		summary.setRepositoryDataTypes(experimentInfo);
+
+		assertEquals(experimentInfo, summary.getRepositoryDataTypes());
+	}
+
 }

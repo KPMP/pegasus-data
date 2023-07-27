@@ -1,5 +1,7 @@
 package org.kpmp.dataSummary;
 
+import java.util.List;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -35,4 +37,13 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Cacheable("dataParticipantSvLinkDataTypeCount")
 	@Query(value = "SELECT count(*) from sv_link_v WHERE data_type= :data_type AND redcap_id= :redcap_id", nativeQuery = true)
 	Integer getParticipantSvLinkDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
+
+	@Cacheable("dataParticipantRepoFileDataTypeCount")
+	@Query(value = "SELECT count(*) from (SELECT distinct(dl_file_id) FROM repo_file_v WHERE data_type= :data_type AND redcap_id= :redcap_id) a", nativeQuery = true)
+	Integer getParticipantRepoFileDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
+
+    @Cacheable("repoDataTypes")
+	@Query(value = "SELECT distinct(data_type) FROM repository_summary_v", nativeQuery = true)
+	List<String> getRepoDataTypes();
+
 }

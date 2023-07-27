@@ -152,6 +152,10 @@ public class Query implements GraphQLQueryResolver {
 		return participantService.getExperimentCounts(redcapId);
 	}
 
+	public ParticipantDataTypeSummary getRepoDataTypeInformationByParticipant(String redcapId) {
+		return participantService.getDataTypeCounts(redcapId);
+	}
+
 	public ParticipantSummaryDataset participantSummaryDataset(String redcap_id) throws Exception {
 		try {
 			return participantService.getParticipantSummaryDataset(redcap_id);

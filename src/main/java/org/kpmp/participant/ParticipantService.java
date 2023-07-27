@@ -2,6 +2,7 @@ package org.kpmp.participant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
@@ -51,6 +52,12 @@ public class ParticipantService {
 			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 		    participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())));
 		return tissueData;
+	}
+
+	public ParticipantDataTypeSummary getDataTypeCounts(String redcapId) {
+		ParticipantDataTypeSummary summaryData = new ParticipantDataTypeSummary();
+		summaryData.setRepositoryDataTypes(getRepositoryCounts(redcapId));
+		return summaryData;
 	}
 
 	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
@@ -113,5 +120,17 @@ public class ParticipantService {
 			}
 		}
 		return spatialViewerExperiments;
+	}
+	
+	private List<ParticipantDataTypeInformation> getRepositoryCounts(String redcapId) {
+		List<ParticipantDataTypeInformation> repoCounts = new ArrayList<>();
+		
+		List<String> repoDataTypes = dataSummaryRepo.getRepoDataTypes();
+		for (String repoDataType : repoDataTypes) {
+			Integer count = dataSummaryRepo.getParticipantRepoFileDataTypeCount(redcapId, repoDataType);
+			ParticipantDataTypeInformation dataTypeInfo = new ParticipantDataTypeInformation(repoDataType, count, false);
+			repoCounts.add(dataTypeInfo);
+		}
+		return repoCounts;
 	}
 }
