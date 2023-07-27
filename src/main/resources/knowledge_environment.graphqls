@@ -11,7 +11,7 @@ type Query {
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [GeneDatasetInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
-  getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
+  getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
   participantClinicalDataset(redcapId: String): ParticipantSummaryDataset
   getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
@@ -45,7 +45,6 @@ type ParticipantTissueTypeSummary {
 type ParticipantDataTypeSummary {
   spatialViewerDataTypes: [ParticipantDataTypeInformation]
   explorerDataTypes: [ParticipantDataTypeInformation]
-  repositoryDataTypes: [ParticipantDataTypeInformation]
 }
 
 type ParticipantDataTypeInformation {
@@ -54,6 +53,15 @@ type ParticipantDataTypeInformation {
   isAggregatedData: Boolean
 }
 
+type ParticipantRepoDataTypeSummary {
+  repositoryDataTypes: [ParticipantRepoDataTypeInformation]
+}
+
+type ParticipantRepoDataTypeInformation {
+  dataType: String
+  count: Long
+  linkInformation: AtlasRepoSummaryLinkInformation
+}
 
 type GeneDatasetInformation {
   omicsType: String

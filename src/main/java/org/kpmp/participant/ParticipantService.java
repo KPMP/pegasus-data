@@ -2,10 +2,10 @@ package org.kpmp.participant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
+import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.RTParticipantRepository;
 import org.slf4j.Logger;
@@ -54,8 +54,8 @@ public class ParticipantService {
 		return tissueData;
 	}
 
-	public ParticipantDataTypeSummary getDataTypeCounts(String redcapId) {
-		ParticipantDataTypeSummary summaryData = new ParticipantDataTypeSummary();
+	public ParticipantRepoDataTypeSummary getDataTypeCounts(String redcapId) {
+		ParticipantRepoDataTypeSummary summaryData = new ParticipantRepoDataTypeSummary();
 		summaryData.setRepositoryDataTypes(getRepositoryCounts(redcapId));
 		return summaryData;
 	}
@@ -122,13 +122,14 @@ public class ParticipantService {
 		return spatialViewerExperiments;
 	}
 	
-	private List<ParticipantDataTypeInformation> getRepositoryCounts(String redcapId) {
-		List<ParticipantDataTypeInformation> repoCounts = new ArrayList<>();
+	private List<ParticipantRepoDataTypeInformation> getRepositoryCounts(String redcapId) {
+		List<ParticipantRepoDataTypeInformation> repoCounts = new ArrayList<>();
 		
 		List<String> repoDataTypes = dataSummaryRepo.getRepoDataTypes();
 		for (String repoDataType : repoDataTypes) {
 			Integer count = dataSummaryRepo.getParticipantRepoFileDataTypeCount(redcapId, repoDataType);
-			ParticipantDataTypeInformation dataTypeInfo = new ParticipantDataTypeInformation(repoDataType, count, false);
+			AtlasRepoSummaryLinkInformation linkInformation = new AtlasRepoSummaryLinkInformation("data_type", repoDataType);
+			ParticipantRepoDataTypeInformation dataTypeInfo = new ParticipantRepoDataTypeInformation(repoDataType, count, linkInformation);
 			repoCounts.add(dataTypeInfo);
 		}
 		return repoCounts;

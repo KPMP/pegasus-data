@@ -131,11 +131,11 @@ public class ParticipantServiceTest {
 		when(dataSummaryRepo.getParticipantRepoFileDataTypeCount("redcapId", dataType1)).thenReturn(3);
 		when(dataSummaryRepo.getParticipantRepoFileDataTypeCount("redcapId", dataType2)).thenReturn(4);
 
-		ParticipantDataTypeSummary result = participantService.getDataTypeCounts("redcapId");
+		ParticipantRepoDataTypeSummary result = participantService.getDataTypeCounts("redcapId");
 
-		List<ParticipantDataTypeInformation> repositoryDataTypes = result.getRepositoryDataTypes();
+		List<ParticipantRepoDataTypeInformation> repositoryDataTypes = result.getRepositoryDataTypes();
 		assertEquals(2, repositoryDataTypes.size());
-		for (ParticipantDataTypeInformation participantDataTypeInformation : repositoryDataTypes) {
+		for (ParticipantRepoDataTypeInformation participantDataTypeInformation : repositoryDataTypes) {
 			if(participantDataTypeInformation.getDataType().equals("Transcriptomics")) {
 				assertEquals(new Integer(3), participantDataTypeInformation.getCount());
 			}
