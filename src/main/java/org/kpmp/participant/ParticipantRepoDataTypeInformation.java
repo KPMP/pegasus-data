@@ -1,8 +1,6 @@
 package org.kpmp.participant;
 import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ParticipantRepoDataTypeInformation {
     
 	private String dataType;

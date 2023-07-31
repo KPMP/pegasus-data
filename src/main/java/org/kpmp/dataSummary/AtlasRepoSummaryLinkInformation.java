@@ -8,6 +8,10 @@ public class AtlasRepoSummaryLinkInformation {
 	private String linkType;
 	private String linkValue;
 
+	public AtlasRepoSummaryLinkInformation() {
+		// default constructor so spring does not complain
+	}
+
 	public AtlasRepoSummaryLinkInformation(String linkType, String linkValue) {
 		this.setLinkType(linkType);
 		this.setLinkValue(linkValue);

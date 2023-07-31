@@ -33,6 +33,7 @@ import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
+import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.participant.ParticipantTissueTypeSummary;
@@ -254,6 +255,17 @@ public class QueryTest {
 		when(participantService.getExperimentCounts("123")).thenReturn(expected);
 
 		ParticipantDataTypeSummary result = query.getDataTypeInformationByParticipant("123");
+
+		assertEquals(expected, result);
+
+	}
+
+	@Test
+	public void testGetRepoDataTypeInformationByParticipant() throws Exception {
+		ParticipantRepoDataTypeSummary expected = mock(ParticipantRepoDataTypeSummary.class);
+		when(participantService.getDataTypeCounts("123")).thenReturn(expected);
+
+		ParticipantRepoDataTypeSummary result = query.getRepoDataTypeInformationByParticipant("123");
 
 		assertEquals(expected, result);
 
