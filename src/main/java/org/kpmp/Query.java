@@ -21,6 +21,7 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.participant.ParticipantDataTypeSummary;
+import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.participant.ParticipantTissueTypeSummary;
@@ -150,6 +151,10 @@ public class Query implements GraphQLQueryResolver {
 
 	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(String redcapId) {
 		return participantService.getExperimentCounts(redcapId);
+	}
+
+	public ParticipantRepoDataTypeSummary getRepoDataTypeInformationByParticipant(String redcapId) {
+		return participantService.getDataTypeCounts(redcapId);
 	}
 
 	public ParticipantSummaryDataset participantSummaryDataset(String redcap_id) throws Exception {

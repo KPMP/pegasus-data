@@ -38,12 +38,11 @@ public class AtlasRepoSummaryLinkInformation {
 	public boolean equals(Object obj) {
 		if (obj instanceof AtlasRepoSummaryLinkInformation) {
 			final AtlasRepoSummaryLinkInformation other = (AtlasRepoSummaryLinkInformation) obj;
-			return new EqualsBuilder().append(linkType, other.getLinkType()).append(linkValue, other.getLinkValue())
-					.isEquals();
-		} else {
+			return new EqualsBuilder().append(linkType, other.getLinkType()).append(linkValue, other.getLinkValue()).isEquals();
+		}
+		else {
 			return false;
 		}
-
 	}
 
 }
