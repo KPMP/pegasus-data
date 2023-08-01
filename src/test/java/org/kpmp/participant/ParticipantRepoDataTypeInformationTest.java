@@ -10,17 +10,17 @@ import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
 
 public class ParticipantRepoDataTypeInformationTest {
 
-	private ParticipantRepoDataTypeInformation info;
+    private ParticipantRepoDataTypeInformation info;
 
-	@Before
-	public void setUp() throws Exception {
-		info = new ParticipantRepoDataTypeInformation();
-	}
+    @Before
+    public void setUp() throws Exception {
+        info = new ParticipantRepoDataTypeInformation("abc", 1, mock(AtlasRepoSummaryLinkInformation.class));
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		info = null;
-	}
+    @After
+    public void tearDown() throws Exception {
+        info = null;
+    }
 
     @Test
     public void testSetDataType() {

@@ -38,19 +38,19 @@ public class ParticipantService {
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 	}
-  
+
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
 		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
 	}
 
-	public List<ParticipantTissueTypeSummary> getTissueData(){
+	public List<ParticipantTissueTypeSummary> getTissueData() {
 		List<ParticipantTissueTypeSummary> tissueData = new ArrayList<>();
 
 		tissueData.add(new ParticipantTissueTypeSummary(
-			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()), 
-			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()), 
-			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
-		    participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())));
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()),
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()),
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())));
 		return tissueData;
 	}
 
@@ -121,10 +121,10 @@ public class ParticipantService {
 		}
 		return spatialViewerExperiments;
 	}
-	
+
 	private List<ParticipantRepoDataTypeInformation> getRepositoryCounts(String redcapId) {
 		List<ParticipantRepoDataTypeInformation> repoCounts = new ArrayList<>();
-		
+
 		List<String> repoDataTypes = dataSummaryRepo.getRepoDataTypes();
 		for (String repoDataType : repoDataTypes) {
 			Integer count = dataSummaryRepo.getParticipantRepoFileDataTypeCount(redcapId, repoDataType);

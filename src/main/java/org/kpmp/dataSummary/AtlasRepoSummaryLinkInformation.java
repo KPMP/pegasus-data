@@ -8,10 +8,6 @@ public class AtlasRepoSummaryLinkInformation {
 	private String linkType;
 	private String linkValue;
 
-	public AtlasRepoSummaryLinkInformation() {
-		// default constructor so spring does not complain
-	}
-
 	public AtlasRepoSummaryLinkInformation(String linkType, String linkValue) {
 		this.setLinkType(linkType);
 		this.setLinkValue(linkValue);
@@ -42,12 +38,11 @@ public class AtlasRepoSummaryLinkInformation {
 	public boolean equals(Object obj) {
 		if (obj instanceof AtlasRepoSummaryLinkInformation) {
 			final AtlasRepoSummaryLinkInformation other = (AtlasRepoSummaryLinkInformation) obj;
-			return new EqualsBuilder().append(linkType, other.getLinkType()).append(linkValue, other.getLinkValue())
-					.isEquals();
-		} else {
+			return new EqualsBuilder().append(linkType, other.getLinkType()).append(linkValue, other.getLinkValue()).isEquals();
+		}
+		else {
 			return false;
 		}
-
 	}
 
 }

@@ -2,7 +2,6 @@ package org.kpmp.participant;
 
 import java.util.List;
 
-
 public class ParticipantRepoDataTypeSummary {
 	private List<ParticipantRepoDataTypeInformation> repositoryDataTypes;
 

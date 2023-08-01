@@ -1,20 +1,17 @@
 package org.kpmp.participant;
+
 import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
 
 public class ParticipantRepoDataTypeInformation {
-    
+
 	private String dataType;
 	private Integer count;
-    private AtlasRepoSummaryLinkInformation linkInformation;
-
-	public ParticipantRepoDataTypeInformation() {
-		// default constructor so spring does not complain
-	}
+	private AtlasRepoSummaryLinkInformation linkInformation;
 
 	public ParticipantRepoDataTypeInformation(String dataType, Integer count, AtlasRepoSummaryLinkInformation linkInformation) {
 		this.dataType = dataType;
 		this.count = count;
-        this.linkInformation = linkInformation;
+		this.linkInformation = linkInformation;
 	}
 
 	public String getDataType() {
