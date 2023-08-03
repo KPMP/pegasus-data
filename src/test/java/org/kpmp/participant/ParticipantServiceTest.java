@@ -161,4 +161,16 @@ public class ParticipantServiceTest {
 		assertEquals(Long.valueOf(5), resultDataCkd.getCkdCount());
 		assertEquals(Long.valueOf(6), resultDataHrt.getHrtCount());
 	}
+	
+	@Test
+	public void testGetTotalFilesCount() throws Exception {
+		when(dataSummaryRepo.getParticipantIDString("123")).thenReturn("abc");
+		when(dataSummaryRepo.getParticipantTotalFileCount("abc")).thenReturn(5);
+		
+		ParticipantRepoDataTypeInformation result = participantService.getTotalFilesCount("123");
+		
+		assertEquals(new Integer(5), result.getCount());
+		assertEquals("redcap_id", result.getLinkInformation().getLinkType());
+		assertEquals("123", result.getLinkInformation().getLinkValue());
+	}
 }

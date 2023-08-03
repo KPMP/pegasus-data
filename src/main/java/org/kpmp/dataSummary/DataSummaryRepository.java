@@ -46,4 +46,13 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "SELECT distinct(data_type) FROM repository_summary_v ORDER BY data_type ASC", nativeQuery = true)
 	List<String> getRepoDataTypes();
 
+	@Cacheable("participantIDFromRedcapID")
+	@Query(value = "SELECT participant_id FROM participant WHERE redcap_id= :redcap_id LIMIT 1", nativeQuery = true)
+	String getParticipantIDString(@Param("redcap_id") String redcapId);
+
+	@Cacheable("participantTotalFileCount")
+	@Query(value = "SELECT count(*) FROM file_participant fp JOIN ar_file_info ar ON fp.file_id = ar.file_id "
+				+ "WHERE fp.participant_id= :participant_id AND ar.release_sunset_version IS NULL", nativeQuery = true)
+	Integer getParticipantTotalFileCount(@Param("participant_id") String participantId);
+	
 }
