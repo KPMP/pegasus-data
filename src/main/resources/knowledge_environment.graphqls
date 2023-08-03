@@ -14,6 +14,7 @@ type Query {
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
   participantClinicalDataset(redcapId: String): ParticipantSummaryDataset
+  getTotalParticipantFilesCount(redcapId: String): ParticipantRepoDataTypeInformation
   getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
   getAtlasSummaryRows: AtlasRepoSummaryResult
 }

@@ -68,6 +68,15 @@ public class ParticipantService {
 		return summaryData;
 	}
 
+	public ParticipantRepoDataTypeInformation getTotalFilesCount(String redcapId) {
+		String participant_id = dataSummaryRepo.getParticipantIDString(redcapId);
+		Integer totalCount = dataSummaryRepo.getParticipantTotalFileCount(participant_id);
+		AtlasRepoSummaryLinkInformation linkInfo = new AtlasRepoSummaryLinkInformation("redcap_id", redcapId);
+		ParticipantRepoDataTypeInformation res = new ParticipantRepoDataTypeInformation("", totalCount, linkInfo);
+
+		return res;
+	}
+
 	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId) {
 		List<ParticipantDataTypeInformation> explorerExperiments = new ArrayList<>();
 		int scCount = 0;
