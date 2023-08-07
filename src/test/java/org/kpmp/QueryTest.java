@@ -24,8 +24,6 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
-import org.kpmp.gene.GeneService;
-import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
@@ -51,8 +49,6 @@ public class QueryTest {
 	@Mock
 	private AutocompleteService autocompleteService;
 	@Mock
-	private GeneService geneService;
-	@Mock
 	private GeneExpressionSummaryService geneExpressionService;
 	@Mock
 	private DataSummaryService dataSummaryService;
@@ -71,7 +67,7 @@ public class QueryTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
+		query = new Query(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
 				dataSummaryService, clusterHierarchyService, rtExpressionDataService, participantService);
 	}
 
@@ -99,14 +95,6 @@ public class QueryTest {
 		} catch (Exception e) {
 			assertEquals("ack", e.getMessage());
 		}
-	}
-
-	@Test
-	public void testGenes() throws Exception {
-		List<MyGeneInfoHit> expectedResult = Arrays.asList(new MyGeneInfoHit());
-		when(geneService.querySymbolAndAlias("query")).thenReturn(expectedResult);
-
-		assertEquals(expectedResult, query.genes("query"));
 	}
 
 	@Test
