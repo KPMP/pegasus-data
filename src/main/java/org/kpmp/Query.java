@@ -13,8 +13,6 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
-import org.kpmp.gene.GeneService;
-import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
