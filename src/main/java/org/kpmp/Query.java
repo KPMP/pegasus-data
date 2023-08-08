@@ -13,8 +13,6 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
-import org.kpmp.gene.GeneService;
-import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionData;
 import org.kpmp.geneExpression.RTExpressionDataService;
@@ -38,7 +36,6 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 @Component
 public class Query implements GraphQLQueryResolver {
 
-	private GeneService geneService;
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
 	private GeneExpressionSummaryService geneExpressionSummaryService;
@@ -50,12 +47,11 @@ public class Query implements GraphQLQueryResolver {
 	private Logger logger = LoggerFactory.getLogger(Query.class);
 
 	@Autowired
-	public Query(GeneService geneService, AutocompleteService autocompleteService, CellTypeService cellTypeService,
+	public Query(AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
 			RTExpressionDataService rtExpressionDataService, ParticipantService participantService) {
 
-		this.geneService = geneService;
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
 		this.umapService = umapService;
@@ -64,10 +60,6 @@ public class Query implements GraphQLQueryResolver {
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
 		this.participantService = participantService;
-	}
-
-	public List<MyGeneInfoHit> genes(String symbol) throws IOException, Exception {
-		return geneService.querySymbolAndAlias(symbol);
 	}
 
 	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException, Exception {
