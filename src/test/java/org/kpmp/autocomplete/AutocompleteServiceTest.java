@@ -1,6 +1,6 @@
 package org.kpmp.autocomplete;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -12,6 +12,8 @@ import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.kpmp.cellType.CellType;
 import org.kpmp.cellType.CellTypeRepository;
 import org.kpmp.cellType.CellTypeSynonym;
@@ -20,6 +22,7 @@ import org.kpmp.gene.MyGeneInfoHit;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+@TestInstance(Lifecycle.PER_CLASS)
 class AutocompleteServiceTest {
 
 	private AutocompleteService autocompleteService;
@@ -31,7 +34,7 @@ class AutocompleteServiceTest {
 	private CellTypeRepository cellTypeRepository;
 
 	@BeforeEach
-	void setUp() {
+	void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		autocompleteService = new AutocompleteService(geneService, cellTypeRepository);
 	}
@@ -92,42 +95,52 @@ class AutocompleteServiceTest {
 		List<CellType> cellTypes = new ArrayList<>();
 		cellTypes.add(ct1);
 		cellTypes.add(ct2);
+		List<CellType> regions = new ArrayList<>();
+		List<CellType> subregions = new ArrayList<>();
 
 		assertEquals(ct1, ct2);
 		List<AutocompleteResult> autocompleteResults = autocompleteService
-				.convertCellTypesToAutocompleteResults(cellTypes, null, null);
+				.convertCellTypesToAutocompleteResults(cellTypes, regions, subregions);
 		assertEquals(1, autocompleteResults.size());
 	}
 
 	@Test
 	void testConvertCellTypesToAutocompleteResultsRemovesDuplicatesForStructureRegionResults() throws Exception {
 		CellType ct1 = new CellType();
+		ct1.setCellType("abc");
 		ct1.setStructureRegion("same name");
 		CellType ct2 = new CellType();
+		ct2.setCellType("abc");
 		ct2.setStructureRegion("same name");
 		List<CellType> regions = new ArrayList<>();
 		regions.add(ct1);
 		regions.add(ct2);
+		List<CellType> subregions = new ArrayList<>();
+		List<CellType> cellTypes = new ArrayList<>();
 
 		assertEquals(ct1, ct2);
-		List<AutocompleteResult> autocompleteResults = autocompleteService.convertCellTypesToAutocompleteResults(null,
-				regions, null);
+		List<AutocompleteResult> autocompleteResults = autocompleteService.convertCellTypesToAutocompleteResults(cellTypes,
+				regions, subregions);
 		assertEquals(1, autocompleteResults.size());
 	}
 
 	@Test
 	void testConvertCellTypesToAutocompleteResultsRemovesDuplicatesForStructureSubregionResults() throws Exception {
 		CellType ct1 = new CellType();
+		ct1.setCellType("abc");
 		ct1.setStructureSubregion("same name");
 		CellType ct2 = new CellType();
+		ct2.setCellType("abc");
 		ct2.setStructureSubregion("same name");
 		List<CellType> subregions = new ArrayList<>();
 		subregions.add(ct1);
 		subregions.add(ct2);
+		List<CellType> regions = new ArrayList<>();
+		List<CellType> cellTypes = new ArrayList<>();
 
 		assertEquals(ct1, ct2);
-		List<AutocompleteResult> autocompleteResults = autocompleteService.convertCellTypesToAutocompleteResults(null,
-				null, subregions);
+		List<AutocompleteResult> autocompleteResults = autocompleteService.convertCellTypesToAutocompleteResults(cellTypes,
+				regions, subregions);
 		assertEquals(1, autocompleteResults.size());
 	}
 

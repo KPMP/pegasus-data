@@ -1,21 +1,24 @@
 package org.kpmp.geneExpressionSummary;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(Lifecycle.PER_CLASS)
 class RTParticipantValueTest {
 
     RTParticipantValue rtParticipantValue;
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
         rtParticipantValue = new RTParticipantValue();
     }
 
-    @After
+    @AfterAll
     public void tearDown() throws Exception {
         rtParticipantValue = null;
     }
