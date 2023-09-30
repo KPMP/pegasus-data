@@ -1,21 +1,23 @@
 package org.kpmp.participant;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(Lifecycle.PER_CLASS)
 class ParticipantSummaryDatasetTest {
     ParticipantSummaryDataset participantSummaryDataset;
 
-    @Before
-
+    @BeforeAll
     public void setUp() throws Exception {
-        participantSummaryDataset = new ParticipantSummaryDataset();
+        this.participantSummaryDataset = new ParticipantSummaryDataset();
     }
 
-    @After
+    @AfterAll
     public void tearDown() throws Exception {
         participantSummaryDataset = null;
     }

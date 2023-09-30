@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
+import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.RTParticipantRepository;
 import org.slf4j.Logger;
@@ -37,20 +38,26 @@ public class ParticipantService {
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 	}
-  
+
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
 		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
 	}
 
-	public List<ParticipantTissueTypeSummary> getTissueData(){
+	public List<ParticipantTissueTypeSummary> getTissueData() {
 		List<ParticipantTissueTypeSummary> tissueData = new ArrayList<>();
 
 		tissueData.add(new ParticipantTissueTypeSummary(
-			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()), 
-			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()), 
-			participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
-		    participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())));
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()),
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()),
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
+				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())));
 		return tissueData;
+	}
+
+	public ParticipantRepoDataTypeSummary getDataTypeCounts(String redcapId) {
+		ParticipantRepoDataTypeSummary summaryData = new ParticipantRepoDataTypeSummary();
+		summaryData.setRepositoryDataTypes(getRepositoryCounts(redcapId));
+		return summaryData;
 	}
 
 	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
@@ -59,6 +66,15 @@ public class ParticipantService {
 		summaryData.setExplorerDataTypes(getExplorerCounts(redcapId));
 
 		return summaryData;
+	}
+
+	public ParticipantRepoDataTypeInformation getTotalFilesCount(String redcapId) {
+		String participant_id = dataSummaryRepo.getParticipantIDString(redcapId);
+		Integer totalCount = dataSummaryRepo.getParticipantTotalFileCount(participant_id);
+		AtlasRepoSummaryLinkInformation linkInfo = new AtlasRepoSummaryLinkInformation("redcap_id", redcapId);
+		ParticipantRepoDataTypeInformation res = new ParticipantRepoDataTypeInformation("", totalCount, linkInfo);
+
+		return res;
 	}
 
 	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId) {
@@ -113,5 +129,18 @@ public class ParticipantService {
 			}
 		}
 		return spatialViewerExperiments;
+	}
+
+	private List<ParticipantRepoDataTypeInformation> getRepositoryCounts(String redcapId) {
+		List<ParticipantRepoDataTypeInformation> repoCounts = new ArrayList<>();
+
+		List<String> repoDataTypes = dataSummaryRepo.getRepoDataTypes();
+		for (String repoDataType : repoDataTypes) {
+			Integer count = dataSummaryRepo.getParticipantRepoFileDataTypeCount(redcapId, repoDataType);
+			AtlasRepoSummaryLinkInformation linkInformation = new AtlasRepoSummaryLinkInformation("data_type", repoDataType);
+			ParticipantRepoDataTypeInformation dataTypeInfo = new ParticipantRepoDataTypeInformation(repoDataType, count, linkInformation);
+			repoCounts.add(dataTypeInfo);
+		}
+		return repoCounts;
 	}
 }

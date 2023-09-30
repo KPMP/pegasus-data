@@ -1,5 +1,4 @@
 type Query {
-  genes(symbol: String): [MyGeneInfoHit]
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
   geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, tissueType: String) : [GeneExpressionSummary]
@@ -11,8 +10,10 @@ type Query {
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [GeneDatasetInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
+  getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
   participantClinicalDataset(redcapId: String): ParticipantSummaryDataset
+  getTotalParticipantFilesCount(redcapId: String): ParticipantRepoDataTypeInformation
   getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
   getAtlasSummaryRows: AtlasRepoSummaryResult
 }
@@ -52,6 +53,15 @@ type ParticipantDataTypeInformation {
   isAggregatedData: Boolean
 }
 
+type ParticipantRepoDataTypeSummary {
+  repositoryDataTypes: [ParticipantRepoDataTypeInformation]
+}
+
+type ParticipantRepoDataTypeInformation {
+  dataType: String
+  count: Long
+  linkInformation: AtlasRepoSummaryLinkInformation
+}
 
 type GeneDatasetInformation {
   omicsType: String
@@ -62,14 +72,6 @@ type GeneDatasetInformation {
   hrtCount: Long
   dmrCount: Long
   participantCount: Long
-}
-
-type MyGeneInfoHit {
-  id: ID
-  symbol: String
-  name: String
-  entrezgene: String
-  alias: [String]
 }
 
 type AutoCompleteResult {

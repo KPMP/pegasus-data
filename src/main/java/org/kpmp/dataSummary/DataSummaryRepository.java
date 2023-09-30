@@ -1,5 +1,7 @@
 package org.kpmp.dataSummary;
 
+import java.util.List;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -35,4 +37,22 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Cacheable("dataParticipantSvLinkDataTypeCount")
 	@Query(value = "SELECT count(*) from sv_link_v WHERE data_type= :data_type AND redcap_id= :redcap_id", nativeQuery = true)
 	Integer getParticipantSvLinkDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
+
+	@Cacheable("dataParticipantRepoFileDataTypeCount")
+	@Query(value = "SELECT count(*) from (SELECT distinct(dl_file_id) FROM repo_file_v WHERE data_type= :data_type AND redcap_id= :redcap_id) a", nativeQuery = true)
+	Integer getParticipantRepoFileDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
+
+    @Cacheable("repoDataTypes")
+	@Query(value = "SELECT distinct(data_type) FROM repository_summary_v ORDER BY data_type ASC", nativeQuery = true)
+	List<String> getRepoDataTypes();
+
+	@Cacheable("participantIDFromRedcapID")
+	@Query(value = "SELECT participant_id FROM participant WHERE redcap_id= :redcap_id LIMIT 1", nativeQuery = true)
+	String getParticipantIDString(@Param("redcap_id") String redcapId);
+
+	@Cacheable("participantTotalFileCount")
+	@Query(value = "SELECT count(DISTINCT fp.file_id) FROM file_participant fp JOIN ar_file_info ar ON fp.file_id = ar.file_id "
+				+ "WHERE fp.participant_id= :participant_id AND ar.release_sunset_version IS NULL", nativeQuery = true)
+	Integer getParticipantTotalFileCount(@Param("participant_id") String participantId);
+	
 }

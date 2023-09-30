@@ -125,6 +125,27 @@ public class ParticipantServiceTest {
 	}
 
 	@Test
+	public void testGetDataTypeCounts() throws Exception {
+		String dataType1 = "Transcriptomics", dataType2 = "Imaging";
+		when(dataSummaryRepo.getRepoDataTypes()).thenReturn(Arrays.asList(dataType1, dataType2));
+		when(dataSummaryRepo.getParticipantRepoFileDataTypeCount("redcapId", dataType1)).thenReturn(3);
+		when(dataSummaryRepo.getParticipantRepoFileDataTypeCount("redcapId", dataType2)).thenReturn(4);
+
+		ParticipantRepoDataTypeSummary result = participantService.getDataTypeCounts("redcapId");
+
+		List<ParticipantRepoDataTypeInformation> repositoryDataTypes = result.getRepositoryDataTypes();
+		assertEquals(2, repositoryDataTypes.size());
+		for (ParticipantRepoDataTypeInformation participantDataTypeInformation : repositoryDataTypes) {
+			if(participantDataTypeInformation.getDataType().equals("Transcriptomics")) {
+				assertEquals(new Integer(3), participantDataTypeInformation.getCount());
+			}
+			else if (participantDataTypeInformation.getDataType().equals("Imaging")) {
+				assertEquals(new Integer(4), participantDataTypeInformation.getCount());
+			}
+		}
+	}
+
+	@Test
 	public void testGetTissueCounts() throws Exception {
 		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType())).thenReturn(Long .valueOf(4));
 		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType())).thenReturn(Long .valueOf(5));
@@ -139,5 +160,17 @@ public class ParticipantServiceTest {
 		assertEquals(Long.valueOf(4), resultDataAki.getAkiCount());
 		assertEquals(Long.valueOf(5), resultDataCkd.getCkdCount());
 		assertEquals(Long.valueOf(6), resultDataHrt.getHrtCount());
+	}
+	
+	@Test
+	public void testGetTotalFilesCount() throws Exception {
+		when(dataSummaryRepo.getParticipantIDString("123")).thenReturn("abc");
+		when(dataSummaryRepo.getParticipantTotalFileCount("abc")).thenReturn(5);
+		
+		ParticipantRepoDataTypeInformation result = participantService.getTotalFilesCount("123");
+		
+		assertEquals(new Integer(5), result.getCount());
+		assertEquals("redcap_id", result.getLinkInformation().getLinkType());
+		assertEquals("123", result.getLinkInformation().getLinkValue());
 	}
 }

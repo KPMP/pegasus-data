@@ -24,8 +24,6 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
-import org.kpmp.gene.GeneService;
-import org.kpmp.gene.MyGeneInfoHit;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
@@ -33,6 +31,7 @@ import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
+import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.participant.ParticipantTissueTypeSummary;
@@ -49,8 +48,6 @@ public class QueryTest {
 	private CellTypeService cellTypeService;
 	@Mock
 	private AutocompleteService autocompleteService;
-	@Mock
-	private GeneService geneService;
 	@Mock
 	private GeneExpressionSummaryService geneExpressionService;
 	@Mock
@@ -70,7 +67,7 @@ public class QueryTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		query = new Query(geneService, autocompleteService, cellTypeService, umapDataService, geneExpressionService,
+		query = new Query(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
 				dataSummaryService, clusterHierarchyService, rtExpressionDataService, participantService);
 	}
 
@@ -98,14 +95,6 @@ public class QueryTest {
 		} catch (Exception e) {
 			assertEquals("ack", e.getMessage());
 		}
-	}
-
-	@Test
-	public void testGenes() throws Exception {
-		List<MyGeneInfoHit> expectedResult = Arrays.asList(new MyGeneInfoHit());
-		when(geneService.querySymbolAndAlias("query")).thenReturn(expectedResult);
-
-		assertEquals(expectedResult, query.genes("query"));
 	}
 
 	@Test
@@ -254,6 +243,17 @@ public class QueryTest {
 		when(participantService.getExperimentCounts("123")).thenReturn(expected);
 
 		ParticipantDataTypeSummary result = query.getDataTypeInformationByParticipant("123");
+
+		assertEquals(expected, result);
+
+	}
+
+	@Test
+	public void testGetRepoDataTypeInformationByParticipant() throws Exception {
+		ParticipantRepoDataTypeSummary expected = mock(ParticipantRepoDataTypeSummary.class);
+		when(participantService.getDataTypeCounts("123")).thenReturn(expected);
+
+		ParticipantRepoDataTypeSummary result = query.getRepoDataTypeInformationByParticipant("123");
 
 		assertEquals(expected, result);
 
