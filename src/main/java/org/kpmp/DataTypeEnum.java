@@ -5,6 +5,8 @@ public enum DataTypeEnum {
 	SINGLE_CELL("sc"),
 	SINGLE_NUCLEUS("sn"),
 	REGIONAL_TRANSCRIPTOMICS("rt"),
+
+	REGIONAL_PROTEOMICS("rp"),
 	SPATIAL_TRANSCRIPTOMICS("st"),
 	TISSUE_IMAGING_AND_CYTOMETRY_3D("3d"),
 	LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES("wsi"),
@@ -31,6 +33,8 @@ public enum DataTypeEnum {
 			return SINGLE_NUCLEUS;
 		} else if (REGIONAL_TRANSCRIPTOMICS.abbreviation.equals(abbreviation)) {
 			return REGIONAL_TRANSCRIPTOMICS;
+		} else if (REGIONAL_PROTEOMICS.abbreviation.equals(abbreviation)) {
+			return REGIONAL_PROTEOMICS;
 		} else if (SPATIAL_TRANSCRIPTOMICS.abbreviation.equals(abbreviation)) {
 			return SPATIAL_TRANSCRIPTOMICS;
 		} else if (TISSUE_IMAGING_AND_CYTOMETRY_3D.abbreviation.equals(abbreviation)) {

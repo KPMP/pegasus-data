@@ -14,6 +14,13 @@ import org.junit.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
+import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 

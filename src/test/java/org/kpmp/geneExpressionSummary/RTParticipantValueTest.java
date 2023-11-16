@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantValue;
 
 import static org.junit.jupiter.api.Assertions.*;
 

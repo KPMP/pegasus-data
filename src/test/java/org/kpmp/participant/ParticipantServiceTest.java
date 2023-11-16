@@ -11,7 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kpmp.dataSummary.DataSummaryRepository;
-import org.kpmp.geneExpressionSummary.RTParticipantRepository;
+import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
