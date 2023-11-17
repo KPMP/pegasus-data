@@ -19,12 +19,12 @@ public class ExpressionDataServiceTest {
 	private SNExpressionDataRepository snRepo;
 	@Mock
 	private SCExpressionDataRepository scRepo;
-	private ExpressionDataService service;
+	private SNSCExpressionDataService service;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		service = new ExpressionDataService(snRepo, scRepo);
+		service = new SNSCExpressionDataService(snRepo, scRepo);
 	}
 
 	@After

@@ -9,6 +9,7 @@ import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 import org.kpmp.TissueTypeEnum;
 import org.kpmp.dataSummary.DataTypeSummary;
+import org.kpmp.geneExpression.RPExpressionDataRepository;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
 import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
@@ -28,6 +29,7 @@ public class GeneExpressionSummaryService {
 	private RTParticipantRepository rtParticipantRepository;
 
 	private RPParticipantRepository rpParticipantRepository;
+	private RPExpressionDataRepository rpExpressionDataRepository;
 	RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
 
 	@Autowired
@@ -35,12 +37,14 @@ public class GeneExpressionSummaryService {
 			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
 			SCRNAParticipantRepository scrnaParticipantRepository,
 			SNRNAParticipantRepository snrnaParticipantRepository, RTParticipantRepository rtParticipantRepository,
-			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository) {
+			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository, RPExpressionDataRepository rpExpressionDataRepository, RPParticipantRepository rpParticipantRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
 		this.scrnaParticipantRepository = scrnaParticipantRepository;
 		this.snrnaParticipantRepository = snrnaParticipantRepository;
 		this.rtParticipantRepository = rtParticipantRepository;
+		this.rpExpressionDataRepository = rpExpressionDataRepository;
+		this.rpParticipantRepository = rpParticipantRepository;
 		this.rtExpressionDataAllSegmentsRepository = rtExpressionDataAllSegmentsRepository;
 	}
 
@@ -114,6 +118,10 @@ public class GeneExpressionSummaryService {
 		long rtCountByGene = rtExpressionDataAllSegmentsRepository.getCountByGene(gene);
 		if (rtCountByGene != 0) {
 			dataTypes.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+		}
+		long rpCountByGene = rpExpressionDataRepository.getCountByGene(gene);
+		if (rpCountByGene != 0) {
+			dataTypes.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
 		}
 		return dataTypes;
 	}
