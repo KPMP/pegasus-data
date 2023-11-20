@@ -5,7 +5,7 @@ type Query {
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
   getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
-  getDataTypeSummaryInformation(): [DataTypeSummaryInformation]
+  getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [GeneDatasetInformation]
