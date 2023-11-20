@@ -1,4 +1,4 @@
-package org.kpmp.geneExpressionSummary;
+package org.kpmp.geneExpressionSummary.singleNucleus;
 
 import java.io.Serializable;
 
@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.kpmp.DataTypeEnum;
+import org.kpmp.geneExpressionSummary.GeneExpressionId;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.springframework.lang.Nullable;
 
 @Entity

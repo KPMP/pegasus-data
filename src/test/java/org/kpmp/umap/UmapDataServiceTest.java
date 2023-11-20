@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.geneExpression.ExpressionDataService;
+import org.kpmp.geneExpression.SNSCExpressionDataService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -18,7 +18,7 @@ public class UmapDataServiceTest {
 
 	private UmapDataService service;
 	@Mock
-	private ExpressionDataService expressionDataService;
+	private SNSCExpressionDataService expressionDataService;
 	@Mock
 	private SCMetadataRepository scMetadataRepository;
 	@Mock

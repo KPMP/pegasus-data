@@ -1,4 +1,4 @@
-package org.kpmp.geneExpressionSummary;
+package org.kpmp.geneExpressionSummary.regionalTranscriptomics;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;

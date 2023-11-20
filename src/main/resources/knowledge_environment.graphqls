@@ -5,10 +5,10 @@ type Query {
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
   getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
-  getGeneDatasetInformation(geneSymbol: String): [GeneDatasetInformation]
+  getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
-  getSummaryData: [GeneDatasetInformation]
+  getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
@@ -63,7 +63,7 @@ type ParticipantRepoDataTypeInformation {
   linkInformation: AtlasRepoSummaryLinkInformation
 }
 
-type GeneDatasetInformation {
+type DataTypeSummaryInformation {
   omicsType: String
   dataType: String
   dataTypeShort: String

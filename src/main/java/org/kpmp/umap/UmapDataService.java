@@ -10,20 +10,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.TissueTypeEnum;
-import org.kpmp.geneExpression.ExpressionDataService;
+import org.kpmp.geneExpression.SNSCExpressionDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UmapDataService {
 
-	private ExpressionDataService expressionService;
+	private SNSCExpressionDataService expressionService;
 	private SNMetadataRepository snMetadataRepo;
 	private SCMetadataRepository scMetadataRepo;
 
 	@Autowired
 	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo,
-			ExpressionDataService expressionService) {
+			SNSCExpressionDataService expressionService) {
 		this.scMetadataRepo = scMetadataRepo;
 		this.snMetadataRepo = snMetadataRepo;
 		this.expressionService = expressionService;

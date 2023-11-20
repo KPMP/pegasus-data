@@ -13,7 +13,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.dataSummary.DataTypeSummary;
+import org.kpmp.geneExpression.RPExpressionDataRepository;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
+import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
+import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -33,13 +42,19 @@ public class GeneExpressionSummaryServiceTest {
 	@Mock
 	private RTParticipantRepository rtParticipantRepository;
 
+	@Mock
+	RPExpressionDataRepository rpExpressionDataRepository;
+
+	@Mock
+	private RPParticipantRepository rpParticipantRepository;
+
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		geneExpressionService = new GeneExpressionSummaryService(
 				scrnaGeneExpressionRepository,
 				snrnaGeneExpressionRepository, scrnaParticipantRepository, snrnaParticipantRepository,
-				rtParticipantRepository, rtExpressionDataAllSegmentsRepository);
+				rtParticipantRepository, rtExpressionDataAllSegmentsRepository, rpExpressionDataRepository, rpParticipantRepository);
 	}
 
 	@After
@@ -134,16 +149,19 @@ public class GeneExpressionSummaryServiceTest {
 		when(snrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
 		when(scrnaGeneExpressionRepository.getCountByGene("gene")).thenReturn(1l);
 		when(rtExpressionDataAllSegmentsRepository.getCountByGene("gene")).thenReturn(1l);
+		when(rpExpressionDataRepository.getCountByGene("gene")).thenReturn(1l);
+
 
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
-		assertEquals(3, dataTypes.size());
+		assertEquals(4, dataTypes.size());
 		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()),
+				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(), DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation()),
 				dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
+		verify(rpExpressionDataRepository).getCountByGene("gene");
 	}
 
 	@Test
@@ -189,7 +207,7 @@ public class GeneExpressionSummaryServiceTest {
 	}
 
 	@Test
-	public void testGetGeneDatasetInformation() throws Exception {
+	public void getDataTypeSummaryInformation() throws Exception {
 
 		when(rtParticipantRepository.getCountByTissueType("aki")).thenReturn((long) 0);
 		when(rtParticipantRepository.getCountByTissueType("ckd")).thenReturn((long) 0);
@@ -203,11 +221,17 @@ public class GeneExpressionSummaryServiceTest {
 		when(snrnaGeneExpressionRepository.getCountByTissue("ckd")).thenReturn(Long.valueOf(0));
 		when(snrnaGeneExpressionRepository.getCountByTissue("hrt")).thenReturn(Long.valueOf(0));
 		when(snrnaParticipantRepository.getParticipantCount()).thenReturn(Long.valueOf(0));
+		when(rpParticipantRepository.getCountByTissueType("aki")).thenReturn((long) 0);
+		when(rpParticipantRepository.getCountByTissueType("ckd")).thenReturn((long) 0);
+		when(rpParticipantRepository.getCountByTissueType("hrt")).thenReturn((long) 0);
+		when(rpParticipantRepository.getParticipantCount()).thenReturn((long) 0);
 
-		List<DataTypeSummary> result = geneExpressionService.getGeneDatasetInformation("AAA");
+		List<DataTypeSummary> result = geneExpressionService.getDataTypeSummaryInformation();
+		assertEquals(4, result.size());
 		DataTypeSummary resultDataSC = result.get(0);
 		DataTypeSummary resultDataSN = result.get(1);
 		DataTypeSummary resultDataRt = result.get(2);
+		DataTypeSummary resultDataRp = result.get(3);
 
 		assertEquals(Long.valueOf(0), resultDataSC.getAkiCount());
 		assertEquals(Long.valueOf(0), resultDataSC.getCkdCount());
@@ -218,9 +242,15 @@ public class GeneExpressionSummaryServiceTest {
 		assertEquals(Long.valueOf(0), resultDataRt.getAkiCount());
 		assertEquals(Long.valueOf(0), resultDataRt.getCkdCount());
 		assertEquals(Long.valueOf(0), resultDataRt.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataRp.getHrtCount());
+		assertEquals(Long.valueOf(0), resultDataRp.getAkiCount());
+		assertEquals(Long.valueOf(0), resultDataRp.getCkdCount());
+		assertEquals(Long.valueOf(0), resultDataRp.getHrtCount());
+
 		assertEquals("sc", resultDataSC.getDataTypeShort());
 		assertEquals("sn", resultDataSN.getDataTypeShort());
 		assertEquals("rt", resultDataRt.getDataTypeShort());
+		assertEquals("rp", resultDataRp.getDataTypeShort());
 		assertEquals(Long.valueOf(0), resultDataSN.getParticipantCount());
 
 	}

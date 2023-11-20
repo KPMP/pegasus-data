@@ -28,8 +28,8 @@ import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
-import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
-import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
@@ -211,9 +211,9 @@ public class QueryTest {
 		expectedResult.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
-		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
+		when(geneExpressionService.getDataTypeSummaryInformation()).thenReturn(expectedResult);
 
-		List<DataTypeSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
+		List<DataTypeSummary> datasetSummary = query.getDataTypeSummaryInformation();
 
 		assertEquals(expectedResult, datasetSummary);
 	}

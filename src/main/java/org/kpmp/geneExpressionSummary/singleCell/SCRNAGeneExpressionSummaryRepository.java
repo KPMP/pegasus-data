@@ -1,7 +1,8 @@
-package org.kpmp.geneExpressionSummary;
+package org.kpmp.geneExpressionSummary.singleCell;
 
 import java.util.List;
 
+import org.kpmp.geneExpressionSummary.GeneExpressionId;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

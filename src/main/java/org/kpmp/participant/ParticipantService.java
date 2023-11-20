@@ -7,7 +7,7 @@ import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
 import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
 import org.kpmp.dataSummary.DataSummaryRepository;
-import org.kpmp.geneExpressionSummary.RTParticipantRepository;
+import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

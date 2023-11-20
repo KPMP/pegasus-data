@@ -1,4 +1,7 @@
-package org.kpmp.geneExpressionSummary;
+package org.kpmp.geneExpressionSummary.singleNucleus;
+
+import org.kpmp.geneExpressionSummary.Participant;
+import org.kpmp.geneExpressionSummary.ParticipantId;
 
 import java.io.Serializable;
 

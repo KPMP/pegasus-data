@@ -95,9 +95,9 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<DataTypeSummary> getGeneDatasetInformation(String geneSymbol) throws Exception {
+	public List<DataTypeSummary> getDataTypeSummaryInformation() throws Exception {
 		try {
-			return geneExpressionSummaryService.getGeneDatasetInformation(geneSymbol);
+			return geneExpressionSummaryService.getDataTypeSummaryInformation();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
