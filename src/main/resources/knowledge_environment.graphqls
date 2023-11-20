@@ -63,7 +63,7 @@ type ParticipantRepoDataTypeInformation {
   linkInformation: AtlasRepoSummaryLinkInformation
 }
 
-type SummaryDataTypeInformation {
+type DataTypeSummaryInformation {
   omicsType: String
   dataType: String
   dataTypeShort: String
