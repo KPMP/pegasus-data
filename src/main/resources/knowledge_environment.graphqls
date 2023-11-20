@@ -8,7 +8,7 @@ type Query {
   getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
-  getSummaryData: [GeneDatasetInformation]
+  getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 

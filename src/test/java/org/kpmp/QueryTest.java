@@ -211,9 +211,9 @@ public class QueryTest {
 		expectedResult.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
-		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
+		when(geneExpressionService.getDataTypeSummaryInformation()).thenReturn(expectedResult);
 
-		List<DataTypeSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
+		List<DataTypeSummary> datasetSummary = query.getDataTypeSummaryInformation();
 
 		assertEquals(expectedResult, datasetSummary);
 	}
