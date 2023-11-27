@@ -7,6 +7,7 @@ type Query {
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
+  getRPGeneExpressionByTissue(geneSymbol: String): RP
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
@@ -168,6 +169,32 @@ type RTGeneExpressionByTissue {
     ckd: [RTGeneExpression]
     dmr: [RTGeneExpression]
     aki: [RTGeneExpression]
+}
+
+type RPGeneExpression {
+    id: ID
+    geneSymbol: String
+    fdrConfidence: String
+    accession: String
+    description: String
+    coveragePct: Int
+    numPeptides: Int
+    numUniquePeptides: Int
+    comparison: String
+    region: String
+    foldChange: Float
+    adjPVal: Float
+    stdDev: Float
+    tissueType: String
+    sampleCount: Int
+}
+
+type RPGeneExpressionByTissue {
+    all: [RPGeneExpression]
+    hrt: [RPGeneExpression]
+    ckd: [RPGeneExpression]
+    dmr: [RPGeneExpression]
+    aki: [RPGeneExpression]
 }
 
 type ParticipantSummaryDataset {

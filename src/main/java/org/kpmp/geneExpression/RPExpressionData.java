@@ -49,6 +49,8 @@ public class RPExpressionData {
     @Column(name = "region")
     private String region;
 
+    @Column(name = "sample_count")
+    private Integer sampleCount;
     public Integer getId() {
         return id;
     }
@@ -153,4 +155,11 @@ public class RPExpressionData {
         this.region = region;
     }
 
+    public Integer getSampleCount() {
+        return sampleCount;
+    }
+
+    public void setSampleCount(Integer sampleCount) {
+        this.sampleCount = sampleCount;
+    }
 }

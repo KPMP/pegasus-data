@@ -13,9 +13,7 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
-import org.kpmp.geneExpression.RTExpressionByTissueType;
-import org.kpmp.geneExpression.RTExpressionData;
-import org.kpmp.geneExpression.RTExpressionDataService;
+import org.kpmp.geneExpression.*;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.participant.ParticipantDataTypeSummary;
@@ -43,6 +41,8 @@ public class Query implements GraphQLQueryResolver {
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
+
+	private RPExpressionDataService rpExpressionDataService;
 	private ParticipantService participantService;
 	private Logger logger = LoggerFactory.getLogger(Query.class);
 
@@ -50,7 +50,8 @@ public class Query implements GraphQLQueryResolver {
 	public Query(AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
-			RTExpressionDataService rtExpressionDataService, ParticipantService participantService) {
+			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService,
+				 ParticipantService participantService) {
 
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
@@ -59,6 +60,7 @@ public class Query implements GraphQLQueryResolver {
 		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
+		this.rpExpressionDataService = rpExpressionDataService;
 		this.participantService = participantService;
 	}
 
@@ -136,6 +138,16 @@ public class Query implements GraphQLQueryResolver {
 	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(String structure) throws Exception {
 		try {
 			return rtExpressionDataService.getByStructure(structure);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	public RPExpressionByTissueType getRPGeneExpressionByTissue(String comparisonType, String geneSymbol)
+			throws Exception {
+		try {
+			return rpExpressionDataService.getByGeneSymbolPerTissue(geneSymbol);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
