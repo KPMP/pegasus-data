@@ -49,7 +49,7 @@ public class RPExpressionDataServiceTest {
                 thenReturn(rpExpressionDataHrt);
         when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.DMR.getParticipantTissueType())).
                 thenReturn(rpExpressionDataDmr);
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.AKI.getParticipantTissueType())).
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType())).
                 thenReturn(rpExpressionDataAll);
 
         RPExpressionByTissueType rpExpressionByTissueType = rpExpressionDataService.getByGeneSymbolPerTissue("gene");
@@ -59,6 +59,6 @@ public class RPExpressionDataServiceTest {
         assertEquals(rpExpressionByTissueType.getCkd(), rpExpressionDataCkd);
         assertEquals(rpExpressionByTissueType.getAll(), rpExpressionDataAll);
         assertEquals(rpExpressionByTissueType.getDmr(), rpExpressionDataDmr);
-        
+
     }
 }
