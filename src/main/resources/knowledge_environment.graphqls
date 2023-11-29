@@ -7,7 +7,7 @@ type Query {
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
-  getRPGeneExpressionByTissue(geneSymbol: String): RP
+  getRPGeneExpressionByTissue(geneSymbol: String): RPGeneExpressionByTissue
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
@@ -74,6 +74,7 @@ type DataTypeSummaryInformation {
   dmrCount: Long
   participantCount: Long
 }
+
 
 type AutoCompleteResult {
   value: String
@@ -184,7 +185,6 @@ type RPGeneExpression {
     region: String
     foldChange: Float
     adjPVal: Float
-    stdDev: Float
     tissueType: String
     sampleCount: Int
 }

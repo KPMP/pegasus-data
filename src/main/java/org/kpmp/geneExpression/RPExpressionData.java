@@ -40,7 +40,7 @@ public class RPExpressionData {
     @Column(name = "adj_p_val")
     private Double adjPVal;
 
-    @Column(name = "fold_chane")
+    @Column(name = "fold_change")
     private Double foldChange;
 
     @Column(name = "tissue_type")

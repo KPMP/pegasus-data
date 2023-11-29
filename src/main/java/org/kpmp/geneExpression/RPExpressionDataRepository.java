@@ -12,7 +12,7 @@ public interface RPExpressionDataRepository extends CrudRepository<RPExpressionD
 
     @Query(value = "SELECT rpe.*, count(*) as sample_count FROM rp_expression rpe " +
             "JOIN rp_metadata rpm ON LOWER(rpe.region) = LOWER(rpm.tissue_region) " +
-            "WHERE gene_symbol = :gene AND tissue_type = :tissueType " +
+            "WHERE rpe.gene_symbol = :geneSymbol AND rpe.tissue_type = :tissueType " +
             "GROUP BY rpe.region", nativeQuery = true)
     List<RPExpressionData> findByGeneSymbolAndTissueTypeWithCounts(String geneSymbol, String tissueType);
     @Cacheable("rpExpCountByGene")

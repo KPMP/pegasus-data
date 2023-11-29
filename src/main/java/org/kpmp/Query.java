@@ -144,7 +144,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public RPExpressionByTissueType getRPGeneExpressionByTissue(String comparisonType, String geneSymbol)
+	public RPExpressionByTissueType getRPGeneExpressionByTissue(String geneSymbol)
 			throws Exception {
 		try {
 			return rpExpressionDataService.getByGeneSymbolPerTissue(geneSymbol);
