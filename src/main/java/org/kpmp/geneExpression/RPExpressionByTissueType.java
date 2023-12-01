@@ -1,52 +1,62 @@
 package org.kpmp.geneExpression;
 
 import java.util.List;
+import java.util.Map;
 
 public class RPExpressionByTissueType {
 
-    private List<? extends RPExpressionData> all;
-    private List<? extends RPExpressionData> aki;
-    private List<? extends RPExpressionData> ckd;
-    private List<? extends RPExpressionData> hrt;
-    private List<? extends RPExpressionData> dmr;
+    private class AccessionGroup {
+        private accession String;
+        private List<RPExpressionData> expressionDataList;
+    }
 
-    public List<? extends RPExpressionData> getAll() {
+    private Map<String, List<RPExpressionData>> all;
+
+    private Map<String, List<RPExpressionData>> aki;
+
+    private Map<String, List<RPExpressionData>> ckd;
+
+    private Map<String, List<RPExpressionData>> hrt;
+
+    private Map<String, List<RPExpressionData>> dmr;
+
+    public Map<String, List<RPExpressionData>> getAll() {
         return all;
     }
 
-    public void setAll(List<? extends RPExpressionData> all) {
+    public void setAll(Map<String, List<RPExpressionData>> all) {
         this.all = all;
     }
 
-    public List<? extends RPExpressionData> getAki() {
+    public Map<String, List<RPExpressionData>> getAki() {
         return aki;
     }
 
-    public void setAki(List<? extends RPExpressionData> aki) {
+    public void setAki(Map<String, List<RPExpressionData>> aki) {
         this.aki = aki;
     }
 
-    public List<? extends RPExpressionData> getCkd() {
+    public Map<String, List<RPExpressionData>> getCkd() {
         return ckd;
     }
 
-    public void setCkd(List<? extends RPExpressionData> ckd) {
+    public void setCkd(Map<String, List<RPExpressionData>> ckd) {
         this.ckd = ckd;
     }
 
-    public List<? extends RPExpressionData> getHrt() {
+    public Map<String, List<RPExpressionData>> getHrt() {
         return hrt;
     }
 
-    public void setHrt(List<? extends RPExpressionData> hrt) {
+    public void setHrt(Map<String, List<RPExpressionData>> hrt) {
         this.hrt = hrt;
     }
 
-    public List<? extends RPExpressionData> getDmr() {
+    public Map<String, List<RPExpressionData>> getDmr() {
         return dmr;
     }
 
-    public void setDmr(List<? extends RPExpressionData> dmr) {
+    public void setDmr(Map<String, List<RPExpressionData>> dmr) {
         this.dmr = dmr;
     }
 }

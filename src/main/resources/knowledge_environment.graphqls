@@ -172,6 +172,11 @@ type RTGeneExpressionByTissue {
     aki: [RTGeneExpression]
 }
 
+type RPExpressionTuple {
+    accession: String
+    expressionValues: [RPGeneExpression]
+}
+
 type RPGeneExpression {
     id: ID
     geneSymbol: String
@@ -190,11 +195,11 @@ type RPGeneExpression {
 }
 
 type RPGeneExpressionByTissue {
-    all: [RPGeneExpression]
-    hrt: [RPGeneExpression]
-    ckd: [RPGeneExpression]
-    dmr: [RPGeneExpression]
-    aki: [RPGeneExpression]
+    all: [RPExpressionTuple]
+    hrt: [RPExpressionTuple]
+    ckd: [RPExpressionTuple]
+    dmr: [RPExpressionTuple]
+    aki: [RPExpressionTuple]
 }
 
 type ParticipantSummaryDataset {
