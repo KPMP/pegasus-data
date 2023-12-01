@@ -1,63 +1,62 @@
 package org.kpmp.geneExpression;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class RPExpressionByTissueType {
 
-    private class AccessionGroup {
-        private accession String;
-        private List<RPExpressionData> expressionDataList;
-    }
 
-    private Map<String, List<RPExpressionData>> all;
 
-    private Map<String, List<RPExpressionData>> aki;
+    private List<RPAccessionGroup> all;
 
-    private Map<String, List<RPExpressionData>> ckd;
+    private List<RPAccessionGroup> aki;
 
-    private Map<String, List<RPExpressionData>> hrt;
+    private List<RPAccessionGroup> ckd;
 
-    private Map<String, List<RPExpressionData>> dmr;
+    private List<RPAccessionGroup> hrt;
 
-    public Map<String, List<RPExpressionData>> getAll() {
+    private List<RPAccessionGroup> dmr;
+
+    public List<RPAccessionGroup> getAll() {
         return all;
     }
 
-    public void setAll(Map<String, List<RPExpressionData>> all) {
+    public void setAll(List<RPAccessionGroup> all) {
         this.all = all;
     }
 
-    public Map<String, List<RPExpressionData>> getAki() {
+    public List<RPAccessionGroup> getAki() {
         return aki;
     }
 
-    public void setAki(Map<String, List<RPExpressionData>> aki) {
+    public void setAki(List<RPAccessionGroup> aki) {
         this.aki = aki;
     }
 
-    public Map<String, List<RPExpressionData>> getCkd() {
+    public List<RPAccessionGroup> getCkd() {
         return ckd;
     }
 
-    public void setCkd(Map<String, List<RPExpressionData>> ckd) {
+    public void setCkd(List<RPAccessionGroup> ckd) {
         this.ckd = ckd;
     }
 
-    public Map<String, List<RPExpressionData>> getHrt() {
+    public List<RPAccessionGroup> getHrt() {
         return hrt;
     }
 
-    public void setHrt(Map<String, List<RPExpressionData>> hrt) {
+    public void setHrt(List<RPAccessionGroup> hrt) {
         this.hrt = hrt;
     }
 
-    public Map<String, List<RPExpressionData>> getDmr() {
+    public List<RPAccessionGroup> getDmr() {
         return dmr;
     }
 
-    public void setDmr(Map<String, List<RPExpressionData>> dmr) {
+    public void setDmr(List<RPAccessionGroup> dmr) {
         this.dmr = dmr;
     }
+
 }
 
