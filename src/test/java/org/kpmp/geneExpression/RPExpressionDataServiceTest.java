@@ -61,4 +61,31 @@ public class RPExpressionDataServiceTest {
         assertEquals(rpExpressionByTissueType.getDmr(), rpExpressionDataDmr);
 
     }
+
+    @Test
+    public void testGetByGeneSymbolAndProteinPerTissue() throws Exception {
+        List<RPExpressionData> rpExpressionDataAki = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataCkd = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataHrt = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataDmr = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataAll = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.AKI.getParticipantTissueType(), "protein")).
+                thenReturn(rpExpressionDataAki);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.CKD.getParticipantTissueType(), "protein")).
+                thenReturn(rpExpressionDataCkd);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), "protein")).
+                thenReturn(rpExpressionDataHrt);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.DMR.getParticipantTissueType(), "protein")).
+                thenReturn(rpExpressionDataDmr);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType(), "protein")).
+                thenReturn(rpExpressionDataAll);
+
+        RPExpressionByTissueType rpExpressionByTissueType = rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("gene", "protein");
+
+        assertEquals(rpExpressionByTissueType.getAki(), rpExpressionDataAki);
+        assertEquals(rpExpressionByTissueType.getHrt(), rpExpressionDataHrt);
+        assertEquals(rpExpressionByTissueType.getCkd(), rpExpressionDataCkd);
+        assertEquals(rpExpressionByTissueType.getAll(), rpExpressionDataAll);
+        assertEquals(rpExpressionByTissueType.getDmr(), rpExpressionDataDmr);
+    }
 }

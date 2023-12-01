@@ -135,8 +135,13 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public void getRPGeneExpressionByTissue(String comparisonType, String geneSymbol, String protein) {
-		
+	public RPExpressionByTissueType getRPGeneExpressionByTissueAndProtein(String geneSymbol, String protein) throws Exception {
+		try {
+			return rpExpressionDataService.getByGeneSymbolAndProteinPerTissue(geneSymbol, protein);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
 	}
 
 	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(String structure) throws Exception {
