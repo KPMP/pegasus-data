@@ -10,18 +10,18 @@ import javax.persistence.Table;
 @Table(name = "atlas_messages")
 public class AtlasMessage{
     @Id
-    private int atlasMessageId;
+    private int id;
     private String message;
     private String application;
     private Date startDate;
     private Date endDate;
 
     public int getAtlasMessageId() {
-        return this.atlasMessageId;
+        return this.id;
     }
 
-    public void setAtlasMessageId(int atlasMessageId) {
-        this.atlasMessageId = atlasMessageId;
+    public void setAtlasMessageId(int id) {
+        this.id = id;
     }
 
     public String getMessage() {
