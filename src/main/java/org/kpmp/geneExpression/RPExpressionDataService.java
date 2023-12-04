@@ -32,7 +32,12 @@ public class RPExpressionDataService {
 
     }
 
-    public Map<String, List<RPExpressionData>> resultsToMap(List<RPExpressionData> expressionDataList) {
+    public RPExpressionByTissueType getByGeneSymbolPerAccession(String geneSymbol) {
+
+
+    }
+
+        public Map<String, List<RPExpressionData>> resultsToMap(List<RPExpressionData> expressionDataList) {
         Map<String, List<RPExpressionData>> returnMap = new HashMap<>();
         for (RPExpressionData expressionData : expressionDataList) {
             returnMap.computeIfAbsent(expressionData.getAccession(), k -> new ArrayList<>()).add(expressionData);
