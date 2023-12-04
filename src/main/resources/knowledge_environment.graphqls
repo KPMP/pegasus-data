@@ -21,8 +21,8 @@ type Query {
 
 type AtlasMessages {
   message: String
-  startDate: Date
-  endDate: Date
+  startDate: String
+  endDate: String
 }
 
 type AtlasRepoSummaryResult {
