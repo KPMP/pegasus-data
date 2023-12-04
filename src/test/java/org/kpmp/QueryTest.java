@@ -24,6 +24,7 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
+import org.kpmp.geneExpression.RPExpressionByTissueType;
 import org.kpmp.geneExpression.RPExpressionDataService;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
@@ -239,6 +240,16 @@ public class QueryTest {
 		List data = Arrays.asList(new RTExpressionDataAllSegments());
 		when(rtExpressionDataService.getByStructure("tubulers")).thenReturn(data);
 		assertEquals(data, query.getRTGeneExpressionByStructure("tubulers"));
+	}
+
+	@Test
+	public void testGetRPGeneExpressionByTissueAndProtein() throws Exception {
+		RPExpressionByTissueType expected = new RPExpressionByTissueType();
+		when(rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("APOL1", "steak")).thenReturn(expected);
+
+		RPExpressionByTissueType result = query.getRPGeneExpressionByTissueAndProtein("APOL1", "steak");
+
+		assertEquals(expected, result);
 	}
 
 	@Test
