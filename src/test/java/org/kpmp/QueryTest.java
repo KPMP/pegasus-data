@@ -300,7 +300,7 @@ public class QueryTest {
         String startDateString = "2023-12-01";
         Date endDate = dateFormat.parse(endDateString);
         Date startDate = dateFormat.parse(startDateString);
-        atlasMessage.setAtlasMessageId(0);
+        atlasMessage.setId(0);
         atlasMessage.setApplication("Explorer");
         atlasMessage.setEndDate(endDate);
         atlasMessage.setStartDate(startDate);

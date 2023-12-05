@@ -1,5 +1,6 @@
 package org.kpmp.atlasMessage;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "atlas_messages")
-public class AtlasMessage{
+public class AtlasMessage implements Serializable {
     @Id
     private int id;
     private String message;
@@ -16,11 +17,11 @@ public class AtlasMessage{
     private Date startDate;
     private Date endDate;
 
-    public int getAtlasMessageId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setAtlasMessageId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

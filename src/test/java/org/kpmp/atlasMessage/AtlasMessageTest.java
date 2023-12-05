@@ -33,12 +33,12 @@ public class AtlasMessageTest {
         Date endDate = dateFormat.parse(endDateString);
         Date startDate = dateFormat.parse(startDateString);
         expectedResult.setApplication("Explorer");
-        expectedResult.setAtlasMessageId(1);
+        expectedResult.setId(1);
         expectedResult.setMessage("THE END IS NEAR");
         expectedResult.setEndDate(endDate);
         expectedResult.setStartDate(startDate);
         assertEquals("Explorer", expectedResult.getApplication());
-        assertEquals(1, expectedResult.getAtlasMessageId());
+        assertEquals(1, expectedResult.getId());
         assertEquals("THE END IS NEAR", expectedResult.getMessage());
         assertEquals(startDate, expectedResult.getStartDate());
         assertEquals(endDate, expectedResult.getEndDate());
