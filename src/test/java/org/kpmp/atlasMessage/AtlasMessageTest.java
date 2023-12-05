@@ -25,22 +25,38 @@ public class AtlasMessageTest {
     }
 
     @Test
-    public void testGetAtlasMessage() throws Exception {
-        AtlasMessage expectedResult = new AtlasMessage();
+    public void testGetApplication() throws Exception {
+        atlasMessage.setApplication("Explorer");
+        assertEquals("Explorer", atlasMessage.getApplication());
+    }
+
+    @Test
+    public void testGetId() throws Exception{
+        atlasMessage.setId(1);
+        assertEquals(1, atlasMessage.getId());
+    }
+
+    @Test
+    public void testGetStartDate() throws Exception {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String startDateString = "2023-12-25";
+        Date startDate = dateFormat.parse(startDateString);
+        atlasMessage.setStartDate(startDate);
+        assertEquals(startDate, atlasMessage.getStartDate());
+    }
+
+    @Test
+    public void testGetEndDate() throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String endDateString = "2023-12-25";
-        String startDateString = "2023-12-01";
         Date endDate = dateFormat.parse(endDateString);
-        Date startDate = dateFormat.parse(startDateString);
-        expectedResult.setApplication("Explorer");
-        expectedResult.setId(1);
-        expectedResult.setMessage("THE END IS NEAR");
-        expectedResult.setEndDate(endDate);
-        expectedResult.setStartDate(startDate);
-        assertEquals("Explorer", expectedResult.getApplication());
-        assertEquals(1, expectedResult.getId());
-        assertEquals("THE END IS NEAR", expectedResult.getMessage());
-        assertEquals(startDate, expectedResult.getStartDate());
-        assertEquals(endDate, expectedResult.getEndDate());
+        atlasMessage.setEndDate(endDate);
+        assertEquals(endDate, atlasMessage.getEndDate());
+    }
+
+    @Test
+    public void testGetAtlasMessage() throws Exception {
+        atlasMessage.setMessage("THE END IS NEAR");
+        assertEquals("THE END IS NEAR", atlasMessage.getMessage());
     }
 }

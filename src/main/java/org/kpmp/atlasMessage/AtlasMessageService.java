@@ -17,9 +17,7 @@ public class AtlasMessageService {
     }
 
     public List<AtlasMessage> getAtlasMessage(){
-        List<AtlasMessage> messages = new ArrayList<>();
-        messages.addAll(atlasMessageRepo.getAtlasMessages());
-        return messages;
+        return atlasMessageRepo.getAtlasMessages();
     }
 
 }
