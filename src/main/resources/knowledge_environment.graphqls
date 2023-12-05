@@ -7,7 +7,8 @@ type Query {
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
-  getRPGeneExpressionByTissue(geneSymbol: String): RPGeneExpressionByTissue
+  getRPGeneExpressionByTissue(geneSymbol: String!): [RPAccessionGroup]
+  getRPGeneExpressionByTissueAndProtein(geneSymbol: String!, protein: String!): RPExpressionByTissueType
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
@@ -174,7 +175,7 @@ type RTGeneExpressionByTissue {
 
 type RPAccessionGroup {
     accession: String
-    expressionDataList: [RPGeneExpression]
+    rpExpressionByTissueType: RPExpressionByTissueType
 }
 
 type RPGeneExpression {
@@ -194,12 +195,12 @@ type RPGeneExpression {
     sampleCount: Int
 }
 
-type RPGeneExpressionByTissue {
-    all: [RPAccessionGroup]
-    hrt: [RPAccessionGroup]
-    ckd: [RPAccessionGroup]
-    dmr: [RPAccessionGroup]
-    aki: [RPAccessionGroup]
+type RPExpressionByTissueType {
+    all: [RPGeneExpression]
+    hrt: [RPGeneExpression]
+    ckd: [RPGeneExpression]
+    dmr: [RPGeneExpression]
+    aki: [RPGeneExpression]
 }
 
 type ParticipantSummaryDataset {

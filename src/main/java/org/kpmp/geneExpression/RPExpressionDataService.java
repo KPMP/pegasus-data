@@ -19,38 +19,26 @@ public class RPExpressionDataService {
         this.rpExpressionDataRepository = rpExpressionDataRepository;
     }
 
-    public RPExpressionByTissueType getByGeneSymbolPerTissue(String geneSymbol) {
+    public List<RPAccessionGroup> getByGeneSymbolPerTissue(String geneSymbol) {
+        List<String> accessionNums = rpExpressionDataRepository.findAccessionByGeneSymbol(geneSymbol);
+        List<RPAccessionGroup> groups = new ArrayList<>();
+        for (String accession: accessionNums) {
+            RPExpressionByTissueType rpExpressionByTissueType = getByGeneSymbolAndProteinPerTissue(geneSymbol, accession);
+            RPAccessionGroup group = new RPAccessionGroup(accession, rpExpressionByTissueType);
+            groups.add(group);
+        }
+        return groups;
+    }
+
+    public RPExpressionByTissueType getByGeneSymbolAndProteinPerTissue(String geneSymbol, String protein) {
         RPExpressionByTissueType rpExpressionByTissueType = new RPExpressionByTissueType();
 
-        rpExpressionByTissueType.setAki(mapToList(resultsToMap(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()))));
-        rpExpressionByTissueType.setCkd(mapToList(resultsToMap(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()))));
-        rpExpressionByTissueType.setDmr(mapToList(resultsToMap(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.DMR.getParticipantTissueType()))));
-        rpExpressionByTissueType.setHrt(mapToList(resultsToMap(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()))));
-        rpExpressionByTissueType.setAll(mapToList(resultsToMap(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()))));
+        rpExpressionByTissueType.setAki(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType(), protein));
+        rpExpressionByTissueType.setCkd(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType(), protein));
+        rpExpressionByTissueType.setDmr(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.DMR.getParticipantTissueType(), protein));
+        rpExpressionByTissueType.setHrt(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), protein));
+        rpExpressionByTissueType.setAll(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType(), protein));
 
         return rpExpressionByTissueType;
-
     }
-
-    public RPExpressionByTissueType getByGeneSymbolPerAccession(String geneSymbol) {
-
-
-    }
-
-        public Map<String, List<RPExpressionData>> resultsToMap(List<RPExpressionData> expressionDataList) {
-        Map<String, List<RPExpressionData>> returnMap = new HashMap<>();
-        for (RPExpressionData expressionData : expressionDataList) {
-            returnMap.computeIfAbsent(expressionData.getAccession(), k -> new ArrayList<>()).add(expressionData);
-        }
-        return returnMap;
-    }
-
-    public List<RPAccessionGroup> mapToList(Map<String, List<RPExpressionData>> expressionDataMap) {
-        List<RPAccessionGroup> accessionGroups = new ArrayList<>();
-        for (Map.Entry<String, List<RPExpressionData>> expressionDataEntry: expressionDataMap.entrySet()) {
-            accessionGroups.add(new RPAccessionGroup(expressionDataEntry.getKey(), expressionDataEntry.getValue()));
-        }
-        return accessionGroups;
-    }
-
 }

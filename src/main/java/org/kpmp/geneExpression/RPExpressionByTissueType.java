@@ -1,62 +1,53 @@
 package org.kpmp.geneExpression;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RPExpressionByTissueType {
 
+	private List<? extends RPExpressionData> all;
+	private List<? extends RPExpressionData> aki;
+	private List<? extends RPExpressionData> ckd;
+	private List<? extends RPExpressionData> hrt;
+	private List<? extends RPExpressionData> dmr;
 
+	public List<? extends RPExpressionData> getAll() {
+		return all;
+	}
 
-    private List<RPAccessionGroup> all;
+	public void setAll(List<? extends RPExpressionData> all) {
+		this.all = all;
+	}
 
-    private List<RPAccessionGroup> aki;
+	public List<? extends RPExpressionData> getAki() {
+		return aki;
+	}
 
-    private List<RPAccessionGroup> ckd;
+	public void setAki(List<? extends RPExpressionData> aki) {
+		this.aki = aki;
+	}
 
-    private List<RPAccessionGroup> hrt;
+	public List<? extends RPExpressionData> getCkd() {
+		return ckd;
+	}
 
-    private List<RPAccessionGroup> dmr;
+	public void setCkd(List<? extends RPExpressionData> ckd) {
+		this.ckd = ckd;
+	}
 
-    public List<RPAccessionGroup> getAll() {
-        return all;
-    }
+	public List<? extends RPExpressionData> getHrt() {
+		return hrt;
+	}
 
-    public void setAll(List<RPAccessionGroup> all) {
-        this.all = all;
-    }
+	public void setHrt(List<? extends RPExpressionData> hrt) {
+		this.hrt = hrt;
+	}
 
-    public List<RPAccessionGroup> getAki() {
-        return aki;
-    }
+	public List<? extends RPExpressionData> getDmr() {
+		return dmr;
+	}
 
-    public void setAki(List<RPAccessionGroup> aki) {
-        this.aki = aki;
-    }
-
-    public List<RPAccessionGroup> getCkd() {
-        return ckd;
-    }
-
-    public void setCkd(List<RPAccessionGroup> ckd) {
-        this.ckd = ckd;
-    }
-
-    public List<RPAccessionGroup> getHrt() {
-        return hrt;
-    }
-
-    public void setHrt(List<RPAccessionGroup> hrt) {
-        this.hrt = hrt;
-    }
-
-    public List<RPAccessionGroup> getDmr() {
-        return dmr;
-    }
-
-    public void setDmr(List<RPAccessionGroup> dmr) {
-        this.dmr = dmr;
-    }
+	public void setDmr(List<? extends RPExpressionData> dmr) {
+		this.dmr = dmr;
+	}
 
 }
-
