@@ -8,13 +8,18 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.atlasMessage.AtlasMessage;
+import org.kpmp.atlasMessage.AtlasMessageService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -65,6 +70,8 @@ public class QueryTest {
 	private ParticipantService participantService;
 	@Mock
 	private ParticipantTissueTypeSummary participantTissueTypeSummary;
+    @Mock
+    private AtlasMessageService atlasMessageService;
 
 	@Mock
 	private RPExpressionDataService rpExpressionDataService;
@@ -73,7 +80,8 @@ public class QueryTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new Query(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
-				dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, participantService);
+				dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
+        participantService, atlasMessageService);
 	}
 
 	@After
@@ -299,4 +307,22 @@ public class QueryTest {
 
 		assertEquals(expectedResult, tissueSummary);
 	}
+
+    @Test
+    public void testGetAtlasMessage() throws Exception {
+        AtlasMessage atlasMessage = new AtlasMessage();
+         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String endDateString = "2023-12-25";
+        String startDateString = "2023-12-01";
+        Date endDate = dateFormat.parse(endDateString);
+        Date startDate = dateFormat.parse(startDateString);
+        atlasMessage.setId(0);
+        atlasMessage.setApplication("Explorer");
+        atlasMessage.setEndDate(endDate);
+        atlasMessage.setStartDate(startDate);
+        atlasMessage.setMessage("THE END IS NEAR");
+        List<AtlasMessage> expectedResult = Arrays.asList(new AtlasMessage());
+        when(atlasMessageService.getAtlasMessage()).thenReturn(expectedResult);
+        assertEquals(expectedResult, query.getAtlasMessages());
+    }
 }

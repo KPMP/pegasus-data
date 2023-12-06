@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kpmp.atlasMessage.AtlasMessage;
+import org.kpmp.atlasMessage.AtlasMessageService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -44,6 +46,7 @@ public class Query implements GraphQLQueryResolver {
 
 	private RPExpressionDataService rpExpressionDataService;
 	private ParticipantService participantService;
+  private AtlasMessageService atlasMessageService;
 	private Logger logger = LoggerFactory.getLogger(Query.class);
 
 	@Autowired
@@ -51,7 +54,7 @@ public class Query implements GraphQLQueryResolver {
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
 			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService,
-				 ParticipantService participantService) {
+      ParticipantService participantService, AtlasMessageService atlasMessageService) {
 
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
@@ -62,6 +65,7 @@ public class Query implements GraphQLQueryResolver {
 		this.rtExpressionDataService = rtExpressionDataService;
 		this.rpExpressionDataService = rpExpressionDataService;
 		this.participantService = participantService;
+        this.atlasMessageService = atlasMessageService;
 	}
 
 	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException, Exception {
@@ -213,4 +217,13 @@ public class Query implements GraphQLQueryResolver {
 			throw e;
 		}
 	}
+
+    public List<AtlasMessage> getAtlasMessages() throws Exception {
+        try{
+            return atlasMessageService.getAtlasMessage();
+        }catch (Exception e){
+            logger.error("Unable to get Atlas Message data: ", e.getMessage());
+            throw e;
+        }
+    }
 }

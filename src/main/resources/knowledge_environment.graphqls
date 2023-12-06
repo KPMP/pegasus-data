@@ -18,6 +18,14 @@ type Query {
   getTotalParticipantFilesCount(redcapId: String): ParticipantRepoDataTypeInformation
   getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
   getAtlasSummaryRows: AtlasRepoSummaryResult
+  getAtlasMessages: [AtlasMessages]
+}
+
+type AtlasMessages {
+  id: Int
+  message: String
+  startDate: String
+  endDate: String
 }
 
 type AtlasRepoSummaryResult {
