@@ -3,6 +3,10 @@ public class RPAccessionGroup {
         private String accession;
         private RPExpressionByTissueType rpExpressionByTissueType;
 
+        public RPAccessionGroup() {
+                this.accession = null;
+                this.rpExpressionByTissueType = null;
+        }
         public RPAccessionGroup(String accession, RPExpressionByTissueType rpExpressionByTissueType) {
                 this.accession = accession;
                 this.rpExpressionByTissueType = rpExpressionByTissueType;

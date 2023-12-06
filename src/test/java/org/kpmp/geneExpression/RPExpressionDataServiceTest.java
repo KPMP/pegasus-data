@@ -9,6 +9,7 @@ import org.kpmp.TissueTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,30 +36,63 @@ public class RPExpressionDataServiceTest {
 
     @Test
     public void testGetByGeneSymbolPerTissue() throws Exception {
+
+        List<String> accessions = new ArrayList<>();
+        accessions.add("a1");
+        accessions.add("a2");
+        when(rpExpressionDataRepository.findAccessionByGeneSymbol("gene")).thenReturn(accessions);
+
         List<RPExpressionData> rpExpressionDataAki = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
         List<RPExpressionData>  rpExpressionDataCkd = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
         List<RPExpressionData>  rpExpressionDataHrt = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
         List<RPExpressionData>  rpExpressionDataDmr = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
         List<RPExpressionData>  rpExpressionDataAll = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
 
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.AKI.getParticipantTissueType())).
+        List<RPExpressionData> rpExpressionDataAki2 = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataCkd2 = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataHrt2 = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataDmr2 = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+        List<RPExpressionData>  rpExpressionDataAll2 = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
+
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.AKI.getParticipantTissueType(), "a1")).
                 thenReturn(rpExpressionDataAki);
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.CKD.getParticipantTissueType())).
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.CKD.getParticipantTissueType(), "a1")).
                 thenReturn(rpExpressionDataCkd);
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())).
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), "a1")).
                 thenReturn(rpExpressionDataHrt);
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.DMR.getParticipantTissueType())).
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.DMR.getParticipantTissueType(), "a1")).
                 thenReturn(rpExpressionDataDmr);
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType())).
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType(), "a1")).
                 thenReturn(rpExpressionDataAll);
 
-        RPExpressionByTissueType rpExpressionByTissueType = rpExpressionDataService.getByGeneSymbolPerTissue("gene");
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.AKI.getParticipantTissueType(), "a2")).
+                thenReturn(rpExpressionDataAki2);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.CKD.getParticipantTissueType(), "a2")).
+                thenReturn(rpExpressionDataCkd2);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), "a2")).
+                thenReturn(rpExpressionDataHrt2);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.DMR.getParticipantTissueType(), "a2")).
+                thenReturn(rpExpressionDataDmr2);
+        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType(), "a2")).
+                thenReturn(rpExpressionDataAll2);
 
-        assertEquals(rpExpressionByTissueType.getAki(), rpExpressionDataAki);
-        assertEquals(rpExpressionByTissueType.getHrt(), rpExpressionDataHrt);
-        assertEquals(rpExpressionByTissueType.getCkd(), rpExpressionDataCkd);
-        assertEquals(rpExpressionByTissueType.getAll(), rpExpressionDataAll);
-        assertEquals(rpExpressionByTissueType.getDmr(), rpExpressionDataDmr);
+        List<RPAccessionGroup> rpAccessionGroups = rpExpressionDataService.getByGeneSymbolPerTissue("gene");
+
+        assertEquals("a1", rpAccessionGroups.get(0).getAccession());
+        assertEquals("a2", rpAccessionGroups.get(1).getAccession());
+        RPExpressionByTissueType rpExpressionByTissueType1 = rpAccessionGroups.get(0).getRpExpressionByTissueType();
+        RPExpressionByTissueType rpExpressionByTissueType2 = rpAccessionGroups.get(1).getRpExpressionByTissueType();
+
+
+        assertEquals(rpExpressionByTissueType1.getHrt(), rpExpressionDataHrt);
+        assertEquals(rpExpressionByTissueType1.getCkd(), rpExpressionDataCkd);
+        assertEquals(rpExpressionByTissueType1.getAll(), rpExpressionDataAll);
+        assertEquals(rpExpressionByTissueType1.getDmr(), rpExpressionDataDmr);
+
+        assertEquals(rpExpressionByTissueType2.getHrt(), rpExpressionDataHrt2);
+        assertEquals(rpExpressionByTissueType2.getCkd(), rpExpressionDataCkd2);
+        assertEquals(rpExpressionByTissueType2.getAll(), rpExpressionDataAll2);
+        assertEquals(rpExpressionByTissueType2.getDmr(), rpExpressionDataDmr2);
 
     }
 
