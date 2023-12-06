@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 interface AtlasMessageRepository extends CrudRepository<AtlasMessage, List>{
     @Cacheable("messageByStartDate")
-    @Query(value = "SELECT * FROM atlas_messages am WHERE start_date <= CURRENT_DATE() AND end_date >= CURRENT_DATE() ORDER BY start_date DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM atlas_messages am WHERE start_date <= CURRENT_DATE() AND end_date >= CURRENT_DATE() ORDER BY start_date ASC", nativeQuery = true)
     List<AtlasMessage> getAtlasMessages();
 }
