@@ -40,7 +40,7 @@ public class RPExpressionData {
     @Column(name = "adj_p_val")
     private Double adjPVal;
 
-    @Column(name = "fold_chane")
+    @Column(name = "fold_change")
     private Double foldChange;
 
     @Column(name = "tissue_type")
@@ -49,6 +49,8 @@ public class RPExpressionData {
     @Column(name = "region")
     private String region;
 
+    @Column(name = "sample_count")
+    private Integer sampleCount;
     public Integer getId() {
         return id;
     }
@@ -153,4 +155,11 @@ public class RPExpressionData {
         this.region = region;
     }
 
+    public Integer getSampleCount() {
+        return sampleCount;
+    }
+
+    public void setSampleCount(Integer sampleCount) {
+        this.sampleCount = sampleCount;
+    }
 }

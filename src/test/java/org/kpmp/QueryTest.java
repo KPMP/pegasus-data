@@ -29,6 +29,8 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
+import org.kpmp.geneExpression.RPExpressionByTissueType;
+import org.kpmp.geneExpression.RPExpressionDataService;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
@@ -71,11 +73,15 @@ public class QueryTest {
     @Mock
     private AtlasMessageService atlasMessageService;
 
+	@Mock
+	private RPExpressionDataService rpExpressionDataService;
+
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new Query(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
-				dataSummaryService, clusterHierarchyService, rtExpressionDataService, participantService, atlasMessageService);
+				dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
+        participantService, atlasMessageService);
 	}
 
 	@After
@@ -242,6 +248,16 @@ public class QueryTest {
 		List data = Arrays.asList(new RTExpressionDataAllSegments());
 		when(rtExpressionDataService.getByStructure("tubulers")).thenReturn(data);
 		assertEquals(data, query.getRTGeneExpressionByStructure("tubulers"));
+	}
+
+	@Test
+	public void testGetRPGeneExpressionByTissueAndProtein() throws Exception {
+		RPExpressionByTissueType expected = new RPExpressionByTissueType();
+		when(rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("APOL1", "steak")).thenReturn(expected);
+
+		RPExpressionByTissueType result = query.getRPGeneExpressionByTissueAndProtein("APOL1", "steak");
+
+		assertEquals(expected, result);
 	}
 
 	@Test
