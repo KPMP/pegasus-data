@@ -157,7 +157,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public RPExpressionByTissueType getRPGeneExpressionByTissue(String geneSymbol)
+	public List<RPAccessionGroup> getRPGeneExpressionByTissue(String geneSymbol)
 			throws Exception {
 		try {
 			return rpExpressionDataService.getByGeneSymbolPerTissue(geneSymbol);

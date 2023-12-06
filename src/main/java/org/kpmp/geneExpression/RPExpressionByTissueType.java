@@ -49,4 +49,5 @@ public class RPExpressionByTissueType {
 	public void setDmr(List<? extends RPExpressionData> dmr) {
 		this.dmr = dmr;
 	}
+
 }

@@ -4,6 +4,11 @@ import org.kpmp.TissueTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class RPExpressionDataService {
 
@@ -14,17 +19,15 @@ public class RPExpressionDataService {
         this.rpExpressionDataRepository = rpExpressionDataRepository;
     }
 
-    public RPExpressionByTissueType getByGeneSymbolPerTissue(String geneSymbol) {
-        RPExpressionByTissueType rpExpressionByTissueType = new RPExpressionByTissueType();
-
-        rpExpressionByTissueType.setAki(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()));
-        rpExpressionByTissueType.setCkd(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()));
-        rpExpressionByTissueType.setDmr(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.DMR.getParticipantTissueType()));
-        rpExpressionByTissueType.setHrt(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
-        rpExpressionByTissueType.setAll(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()));
-
-        return rpExpressionByTissueType;
-
+    public List<RPAccessionGroup> getByGeneSymbolPerTissue(String geneSymbol) {
+        List<String> accessionNums = rpExpressionDataRepository.findAccessionByGeneSymbol(geneSymbol);
+        List<RPAccessionGroup> groups = new ArrayList<>();
+        for (String accession: accessionNums) {
+            RPExpressionByTissueType rpExpressionByTissueType = getByGeneSymbolAndProteinPerTissue(geneSymbol, accession);
+            RPAccessionGroup group = new RPAccessionGroup(accession, rpExpressionByTissueType);
+            groups.add(group);
+        }
+        return groups;
     }
 
     public RPExpressionByTissueType getByGeneSymbolAndProteinPerTissue(String geneSymbol, String protein) {
