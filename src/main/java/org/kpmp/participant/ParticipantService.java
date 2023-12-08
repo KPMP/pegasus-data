@@ -7,6 +7,7 @@ import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
 import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
 import org.kpmp.dataSummary.DataSummaryRepository;
+import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,17 +27,20 @@ public class ParticipantService {
 	private SingleNucleusMetadataRepository snMetadataRepo;
 	private RTParticipantRepository rtParticipantRepo;
 
+	private RPParticipantRepository rpParticipantRepository;
+
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
 			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
 			RTParticipantRepository rtParticipantRepo,
-			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository) {
+			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository) {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
 		this.scMetadataRepo = scMetadataRepo;
 		this.snMetadataRepo = snMetadataRepo;
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
+		this.rpParticipantRepository = rpParticipantRepository;
 	}
 
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
@@ -103,6 +107,14 @@ public class ParticipantService {
 		ParticipantDataTypeInformation regionalTranscriptomicsData = new ParticipantDataTypeInformation(
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(), regionalTranscriptomicsCount, true);
 		explorerExperiments.add(regionalTranscriptomicsData);
+
+		int regionalProteomicsCount = 0;
+		if (rpParticipantRepository.existsByRedcapId(redcapId)) {
+			regionalProteomicsCount = 1;
+		}
+		ParticipantDataTypeInformation regionalProteomicsData = new ParticipantDataTypeInformation(
+				FullDataTypeEnum.REGIONAL_PROTEOMICS_FULL.getFullName(), regionalProteomicsCount, true);
+		explorerExperiments.add(regionalProteomicsData);
 
 		return explorerExperiments;
 	}
