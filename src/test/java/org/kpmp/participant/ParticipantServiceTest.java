@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.kpmp.dataSummary.DataSummaryRepository;
+import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -32,11 +33,14 @@ public class ParticipantServiceTest {
 	@Mock
 	private RTParticipantRepository rtParticipantRepo;
 
+	@Mock
+	private RPParticipantRepository rpParticipantRepository;
+
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
-				rtParticipantRepo, participantSummaryDatasetRepository);
+				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository);
 	}
 
 	@After
@@ -92,13 +96,14 @@ public class ParticipantServiceTest {
 		when(scMetadataRepo.existsByRedcapId("redcapId")).thenReturn(true);
 		when(snMetadataRepo.existsByRedcapId("redcapId")).thenReturn(true);
 		when(rtParticipantRepo.existsByRedcapId("redcapId")).thenReturn(true);
+		when(rpParticipantRepository.existsByRedcapId("redcapId")).thenReturn(true);
 
 		ParticipantDataTypeSummary result = participantService.getExperimentCounts("redcapId");
 
 		List<ParticipantDataTypeInformation> spatialViewerDataTypes = result.getSpatialViewerDataTypes();
 		assertEquals(2, spatialViewerDataTypes.size());
 		List<ParticipantDataTypeInformation> explorerDataTypes = result.getExplorerDataTypes();
-		assertEquals(3, explorerDataTypes.size());
+		assertEquals(4, explorerDataTypes.size());
 		for (ParticipantDataTypeInformation participantDataTypeInformation : spatialViewerDataTypes) {
 			if (participantDataTypeInformation.getDataType().equals("Light Microscopy")) {
 				assertEquals(new Integer(5), participantDataTypeInformation.getCount());
