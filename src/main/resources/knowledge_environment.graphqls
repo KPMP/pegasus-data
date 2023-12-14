@@ -26,6 +26,7 @@ type AtlasMessages {
   message: String
   startDate: String
   endDate: String
+  application: String
 }
 
 type AtlasRepoSummaryResult {
