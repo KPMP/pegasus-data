@@ -41,4 +41,8 @@ public class RPExpressionDataService {
 
         return rpExpressionByTissueType;
     }
+
+    public List<? extends RPExpressionData> getByStructure(String structure) {
+        return rpExpressionDataRepository.findByStructure(structure);
+    }
 }

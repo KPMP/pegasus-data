@@ -10,6 +10,7 @@ type Query {
   getRPGeneExpressionByTissue(geneSymbol: String!): [RPAccessionGroup]
   getRPGeneExpressionByTissueAndProtein(geneSymbol: String!, protein: String!): RPExpressionByTissueType
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
+  getRPGeneExpressionByStructure(structure: String): [RPGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary

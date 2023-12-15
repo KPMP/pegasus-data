@@ -25,6 +25,9 @@ public interface RPExpressionDataRepository extends CrudRepository<RPExpressionD
     @Query(value = "SELECT COUNT(*) FROM rp_expression WHERE gene_symbol = :gene", nativeQuery = true)
     long getCountByGene(@Param("gene") String gene);
 
+    @Cacheable("rpExpByStructure")
+    @Query(value = "CALL rp_diffex_sp(:structure);", nativeQuery = true)
+    List<RPExpressionData> findByStructure(@Param("structure") String structure);
     @Query(value = "SELECT rpe.*, count(*) as sample_count FROM rp_expression rpe " +
             "JOIN rp_metadata rpm ON LOWER(rpe.region) = LOWER(rpm.tissue_region) " +
             "WHERE rpe.gene_symbol = :geneSymbol AND rpe.tissue_type = :tissueType " +
