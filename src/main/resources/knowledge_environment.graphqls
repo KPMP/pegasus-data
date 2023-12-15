@@ -137,6 +137,7 @@ type ClusterHierarchy {
 	isSingleNucCluster: String
 	isSingleCellCluster: String
     isRegionalTranscriptomics: String
+    isRegionalProteomics: String
     cellTypeOrder: Float
 }
 

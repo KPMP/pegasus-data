@@ -34,6 +34,9 @@ public class ClusterHierarchy implements Serializable {
 	private String isSingleNucCluster;
 	@Column(name = "is_rt")
 	private String isRegionalTranscriptomics;
+
+	@Column(name = "is_rp")
+	private String isRegionalProteomics;
 	@Column(name = "cell_type")
 	private String cellType;
 	@Column(name = "cell_type_order")
@@ -106,6 +109,13 @@ public class ClusterHierarchy implements Serializable {
 		this.isRegionalTranscriptomics = isRegionalTranscriptomics;
 	}
 
+	public String getIsRegionalProteomics() {
+		return isRegionalProteomics;
+	}
+
+	public void setIsRegionalProteomics(String isRegionalProteomics) {
+		this.isRegionalProteomics = isRegionalProteomics;
+	}
 	@Nullable
 	public Double getCellTypeOrder() {
 		return cellTypeOrder;
