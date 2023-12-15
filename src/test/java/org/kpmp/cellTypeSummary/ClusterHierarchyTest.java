@@ -61,4 +61,16 @@ public class ClusterHierarchyTest {
 		clusterHierarchy.setIsSingleNucCluster("N");
 		assertEquals("N", clusterHierarchy.getIsSingleNucCluster());
 	}
+
+	@Test
+	public void testSetIsRPCluster() throws Exception {
+		clusterHierarchy.setIsRegionalProteomics("N");
+		assertEquals("N", clusterHierarchy.getIsRegionalProteomics());
+	}
+
+	@Test
+	public void testSetIsRTCluster() throws Exception {
+		clusterHierarchy.setIsRegionalTranscriptomics("N");
+		assertEquals("N", clusterHierarchy.getIsRegionalTranscriptomics());
+	}
 }
