@@ -122,4 +122,11 @@ public class RPExpressionDataServiceTest {
         assertEquals(rpExpressionByTissueType.getAll(), rpExpressionDataAll);
         assertEquals(rpExpressionByTissueType.getDmr(), rpExpressionDataDmr);
     }
+
+    @Test
+    public void testGetByStructure() throws Exception {
+        List<RPExpressionData> rpExpressionDataList = new ArrayList<>();
+        when(rpExpressionDataRepository.findByStructure("structure")).thenReturn(rpExpressionDataList);
+        assertEquals(rpExpressionDataList, rpExpressionDataService.getByStructure("structure"));
+    }
 }

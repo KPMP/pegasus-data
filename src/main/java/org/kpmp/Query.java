@@ -157,6 +157,14 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
+	public List<RPExpressionData> getRPGeneExpressionByStructure(String structure) throws Exception {
+		try {
+			return rpExpressionDataService.getByStructure(structure);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
 	public List<RPAccessionGroup> getRPGeneExpressionByTissue(String geneSymbol)
 			throws Exception {
 		try {
