@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.kpmp.DataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTypeExcludeFilter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -60,6 +61,9 @@ public class ClusterHierarchyService {
 		}
 		if (clustersInDataTypes.getIsRegionalTranscriptomics().equalsIgnoreCase("Y")) {
 			dataTypesRepresented.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+		}
+		if (clustersInDataTypes.getIsRegionalProteomics().equalsIgnoreCase("Y")) {
+			dataTypesRepresented.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
 		}
 		return dataTypesRepresented;
 	}
