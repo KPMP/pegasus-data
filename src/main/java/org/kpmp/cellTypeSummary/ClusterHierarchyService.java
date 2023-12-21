@@ -1,11 +1,6 @@
 package org.kpmp.cellTypeSummary;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.kpmp.DataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +34,16 @@ public class ClusterHierarchyService {
 				clusterToHierarchy.put(clusterName, clusterHierarchy);
 			}
 		}
-
+		if (cellType.equals("Tubules") || cellType.equals("Interstitium")) {
+			ClusterHierarchy tiCluster = new ClusterHierarchy();
+			tiCluster.setStructureRegion("Tubulo-interstitium");
+			tiCluster.setIsSingleCellCluster("N");
+			tiCluster.setIsSingleNucCluster("N");
+			tiCluster.setIsRegionalProteomics("Y");
+			tiCluster.setIsRegionalTranscriptomics("Y");
+			tiCluster.setCellTypeOrder(0.01);
+			result.add(tiCluster);
+		}
 		result.addAll(clusterToHierarchy.values());
         Collections.sort(result, new Comparator<ClusterHierarchy>() {
             @Override
@@ -64,6 +68,10 @@ public class ClusterHierarchyService {
 		}
 		if (clustersInDataTypes.getIsRegionalProteomics().equalsIgnoreCase("Y")) {
 			dataTypesRepresented.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
+		}
+		if (clusterName.equals("Tubulo-interstitium")) {
+			dataTypesRepresented.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
+			dataTypesRepresented.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
 		}
 		return dataTypesRepresented;
 	}
