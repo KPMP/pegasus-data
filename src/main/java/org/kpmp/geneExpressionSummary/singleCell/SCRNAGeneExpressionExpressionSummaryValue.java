@@ -1,4 +1,4 @@
-package org.kpmp.geneExpressionSummary;
+package org.kpmp.geneExpressionSummary.singleCell;
 
 import java.beans.Transient;
 import java.io.Serializable;
@@ -11,6 +11,8 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import org.kpmp.DataTypeEnum;
+import org.kpmp.geneExpressionSummary.GeneExpressionId;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 
 @Entity
 @Table(name = "sc_rnaseq")

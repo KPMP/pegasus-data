@@ -1,4 +1,7 @@
-package org.kpmp.geneExpressionSummary;
+package org.kpmp.geneExpressionSummary.regionalTranscriptomics;
+
+import org.kpmp.geneExpressionSummary.Participant;
+import org.kpmp.geneExpressionSummary.ParticipantId;
 
 import java.io.Serializable;
 
@@ -11,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rt_participant_tissue_v")
 @IdClass(ParticipantId.class)
+public
 class RTParticipantValue implements Participant, Serializable {
 
 	private static final long serialVersionUID = 5368734102102552073L;

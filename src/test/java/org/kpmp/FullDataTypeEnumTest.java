@@ -8,14 +8,15 @@ public class FullDataTypeEnumTest {
 
 	@Test
 	public void testGetLong() {
-		assertEquals(11, FullDataTypeEnum.values().length);
+		assertEquals(12, FullDataTypeEnum.values().length);
 		assertEquals("Single-nucleus RNA-seq (snRNA-seq)", FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName());
 		assertEquals("Single-cell RNA-seq (scRNA-seq)", FullDataTypeEnum.SINGLE_CELL_FULL.getFullName());
 		assertEquals("Regional transcriptomics", FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName());
 		assertEquals("CODEX", FullDataTypeEnum.CODEX_FULL.getFullName());
 		assertEquals("Spatial Lipidomics", FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName());
 		assertEquals("Spatial Metabolomics", FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName());
-		assertEquals("Spatial N-glycomics", FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName());	
+		assertEquals("Spatial N-glycomics", FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName());
+		assertEquals("Regional proteomics", FullDataTypeEnum.REGIONAL_PROTEOMICS_FULL.getFullName());
 		assertEquals("", FullDataTypeEnum.UNKNOWN_FULL.getFullName());
 	}
 

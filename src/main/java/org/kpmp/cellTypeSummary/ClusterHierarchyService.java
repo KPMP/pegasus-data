@@ -1,14 +1,10 @@
 package org.kpmp.cellTypeSummary;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.kpmp.DataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTypeExcludeFilter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,7 +34,16 @@ public class ClusterHierarchyService {
 				clusterToHierarchy.put(clusterName, clusterHierarchy);
 			}
 		}
-
+		if (cellType.equals("Tubules") || cellType.equals("Interstitium")) {
+			ClusterHierarchy tiCluster = new ClusterHierarchy();
+			tiCluster.setStructureRegion("Tubulo-interstitium");
+			tiCluster.setIsSingleCellCluster("N");
+			tiCluster.setIsSingleNucCluster("N");
+			tiCluster.setIsRegionalProteomics("Y");
+			tiCluster.setIsRegionalTranscriptomics("Y");
+			tiCluster.setCellTypeOrder(0.01);
+			result.add(tiCluster);
+		}
 		result.addAll(clusterToHierarchy.values());
         Collections.sort(result, new Comparator<ClusterHierarchy>() {
             @Override
@@ -51,15 +56,23 @@ public class ClusterHierarchyService {
 
 	public List<String> findDataTypesByClusterName(String clusterName) {
 		List<String> dataTypesRepresented = new ArrayList<>();
-		ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterOrRegion(clusterName);
-		if (clustersInDataTypes.getIsSingleCellCluster().equalsIgnoreCase("Y")) {
-			dataTypesRepresented.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
-		}
-		if (clustersInDataTypes.getIsSingleNucCluster().equalsIgnoreCase("Y")) {
-			dataTypesRepresented.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
-		}
-		if (clustersInDataTypes.getIsRegionalTranscriptomics().equalsIgnoreCase("Y")) {
+		if (clusterName.equals("Tubulo-interstitium")) {
+			dataTypesRepresented.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
 			dataTypesRepresented.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+		} else {
+			ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterOrRegion(clusterName);
+			if (clustersInDataTypes.getIsSingleCellCluster().equalsIgnoreCase("Y")) {
+				dataTypesRepresented.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
+			}
+			if (clustersInDataTypes.getIsSingleNucCluster().equalsIgnoreCase("Y")) {
+				dataTypesRepresented.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
+			}
+			if (clustersInDataTypes.getIsRegionalTranscriptomics().equalsIgnoreCase("Y")) {
+				dataTypesRepresented.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+			}
+			if (clustersInDataTypes.getIsRegionalProteomics().equalsIgnoreCase("Y")) {
+				dataTypesRepresented.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
+			}
 		}
 		return dataTypesRepresented;
 	}

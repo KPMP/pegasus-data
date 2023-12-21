@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExpressionDataService {
+public class SNSCExpressionDataService {
 
 	private SNExpressionDataRepository snRepo;
 	private SCExpressionDataRepository scRepo;
 
 	@Autowired
-	public ExpressionDataService(SNExpressionDataRepository snRepo, SCExpressionDataRepository scRepo) {
+	public SNSCExpressionDataService(SNExpressionDataRepository snRepo, SCExpressionDataRepository scRepo) {
 		this.snRepo = snRepo;
 		this.scRepo = scRepo;
 	}

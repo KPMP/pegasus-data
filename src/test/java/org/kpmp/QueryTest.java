@@ -8,13 +8,18 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.kpmp.atlasMessage.AtlasMessage;
+import org.kpmp.atlasMessage.AtlasMessageService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -24,12 +29,14 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
+import org.kpmp.geneExpression.RPExpressionByTissueType;
+import org.kpmp.geneExpression.RPExpressionDataService;
 import org.kpmp.geneExpression.RTExpressionByTissueType;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
-import org.kpmp.geneExpressionSummary.SCRNAGeneExpressionExpressionSummaryValue;
-import org.kpmp.geneExpressionSummary.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
@@ -63,12 +70,18 @@ public class QueryTest {
 	private ParticipantService participantService;
 	@Mock
 	private ParticipantTissueTypeSummary participantTissueTypeSummary;
+    @Mock
+    private AtlasMessageService atlasMessageService;
+
+	@Mock
+	private RPExpressionDataService rpExpressionDataService;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new Query(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
-				dataSummaryService, clusterHierarchyService, rtExpressionDataService, participantService);
+				dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
+        participantService, atlasMessageService);
 	}
 
 	@After
@@ -211,9 +224,9 @@ public class QueryTest {
 		expectedResult.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
-		when(geneExpressionService.getGeneDatasetInformation("AAA")).thenReturn(expectedResult);
+		when(geneExpressionService.getDataTypeSummaryInformation()).thenReturn(expectedResult);
 
-		List<DataTypeSummary> datasetSummary = query.getGeneDatasetInformation("AAA");
+		List<DataTypeSummary> datasetSummary = query.getDataTypeSummaryInformation();
 
 		assertEquals(expectedResult, datasetSummary);
 	}
@@ -235,6 +248,16 @@ public class QueryTest {
 		List data = Arrays.asList(new RTExpressionDataAllSegments());
 		when(rtExpressionDataService.getByStructure("tubulers")).thenReturn(data);
 		assertEquals(data, query.getRTGeneExpressionByStructure("tubulers"));
+	}
+
+	@Test
+	public void testGetRPGeneExpressionByTissueAndProtein() throws Exception {
+		RPExpressionByTissueType expected = new RPExpressionByTissueType();
+		when(rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("APOL1", "steak")).thenReturn(expected);
+
+		RPExpressionByTissueType result = query.getRPGeneExpressionByTissueAndProtein("APOL1", "steak");
+
+		assertEquals(expected, result);
 	}
 
 	@Test
@@ -284,4 +307,22 @@ public class QueryTest {
 
 		assertEquals(expectedResult, tissueSummary);
 	}
+
+    @Test
+    public void testGetAtlasMessage() throws Exception {
+        AtlasMessage atlasMessage = new AtlasMessage();
+         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String endDateString = "2023-12-25";
+        String startDateString = "2023-12-01";
+        Date endDate = dateFormat.parse(endDateString);
+        Date startDate = dateFormat.parse(startDateString);
+        atlasMessage.setId(0);
+        atlasMessage.setApplication("Explorer");
+        atlasMessage.setEndDate(endDate);
+        atlasMessage.setStartDate(startDate);
+        atlasMessage.setMessage("THE END IS NEAR");
+        List<AtlasMessage> expectedResult = Arrays.asList(new AtlasMessage());
+        when(atlasMessageService.getAtlasMessage()).thenReturn(expectedResult);
+        assertEquals(expectedResult, query.getAtlasMessages());
+    }
 }

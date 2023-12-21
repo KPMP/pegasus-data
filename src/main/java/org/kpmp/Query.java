@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kpmp.atlasMessage.AtlasMessage;
+import org.kpmp.atlasMessage.AtlasMessageService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
@@ -13,9 +15,7 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
-import org.kpmp.geneExpression.RTExpressionByTissueType;
-import org.kpmp.geneExpression.RTExpressionData;
-import org.kpmp.geneExpression.RTExpressionDataService;
+import org.kpmp.geneExpression.*;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.participant.ParticipantDataTypeSummary;
@@ -43,14 +43,18 @@ public class Query implements GraphQLQueryResolver {
 	private UmapDataService umapService;
 	private ClusterHierarchyService clusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
+
+	private RPExpressionDataService rpExpressionDataService;
 	private ParticipantService participantService;
+  private AtlasMessageService atlasMessageService;
 	private Logger logger = LoggerFactory.getLogger(Query.class);
 
 	@Autowired
 	public Query(AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
-			RTExpressionDataService rtExpressionDataService, ParticipantService participantService) {
+			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService,
+      ParticipantService participantService, AtlasMessageService atlasMessageService) {
 
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
@@ -59,7 +63,9 @@ public class Query implements GraphQLQueryResolver {
 		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
+		this.rpExpressionDataService = rpExpressionDataService;
 		this.participantService = participantService;
+        this.atlasMessageService = atlasMessageService;
 	}
 
 	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException, Exception {
@@ -95,9 +101,9 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<DataTypeSummary> getGeneDatasetInformation(String geneSymbol) throws Exception {
+	public List<DataTypeSummary> getDataTypeSummaryInformation() throws Exception {
 		try {
-			return geneExpressionSummaryService.getGeneDatasetInformation(geneSymbol);
+			return geneExpressionSummaryService.getDataTypeSummaryInformation();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -133,9 +139,36 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
+	public RPExpressionByTissueType getRPGeneExpressionByTissueAndProtein(String geneSymbol, String protein) throws Exception {
+		try {
+			return rpExpressionDataService.getByGeneSymbolAndProteinPerTissue(geneSymbol, protein);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
 	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(String structure) throws Exception {
 		try {
 			return rtExpressionDataService.getByStructure(structure);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+
+	public List<RPExpressionData> getRPGeneExpressionByStructure(String structure) throws Exception {
+		try {
+			return rpExpressionDataService.getByStructure(structure);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw e;
+		}
+	}
+	public List<RPAccessionGroup> getRPGeneExpressionByTissue(String geneSymbol)
+			throws Exception {
+		try {
+			return rpExpressionDataService.getByGeneSymbolPerTissue(geneSymbol);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -192,4 +225,13 @@ public class Query implements GraphQLQueryResolver {
 			throw e;
 		}
 	}
+
+    public List<AtlasMessage> getAtlasMessages() throws Exception {
+        try{
+            return atlasMessageService.getAtlasMessage();
+        }catch (Exception e){
+            logger.error("Unable to get Atlas Message data: ", e.getMessage());
+            throw e;
+        }
+    }
 }

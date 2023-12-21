@@ -5,10 +5,13 @@ type Query {
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
   getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
-  getGeneDatasetInformation(geneSymbol: String): [GeneDatasetInformation]
+  getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
+  getRPGeneExpressionByTissue(geneSymbol: String!): [RPAccessionGroup]
+  getRPGeneExpressionByTissueAndProtein(geneSymbol: String!, protein: String!): RPExpressionByTissueType
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
-  getSummaryData: [GeneDatasetInformation]
+  getRPGeneExpressionByStructure(structure: String): [RPGeneExpression]
+  getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String): ParticipantSummaryDataset 
@@ -16,6 +19,15 @@ type Query {
   getTotalParticipantFilesCount(redcapId: String): ParticipantRepoDataTypeInformation
   getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
   getAtlasSummaryRows: AtlasRepoSummaryResult
+  getAtlasMessages: [AtlasMessages]
+}
+
+type AtlasMessages {
+  id: Int
+  message: String
+  startDate: String
+  endDate: String
+  application: String
 }
 
 type AtlasRepoSummaryResult {
@@ -63,7 +75,7 @@ type ParticipantRepoDataTypeInformation {
   linkInformation: AtlasRepoSummaryLinkInformation
 }
 
-type GeneDatasetInformation {
+type DataTypeSummaryInformation {
   omicsType: String
   dataType: String
   dataTypeShort: String
@@ -73,6 +85,7 @@ type GeneDatasetInformation {
   dmrCount: Long
   participantCount: Long
 }
+
 
 type AutoCompleteResult {
   value: String
@@ -126,6 +139,7 @@ type ClusterHierarchy {
 	isSingleNucCluster: String
 	isSingleCellCluster: String
     isRegionalTranscriptomics: String
+    isRegionalProteomics: String
     cellTypeOrder: Float
 }
 
@@ -168,6 +182,36 @@ type RTGeneExpressionByTissue {
     ckd: [RTGeneExpression]
     dmr: [RTGeneExpression]
     aki: [RTGeneExpression]
+}
+
+type RPAccessionGroup {
+    accession: String
+    rpExpressionByTissueType: RPExpressionByTissueType
+}
+
+type RPGeneExpression {
+    id: ID
+    geneSymbol: String
+    fdrConfidence: String
+    accession: String
+    description: String
+    coveragePct: Int
+    numPeptides: Int
+    numUniquePeptides: Int
+    comparison: String
+    region: String
+    foldChange: Float
+    adjPVal: Float
+    tissueType: String
+    sampleCount: Int
+}
+
+type RPExpressionByTissueType {
+    all: [RPGeneExpression]
+    hrt: [RPGeneExpression]
+    ckd: [RPGeneExpression]
+    dmr: [RPGeneExpression]
+    aki: [RPGeneExpression]
 }
 
 type ParticipantSummaryDataset {
