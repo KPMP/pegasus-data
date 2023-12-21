@@ -1,9 +1,10 @@
 package org.kpmp.cellTypeSummary;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -189,5 +190,25 @@ public class ClusterHierarchyServiceTest {
 		assertEquals(1, dataTypes.size());
 		assertEquals(Arrays.asList("rp"), dataTypes);
 		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
+	}
+
+	@Test
+	public void testFindClustersByCellTypeTubulesOrInterstitium() throws Exception {
+		List<ClusterHierarchy> clusterHierarchies = new ArrayList<>();
+		when(clusterHierarchyRepo.findByCellType("Tubules")).thenReturn(clusterHierarchies);
+		when(clusterHierarchyRepo.findByCellType("Interstitium")).thenReturn(clusterHierarchies);
+		List<ClusterHierarchy> clusters = service.findClustersByCellType("Tubules");
+		assertEquals("Tubulo-interstitium", clusters.get(0).getStructureRegion());
+		List<ClusterHierarchy> clusters2 = service.findClustersByCellType("Interstitium");
+		assertEquals("Tubulo-interstitium", clusters2.get(0).getStructureRegion());
+	}
+
+	@Test
+	public void testFindDataTypesByClusterNameTi() throws Exception {
+		List<String> dataTypes = service.findDataTypesByClusterName("Tubulo-interstitium");
+		assertTrue(dataTypes.contains(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation()));
+		assertTrue(dataTypes.contains(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()));
+		assertFalse(dataTypes.contains(DataTypeEnum.SINGLE_CELL.getAbbreviation()));
+		assertFalse(dataTypes.contains(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()));
 	}
 }
