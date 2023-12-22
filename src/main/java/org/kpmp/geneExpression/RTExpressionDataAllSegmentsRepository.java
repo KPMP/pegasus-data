@@ -14,7 +14,8 @@ public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RT
 	@Query(value = "SELECT rts.*, rsv.sample_count, s.segment_name FROM rt_segments rts "
 			+ "LEFT JOIN rt_summary_v rsv ON rts.segment = rsv.segment AND rts.tissue_type = rsv.tissue_type "
 			+ "LEFT JOIN segment s on rts.segment = s.abbreviation "
-			+ "WHERE rts.tissue_type = :tissueType AND rts.gene_symbol = :geneSymbol", nativeQuery = true)
+			+ "WHERE rts.tissue_type = :tissueType AND rts.gene_symbol = :geneSymbol "
+	       		+ "GROUP BY rts.segment", nativeQuery = true)
 	List<RTExpressionDataAllSegments> findByGeneSymbolAndTissueTypeWithCounts(String geneSymbol, String tissueType);
 
 	@Cacheable("rtExpByStructure")
