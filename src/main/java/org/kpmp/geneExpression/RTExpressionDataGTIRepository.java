@@ -13,6 +13,7 @@ public interface RTExpressionDataGTIRepository extends CrudRepository<RTExpressi
 	@Query(value = "SELECT rtg.*, rsv.sample_count, s.segment_name FROM rt_gti rtg "
 			+ "LEFT JOIN rt_summary_v rsv ON rtg.segment = rsv.segment AND rtg.tissue_type = rsv.tissue_type "
 			+ "LEFT JOIN segment s on rtg.segment = s.abbreviation "
-			+ "WHERE rtg.tissue_type = :tissueType AND rtg.gene_symbol = :geneSymbol", nativeQuery = true)
+			+ "WHERE rtg.tissue_type = :tissueType AND rtg.gene_symbol = :geneSymbol " 
+	       		+ "GROUP BY rtg.segment", nativeQuery = true)
 	List<RTExpressionDataGTI> findByGeneSymbolAndTissueTypeWithCounts(String geneSymbol, String tissueType);
 }
