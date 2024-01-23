@@ -32,36 +32,5 @@ public class RPExpressionByTissueTypeTest {
 		assertEquals(allataList, actual);
 	}
 
-	@Test
-	public void setAki() {
-		List<? extends RPExpressionData> allAkiDataList = Arrays.asList(mock(RPExpressionData.class));
-		rpExpression.setAki(allAkiDataList);
-		List<? extends RPExpressionData> actual = rpExpression.getAki();
-		assertEquals(allAkiDataList, actual);
-	}
-
-	@Test
-	public void setCkd() {
-		List<? extends RPExpressionData> allCkdDataList = Arrays.asList(mock(RPExpressionData.class));
-		rpExpression.setCkd(allCkdDataList);
-		List<? extends RPExpressionData> actual = rpExpression.getCkd();
-		assertEquals(allCkdDataList, actual);
-	}
-
-	@Test
-	public void setHrt() {
-		List<? extends RPExpressionData> allHrtDataList = Arrays.asList(mock(RPExpressionData.class));
-		rpExpression.setHrt(allHrtDataList);
-		List<? extends RPExpressionData> actual = rpExpression.getHrt();
-		assertEquals(allHrtDataList, actual);
-	}
-
-	@Test
-	public void setDmr() {
-		List<? extends RPExpressionData> allDmrDataList = Arrays.asList(mock(RPExpressionData.class));
-		rpExpression.setDmr(allDmrDataList);
-		List<? extends RPExpressionData> actual = rpExpression.getDmr();
-		assertEquals(allDmrDataList, actual);
-	}
 
 }

@@ -31,10 +31,6 @@ public class RPExpressionDataService {
     public RPExpressionByTissueType getByGeneSymbolAndProteinPerTissue(String geneSymbol, String protein) {
         RPExpressionByTissueType rpExpressionByTissueType = new RPExpressionByTissueType();
 
-        rpExpressionByTissueType.setAki(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType(), protein));
-        rpExpressionByTissueType.setCkd(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType(), protein));
-        rpExpressionByTissueType.setDmr(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.DMR.getParticipantTissueType(), protein));
-        rpExpressionByTissueType.setHrt(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), protein));
         rpExpressionByTissueType.setAll(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType(), protein));
 
         return rpExpressionByTissueType;
