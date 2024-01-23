@@ -31,6 +31,6 @@ public class ARFileInfoServiceTest {
     @Test
     void testGetRepositoryTotalFileCount() {
         when(fileInfoRepository.getTotalFileCount()).thenReturn(2l);
-        assertEquals(new Long(2), service.getRepositoryTotalFileCount());
+        assertEquals(Long.valueOf(2), service.getRepositoryTotalFileCount());
     }
 }

@@ -106,15 +106,15 @@ public class ParticipantServiceTest {
 		assertEquals(4, explorerDataTypes.size());
 		for (ParticipantDataTypeInformation participantDataTypeInformation : spatialViewerDataTypes) {
 			if (participantDataTypeInformation.getDataType().equals("Light Microscopy")) {
-				assertEquals(new Integer(5), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(5), participantDataTypeInformation.getCount());
 				assertEquals(false, participantDataTypeInformation.isAggregatedData());
 			} else if (participantDataTypeInformation.getDataType().equals("Spatial Lipidomics")) {
-				assertEquals(new Integer(2), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(2), participantDataTypeInformation.getCount());
 				assertEquals(false, participantDataTypeInformation.isAggregatedData());
 			}
 		}
 		for (ParticipantDataTypeInformation participantDataTypeInformation : explorerDataTypes) {
-			assertEquals(new Integer(1), participantDataTypeInformation.getCount());
+			assertEquals(Integer.valueOf(1), participantDataTypeInformation.getCount());
 			assertEquals(true, participantDataTypeInformation.isAggregatedData());
 		}
 
@@ -142,10 +142,10 @@ public class ParticipantServiceTest {
 		assertEquals(2, repositoryDataTypes.size());
 		for (ParticipantRepoDataTypeInformation participantDataTypeInformation : repositoryDataTypes) {
 			if(participantDataTypeInformation.getDataType().equals("Transcriptomics")) {
-				assertEquals(new Integer(3), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(3), participantDataTypeInformation.getCount());
 			}
 			else if (participantDataTypeInformation.getDataType().equals("Imaging")) {
-				assertEquals(new Integer(4), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(4), participantDataTypeInformation.getCount());
 			}
 		}
 	}
@@ -174,7 +174,7 @@ public class ParticipantServiceTest {
 		
 		ParticipantRepoDataTypeInformation result = participantService.getTotalFilesCount("123");
 		
-		assertEquals(new Integer(5), result.getCount());
+		assertEquals(Integer.valueOf(5), result.getCount());
 		assertEquals("redcap_id", result.getLinkInformation().getLinkType());
 		assertEquals("123", result.getLinkInformation().getLinkValue());
 	}
