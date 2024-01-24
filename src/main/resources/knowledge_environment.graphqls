@@ -208,10 +208,6 @@ type RPGeneExpression {
 
 type RPExpressionByTissueType {
     all: [RPGeneExpression]
-    hrt: [RPGeneExpression]
-    ckd: [RPGeneExpression]
-    dmr: [RPGeneExpression]
-    aki: [RPGeneExpression]
 }
 
 type ParticipantSummaryDataset {

@@ -94,7 +94,7 @@ public class DataSummaryServiceTest {
 		assertEquals(10, summaryRows.get(2).getOpenCount());
 		assertEquals(new AtlasRepoSummaryLinkInformation("experimental_strategy", "strategy1"),
 				summaryRows.get(2).getLinkInformation());
-		assertEquals(new Long(36), result.getTotalFiles());
+		assertEquals(Long.valueOf(36), result.getTotalFiles());
 
 	}
 
