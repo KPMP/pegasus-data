@@ -21,7 +21,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName='pegasus-data'
-    version= '1.6.3'
+    version= '2.3'
 }
 
 repositories {
@@ -60,7 +60,7 @@ task unpack(type: Copy) {
 }
 
 docker {
-    name "${project.group}/${jar.baseName}:latest"
+    name "${project.group}/${jar.baseName}:${jar.version}"
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }
