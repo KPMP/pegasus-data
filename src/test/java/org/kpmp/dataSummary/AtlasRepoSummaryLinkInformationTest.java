@@ -41,6 +41,7 @@ public class AtlasRepoSummaryLinkInformationTest {
 		assertEquals("another value", linkInfo.getLinkValue());
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testEqualsAndHashCode() throws Exception {
 		AtlasRepoSummaryLinkInformation base = new AtlasRepoSummaryLinkInformation("linkType", "linkValue");
