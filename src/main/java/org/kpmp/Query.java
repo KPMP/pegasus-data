@@ -195,10 +195,6 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public ParticipantSummaryDataset participantClinicalDataset(String redcap_id) throws Exception {
-		return this.participantSummaryDataset(redcap_id);
-	}
-
 	public ParticipantRepoDataTypeInformation getTotalParticipantFilesCount(String redcap_id) throws Exception {
 		try {
 			return this.participantService.getTotalFilesCount(redcap_id);
