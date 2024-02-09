@@ -81,6 +81,15 @@ public class ParticipantService {
 		return res;
 	}
 
+	public List<ParticipantRepoDataTypeInformation> getRepoCountsByExperimentalStrategy(String redcapId) {
+	// 	@Query(value="select a.experimental_strategy, b.data_type, b.data_category ,coalesce(count,0) as count "
+	// 	+ "from (select distinct experimental_strategy from repo_file_v) as a "
+	// 	+ "left join (select count(*) as count, experimental_strategy, data_type, data_category from repo_file_v where redcap_id= :redcap_id "
+	// 	+ "group by experimental_strategy) as b on a.experimental_strategy=b.experimental_strategy;", nativeQuery = true)
+	// List<
+		return null;
+	}
+
 	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId) {
 		List<ParticipantDataTypeInformation> explorerExperiments = new ArrayList<>();
 		int scCount = 0;

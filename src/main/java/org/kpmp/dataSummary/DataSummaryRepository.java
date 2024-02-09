@@ -55,9 +55,4 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 				+ "WHERE fp.participant_id= :participant_id AND ar.release_sunset_version IS NULL", nativeQuery = true)
 	Integer getParticipantTotalFileCount(@Param("participant_id") String participantId);
 	
-	@Query(value="select a.experimental_strategy, b.data_type, b.data_category ,coalesce(count,0) as count "
-		+ "from (select distinct experimental_strategy from repo_file_v) as a "
-		+ "left join (select count(*) as count, experimental_strategy, data_type, data_category from repo_file_v where redcap_id= :redcap_id "
-		+ "group by experimental_strategy) as b on a.experimental_strategy=b.experimental_strategy;", nativeQuery = true)
-	List<
 }

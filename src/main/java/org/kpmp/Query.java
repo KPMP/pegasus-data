@@ -230,4 +230,8 @@ public class Query implements GraphQLQueryResolver {
             throw e;
         }
     }
+
+	public List<ParticipantRepoDataTypeInformation> getRepoCountsByExperimentalStrategy(String redcapId) {
+		return null;
+	}
 }
