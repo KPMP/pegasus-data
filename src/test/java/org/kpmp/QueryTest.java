@@ -38,6 +38,7 @@ import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.participant.ParticipantDataTypeSummary;
+import org.kpmp.participant.ParticipantRepoDataTypeInformation;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
@@ -290,13 +291,6 @@ public class QueryTest {
 		verify(participantService).getParticipantSummaryDataset("participant_id");
 	}
 
-	public void testParticipantClinicalDataset() throws Exception {
-		ParticipantSummaryDataset expected = new ParticipantSummaryDataset();
-		when(participantService.getParticipantSummaryDataset("participant_id")).thenReturn(expected);
-
-		assertEquals(expected, query.participantClinicalDataset("participant_id"));
-	}
-
 	public void getParticipantTissueTypeSummary() throws Exception {
 		List<ParticipantTissueTypeSummary> expectedResult = new ArrayList<>();
 
@@ -311,7 +305,7 @@ public class QueryTest {
     @Test
     public void testGetAtlasMessage() throws Exception {
         AtlasMessage atlasMessage = new AtlasMessage();
-         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String endDateString = "2023-12-25";
         String startDateString = "2023-12-01";
         Date endDate = dateFormat.parse(endDateString);
@@ -325,4 +319,14 @@ public class QueryTest {
         when(atlasMessageService.getAtlasMessage()).thenReturn(expectedResult);
         assertEquals(expectedResult, query.getAtlasMessages());
     }
+
+	@Test
+	public void testGetRepoCountsForParticipantByExperimentalStrategy() {
+		List<ParticipantRepoDataTypeInformation> expectedResults = new ArrayList<>();
+		when(participantService.getRepoCountsByExperimentalStrategy("redcapId")).thenReturn(expectedResults);
+
+		List<ParticipantRepoDataTypeInformation> result = query.getRepoCountsForParticipantByExperimentalStrategy("redcapId");
+
+		assertEquals(expectedResults, result);
+	}
 }

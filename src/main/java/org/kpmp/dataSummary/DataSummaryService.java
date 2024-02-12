@@ -13,17 +13,21 @@ import org.kpmp.OmicsTypeEnum;
 import org.kpmp.TissueTypeEnum;
 import org.kpmp.file.ARFileInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DataSummaryService {
-	private static final String EXPERIMENTAL_STRATEGY = "experimental_strategy";
-	private static final String DATA_CATEGORY = "data_category";
+
+	@Value("${experiment.label.clinicalStudyData}")
+	private String CLINICAL_STUDY_DATA;
+	@Value("${experiment.label.biomarkers}")
+	private String BIOMARKERS;
+	@Value("${experiment.category.biomarker}")
+	private String BIOMARKER;
+	
 	private static final String CONTROLLED_ACCESS = "controlled";
 	private static final String OPEN_ACCESS = "open";
-	private static final String BIOMARKERS = "Biomarkers";
-	private static final String BIOMARKER = "Biomarker";
-	private static final String CLINICAL_STUDY_DATA = "Clinical Study Data";
 
 	private DataSummaryRepository dataSummaryRepository;
 	private AtlasRepoSummaryRepository repoSummaryRepository;
@@ -73,12 +77,12 @@ public class DataSummaryService {
 		return new AtlasRepoSummaryResult(results, fileInfoService.getRepositoryTotalFileCount());
 	}
 
-	private AtlasRepoSummaryLinkInformation getLinkInformation(ExperimentalStrategyValue experimentalStrategy) {
+	private AtlasRepositoryLinkInformation getLinkInformation(ExperimentalStrategyValue experimentalStrategy) {
 		if (experimentalStrategy.getDataCategory().equalsIgnoreCase(BIOMARKER)
 				|| experimentalStrategy.getDataType().equalsIgnoreCase(CLINICAL_STUDY_DATA)) {
-			return new AtlasRepoSummaryLinkInformation(DATA_CATEGORY, experimentalStrategy.getDataCategory());
+			return new AtlasRepositoryLinkInformation(AtlasRepositoryLinkInformation.DATA_CATEGORY, experimentalStrategy.getDataCategory());
 		} else {
-			return new AtlasRepoSummaryLinkInformation(EXPERIMENTAL_STRATEGY,
+			return new AtlasRepositoryLinkInformation(AtlasRepositoryLinkInformation.EXPERIMENTAL_STRATEGY,
 					experimentalStrategy.getExperimentalStrategy());
 		}
 	}

@@ -4,9 +4,9 @@ public class AtlasRepoSummaryRow {
 	private int openCount;
 	private int controlledCount;
 	private String omicsType;
-	private AtlasRepoSummaryLinkInformation linkInformation;
+	private AtlasRepositoryLinkInformation linkInformation;
 
-	public AtlasRepoSummaryRow(String omicsType, AtlasRepoSummaryLinkInformation linkInformation) {
+	public AtlasRepoSummaryRow(String omicsType, AtlasRepositoryLinkInformation linkInformation) {
 		this.omicsType = omicsType;
 		this.linkInformation = linkInformation;
 	}
@@ -43,11 +43,11 @@ public class AtlasRepoSummaryRow {
 		this.openCount = this.openCount + count;
 	}
 
-	public AtlasRepoSummaryLinkInformation getLinkInformation() {
+	public AtlasRepositoryLinkInformation getLinkInformation() {
 		return linkInformation;
 	}
 
-	public void setLinkInformation(AtlasRepoSummaryLinkInformation linkInformation) {
+	public void setLinkInformation(AtlasRepositoryLinkInformation linkInformation) {
 		this.linkInformation = linkInformation;
 	}
 }

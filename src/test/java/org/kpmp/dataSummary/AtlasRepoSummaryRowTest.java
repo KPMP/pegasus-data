@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 public class AtlasRepoSummaryRowTest {
 
 	@Mock
-	AtlasRepoSummaryLinkInformation linkInformation;
+	AtlasRepositoryLinkInformation linkInformation;
 	private AtlasRepoSummaryRow row;
 
 	@Before
@@ -29,7 +29,7 @@ public class AtlasRepoSummaryRowTest {
 
 	@Test
 	public void testConstructor() throws Exception {
-		AtlasRepoSummaryLinkInformation expectedLinkInformation = mock(AtlasRepoSummaryLinkInformation.class);
+		AtlasRepositoryLinkInformation expectedLinkInformation = mock(AtlasRepositoryLinkInformation.class);
 		AtlasRepoSummaryRow rowToTest = new AtlasRepoSummaryRow("stuff", expectedLinkInformation);
 
 		assertEquals("stuff", rowToTest.getOmicsType());
@@ -76,7 +76,7 @@ public class AtlasRepoSummaryRowTest {
 
 	@Test
 	public void testSetLinkInformation() {
-		AtlasRepoSummaryLinkInformation expectedLinkInformation = mock(AtlasRepoSummaryLinkInformation.class);
+		AtlasRepositoryLinkInformation expectedLinkInformation = mock(AtlasRepositoryLinkInformation.class);
 		row.setLinkInformation(expectedLinkInformation);
 
 		assertEquals(expectedLinkInformation, row.getLinkInformation());

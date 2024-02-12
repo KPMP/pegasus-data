@@ -19,6 +19,7 @@ type Query {
   getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
   getAtlasSummaryRows: AtlasRepoSummaryResult
   getAtlasMessages: [AtlasMessages]
+  getRepoCountsForParticipantByExperimentalStrategy(redcapId: String!): [ParticipantRepoDataTypeInformation]
 }
 
 type AtlasMessages {

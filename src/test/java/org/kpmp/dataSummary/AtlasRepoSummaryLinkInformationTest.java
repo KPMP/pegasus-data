@@ -19,7 +19,7 @@ public class AtlasRepoSummaryLinkInformationTest {
 
 	@Test
 	public void testConstructor() {
-		AtlasRepoSummaryLinkInformation linkInfo = new AtlasRepoSummaryLinkInformation("type", "value");
+		AtlasRepositoryLinkInformation linkInfo = new AtlasRepositoryLinkInformation("type", "value");
 
 		assertEquals("type", linkInfo.getLinkType());
 		assertEquals("value", linkInfo.getLinkValue());
@@ -27,7 +27,7 @@ public class AtlasRepoSummaryLinkInformationTest {
 
 	@Test
 	public void testSetLinkType() {
-		AtlasRepoSummaryLinkInformation linkInfo = new AtlasRepoSummaryLinkInformation("type", "value");
+		AtlasRepositoryLinkInformation linkInfo = new AtlasRepositoryLinkInformation("type", "value");
 		linkInfo.setLinkType("anotherType");
 
 		assertEquals("anotherType", linkInfo.getLinkType());
@@ -35,7 +35,7 @@ public class AtlasRepoSummaryLinkInformationTest {
 
 	@Test
 	public void testSetLinkValue() {
-		AtlasRepoSummaryLinkInformation linkInfo = new AtlasRepoSummaryLinkInformation("type", "value");
+		AtlasRepositoryLinkInformation linkInfo = new AtlasRepositoryLinkInformation("type", "value");
 		linkInfo.setLinkValue("another value");
 
 		assertEquals("another value", linkInfo.getLinkValue());
@@ -44,11 +44,11 @@ public class AtlasRepoSummaryLinkInformationTest {
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testEqualsAndHashCode() throws Exception {
-		AtlasRepoSummaryLinkInformation base = new AtlasRepoSummaryLinkInformation("linkType", "linkValue");
-		AtlasRepoSummaryLinkInformation same = new AtlasRepoSummaryLinkInformation("linkType", "linkValue");
-		AtlasRepoSummaryLinkInformation differentLinkType = new AtlasRepoSummaryLinkInformation("another type",
+		AtlasRepositoryLinkInformation base = new AtlasRepositoryLinkInformation("linkType", "linkValue");
+		AtlasRepositoryLinkInformation same = new AtlasRepositoryLinkInformation("linkType", "linkValue");
+		AtlasRepositoryLinkInformation differentLinkType = new AtlasRepositoryLinkInformation("another type",
 				"linkValue");
-		AtlasRepoSummaryLinkInformation differentLinkValue = new AtlasRepoSummaryLinkInformation("linkType",
+		AtlasRepositoryLinkInformation differentLinkValue = new AtlasRepositoryLinkInformation("linkType",
 				"another value");
 		String anotherObject = "hey there";
 

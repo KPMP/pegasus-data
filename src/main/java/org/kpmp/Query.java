@@ -231,7 +231,7 @@ public class Query implements GraphQLQueryResolver {
         }
     }
 
-	public List<ParticipantRepoDataTypeInformation> getRepoCountsByExperimentalStrategy(String redcapId) {
-		return null;
+	public List<ParticipantRepoDataTypeInformation> getRepoCountsForParticipantByExperimentalStrategy(String redcapId) {
+		return participantService.getRepoCountsByExperimentalStrategy(redcapId);
 	}
 }
