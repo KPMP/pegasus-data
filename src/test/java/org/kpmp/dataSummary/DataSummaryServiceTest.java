@@ -15,6 +15,7 @@ import org.kpmp.TissueTypeEnum;
 import org.kpmp.file.ARFileInfoService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class DataSummaryServiceTest {
 	private DataSummaryService dataSummaryService;
@@ -29,6 +30,9 @@ public class DataSummaryServiceTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		dataSummaryService = new DataSummaryService(dataSummaryRepository, atlasRepoSummaryRepository, fileInfoService);
+		ReflectionTestUtils.setField(dataSummaryService, "CLINICAL_STUDY_DATA", "Clinical Study Data");
+        ReflectionTestUtils.setField(dataSummaryService, "BIOMARKERS", "Biomarkers");
+		ReflectionTestUtils.setField(dataSummaryService, "BIOMARKER", "Biomarker");
 	}
 
 	@After
