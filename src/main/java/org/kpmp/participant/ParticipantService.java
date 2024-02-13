@@ -96,7 +96,7 @@ public class ParticipantService {
 		return res;
 	}
 
-	public List<ParticipantRepoDataTypeInformation> getRepoCountsByExperimentalStrategy(String redcapId) {
+	public List<ParticipantRepoDataTypeInformation> getExperimentalStrategyCountsByParticipant(String redcapId) {
 		// this behaves in much the same way as DataSummaryService.getAtlasRepoSummary does to coallate link types together
 		// But, the underlying object structure was different enough I couldn't figure out a way to merge them into one implemention
 

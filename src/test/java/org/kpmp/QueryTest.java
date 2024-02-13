@@ -321,11 +321,11 @@ public class QueryTest {
     }
 
 	@Test
-	public void testGetRepoCountsForParticipantByExperimentalStrategy() {
+	public void testGetExperimentalStrategyCountsByParticipant() {
 		List<ParticipantRepoDataTypeInformation> expectedResults = new ArrayList<>();
-		when(participantService.getRepoCountsByExperimentalStrategy("redcapId")).thenReturn(expectedResults);
+		when(participantService.getExperimentalStrategyCountsByParticipant("redcapId")).thenReturn(expectedResults);
 
-		List<ParticipantRepoDataTypeInformation> result = query.getRepoCountsForParticipantByExperimentalStrategy("redcapId");
+		List<ParticipantRepoDataTypeInformation> result = query.getExperimentalStrategyCountsByParticipant("redcapId");
 
 		assertEquals(expectedResults, result);
 	}
