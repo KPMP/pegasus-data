@@ -59,8 +59,16 @@ task unpack(type: Copy) {
     into("build/dependency")
 }
 
+def getProps(){
+  if (project.hasProperty("version")){
+    return project.getProperty("version")
+  }else{
+    return "latest"
+  }
+}
+
 docker {
-    name "${project.group}/${jar.baseName}:${jar.version}"
+    name "${project.group}/${jar.baseName}:" + getProps()
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }
