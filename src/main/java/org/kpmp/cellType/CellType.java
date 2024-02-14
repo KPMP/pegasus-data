@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @Entity
 @Table(name = "cell_type")
 public class CellType implements Serializable {
@@ -120,7 +122,7 @@ public class CellType implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return cellType.hashCode();
+		return new HashCodeBuilder().append(cellTypeId).build();
 	}
 
 	@Override
@@ -130,7 +132,7 @@ public class CellType implements Serializable {
 		if (!(obj instanceof CellType))
 			return false;
 		CellType cellType = (CellType) obj;
-		return cellType.getCellType().equals(this.getCellType());
+		return cellType.getCellTypeId() == (this.getCellTypeId());
 	}
 
 }

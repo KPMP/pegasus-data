@@ -15,6 +15,7 @@ import org.kpmp.TissueTypeEnum;
 import org.kpmp.file.ARFileInfoService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class DataSummaryServiceTest {
 	private DataSummaryService dataSummaryService;
@@ -29,6 +30,9 @@ public class DataSummaryServiceTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		dataSummaryService = new DataSummaryService(dataSummaryRepository, atlasRepoSummaryRepository, fileInfoService);
+		ReflectionTestUtils.setField(dataSummaryService, "CLINICAL_STUDY_DATA", "Clinical Study Data");
+        ReflectionTestUtils.setField(dataSummaryService, "BIOMARKERS", "Biomarkers");
+		ReflectionTestUtils.setField(dataSummaryService, "BIOMARKER", "Biomarker");
 	}
 
 	@After
@@ -82,17 +86,17 @@ public class DataSummaryServiceTest {
 		assertEquals("Biomarkers", summaryRows.get(0).getOmicsType());
 		assertEquals(0, summaryRows.get(0).getControlledCount());
 		assertEquals(15, summaryRows.get(0).getOpenCount());
-		assertEquals(new AtlasRepoSummaryLinkInformation("data_category", "Biomarker"),
+		assertEquals(new AtlasRepositoryLinkInformation("data_category", "Biomarker"),
 				summaryRows.get(0).getLinkInformation());
 		assertEquals("Clinical Study Data", summaryRows.get(1).getOmicsType());
 		assertEquals(0, summaryRows.get(1).getControlledCount());
 		assertEquals(1, summaryRows.get(1).getOpenCount());
-		assertEquals(new AtlasRepoSummaryLinkInformation("data_category", "stuff"),
+		assertEquals(new AtlasRepositoryLinkInformation("data_category", "stuff"),
 				summaryRows.get(1).getLinkInformation());
 		assertEquals("strategy1", summaryRows.get(2).getOmicsType());
 		assertEquals(10, summaryRows.get(2).getControlledCount());
 		assertEquals(10, summaryRows.get(2).getOpenCount());
-		assertEquals(new AtlasRepoSummaryLinkInformation("experimental_strategy", "strategy1"),
+		assertEquals(new AtlasRepositoryLinkInformation("experimental_strategy", "strategy1"),
 				summaryRows.get(2).getLinkInformation());
 		assertEquals(Long.valueOf(36), result.getTotalFiles());
 

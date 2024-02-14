@@ -3,12 +3,15 @@ package org.kpmp.dataSummary;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class AtlasRepoSummaryLinkInformation {
+public class AtlasRepositoryLinkInformation {
 
+	public static final String EXPERIMENTAL_STRATEGY = "experimental_strategy";
+	public static final String DATA_CATEGORY = "data_category";
+	
 	private String linkType;
 	private String linkValue;
 
-	public AtlasRepoSummaryLinkInformation(String linkType, String linkValue) {
+	public AtlasRepositoryLinkInformation(String linkType, String linkValue) {
 		this.setLinkType(linkType);
 		this.setLinkValue(linkValue);
 	}
@@ -36,8 +39,8 @@ public class AtlasRepoSummaryLinkInformation {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof AtlasRepoSummaryLinkInformation) {
-			final AtlasRepoSummaryLinkInformation other = (AtlasRepoSummaryLinkInformation) obj;
+		if (obj instanceof AtlasRepositoryLinkInformation) {
+			final AtlasRepositoryLinkInformation other = (AtlasRepositoryLinkInformation) obj;
 			return new EqualsBuilder().append(linkType, other.getLinkType()).append(linkValue, other.getLinkValue()).isEquals();
 		}
 		else {
