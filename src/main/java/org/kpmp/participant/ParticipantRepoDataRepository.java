@@ -4,8 +4,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-public interface ParticipantRepoDataRepository extends CrudRepository<String, ParticipantRepoData> {
+@Repository
+public interface ParticipantRepoDataRepository extends CrudRepository<ParticipantRepoData, String> {
     
 
     @Query(value = "select a.experimental_strategy, b.data_type, b.data_category, coalesce(count,0) as count "

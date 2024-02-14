@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DataSummaryService {
-
+	
 	@Value("${experiment.label.clinicalStudyData}")
 	private String CLINICAL_STUDY_DATA;
 	@Value("${experiment.label.biomarkers}")
@@ -47,7 +47,7 @@ public class DataSummaryService {
 		
 		for (ExperimentalStrategyValue experimentalStrategyValue : experimentalStrategies) {
 			String experimentalStrategy = experimentalStrategyValue.getExperimentalStrategy();
-			if (experimentalStrategy.isEmpty()
+			if ((experimentalStrategy == null || experimentalStrategy.isEmpty() || experimentalStrategy.equals(""))
 					&& experimentalStrategyValue.getDataType().equalsIgnoreCase(CLINICAL_STUDY_DATA)) {
 				experimentalStrategy = CLINICAL_STUDY_DATA;
 			} else if (experimentalStrategyValue.getDataCategory().equalsIgnoreCase(BIOMARKER)) {
