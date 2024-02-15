@@ -15,7 +15,7 @@ Repository for the Atlas Explorer Tool service layer
 # Build
 
 `./gradlew build docker`
-The default tag is `latest` if no verison is provided
+The default tag is the github branch name if no verison is provided
 To pass a version when building the docker image execute
 `./gradlew build docker -Ptag=<tagNumber>`
 
