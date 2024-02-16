@@ -74,7 +74,11 @@ def getTagInfo() {
         }
       } catch (e) {
         }
-        return gitBranch
+        if (gitBranch  == "develop" || gitBranch == "master"){
+          return "${jar.version}"
+        }else{
+          return gitBranch
+        }
     }
 }
 
