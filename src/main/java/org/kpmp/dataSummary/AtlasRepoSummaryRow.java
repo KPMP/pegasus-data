@@ -1,30 +1,48 @@
 package org.kpmp.dataSummary;
 
 public class AtlasRepoSummaryRow {
-	private int openCount;
-	private int controlledCount;
 	private String omicsType;
 	private AtlasRepositoryLinkInformation linkInformation;
+	private Long akiCount;
+	private Long ckdCount;
+	private Long hrtCount;
+	private Long dmrCount;
 
 	public AtlasRepoSummaryRow(String omicsType, AtlasRepositoryLinkInformation linkInformation) {
 		this.omicsType = omicsType;
 		this.linkInformation = linkInformation;
 	}
 
-	public int getOpenCount() {
-		return openCount;
+	public Long getAkiCount() {
+		return this.akiCount;
 	}
 
-	public void setOpenCount(int openCount) {
-		this.openCount = openCount;
+	public void setAkiCount(Long akiCount) {
+		this.akiCount = akiCount;
 	}
 
-	public int getControlledCount() {
-		return controlledCount;
+	public Long getCkdCount() {
+		return this.ckdCount;
 	}
 
-	public void setControlledCount(int controlledCount) {
-		this.controlledCount = controlledCount;
+	public void setCkdCount(Long ckdCount) {
+		this.ckdCount = ckdCount;
+	}
+
+	public Long getHrtCount() {
+		return this.hrtCount;
+	}
+
+	public void setHrtCount(Long hrtCount) {
+		this.hrtCount = hrtCount;
+	}
+
+	public Long getDmrCount() {
+		return this.dmrCount;
+	}
+
+	public void setDmrCount(Long dmrCount) {
+		this.dmrCount = dmrCount;
 	}
 
 	public String getOmicsType() {
@@ -33,14 +51,6 @@ public class AtlasRepoSummaryRow {
 
 	public void setOmicsType(String omicsType) {
 		this.omicsType = omicsType;
-	}
-
-	public void addToControlledCount(int count) {
-		this.controlledCount = this.controlledCount + count;
-	}
-
-	public void addToOpenCount(int count) {
-		this.openCount = this.openCount + count;
 	}
 
 	public AtlasRepositoryLinkInformation getLinkInformation() {

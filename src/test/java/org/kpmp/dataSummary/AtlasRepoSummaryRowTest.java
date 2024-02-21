@@ -34,44 +34,40 @@ public class AtlasRepoSummaryRowTest {
 
 		assertEquals("stuff", rowToTest.getOmicsType());
 		assertEquals(expectedLinkInformation, rowToTest.getLinkInformation());
-		assertEquals(0, rowToTest.getOpenCount());
-		assertEquals(0, rowToTest.getControlledCount());
 	}
 
 	@Test
-	public void testSetOpenCount() {
-		row.setOpenCount(43);
+	public void testSetAkiCount() {
+		row.setAkiCount(43);
 
-		assertEquals(43, row.getOpenCount());
+		assertEquals(43, row.getAkiCount());
 	}
 
 	@Test
-	public void testSetControlledCount() {
-		row.setControlledCount(44);
+	public void testSetCkdCount() {
+		row.setCkdCount(43);
 
-		assertEquals(44, row.getControlledCount());
+		assertEquals(43, row.getCkdCount());
+	}
+
+	@Test
+	public void testSetHrtCount() {
+		row.setHrtCount(43);
+
+		assertEquals(43, row.getHrtCount());
+	}
+
+	@Test
+	public void testSetDmrCount() {
+		row.setDmrCount(43);
+
+		assertEquals(43, row.getDmrCount());
 	}
 
 	@Test
 	public void testSetOmicsType() {
 		row.setOmicsType("omicsType 2");
 		assertEquals("omicsType 2", row.getOmicsType());
-	}
-
-	@Test
-	public void testAddToControlledCount() {
-		row.setControlledCount(2);
-		row.addToControlledCount(30);
-
-		assertEquals(32, row.getControlledCount());
-	}
-
-	@Test
-	public void testAddToOpenCount() {
-		row.setOpenCount(5);
-		row.addToOpenCount(5);
-
-		assertEquals(10, row.getOpenCount());
 	}
 
 	@Test

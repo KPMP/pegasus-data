@@ -36,13 +36,15 @@ type AtlasRepoSummaryResult {
 }
 
 type AtlasRepoSummaryRow {
-  openCount: Int
-  controlledCount: Int
+  akiCount: Long
+  ckdCount: Long
+  hrtCount: Long
+  dmrCount: Long
   omicsType: String
-  linkInformation: AtlasRepoSummaryLinkInformation
+  linkInformation: AtlasRepositoryLinkInformationInformation
 }
 
-type AtlasRepoSummaryLinkInformation {
+type AtlasRepositoryLinkInformationInformation {
   linkType: String
   linkValue: String
 }
@@ -72,7 +74,7 @@ type ParticipantRepoDataTypeSummary {
 type ParticipantRepoDataTypeInformation {
   dataType: String
   count: Long
-  linkInformation: AtlasRepoSummaryLinkInformation
+  linkInformation: AtlasRepositoryLinkInformationInformation
 }
 
 type DataTypeSummaryInformation {

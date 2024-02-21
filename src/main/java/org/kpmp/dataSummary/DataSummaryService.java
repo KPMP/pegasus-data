@@ -89,14 +89,30 @@ public class DataSummaryService {
 
 	private void setCounts(ExperimentalStrategyValue experimentalStrategyValue, AtlasRepoSummaryRow atlasRepoSummaryRow)
 			throws Exception {
-		if (experimentalStrategyValue.getAccess().equalsIgnoreCase(OPEN_ACCESS)) {
-			atlasRepoSummaryRow.addToOpenCount(experimentalStrategyValue.getCount());
-		} else if (experimentalStrategyValue.getAccess().equalsIgnoreCase(CONTROLLED_ACCESS)) {
-			atlasRepoSummaryRow.addToControlledCount(experimentalStrategyValue.getCount());
-		} else {
-			throw new Exception(
-					"Unexpected access value while getting summary counts: " + experimentalStrategyValue.getAccess());
-		}
+		atlasRepoSummaryRow.setAkiCount(
+			dataSummaryRepository.getRepoDataSummaryCount(
+				TissueTypeEnum.AKI.getParticipantTissueType(), 
+				experimentalStrategyValue.getExperimentalStrategy()
+			)
+		);
+		atlasRepoSummaryRow.setCkdCount(
+			dataSummaryRepository.getRepoDataSummaryCount(
+				TissueTypeEnum.CKD.getParticipantTissueType(), 
+				experimentalStrategyValue.getExperimentalStrategy()
+			)
+		);
+		atlasRepoSummaryRow.setHrtCount(
+			dataSummaryRepository.getRepoDataSummaryCount(
+				TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), 
+				experimentalStrategyValue.getExperimentalStrategy()
+			)
+		);
+		atlasRepoSummaryRow.setDmrCount(
+			dataSummaryRepository.getRepoDataSummaryCount(
+				TissueTypeEnum.DMR.getParticipantTissueType(), 
+				experimentalStrategyValue.getExperimentalStrategy()
+			)
+		);
 	}
 
 	public List<DataTypeSummary> getSummaryData() {
