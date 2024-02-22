@@ -38,30 +38,30 @@ public class AtlasRepoSummaryRowTest {
 
 	@Test
 	public void testSetAkiCount() {
-		row.setAkiCount(43);
+		row.setAkiCount(Long.valueOf(43));
 
-		assertEquals(43, row.getAkiCount());
+		assertEquals(Long.valueOf(43), row.getAkiCount());
 	}
 
 	@Test
 	public void testSetCkdCount() {
-		row.setCkdCount(43);
+		row.setCkdCount(Long.valueOf(44));
 
-		assertEquals(43, row.getCkdCount());
+		assertEquals(Long.valueOf(44), row.getCkdCount());
 	}
 
 	@Test
 	public void testSetHrtCount() {
-		row.setHrtCount(43);
+		row.setHrtCount(Long.valueOf(45));
 
-		assertEquals(43, row.getHrtCount());
+		assertEquals(Long.valueOf(45), row.getHrtCount());
 	}
 
 	@Test
 	public void testSetDmrCount() {
-		row.setDmrCount(43);
+		row.setDmrCount(Long.valueOf(46));
 
-		assertEquals(43, row.getDmrCount());
+		assertEquals(Long.valueOf(46), row.getDmrCount());
 	}
 
 	@Test
