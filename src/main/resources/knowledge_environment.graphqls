@@ -9,7 +9,7 @@ type Query {
   getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
   getRPGeneExpressionByTissue(geneSymbol: String!): [RPAccessionGroup]
   getRPGeneExpressionByTissueAndProtein(geneSymbol: String!, protein: String!): RPExpressionByTissueType
-  getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
+  getRTGeneExpressionByStructure(structure: String!): [RTGeneExpression]
   getRPGeneExpressionByStructure(structure: String): [RPGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
   getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
@@ -170,9 +170,12 @@ type RTGeneExpression {
     geneSymbol: String
     segment: String
     segmentName: String
+    foldChangeString: String
     foldChange: Float
+    pValString: String
     pVal: Float
     stdDev: Float
+    pValLog10String: String
     pValLog10: Float
     tissueType: String
     sampleCount: Int

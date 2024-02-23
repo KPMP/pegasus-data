@@ -1,6 +1,7 @@
 package org.kpmp.geneExpression;
 
 public interface RTExpressionData {
+
 	Integer getId();
 
 	void setId(Integer id);
@@ -17,9 +18,13 @@ public interface RTExpressionData {
 
 	void setSegmentName(String segmentName);
 
+	String getFoldChangeString();
+
 	Double getFoldChange();
 
 	void setFoldChange(Double foldChange);
+
+	String getPValString();
 
 	Double getPVal();
 
@@ -28,6 +33,8 @@ public interface RTExpressionData {
 	Double getStdDev();
 
 	void setStdDev(Double stdDev);
+
+	String getPValLog10String();
 
 	Double getPValLog10();
 

@@ -40,14 +40,20 @@ class RTExpressionDataAllSegmentsTest {
 
 	@Test
 	void setFoldChange() {
-		rtExpressionDataAllSegments.setFoldChange(123.456);
-		assertEquals(123.456, rtExpressionDataAllSegments.getFoldChange(), 0.001);
+		rtExpressionDataAllSegments.setFoldChange(.000999);
+		assertEquals("0.000999", rtExpressionDataAllSegments.getFoldChange());
+
+		rtExpressionDataAllSegments.setFoldChange(0.0000506);
+		assertEquals("0.0000506", rtExpressionDataAllSegments.getFoldChange());
+
+		rtExpressionDataAllSegments.setFoldChange(0.0000000050655635858229);
+		assertEquals("5.07E-9", rtExpressionDataAllSegments.getFoldChange());
 	}
 
 	@Test
 	void setPVal() {
-		rtExpressionDataAllSegments.setPVal(124.1234);
-		assertEquals(124.1234, rtExpressionDataAllSegments.getPVal(), 0.001);
+		rtExpressionDataAllSegments.setPVal(.0000001241234);
+		assertEquals("1.24E-7", rtExpressionDataAllSegments.getPVal());
 	}
 
 	@Test
@@ -58,8 +64,10 @@ class RTExpressionDataAllSegmentsTest {
 
 	@Test
 	void setPValLog10() {
-		rtExpressionDataAllSegments.setPValLog10(123.456);
-		assertEquals(123.456, rtExpressionDataAllSegments.getPValLog10(), 0.001);
+		rtExpressionDataAllSegments.setPValLog10(.00123456);
+		assertEquals("0.00123", rtExpressionDataAllSegments.getPValLog10());
+		rtExpressionDataAllSegments.setPValLog10(0.0000000000455d);
+		assertEquals("4.55E-11", rtExpressionDataAllSegments.getPValLog10());
 	}
 
 	@Test

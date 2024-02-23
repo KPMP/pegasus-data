@@ -1,6 +1,9 @@
 package org.kpmp.geneExpression;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.text.DecimalFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,7 +69,12 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 
 	@Override
 	public Double getFoldChange() {
-		return foldChange;
+		return this.foldChange;
+	}
+	
+	@Override
+	public String getFoldChangeString() {
+    	return new BigDecimal(foldChange, new MathContext(3)).toString();
 	}
 
 	@Override
@@ -76,7 +84,12 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 
 	@Override
 	public Double getPVal() {
-		return pVal;
+		return this.pVal;
+	}
+
+	@Override
+	public String getPValString() {
+		return new BigDecimal(pVal, new MathContext(3)).toString();
 	}
 
 	@Override
@@ -96,7 +109,12 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 
 	@Override
 	public Double getPValLog10() {
-		return pValLog10;
+		return this.pValLog10;
+	}
+
+	@Override
+	public String getPValLog10String() {
+		return new BigDecimal(pValLog10, new MathContext(3)).toString();
 	}
 
 	@Override

@@ -40,14 +40,14 @@ class RTExpressionDataGTITest {
 
 	@Test
 	void setFoldChange() {
-		rtExpressionDataGTI.setFoldChange(123.456);
-		assertEquals(123.456, rtExpressionDataGTI.getFoldChange(), 0.001);
+		rtExpressionDataGTI.setFoldChange(1.23456);
+		assertEquals("1,23", rtExpressionDataGTI.getFoldChangeString());
 	}
 
 	@Test
 	void setPVal() {
-		rtExpressionDataGTI.setPVal(124.1234);
-		assertEquals(124.1234, rtExpressionDataGTI.getPVal(), 0.001);
+		rtExpressionDataGTI.setPVal(1.241234);
+		assertEquals("1.24", rtExpressionDataGTI.getPValString());
 	}
 
 	@Test
@@ -58,8 +58,8 @@ class RTExpressionDataGTITest {
 
 	@Test
 	void setPValLog10() {
-		rtExpressionDataGTI.setPValLog10(123.456);
-		assertEquals(123.456, rtExpressionDataGTI.getPValLog10(), 0.001);
+		rtExpressionDataGTI.setPValLog10(1.23456);
+		assertEquals("1.23", rtExpressionDataGTI.getPValLog10String());
 	}
 
 	@Test
