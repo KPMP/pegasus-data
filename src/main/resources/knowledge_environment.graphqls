@@ -41,10 +41,10 @@ type AtlasRepoSummaryRow {
   hrtCount: Long
   dmrCount: Long
   omicsType: String
-  linkInformation: AtlasRepositoryLinkInformationInformation
+  linkInformation: AtlasRepositoryLinkInformation
 }
 
-type AtlasRepositoryLinkInformationInformation {
+type AtlasRepositoryLinkInformation {
   linkType: String
   linkValue: String
 }
@@ -74,7 +74,7 @@ type ParticipantRepoDataTypeSummary {
 type ParticipantRepoDataTypeInformation {
   dataType: String
   count: Long
-  linkInformation: AtlasRepositoryLinkInformationInformation
+  linkInformation: AtlasRepositoryLinkInformation
 }
 
 type DataTypeSummaryInformation {
