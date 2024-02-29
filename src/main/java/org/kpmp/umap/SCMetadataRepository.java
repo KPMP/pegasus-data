@@ -32,6 +32,8 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 
 	List<SCMetadata> findByTissueType(String tissueType);
 
+	SCMetadata findByBarcode(String barcode);
+
 	@Cacheable("scMetadataWithTissue")
 	@Query(value = "SELECT "
 						+ "umap_x, "
