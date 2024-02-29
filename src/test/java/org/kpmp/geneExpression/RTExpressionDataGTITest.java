@@ -2,6 +2,7 @@ package org.kpmp.geneExpression;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,5 +80,13 @@ class RTExpressionDataGTITest {
 		rtExpressionDataGTI.setSegmentName("segmentName");
 		assertEquals("segmentName", rtExpressionDataGTI.getSegmentName());
 	}
+
+	@Test
+	void setAdjPVal() {
+		rtExpressionDataGTI.setAdjPVal(123.456);
+		Assert.assertEquals(123.456, rtExpressionDataGTI.getAdjPVal(), 0.001);
+	}
+
+
 
 }

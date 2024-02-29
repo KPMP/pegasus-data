@@ -40,4 +40,9 @@ public interface RTExpressionData {
 	Integer getSampleCount();
 
 	void setSampleCount(Integer sampleCount);
+
+	Double getAdjPVal();
+
+	void setAdjPVal(Double adjPVal);
+
 }

@@ -176,6 +176,7 @@ type RTGeneExpression {
     pValLog10: Float
     tissueType: String
     sampleCount: Int
+    adjPVal: Float
 }
 
 type RTGeneExpressionByTissue {

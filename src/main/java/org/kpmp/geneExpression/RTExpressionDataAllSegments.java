@@ -31,6 +31,8 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 	private Double pValLog10;
 	@Column(name = "tissue_type")
 	private String tissueType;
+	@Column(name = "adj_p_val")
+	private Double adjPVal;
 	@Column(name = "sample_count")
 	private Integer sampleCount;
 
@@ -132,5 +134,15 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 	@Override
 	public void setSegmentName(String segmentName) {
 		this.segmentName = segmentName;
+	}
+
+	@Override
+	public Double getAdjPVal() {
+		return adjPVal;
+	}
+
+	@Override
+	public void setAdjPVal(Double adjPVal) {
+		this.adjPVal = adjPVal;
 	}
 }
