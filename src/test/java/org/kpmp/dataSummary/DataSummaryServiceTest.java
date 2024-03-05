@@ -70,14 +70,10 @@ public class DataSummaryServiceTest {
 		strategies.get(3).setDataType("datatype");
 
 		when(atlasRepoSummaryRepository.findAll()).thenReturn(strategies);
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
-				"abcd")).thenReturn(Long.valueOf(1));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
-				"abcd")).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
-				"abcd")).thenReturn(Long.valueOf(3));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
-				"abcd")).thenReturn(4l);
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType())).thenReturn(Long.valueOf(1));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())).thenReturn(Long.valueOf(3));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())).thenReturn(4l);
 
 		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
 				"")).thenReturn(Long.valueOf(5));

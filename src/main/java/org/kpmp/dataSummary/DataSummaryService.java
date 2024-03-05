@@ -89,30 +89,54 @@ public class DataSummaryService {
 
 	private void setCounts(ExperimentalStrategyValue experimentalStrategyValue, AtlasRepoSummaryRow atlasRepoSummaryRow)
 			throws Exception {
-		atlasRepoSummaryRow.setAkiCount(
-			dataSummaryRepository.getRepoDataSummaryCount(
-				TissueTypeEnum.AKI.getParticipantTissueType(), 
-				experimentalStrategyValue.getExperimentalStrategy()
-			)
-		);
-		atlasRepoSummaryRow.setCkdCount(
-			dataSummaryRepository.getRepoDataSummaryCount(
-				TissueTypeEnum.CKD.getParticipantTissueType(), 
-				experimentalStrategyValue.getExperimentalStrategy()
-			)
-		);
-		atlasRepoSummaryRow.setHrtCount(
-			dataSummaryRepository.getRepoDataSummaryCount(
-				TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), 
-				experimentalStrategyValue.getExperimentalStrategy()
-			)
-		);
-		atlasRepoSummaryRow.setDmrCount(
-			dataSummaryRepository.getRepoDataSummaryCount(
-				TissueTypeEnum.DMR.getParticipantTissueType(), 
-				experimentalStrategyValue.getExperimentalStrategy()
-			)
-		);
+		if (experimentalStrategyValue.getDataCategory().equalsIgnoreCase(BIOMARKER)) {
+			atlasRepoSummaryRow.setAkiCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.AKI.getParticipantTissueType()
+				)
+			);
+			atlasRepoSummaryRow.setCkdCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.CKD.getParticipantTissueType()
+				)
+			);
+			atlasRepoSummaryRow.setHrtCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()
+				)
+			);
+			atlasRepoSummaryRow.setDmrCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.DMR.getParticipantTissueType()
+				)
+			);
+		}
+		else {
+			atlasRepoSummaryRow.setAkiCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.AKI.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
+			atlasRepoSummaryRow.setCkdCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.CKD.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
+			atlasRepoSummaryRow.setHrtCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
+			atlasRepoSummaryRow.setDmrCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.DMR.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
+		}
 	}
 
 	public List<DataTypeSummary> getSummaryData() {

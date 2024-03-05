@@ -20,6 +20,10 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Cacheable("repoDataSummaryCount")
 	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where experimental_strategy = :exp_strat and tissue_type = :tissue_type", nativeQuery = true)
 	Long getRepoDataSummaryCount(@Param("tissue_type") String tissue_type, @Param("exp_strat") String exp_strat);
+	
+	@Cacheable("repoBiomarkerSummaryCount")
+	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where data_category = 'Biomarker' and tissue_type = :tissue_type", nativeQuery = true)
+	Long getRepoBiomarkerSummaryCount(@Param("tissue_type") String tissue_type);
 
 	@Cacheable("dataSummaryLinkCount")
 	@Query(value = "select count(distinct(redcap_id)) " + "from sv_link_v " + "where data_type = :data_type "
