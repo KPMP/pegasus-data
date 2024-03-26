@@ -1,6 +1,7 @@
 package org.kpmp.participant;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +17,7 @@ import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepos
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class ParticipantServiceTest {
 
@@ -32,7 +34,8 @@ public class ParticipantServiceTest {
 	private SingleNucleusMetadataRepository snMetadataRepo;
 	@Mock
 	private RTParticipantRepository rtParticipantRepo;
-
+	@Mock
+	private ParticipantRepoDataRepository fileByParticipantRepo;
 	@Mock
 	private RPParticipantRepository rpParticipantRepository;
 
@@ -40,7 +43,7 @@ public class ParticipantServiceTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
-				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository);
+				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo);
 	}
 
 	@After
@@ -106,15 +109,15 @@ public class ParticipantServiceTest {
 		assertEquals(4, explorerDataTypes.size());
 		for (ParticipantDataTypeInformation participantDataTypeInformation : spatialViewerDataTypes) {
 			if (participantDataTypeInformation.getDataType().equals("Light Microscopy")) {
-				assertEquals(new Integer(5), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(5), participantDataTypeInformation.getCount());
 				assertEquals(false, participantDataTypeInformation.isAggregatedData());
 			} else if (participantDataTypeInformation.getDataType().equals("Spatial Lipidomics")) {
-				assertEquals(new Integer(2), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(2), participantDataTypeInformation.getCount());
 				assertEquals(false, participantDataTypeInformation.isAggregatedData());
 			}
 		}
 		for (ParticipantDataTypeInformation participantDataTypeInformation : explorerDataTypes) {
-			assertEquals(new Integer(1), participantDataTypeInformation.getCount());
+			assertEquals(Integer.valueOf(1), participantDataTypeInformation.getCount());
 			assertEquals(true, participantDataTypeInformation.isAggregatedData());
 		}
 
@@ -142,10 +145,10 @@ public class ParticipantServiceTest {
 		assertEquals(2, repositoryDataTypes.size());
 		for (ParticipantRepoDataTypeInformation participantDataTypeInformation : repositoryDataTypes) {
 			if(participantDataTypeInformation.getDataType().equals("Transcriptomics")) {
-				assertEquals(new Integer(3), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(3), participantDataTypeInformation.getCount());
 			}
 			else if (participantDataTypeInformation.getDataType().equals("Imaging")) {
-				assertEquals(new Integer(4), participantDataTypeInformation.getCount());
+				assertEquals(Integer.valueOf(4), participantDataTypeInformation.getCount());
 			}
 		}
 	}
@@ -174,8 +177,105 @@ public class ParticipantServiceTest {
 		
 		ParticipantRepoDataTypeInformation result = participantService.getTotalFilesCount("123");
 		
-		assertEquals(new Integer(5), result.getCount());
+		assertEquals(Integer.valueOf(5), result.getCount());
 		assertEquals("redcap_id", result.getLinkInformation().getLinkType());
 		assertEquals("123", result.getLinkInformation().getLinkValue());
+	}
+
+	@Test
+	public void testGetExperimentalStrategyCountsByParticipant() {
+		ParticipantRepoData experimentGroup1 = new ParticipantRepoData();
+		experimentGroup1.setExperimentalStrategy("experiment1");
+		experimentGroup1.setCount(1);
+		experimentGroup1.setDataCategory("something else");
+		ParticipantRepoData experimentGroup2 = new ParticipantRepoData();
+		experimentGroup2.setExperimentalStrategy("");
+		experimentGroup2.setCount(2);
+		experimentGroup2.setDataType("Clinical Study Data");
+		experimentGroup2.setDataCategory("another category");
+		ParticipantRepoData experimentGroup3 = new ParticipantRepoData();
+		experimentGroup3.setExperimentalStrategy("biomarker data");
+		experimentGroup3.setDataCategory("Biomarker");
+		experimentGroup3.setCount(3);
+		List<ParticipantRepoData> experimentsByParticipant = Arrays.asList(experimentGroup1, experimentGroup2, experimentGroup3);
+		when(fileByParticipantRepo.findFileCountsByParticipant("participantId")).thenReturn(experimentsByParticipant);
+		ReflectionTestUtils.setField(participantService, "CLINICAL_STUDY_DATA", "Clinical Study Data");
+        ReflectionTestUtils.setField(participantService, "BIOMARKERS", "Biomarkers");
+		ReflectionTestUtils.setField(participantService, "BIOMARKER", "Biomarker");
+
+		List<ParticipantRepoDataTypeInformation> actualResults = participantService.getExperimentalStrategyCountsByParticipant("participantId");
+
+		assertEquals(3, actualResults.size());
+		for (ParticipantRepoDataTypeInformation participantRepoDataTypeInformation : actualResults) {
+			if (participantRepoDataTypeInformation.getDataType().equals("experiment1")) {
+				assertEquals(Integer.valueOf(1), participantRepoDataTypeInformation.getCount());
+			} else if (participantRepoDataTypeInformation.getDataType().equals("Clinical Study Data")) {
+				assertEquals(Integer.valueOf(2), participantRepoDataTypeInformation.getCount());
+			} else if (participantRepoDataTypeInformation.getDataType().equals("Biomarkers")) {
+				assertEquals(Integer.valueOf(3), participantRepoDataTypeInformation.getCount());
+			} else {
+				fail("unexpected data type: " + participantRepoDataTypeInformation.getDataType());
+			}
+		}		
+	}
+
+	@Test
+	public void testGetExperimentalStrategyCountsByParticipant_combinesClinicalDataCounts() {
+		ParticipantRepoData experimentGroup1 = new ParticipantRepoData();
+		experimentGroup1.setExperimentalStrategy("");
+		experimentGroup1.setCount(1);
+		experimentGroup1.setDataType("Clinical Study Data");
+		experimentGroup1.setDataCategory("something else");
+		ParticipantRepoData experimentGroup2 = new ParticipantRepoData();
+		experimentGroup2.setExperimentalStrategy("");
+		experimentGroup2.setCount(2);
+		experimentGroup2.setDataType("Clinical Study Data");
+		experimentGroup2.setDataCategory("another category");
+		List<ParticipantRepoData> experimentsByParticipant = Arrays.asList(experimentGroup1, experimentGroup2);
+		when(fileByParticipantRepo.findFileCountsByParticipant("participantId")).thenReturn(experimentsByParticipant);
+		ReflectionTestUtils.setField(participantService, "CLINICAL_STUDY_DATA", "Clinical Study Data");
+        ReflectionTestUtils.setField(participantService, "BIOMARKERS", "Biomarkers");
+		ReflectionTestUtils.setField(participantService, "BIOMARKER", "Biomarker");
+
+		List<ParticipantRepoDataTypeInformation> actualResults = participantService.getExperimentalStrategyCountsByParticipant("participantId");
+
+		assertEquals(1, actualResults.size());
+		for (ParticipantRepoDataTypeInformation participantRepoDataTypeInformation : actualResults) {
+			if (participantRepoDataTypeInformation.getDataType().equals("Clinical Study Data")) {
+				assertEquals(Integer.valueOf(3), participantRepoDataTypeInformation.getCount());
+			} else {
+				fail("unexpected data type: " + participantRepoDataTypeInformation.getDataType());
+			}
+		}		
+	}
+
+	@Test
+	public void testGetExperimentalStrategyCountsByParticipant_combinesBiomarkerCounts() {
+		ParticipantRepoData experimentGroup1 = new ParticipantRepoData();
+		experimentGroup1.setExperimentalStrategy("strat1");
+		experimentGroup1.setCount(1);
+		experimentGroup1.setDataType("stuff");
+		experimentGroup1.setDataCategory("Biomarker");
+		ParticipantRepoData experimentGroup2 = new ParticipantRepoData();
+		experimentGroup2.setExperimentalStrategy("strat2");
+		experimentGroup2.setCount(2);
+		experimentGroup2.setDataType("more stuff");
+		experimentGroup2.setDataCategory("Biomarker");
+		List<ParticipantRepoData> experimentsByParticipant = Arrays.asList(experimentGroup1, experimentGroup2);
+		when(fileByParticipantRepo.findFileCountsByParticipant("participantId")).thenReturn(experimentsByParticipant);
+		ReflectionTestUtils.setField(participantService, "CLINICAL_STUDY_DATA", "Clinical Study Data");
+        ReflectionTestUtils.setField(participantService, "BIOMARKERS", "Biomarkers");
+		ReflectionTestUtils.setField(participantService, "BIOMARKER", "Biomarker");
+
+		List<ParticipantRepoDataTypeInformation> actualResults = participantService.getExperimentalStrategyCountsByParticipant("participantId");
+
+		assertEquals(1, actualResults.size());
+		for (ParticipantRepoDataTypeInformation participantRepoDataTypeInformation : actualResults) {
+			if (participantRepoDataTypeInformation.getDataType().equals("Biomarkers")) {
+				assertEquals(Integer.valueOf(3), participantRepoDataTypeInformation.getCount());
+			} else {
+				fail("unexpected data type: " + participantRepoDataTypeInformation.getDataType());
+			}
+		}		
 	}
 }

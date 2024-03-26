@@ -1,14 +1,14 @@
 package org.kpmp.participant;
 
-import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
+import org.kpmp.dataSummary.AtlasRepositoryLinkInformation;
 
 public class ParticipantRepoDataTypeInformation {
 
 	private String dataType;
 	private Integer count;
-	private AtlasRepoSummaryLinkInformation linkInformation;
+	private AtlasRepositoryLinkInformation linkInformation;
 
-	public ParticipantRepoDataTypeInformation(String dataType, Integer count, AtlasRepoSummaryLinkInformation linkInformation) {
+	public ParticipantRepoDataTypeInformation(String dataType, Integer count, AtlasRepositoryLinkInformation linkInformation) {
 		this.dataType = dataType;
 		this.count = count;
 		this.linkInformation = linkInformation;
@@ -30,11 +30,11 @@ public class ParticipantRepoDataTypeInformation {
 		this.count = count;
 	}
 
-	public AtlasRepoSummaryLinkInformation getLinkInformation() {
+	public AtlasRepositoryLinkInformation getLinkInformation() {
 		return linkInformation;
 	}
 
-	public void setLinkInformation(AtlasRepoSummaryLinkInformation linkInformation) {
+	public void setLinkInformation(AtlasRepositoryLinkInformation linkInformation) {
 		this.linkInformation = linkInformation;
 	}
 }

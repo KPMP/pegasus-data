@@ -13,17 +13,21 @@ import org.kpmp.OmicsTypeEnum;
 import org.kpmp.TissueTypeEnum;
 import org.kpmp.file.ARFileInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DataSummaryService {
-	private static final String EXPERIMENTAL_STRATEGY = "experimental_strategy";
-	private static final String DATA_CATEGORY = "data_category";
+	
+	@Value("${experiment.label.clinicalStudyData}")
+	private String CLINICAL_STUDY_DATA;
+	@Value("${experiment.label.biomarkers}")
+	private String BIOMARKERS;
+	@Value("${experiment.category.biomarker}")
+	private String BIOMARKER;
+	
 	private static final String CONTROLLED_ACCESS = "controlled";
 	private static final String OPEN_ACCESS = "open";
-	private static final String BIOMARKERS = "Biomarkers";
-	private static final String BIOMARKER = "Biomarker";
-	private static final String CLINICAL_STUDY_DATA = "Clinical Study Data";
 
 	private DataSummaryRepository dataSummaryRepository;
 	private AtlasRepoSummaryRepository repoSummaryRepository;
@@ -43,7 +47,7 @@ public class DataSummaryService {
 		
 		for (ExperimentalStrategyValue experimentalStrategyValue : experimentalStrategies) {
 			String experimentalStrategy = experimentalStrategyValue.getExperimentalStrategy();
-			if (experimentalStrategy.isEmpty()
+			if ((experimentalStrategy == null || experimentalStrategy.isEmpty() || experimentalStrategy.equals(""))
 					&& experimentalStrategyValue.getDataType().equalsIgnoreCase(CLINICAL_STUDY_DATA)) {
 				experimentalStrategy = CLINICAL_STUDY_DATA;
 			} else if (experimentalStrategyValue.getDataCategory().equalsIgnoreCase(BIOMARKER)) {
@@ -73,25 +77,65 @@ public class DataSummaryService {
 		return new AtlasRepoSummaryResult(results, fileInfoService.getRepositoryTotalFileCount());
 	}
 
-	private AtlasRepoSummaryLinkInformation getLinkInformation(ExperimentalStrategyValue experimentalStrategy) {
+	private AtlasRepositoryLinkInformation getLinkInformation(ExperimentalStrategyValue experimentalStrategy) {
 		if (experimentalStrategy.getDataCategory().equalsIgnoreCase(BIOMARKER)
 				|| experimentalStrategy.getDataType().equalsIgnoreCase(CLINICAL_STUDY_DATA)) {
-			return new AtlasRepoSummaryLinkInformation(DATA_CATEGORY, experimentalStrategy.getDataCategory());
+			return new AtlasRepositoryLinkInformation(AtlasRepositoryLinkInformation.DATA_CATEGORY, experimentalStrategy.getDataCategory());
 		} else {
-			return new AtlasRepoSummaryLinkInformation(EXPERIMENTAL_STRATEGY,
+			return new AtlasRepositoryLinkInformation(AtlasRepositoryLinkInformation.EXPERIMENTAL_STRATEGY,
 					experimentalStrategy.getExperimentalStrategy());
 		}
 	}
 
 	private void setCounts(ExperimentalStrategyValue experimentalStrategyValue, AtlasRepoSummaryRow atlasRepoSummaryRow)
 			throws Exception {
-		if (experimentalStrategyValue.getAccess().equalsIgnoreCase(OPEN_ACCESS)) {
-			atlasRepoSummaryRow.addToOpenCount(experimentalStrategyValue.getCount());
-		} else if (experimentalStrategyValue.getAccess().equalsIgnoreCase(CONTROLLED_ACCESS)) {
-			atlasRepoSummaryRow.addToControlledCount(experimentalStrategyValue.getCount());
-		} else {
-			throw new Exception(
-					"Unexpected access value while getting summary counts: " + experimentalStrategyValue.getAccess());
+		if (experimentalStrategyValue.getDataCategory().equalsIgnoreCase(BIOMARKER)) {
+			atlasRepoSummaryRow.setAkiCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.AKI.getParticipantTissueType()
+				)
+			);
+			atlasRepoSummaryRow.setCkdCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.CKD.getParticipantTissueType()
+				)
+			);
+			atlasRepoSummaryRow.setHrtCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()
+				)
+			);
+			atlasRepoSummaryRow.setDmrCount(
+				dataSummaryRepository.getRepoBiomarkerSummaryCount(
+					TissueTypeEnum.DMR.getParticipantTissueType()
+				)
+			);
+		}
+		else {
+			atlasRepoSummaryRow.setAkiCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.AKI.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
+			atlasRepoSummaryRow.setCkdCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.CKD.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
+			atlasRepoSummaryRow.setHrtCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
+			atlasRepoSummaryRow.setDmrCount(
+				dataSummaryRepository.getRepoDataSummaryCount(
+					TissueTypeEnum.DMR.getParticipantTissueType(), 
+					experimentalStrategyValue.getExperimentalStrategy()
+				)
+			);
 		}
 	}
 

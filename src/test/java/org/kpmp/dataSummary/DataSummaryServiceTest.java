@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,6 +16,7 @@ import org.kpmp.TissueTypeEnum;
 import org.kpmp.file.ARFileInfoService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class DataSummaryServiceTest {
 	private DataSummaryService dataSummaryService;
@@ -29,6 +31,9 @@ public class DataSummaryServiceTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		dataSummaryService = new DataSummaryService(dataSummaryRepository, atlasRepoSummaryRepository, fileInfoService);
+		ReflectionTestUtils.setField(dataSummaryService, "CLINICAL_STUDY_DATA", "Clinical Study Data");
+        ReflectionTestUtils.setField(dataSummaryService, "BIOMARKERS", "Biomarkers");
+		ReflectionTestUtils.setField(dataSummaryService, "BIOMARKER", "Biomarker");
 	}
 
 	@After
@@ -39,63 +44,89 @@ public class DataSummaryServiceTest {
 
 	@Test
 	public void testGetAtlasRepoSummary() throws Exception {
-		ExperimentalStrategyValue clinicalData = new ExperimentalStrategyValue();
-		clinicalData.setDataCategory("stuff");
-		clinicalData.setExperimentalStrategy("");
-		clinicalData.setDataType("Clinical Study Data");
-		clinicalData.setCount(1);
-		clinicalData.setAccess("open");
-		ExperimentalStrategyValue biomarker1 = new ExperimentalStrategyValue();
-		biomarker1.setDataCategory("Biomarker");
-		biomarker1.setExperimentalStrategy("something");
-		biomarker1.setDataType("stuff");
-		biomarker1.setDataCategory("Biomarker");
-		biomarker1.setCount(5);
-		biomarker1.setAccess("open");
-		ExperimentalStrategyValue biomarker2 = new ExperimentalStrategyValue();
-		biomarker2.setDataCategory("Biomarker");
-		biomarker2.setDataType("more stuff");
-		biomarker2.setExperimentalStrategy("something else");
-		biomarker2.setDataCategory("Biomarker");
-		biomarker2.setCount(10);
-		biomarker2.setAccess("open");
-		ExperimentalStrategyValue other1 = new ExperimentalStrategyValue();
-		other1.setDataCategory("data category");
-		other1.setDataType("different stuff");
-		other1.setExperimentalStrategy("strategy1");
-		other1.setCount(10);
-		other1.setAccess("open");
-		ExperimentalStrategyValue other2 = new ExperimentalStrategyValue();
-		other2.setDataCategory("data category2");
-		other2.setDataType("even more different stuff");
-		other2.setExperimentalStrategy("strategy1");
-		other2.setCount(10);
-		other2.setAccess("controlled");
-		List<ExperimentalStrategyValue> strategyValues = Arrays.asList(clinicalData, biomarker1, biomarker2, other1,
-				other2);
-		when(atlasRepoSummaryRepository.findAll()).thenReturn(strategyValues);
-		when(fileInfoService.getRepositoryTotalFileCount()).thenReturn(36l);
+		List<ExperimentalStrategyValue> strategies = new ArrayList<>(
+			Arrays.asList(
+				new ExperimentalStrategyValue(),
+				new ExperimentalStrategyValue(),
+				new ExperimentalStrategyValue(),
+				new ExperimentalStrategyValue()
+			)
+		);
 
-		AtlasRepoSummaryResult result = dataSummaryService.getAtlasRepoSummary();
-		List<AtlasRepoSummaryRow> summaryRows = result.getSummaryRows();
-		assertEquals(3, summaryRows.size());
-		assertEquals("Biomarkers", summaryRows.get(0).getOmicsType());
-		assertEquals(0, summaryRows.get(0).getControlledCount());
-		assertEquals(15, summaryRows.get(0).getOpenCount());
-		assertEquals(new AtlasRepoSummaryLinkInformation("data_category", "Biomarker"),
-				summaryRows.get(0).getLinkInformation());
-		assertEquals("Clinical Study Data", summaryRows.get(1).getOmicsType());
-		assertEquals(0, summaryRows.get(1).getControlledCount());
-		assertEquals(1, summaryRows.get(1).getOpenCount());
-		assertEquals(new AtlasRepoSummaryLinkInformation("data_category", "stuff"),
-				summaryRows.get(1).getLinkInformation());
-		assertEquals("strategy1", summaryRows.get(2).getOmicsType());
-		assertEquals(10, summaryRows.get(2).getControlledCount());
-		assertEquals(10, summaryRows.get(2).getOpenCount());
-		assertEquals(new AtlasRepoSummaryLinkInformation("experimental_strategy", "strategy1"),
-				summaryRows.get(2).getLinkInformation());
-		assertEquals(new Long(36), result.getTotalFiles());
+		strategies.get(0).setExperimentalStrategy("abcd");
+		strategies.get(0).setDataCategory("Biomarker");
+		strategies.get(0).setDataType("datatype");
 
+		strategies.get(1).setExperimentalStrategy("");
+		strategies.get(1).setDataCategory("category");
+		strategies.get(1).setDataType("Clinical Study Data");
+		
+		strategies.get(2).setExperimentalStrategy("strategy1");
+		strategies.get(2).setDataCategory("category1");
+		strategies.get(2).setDataType("datatype");
+		
+		strategies.get(3).setExperimentalStrategy("strategy2");
+		strategies.get(3).setDataCategory("category2");
+		strategies.get(3).setDataType("datatype");
+
+		when(atlasRepoSummaryRepository.findAll()).thenReturn(strategies);
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType())).thenReturn(Long.valueOf(1));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())).thenReturn(Long.valueOf(3));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())).thenReturn(4l);
+
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+				"")).thenReturn(Long.valueOf(5));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+				"")).thenReturn(Long.valueOf(6));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+				"")).thenReturn(Long.valueOf(7));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+				"")).thenReturn(8l);
+
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+				"strategy1")).thenReturn(Long.valueOf(9));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+				"strategy1")).thenReturn(Long.valueOf(10));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+				"strategy1")).thenReturn(Long.valueOf(11));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+				"strategy1")).thenReturn(12l);
+
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+				"strategy2")).thenReturn(Long.valueOf(13));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+				"strategy2")).thenReturn(Long.valueOf(14));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+				"strategy2")).thenReturn(Long.valueOf(15));
+		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+				"strategy2")).thenReturn(16l);
+
+		List<AtlasRepoSummaryRow> result = dataSummaryService.getAtlasRepoSummary().getSummaryRows();
+
+		assertEquals("Biomarkers", result.get(0).getOmicsType());
+		assertEquals(Long.valueOf(1), result.get(0).getAkiCount());
+		assertEquals(Long.valueOf(2), result.get(0).getCkdCount());
+		assertEquals(Long.valueOf(3), result.get(0).getHrtCount());
+		assertEquals(Long.valueOf(4), result.get(0).getDmrCount());
+
+		assertEquals("Clinical Study Data", result.get(1).getOmicsType());
+		assertEquals(Long.valueOf(5), result.get(1).getAkiCount());
+		assertEquals(Long.valueOf(6), result.get(1).getCkdCount());
+		assertEquals(Long.valueOf(7), result.get(1).getHrtCount());
+		assertEquals(Long.valueOf(8), result.get(1).getDmrCount());
+
+		assertEquals("strategy1", result.get(2).getOmicsType());
+		assertEquals(Long.valueOf(9), result.get(2).getAkiCount());
+		assertEquals(Long.valueOf(10), result.get(2).getCkdCount());
+		assertEquals(Long.valueOf(11), result.get(2).getHrtCount());
+		assertEquals(Long.valueOf(12), result.get(2).getDmrCount());
+
+		assertEquals("strategy2", result.get(3).getOmicsType());
+		assertEquals(Long.valueOf(13), result.get(3).getAkiCount());
+		assertEquals(Long.valueOf(14), result.get(3).getCkdCount());
+		assertEquals(Long.valueOf(15), result.get(3).getHrtCount());
+		assertEquals(Long.valueOf(16), result.get(3).getDmrCount());
 	}
 
 	@Test

@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 public class AtlasRepoSummaryRowTest {
 
 	@Mock
-	AtlasRepoSummaryLinkInformation linkInformation;
+	AtlasRepositoryLinkInformation linkInformation;
 	private AtlasRepoSummaryRow row;
 
 	@Before
@@ -29,27 +29,39 @@ public class AtlasRepoSummaryRowTest {
 
 	@Test
 	public void testConstructor() throws Exception {
-		AtlasRepoSummaryLinkInformation expectedLinkInformation = mock(AtlasRepoSummaryLinkInformation.class);
+		AtlasRepositoryLinkInformation expectedLinkInformation = mock(AtlasRepositoryLinkInformation.class);
 		AtlasRepoSummaryRow rowToTest = new AtlasRepoSummaryRow("stuff", expectedLinkInformation);
 
 		assertEquals("stuff", rowToTest.getOmicsType());
 		assertEquals(expectedLinkInformation, rowToTest.getLinkInformation());
-		assertEquals(0, rowToTest.getOpenCount());
-		assertEquals(0, rowToTest.getControlledCount());
 	}
 
 	@Test
-	public void testSetOpenCount() {
-		row.setOpenCount(43);
+	public void testSetAkiCount() {
+		row.setAkiCount(Long.valueOf(43));
 
-		assertEquals(43, row.getOpenCount());
+		assertEquals(Long.valueOf(43), row.getAkiCount());
 	}
 
 	@Test
-	public void testSetControlledCount() {
-		row.setControlledCount(44);
+	public void testSetCkdCount() {
+		row.setCkdCount(Long.valueOf(44));
 
-		assertEquals(44, row.getControlledCount());
+		assertEquals(Long.valueOf(44), row.getCkdCount());
+	}
+
+	@Test
+	public void testSetHrtCount() {
+		row.setHrtCount(Long.valueOf(45));
+
+		assertEquals(Long.valueOf(45), row.getHrtCount());
+	}
+
+	@Test
+	public void testSetDmrCount() {
+		row.setDmrCount(Long.valueOf(46));
+
+		assertEquals(Long.valueOf(46), row.getDmrCount());
 	}
 
 	@Test
@@ -59,24 +71,8 @@ public class AtlasRepoSummaryRowTest {
 	}
 
 	@Test
-	public void testAddToControlledCount() {
-		row.setControlledCount(2);
-		row.addToControlledCount(30);
-
-		assertEquals(32, row.getControlledCount());
-	}
-
-	@Test
-	public void testAddToOpenCount() {
-		row.setOpenCount(5);
-		row.addToOpenCount(5);
-
-		assertEquals(10, row.getOpenCount());
-	}
-
-	@Test
 	public void testSetLinkInformation() {
-		AtlasRepoSummaryLinkInformation expectedLinkInformation = mock(AtlasRepoSummaryLinkInformation.class);
+		AtlasRepositoryLinkInformation expectedLinkInformation = mock(AtlasRepositoryLinkInformation.class);
 		row.setLinkInformation(expectedLinkInformation);
 
 		assertEquals(expectedLinkInformation, row.getLinkInformation());

@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import java.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,5 +51,7 @@ public class AtlasMessageServiceTest {
         message2.setId(2);
         List<AtlasMessage> messageList = Arrays.asList(message, message2);
         when(atlasMessageRepository.getAtlasMessages()).thenReturn(messageList);
+
+        assertEquals(messageList, atlasMessageService.getAtlasMessage());
     }
 }

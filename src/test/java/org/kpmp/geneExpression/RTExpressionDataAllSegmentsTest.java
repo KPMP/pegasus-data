@@ -80,4 +80,10 @@ class RTExpressionDataAllSegmentsTest {
 		assertEquals("segmentName", rtExpressionDataAllSegments.getSegmentName());
 	}
 
+	@Test
+	void setAdjPVal() {
+		rtExpressionDataAllSegments.setAdjPVal(123.456);
+		assertEquals(123.456, rtExpressionDataAllSegments.getAdjPVal(), 0.001);
+	}
+
 }

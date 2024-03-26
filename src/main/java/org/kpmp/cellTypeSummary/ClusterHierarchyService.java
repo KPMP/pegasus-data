@@ -1,10 +1,14 @@
 package org.kpmp.cellTypeSummary;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.kpmp.DataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTypeExcludeFilter;
 import org.springframework.stereotype.Service;
 
 @Service

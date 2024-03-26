@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,6 +77,21 @@ public class UmapDataService {
 				featureDataWithNoExpressionValues.addExpression(0d);
                 featureDataWithNoExpressionValues.addHoverDisplay(umapPoint.getClusterName());
             }
+		}
+
+		if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL) 
+			&& featureDataWithExpressionValues.getExpression().size() == 0 
+			&& geneExpressionValues.length() <= 200) {
+			Iterator<String> keys = geneExpressionValues.keys();
+			while(keys.hasNext()) {
+				String barcode = keys.next();
+				Double expressionValue = geneExpressionValues.getDouble(barcode);
+				UmapPoint umapPoint = scMetadataRepo.findByBarcode(barcode);
+				featureDataWithExpressionValues.addXValue(umapPoint.getUmapX());
+				featureDataWithExpressionValues.addYValue(umapPoint.getUmapY());
+				featureDataWithExpressionValues.addExpression(expressionValue);
+				featureDataWithExpressionValues.addHoverDisplay(Double.toString(expressionValue) + "<br>" + umapPoint.getClusterName());
+			}
 		}
 
 		List<ReferenceCluster> referenceClusterList = new ArrayList<>(referenceClusters.values());

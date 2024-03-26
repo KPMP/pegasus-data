@@ -21,7 +21,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName='pegasus-data'
-    version= '1.6.3'
+    version= '2.3'
 }
 
 repositories {
@@ -59,8 +59,31 @@ task unpack(type: Copy) {
     into("build/dependency")
 }
 
+def getTagInfo() {
+    if (project.hasProperty('tag')) {
+        def tagValue = project.property('tag')
+        return tagValue
+    } else {
+        def gitBranch = "Unknown branch"
+      try {
+        def workingDir = new File("${project.projectDir}")
+        def result = 'git rev-parse --abbrev-ref HEAD'.execute(null, workingDir)
+        result.waitFor()
+        if (result.exitValue() == 0) {
+            gitBranch = result.text.trim()
+        }
+      } catch (e) {
+        }
+        if (gitBranch  == "develop" || gitBranch == "master"){
+          return "${jar.version}"
+        }else{
+          return gitBranch
+        }
+    }
+}
+
 docker {
-    name "${project.group}/${jar.baseName}:latest"
+    name "${project.group}/${jar.baseName}:" + getTagInfo()
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }

@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.kpmp.dataSummary.AtlasRepoSummaryLinkInformation;
+import org.kpmp.dataSummary.AtlasRepositoryLinkInformation;
 
 public class ParticipantRepoDataTypeInformationTest {
 
@@ -14,7 +14,7 @@ public class ParticipantRepoDataTypeInformationTest {
 
     @Before
     public void setUp() throws Exception {
-        info = new ParticipantRepoDataTypeInformation("abc", 1, mock(AtlasRepoSummaryLinkInformation.class));
+        info = new ParticipantRepoDataTypeInformation("abc", 1, mock(AtlasRepositoryLinkInformation.class));
     }
 
     @After
@@ -38,7 +38,7 @@ public class ParticipantRepoDataTypeInformationTest {
 
     @Test
     public void testSetLinkInformation() {
-        AtlasRepoSummaryLinkInformation linkInfo = mock(AtlasRepoSummaryLinkInformation.class);
+        AtlasRepositoryLinkInformation linkInfo = mock(AtlasRepositoryLinkInformation.class);
         info.setLinkInformation(linkInfo);
         assertEquals(linkInfo, info.getLinkInformation());
     }

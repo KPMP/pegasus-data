@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.base.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class CellTypeStructureSubregion implements Serializable {
 
@@ -46,13 +47,13 @@ public class CellTypeStructureSubregion implements Serializable {
 			return false;
 		}
 		CellTypeStructureSubregion other = (CellTypeStructureSubregion) obj;
-		return Objects.equal(this.subregionName, other.subregionName);
+		return new EqualsBuilder().append(this.subregionName, other.subregionName).build();
 
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(subregionName);
+		return new HashCodeBuilder().append(this.subregionName).build();
 	}
 
 }

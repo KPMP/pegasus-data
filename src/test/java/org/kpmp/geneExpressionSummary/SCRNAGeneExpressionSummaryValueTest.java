@@ -26,6 +26,7 @@ public class SCRNAGeneExpressionSummaryValueTest {
 		assertEquals("sc", scrnaGeneExpressionValue.getDataType());
 	}
 
+	@SuppressWarnings("null")
 	@Test
 	public void testSetAvgExpression() throws Exception {
 		scrnaGeneExpressionValue.setAvgExp(0.1);
@@ -39,6 +40,7 @@ public class SCRNAGeneExpressionSummaryValueTest {
 		assertEquals("cluster", scrnaGeneExpressionValue.getCluster());
 	}
 
+	@SuppressWarnings("null")
 	@Test
 	public void testSetFoldChange() throws Exception {
 		scrnaGeneExpressionValue.setFoldChange(0.2);
@@ -52,6 +54,7 @@ public class SCRNAGeneExpressionSummaryValueTest {
 
 	}
 
+	@SuppressWarnings("null")
 	@Test
 	public void testSetId() throws Exception {
 		scrnaGeneExpressionValue.setId(1);
@@ -59,6 +62,7 @@ public class SCRNAGeneExpressionSummaryValueTest {
 
 	}
 
+	@SuppressWarnings("null")
 	@Test
 	public void testSetPct1() throws Exception {
 		scrnaGeneExpressionValue.setPct1(0.3);
@@ -66,6 +70,7 @@ public class SCRNAGeneExpressionSummaryValueTest {
 
 	}
 
+	@SuppressWarnings("null")
 	@Test
 	public void testSetPct2() throws Exception {
 		scrnaGeneExpressionValue.setPct2(0.4);
@@ -73,6 +78,7 @@ public class SCRNAGeneExpressionSummaryValueTest {
 
 	}
 
+	@SuppressWarnings("null")
 	@Test
 	public void testSetPVal() throws Exception {
 		scrnaGeneExpressionValue.setPVal(0.5);
@@ -80,6 +86,7 @@ public class SCRNAGeneExpressionSummaryValueTest {
 
 	}
 
+	@SuppressWarnings("null")
 	@Test
 	public void testSetPValAdj() throws Exception {
 		scrnaGeneExpressionValue.setPValAdj(0.6);

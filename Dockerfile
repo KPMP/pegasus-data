@@ -1,7 +1,6 @@
-FROM alpine
+FROM alpine:3.19.1
 
-RUN apk update && \
-    apk upgrade
+RUN apk update
 RUN apk add openjdk8
 
 VOLUME /tmp

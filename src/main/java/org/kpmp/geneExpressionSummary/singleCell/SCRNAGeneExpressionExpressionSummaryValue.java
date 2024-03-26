@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.geneExpressionSummary.GeneExpressionId;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
@@ -188,7 +190,7 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 
 	@Override
 	public int hashCode() {
-		return (gene + cluster).hashCode();
+		return new HashCodeBuilder().append(gene).append(cluster).build();
 	}
 
 	@Override
@@ -197,9 +199,8 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 			return true;
 		if (!(obj instanceof SCRNAGeneExpressionExpressionSummaryValue))
 			return false;
-		SCRNAGeneExpressionExpressionSummaryValue scrnaGeneExpressionExpressionSummaryValue = (SCRNAGeneExpressionExpressionSummaryValue) obj;
-		return (scrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene())
-				&& scrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
+		SCRNAGeneExpressionExpressionSummaryValue that = (SCRNAGeneExpressionExpressionSummaryValue) obj;
+		return new EqualsBuilder().append(this.gene, that.gene).append(this.cluster, that.cluster).build();
 	}
 
 }
