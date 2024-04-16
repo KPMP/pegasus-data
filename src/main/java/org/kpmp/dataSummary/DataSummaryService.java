@@ -244,17 +244,17 @@ public class DataSummaryService {
         summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
                 FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName(),
                 DataTypeEnum.IMAGING_MASS_CYTOMETRY.getAbbreviation(),
-                dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+                dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
                         FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-                dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+                dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
                         FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-                dataSummaryRepository.getDataSummaryLinkCount(
+                dataSummaryRepository.getDataSummaryCount(
                         TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
                         FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-                dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+                dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
                         FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
                 dataSummaryRepository
-                        .getParticipantSummaryLinkCount(FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName())));
+                        .getParticipantSummaryCount(FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName())));
 		return summaryData;
 	}
 }
