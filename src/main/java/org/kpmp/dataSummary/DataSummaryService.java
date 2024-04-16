@@ -240,6 +240,21 @@ public class DataSummaryService {
 						FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
 				dataSummaryRepository
 						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())));
+        
+        summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+                FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName(),
+                DataTypeEnum.IMAGING_MASS_CYTOMETRY.getAbbreviation(),
+                dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
+                dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
+                dataSummaryRepository.getDataSummaryCount(
+                        TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
+                dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
+                dataSummaryRepository
+                        .getParticipantSummaryCount(FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName())));
 		return summaryData;
 	}
 }
