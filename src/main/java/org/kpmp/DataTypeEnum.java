@@ -14,6 +14,7 @@ public enum DataTypeEnum {
 	SPATIAL_LIPIDOMICS("sl"),
 	SPATIAL_METABOLOMICS("sm"),
 	SPATIAL_NGLYCOMICS("sng"),
+    IMAGING_MASS_CYTOMETRY("imc"),
 	UNKNOWN("");
 
 	private String abbreviation;
@@ -49,7 +50,9 @@ public enum DataTypeEnum {
 			return SPATIAL_METABOLOMICS;
 		} else if (SPATIAL_NGLYCOMICS.abbreviation.equals(abbreviation)) {
 			return SPATIAL_NGLYCOMICS;
-		}
+		}else if (IMAGING_MASS_CYTOMETRY.abbreviation.equals(abbreviation)){
+            return IMAGING_MASS_CYTOMETRY;
+        }
 		return UNKNOWN;
 	}
 }

@@ -14,6 +14,7 @@ public enum FullDataTypeEnum {
 	SPATIAL_LIPIDOMICS_FULL("Spatial Lipidomics"),
 	SPATIAL_METABOLOMICS_FULL("Spatial Metabolomics"),
 	SPATIAL_NGLYCOMICS_FULL("Spatial N-glycomics"),
+    IMAGING_MASS_CYTOMETRY_FULL("Imaging Mass Cytometry"),
 	UNKNOWN_FULL("");
 
 	private String dataEnum;
@@ -49,7 +50,9 @@ public enum FullDataTypeEnum {
 			return SPATIAL_METABOLOMICS_FULL;
 		} else if (SPATIAL_NGLYCOMICS_FULL.dataEnum.equals(dataEnum)) {
 			return SPATIAL_NGLYCOMICS_FULL;
-		}
+		}else if (IMAGING_MASS_CYTOMETRY_FULL.dataEnum.equals(dataEnum)){
+            return IMAGING_MASS_CYTOMETRY_FULL;
+        }
 		return UNKNOWN_FULL;
 	}
 }
