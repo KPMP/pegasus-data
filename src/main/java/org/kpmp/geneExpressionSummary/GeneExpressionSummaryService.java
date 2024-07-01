@@ -135,6 +135,7 @@ public class GeneExpressionSummaryService {
 				scrnaGeneExpressionRepository
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.DMR.getParticipantTissueType()),
+				scrnaParticipantRepository.getParticipantCount(),
 				scrnaParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
@@ -143,6 +144,7 @@ public class GeneExpressionSummaryService {
 				snrnaGeneExpressionRepository
 						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.DMR.getParticipantTissueType()),
+				snrnaParticipantRepository.getParticipantCount(),
 				snrnaParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(),
@@ -152,6 +154,7 @@ public class GeneExpressionSummaryService {
 				rtParticipantRepository
 						.getCountByTissueType(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.DMR.getParticipantTissueType()),
+				rtParticipantRepository.getParticipantCount(),
 				rtParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_PROTEOMICS_FULL.getFullName(),
@@ -161,6 +164,7 @@ public class GeneExpressionSummaryService {
 				rpParticipantRepository
 						.getCountByTissueType(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
 				rpParticipantRepository.getCountByTissueType(TissueTypeEnum.DMR.getParticipantTissueType()),
+				rpParticipantRepository.getParticipantCount(),
 				rpParticipantRepository.getParticipantCount()));
 		return dataTypeSummary;
 	}
