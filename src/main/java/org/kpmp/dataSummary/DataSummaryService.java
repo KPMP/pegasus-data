@@ -221,7 +221,7 @@ public class DataSummaryService {
 						FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 						FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
+				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
 				dataSummaryRepository
 						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())));
 
@@ -237,7 +237,7 @@ public class DataSummaryService {
 						FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 						FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
+				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
 				dataSummaryRepository
 						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())));
 
@@ -253,7 +253,7 @@ public class DataSummaryService {
 						FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
 						FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
+				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
 				dataSummaryRepository
 						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())));
         
