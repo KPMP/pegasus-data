@@ -40,6 +40,7 @@ type AtlasRepoSummaryRow {
   ckdCount: Long
   hrtCount: Long
   dmrCount: Long
+  totalCount: Long
   omicsType: String
   linkInformation: AtlasRepositoryLinkInformation
 }
@@ -85,6 +86,7 @@ type DataTypeSummaryInformation {
   ckdCount: Long
   hrtCount: Long
   dmrCount: Long
+  totalCount: Long
   participantCount: Long
 }
 

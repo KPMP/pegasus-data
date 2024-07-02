@@ -7,6 +7,7 @@ public class AtlasRepoSummaryRow {
 	private Long ckdCount;
 	private Long hrtCount;
 	private Long dmrCount;
+	private Long totalCount;
 
 	public AtlasRepoSummaryRow(String omicsType, AtlasRepositoryLinkInformation linkInformation) {
 		this.omicsType = omicsType;
@@ -43,6 +44,14 @@ public class AtlasRepoSummaryRow {
 
 	public void setDmrCount(Long dmrCount) {
 		this.dmrCount = dmrCount;
+	}
+
+	public Long getTotalCount() {
+		return this.totalCount;
+	}
+
+	public void setTotalCount(Long totalCount) {
+		this.totalCount = totalCount;
 	}
 
 	public String getOmicsType() {
