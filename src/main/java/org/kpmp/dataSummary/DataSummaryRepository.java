@@ -14,14 +14,15 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "select count(distinct(redcap_id)) from participant p "
 			+ "join file_participant fp on p.participant_id = fp.participant_id "
 			+ "join file f on f.file_id= fp.file_id " + "join sv_file_info sv on sv.file_id = f.file_id "
-			+ "where sv.config_type = :data_type " + "and p.tissue_type = :tissue_type", nativeQuery = true)
+			+ "where sv.config_type = :data_type " + "and p.tissue_type = :tissue_type " 
+	       		+ "and sv.release_sunset_version is null", nativeQuery = true)
 	Long getDataSummaryCount(@Param("tissue_type") String tissue_type, @Param("data_type") String data_type);
 
 	@Cacheable("dataSummaryTotal")
 	@Query(value = "select count(distinct(redcap_id)) from participant p "
 			+ "join file_participant fp on p.participant_id = fp.participant_id "
 			+ "join file f on f.file_id= fp.file_id " + "join sv_file_info sv on sv.file_id = f.file_id "
-			+ "where sv.config_type = :data_type ", nativeQuery = true)
+			+ "where sv.config_type = :data_type and sv.release_sunset_version is null", nativeQuery = true)
 	Long getDataSummaryTotal(@Param("data_type") String data_type);
 	
 	@Cacheable("repoDataSummaryCount")
