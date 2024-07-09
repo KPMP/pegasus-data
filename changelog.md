@@ -1,6 +1,13 @@
 # Changelog
 
-## Release 2.4 [unreleased]
+## Release 2.5
+
+### Breaking changes
+
+### Non-breaking changes
+
+------
+## Release 2.4 (released 07/08/2024)
 Brief summary of what's in this release:
 - added a total column to show total number of files for a grouping (needed back end because total includes groups not shown on atlas home page or explorer home page)
 
