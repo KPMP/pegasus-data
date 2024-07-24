@@ -25,9 +25,6 @@ public class DataSummaryService {
 	private String BIOMARKERS;
 	@Value("${experiment.category.biomarker}")
 	private String BIOMARKER;
-	
-	private static final String CONTROLLED_ACCESS = "controlled";
-	private static final String OPEN_ACCESS = "open";
 
 	private DataSummaryRepository dataSummaryRepository;
 	private AtlasRepoSummaryRepository repoSummaryRepository;
