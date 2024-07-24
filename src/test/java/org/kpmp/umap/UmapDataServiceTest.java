@@ -1,15 +1,15 @@
 package org.kpmp.umap;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.geneExpression.SNSCExpressionDataService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -26,13 +26,13 @@ public class UmapDataServiceTest {
 
 	private static double DOUBLE_PRECISION = 0.000001d;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		service = new UmapDataService(scMetadataRepository, snMetadataRepository, expressionDataService);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		service = null;

@@ -6,20 +6,20 @@ import static org.mockito.Mockito.mock;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class RPExpressionByTissueTypeTest {
 
 	private RPExpressionByTissueType rpExpression;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		rpExpression = new RPExpressionByTissueType();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		rpExpression = null;
 	}

@@ -1,7 +1,7 @@
 package org.kpmp;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -15,9 +15,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.atlasMessage.AtlasMessage;
 import org.kpmp.atlasMessage.AtlasMessageService;
 import org.kpmp.autocomplete.AutocompleteResult;
@@ -77,7 +77,7 @@ public class QueryTest {
 	@Mock
 	private RPExpressionDataService rpExpressionDataService;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new Query(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
@@ -85,7 +85,7 @@ public class QueryTest {
         participantService, atlasMessageService);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		query = null;
@@ -124,7 +124,7 @@ public class QueryTest {
 		CellTypeHierarchy expectedResult = new CellTypeHierarchy();
 		when(cellTypeService.getCellTypeHierarchy()).thenReturn(expectedResult);
 
-		assertEquals(expectedResult, query.getCellTypeHierarchy());
+		assertEquals(expectedResult, query.cellTypeHierarchy());
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

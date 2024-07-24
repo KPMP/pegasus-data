@@ -1,6 +1,6 @@
 package org.kpmp.atlasMessage;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.text.SimpleDateFormat;

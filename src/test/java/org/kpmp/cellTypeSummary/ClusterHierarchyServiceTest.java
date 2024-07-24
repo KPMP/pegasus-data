@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.DataTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -21,13 +21,13 @@ public class ClusterHierarchyServiceTest {
 	private ClusterHiearchyRepository clusterHierarchyRepo;
 	private ClusterHierarchyService service;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		service = new ClusterHierarchyService(clusterHierarchyRepo);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		service = null;

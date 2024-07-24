@@ -1,6 +1,6 @@
 package org.kpmp.geneExpressionSummary;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.RPExpressionDataRepository;
@@ -48,7 +48,7 @@ public class GeneExpressionSummaryServiceTest {
 	@Mock
 	private RPParticipantRepository rpParticipantRepository;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		geneExpressionService = new GeneExpressionSummaryService(
@@ -57,7 +57,7 @@ public class GeneExpressionSummaryServiceTest {
 				rtParticipantRepository, rtExpressionDataAllSegmentsRepository, rpExpressionDataRepository, rpParticipantRepository);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		geneExpressionService = null;

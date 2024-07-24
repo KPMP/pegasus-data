@@ -1,22 +1,22 @@
 package org.kpmp.geneExpression;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SNExpressionDataTest {
 
 	private SNExpressionData data;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		data = new SNExpressionData();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		data = null;
 	}

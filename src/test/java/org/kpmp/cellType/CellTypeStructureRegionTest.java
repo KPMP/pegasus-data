@@ -1,25 +1,25 @@
 package org.kpmp.cellType;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CellTypeStructureRegionTest {
 
 	private CellTypeStructureRegion region;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		region = new CellTypeStructureRegion("region1");
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		region = null;
 	}
