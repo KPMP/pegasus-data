@@ -50,7 +50,7 @@ import org.kpmp.umap.UmapDataService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class QueryTest {
+public class QueryControllerTest {
 
 	@Mock
 	private CellTypeService cellTypeService;
@@ -60,7 +60,7 @@ public class QueryTest {
 	private GeneExpressionSummaryService geneExpressionService;
 	@Mock
 	private DataSummaryService dataSummaryService;
-	private Query query;
+	private QueryController query;
 	@Mock
 	private UmapDataService umapDataService;
 	@Mock
@@ -80,7 +80,7 @@ public class QueryTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		query = new Query(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
+		query = new QueryController(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
 				dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
         participantService, atlasMessageService);
 	}

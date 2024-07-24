@@ -36,7 +36,7 @@ import org.springframework.stereotype.Controller;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
 @Controller
-public class Query implements GraphQLQueryResolver {
+public class QueryController implements GraphQLQueryResolver {
 
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
@@ -49,10 +49,10 @@ public class Query implements GraphQLQueryResolver {
 	private RPExpressionDataService rpExpressionDataService;
 	private ParticipantService participantService;
     private AtlasMessageService atlasMessageService;
-	private Logger logger = LoggerFactory.getLogger(Query.class);
+	private Logger logger = LoggerFactory.getLogger(QueryController.class);
 
 	@Autowired
-	public Query(AutocompleteService autocompleteService, CellTypeService cellTypeService,
+	public QueryController(AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
 			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService,
