@@ -59,6 +59,7 @@ public class ParticipantService {
 	}
 
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
+        logger.info(participantSummaryDatasetRepository.findByRedcapId(redcapId).toString());
 		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
 	}
 
