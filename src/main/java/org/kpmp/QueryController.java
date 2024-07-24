@@ -203,7 +203,6 @@ public class QueryController implements GraphQLQueryResolver {
 
     @QueryMapping
 	public ParticipantSummaryDataset participantSummaryDataset(@Argument String redcapId) throws Exception {
-        logger.info(redcapId);
 		try {
 			return participantService.getParticipantSummaryDataset(redcapId);
 		} catch (Exception e) {
