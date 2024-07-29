@@ -6,9 +6,9 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.TissueTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -21,14 +21,14 @@ public class RTExpressionDataServiceTest {
 	private RTExpressionDataGTIRepository rtExpressionDataGTIRepository;
 	private RTExpressionDataService rtExpressionDataService;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		rtExpressionDataService = new RTExpressionDataService(rtExpressionDataAllSegmentsRepository,
 				rtExpressionDataGTIRepository);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		rtExpressionDataService = null;

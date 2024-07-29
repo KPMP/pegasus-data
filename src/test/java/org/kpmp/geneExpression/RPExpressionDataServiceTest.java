@@ -2,9 +2,9 @@ package org.kpmp.geneExpression;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.TissueTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -22,13 +22,13 @@ public class RPExpressionDataServiceTest {
 
     RPExpressionDataService rpExpressionDataService;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
         rpExpressionDataService = new RPExpressionDataService(rpExpressionDataRepository);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         MockitoAnnotations.openMocks(this).close();
         rpExpressionDataService = null;

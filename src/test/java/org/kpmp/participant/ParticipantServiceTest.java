@@ -1,16 +1,16 @@
 package org.kpmp.participant;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 import org.kpmp.TissueTypeEnum;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
@@ -39,14 +39,14 @@ public class ParticipantServiceTest {
 	@Mock
 	private RPParticipantRepository rpParticipantRepository;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
 				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		participantService = null;

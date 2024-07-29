@@ -1,7 +1,7 @@
-FROM alpine:3.19.1
+FROM --platform=linux/amd64 alpine:3.19.1
 
 RUN apk update
-RUN apk add openjdk8
+RUN apk add openjdk21
 
 VOLUME /tmp
 ARG DEPENDENCY=target/dependency

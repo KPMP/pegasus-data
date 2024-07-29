@@ -1,14 +1,14 @@
 package org.kpmp.cluster;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -18,13 +18,13 @@ public class ClusterServiceTest {
 	private ClusterRepository clusterRepo;
 	private ClusterService service;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		service = new ClusterService(clusterRepo);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		service = null;

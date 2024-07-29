@@ -1,19 +1,19 @@
 package org.kpmp.participant;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ParticipantTissueTypeSummaryTest {
   private ParticipantTissueTypeSummary tissueSummary;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     tissueSummary = new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6), Long.valueOf(7));
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     tissueSummary = null;
     }

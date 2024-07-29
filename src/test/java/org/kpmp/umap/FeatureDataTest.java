@@ -1,25 +1,25 @@
 package org.kpmp.umap;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FeatureDataTest {
 
 	private FeatureData featureData;
 	private static double DOUBLE_PRECISION = 0.000001d;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		featureData = new FeatureData();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		featureData = null;
 	}

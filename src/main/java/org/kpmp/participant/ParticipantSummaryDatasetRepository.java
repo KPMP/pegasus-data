@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface ParticipantSummaryDatasetRepository extends CrudRepository<ParticipantSummaryDataset, Long> {
 
 	@Cacheable("participantByRedcap")
-	ParticipantSummaryDataset findByRedcapId(@Param("redcap_id") String redcapId);
+    @Query(value = "select * from participant where redcap_id= :redcapId", nativeQuery = true)
+	ParticipantSummaryDataset findByRedcapId(@Param("redcapId") String redcapId);
 
 	@Cacheable("partipantByTissueType")
 	@Query(value = "select count(*) from participant where tissue_type= :tissue_type", nativeQuery = true)

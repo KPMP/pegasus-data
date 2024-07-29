@@ -1,21 +1,21 @@
 package org.kpmp.geneExpressionSummary;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GeneExpressionIdTest {
 
     private GeneExpressionId geneExpressionId;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         geneExpressionId = new GeneExpressionId();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         geneExpressionId = null;
     }
