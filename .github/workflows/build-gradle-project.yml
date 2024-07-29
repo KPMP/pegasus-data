@@ -41,7 +41,7 @@ jobs:
       - name: Push to Docker Hub if branch is develop
         if: steps.branch-names.outputs.current_branch == 'develop'
         run: | 
-         docker push "kingstonduo/pegasus-data:$IMAGE_TAG"
+         docker push "kingstonduo/pegasus-data:${{env.IMAGE_TAG}}"
 
       - name: Push to Docker Hub if branch is not develop
         if: steps.branch-names.outputs.current_branch != 'develop'
