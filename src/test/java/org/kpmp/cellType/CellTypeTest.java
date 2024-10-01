@@ -8,20 +8,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CellTypeTest {
 
 	private CellType cellType;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		cellType = new CellType();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		cellType = null;
 	}

@@ -29,12 +29,14 @@ import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
-@Component
-public class Query implements GraphQLQueryResolver {
+@Controller
+public class QueryController implements GraphQLQueryResolver {
 
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
@@ -46,11 +48,11 @@ public class Query implements GraphQLQueryResolver {
 
 	private RPExpressionDataService rpExpressionDataService;
 	private ParticipantService participantService;
-  private AtlasMessageService atlasMessageService;
-	private Logger logger = LoggerFactory.getLogger(Query.class);
+    private AtlasMessageService atlasMessageService;
+	private Logger logger = LoggerFactory.getLogger(QueryController.class);
 
 	@Autowired
-	public Query(AutocompleteService autocompleteService, CellTypeService cellTypeService,
+	public QueryController(AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, GeneExpressionSummaryService geneExpressionSummaryService,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
 			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService,
@@ -68,16 +70,19 @@ public class Query implements GraphQLQueryResolver {
         this.atlasMessageService = atlasMessageService;
 	}
 
-	public List<AutocompleteResult> autocomplete(String searchTerm) throws IOException, Exception {
+    @QueryMapping
+	public List<AutocompleteResult> autocomplete(@Argument String searchTerm) throws IOException, Exception {
 		return autocompleteService.query(searchTerm);
 	}
 
-	public CellTypeHierarchy getCellTypeHierarchy() throws IOException {
+    @QueryMapping
+	public CellTypeHierarchy cellTypeHierarchy() throws IOException {
 		return cellTypeService.getCellTypeHierarchy();
 	}
 
-	public List<? extends GeneExpressionSummary> geneExpressionSummary(String dataType, String geneSymbol,
-			String cellType, String tissueType) throws IOException {
+    @QueryMapping
+	public List<? extends GeneExpressionSummary> geneExpressionSummary(@Argument String dataType, @Argument String geneSymbol,
+        @Argument String cellType, @Argument String tissueType) throws IOException {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		if (cellType.isEmpty()) {
 			results = geneExpressionSummaryService.getByDataTypeTissueTypeAndGene(dataType, geneSymbol, tissueType);
@@ -88,11 +93,13 @@ public class Query implements GraphQLQueryResolver {
 		return results;
 	}
 
-	public List<ClusterHierarchy> getClusterHieararchies(String cellType) throws IOException {
+    @QueryMapping
+	public List<ClusterHierarchy> getClusterHieararchies(@Argument String cellType) throws IOException {
 		return clusterHierarchyService.findClustersByCellType(cellType);
 	}
 
-	public PlotData getUmapPlotData(String dataType, String geneSymbol, String tissueType) throws Exception {
+    @QueryMapping
+	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String tissueType) throws Exception {
 		try {
 			return umapService.getPlotData(dataType, geneSymbol, tissueType);
 		} catch (Exception e) {
@@ -101,6 +108,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
+    @QueryMapping
 	public List<DataTypeSummary> getDataTypeSummaryInformation() throws Exception {
 		try {
 			return geneExpressionSummaryService.getDataTypeSummaryInformation();
@@ -110,6 +118,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
+    @QueryMapping
 	public List<DataTypeSummary> getSummaryData() throws Exception {
 		try {
 			return dataSummaryService.getSummaryData();
@@ -119,7 +128,8 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<String> dataTypesForConcept(String geneSymbol, String clusterName) throws Exception {
+    @QueryMapping
+	public List<String> dataTypesForConcept(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
 		if (geneSymbol != null && !geneSymbol.isEmpty()) {
 			return geneExpressionSummaryService.findDataTypesByGene(geneSymbol);
 		} else if (clusterName != null && !clusterName.isEmpty()) {
@@ -129,7 +139,8 @@ public class Query implements GraphQLQueryResolver {
 
 	}
 
-	public RTExpressionByTissueType getRTGeneExpressionByTissue(String comparisonType, String geneSymbol)
+    @QueryMapping
+	public RTExpressionByTissueType getRTGeneExpressionByTissue(@Argument String comparisonType, @Argument String geneSymbol)
 			throws Exception {
 		try {
 			return rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue(comparisonType, geneSymbol);
@@ -139,7 +150,8 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public RPExpressionByTissueType getRPGeneExpressionByTissueAndProtein(String geneSymbol, String protein) throws Exception {
+    @QueryMapping
+	public RPExpressionByTissueType getRPGeneExpressionByTissueAndProtein(@Argument String geneSymbol, @Argument String protein) throws Exception {
 		try {
 			return rpExpressionDataService.getByGeneSymbolAndProteinPerTissue(geneSymbol, protein);
 		} catch (Exception e) {
@@ -148,7 +160,8 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(String structure) throws Exception {
+    @QueryMapping
+	public List<? extends RTExpressionData> getRTGeneExpressionByStructure(@Argument String structure) throws Exception {
 		try {
 			return rtExpressionDataService.getByStructure(structure);
 		} catch (Exception e) {
@@ -157,7 +170,8 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public List<RPExpressionData> getRPGeneExpressionByStructure(String structure) throws Exception {
+    @QueryMapping
+	public List<RPExpressionData> getRPGeneExpressionByStructure(@Argument String structure) throws Exception {
 		try {
 			return rpExpressionDataService.getByStructure(structure);
 		} catch (Exception e) {
@@ -165,7 +179,9 @@ public class Query implements GraphQLQueryResolver {
 			throw e;
 		}
 	}
-	public List<RPAccessionGroup> getRPGeneExpressionByTissue(String geneSymbol)
+
+    @QueryMapping
+	public List<RPAccessionGroup> getRPGeneExpressionByTissue(@Argument String geneSymbol)
 			throws Exception {
 		try {
 			return rpExpressionDataService.getByGeneSymbolPerTissue(geneSymbol);
@@ -175,35 +191,40 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
-	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(String redcapId) {
+    @QueryMapping
+	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(@Argument String redcapId) {
 		return participantService.getExperimentCounts(redcapId);
 	}
 
-	public ParticipantRepoDataTypeSummary getRepoDataTypeInformationByParticipant(String redcapId) {
+    @QueryMapping
+	public ParticipantRepoDataTypeSummary getRepoDataTypeInformationByParticipant(@Argument String redcapId) {
 		return participantService.getDataTypeCounts(redcapId);
 	}
 
-	public ParticipantSummaryDataset participantSummaryDataset(String redcap_id) throws Exception {
+    @QueryMapping
+	public ParticipantSummaryDataset participantSummaryDataset(@Argument String redcapId) throws Exception {
 		try {
-			return participantService.getParticipantSummaryDataset(redcap_id);
+			return participantService.getParticipantSummaryDataset(redcapId);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			ParticipantSummaryDataset emptyResult = new ParticipantSummaryDataset();
-			emptyResult.setRedcapId(redcap_id);
+			emptyResult.setRedcapId(redcapId);
 
 			return emptyResult;
 		}
 	}
 
-	public ParticipantRepoDataTypeInformation getTotalParticipantFilesCount(String redcap_id) throws Exception {
+    @QueryMapping
+	public ParticipantRepoDataTypeInformation getTotalParticipantFilesCount(@Argument String redcapId) throws Exception {
 		try {
-			return this.participantService.getTotalFilesCount(redcap_id);
+			return this.participantService.getTotalFilesCount(redcapId);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
 		}
 	}
 
+    @QueryMapping
 	public List<ParticipantTissueTypeSummary> getTissueTypeSummaryData() throws Exception {
 		try {
 			return participantService.getTissueData();
@@ -213,6 +234,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
+    @QueryMapping
 	public AtlasRepoSummaryResult getAtlasSummaryRows() throws Exception {
 		try {
 			return dataSummaryService.getAtlasRepoSummary();
@@ -222,6 +244,7 @@ public class Query implements GraphQLQueryResolver {
 		}
 	}
 
+    @QueryMapping
     public List<AtlasMessage> getAtlasMessages() throws Exception {
         try{
             return atlasMessageService.getAtlasMessage();
@@ -231,7 +254,8 @@ public class Query implements GraphQLQueryResolver {
         }
     }
 
-	public List<ParticipantRepoDataTypeInformation> getExperimentalStrategyCountsByParticipant(String redcapId) {
+    @QueryMapping
+	public List<ParticipantRepoDataTypeInformation> getExperimentalStrategyCountsByParticipant(@Argument String redcapId) {
 		return participantService.getExperimentalStrategyCountsByParticipant(redcapId);
 	}
 }

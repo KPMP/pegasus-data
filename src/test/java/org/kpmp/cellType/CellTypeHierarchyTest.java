@@ -1,24 +1,24 @@
 package org.kpmp.cellType;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CellTypeHierarchyTest {
 
 	private CellTypeHierarchy hierarchy;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		hierarchy = new CellTypeHierarchy();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		hierarchy = null;
 	}

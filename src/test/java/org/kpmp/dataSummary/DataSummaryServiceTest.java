@@ -1,15 +1,15 @@
 package org.kpmp.dataSummary;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.TissueTypeEnum;
@@ -27,7 +27,7 @@ public class DataSummaryServiceTest {
 	@Mock
 	private ARFileInfoService fileInfoService;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		dataSummaryService = new DataSummaryService(dataSummaryRepository, atlasRepoSummaryRepository, fileInfoService);
@@ -36,7 +36,7 @@ public class DataSummaryServiceTest {
 		ReflectionTestUtils.setField(dataSummaryService, "BIOMARKER", "Biomarker");
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
 		dataSummaryService = null;

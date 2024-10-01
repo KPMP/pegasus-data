@@ -1,12 +1,12 @@
 package org.kpmp.dataSummary;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 public class AtlasRepoSummaryResultTest {
@@ -15,12 +15,12 @@ public class AtlasRepoSummaryResultTest {
 	@Mock
 	private List<AtlasRepoSummaryRow> summaryRows;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		result = new AtlasRepoSummaryResult();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		result = null;
 	}

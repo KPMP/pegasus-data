@@ -59,33 +59,41 @@ public class AutocompleteService {
 		List<AutocompleteResult> autocompleteResults = new ArrayList<>();
 		List<Integer> idsAdded = new ArrayList<>();
 
-		for (CellType cellType : cellTypeListNoDupes) {
-			autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null,
-					Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, cellType.getSynonymStringList()));
-			idsAdded.add(cellType.getCellTypeId());
-		}
+        if (cellTypeListNoDupes != null){
+            for (CellType cellType : cellTypeListNoDupes) {
+                autocompleteResults.add(new AutocompleteResult(cellType.getCellType(), null,
+                        Integer.toString(cellType.getCellTypeId()), TYPE_CELL_TYPE, cellType.getSynonymStringList()));
+                idsAdded.add(cellType.getCellTypeId());
+            }
+        }
 
 		List<String> subregionHits = new ArrayList<>();
-		for (CellType subregion : subregions) {
+        if (subregions != null){
+            for (CellType subregion : subregions) {
 
-			if (!(subregionHits.contains(subregion.getStructureSubregion())
-					|| idsAdded.contains(subregion.getCellTypeId()))) {
-				autocompleteResults.add(new AutocompleteResult(subregion.getStructureSubregion(), null,
-						Integer.toString(subregion.getCellTypeId()), TYPE_CELL_TYPE, null));
-				subregionHits.add(subregion.getStructureSubregion());
-				idsAdded.add(subregion.getCellTypeId());
-			}
-		}
+                if (!(subregionHits.contains(subregion.getStructureSubregion())
+                        || idsAdded.contains(subregion.getCellTypeId()))) {
+                    autocompleteResults.add(new AutocompleteResult(subregion.getStructureSubregion(), null,
+                            Integer.toString(subregion.getCellTypeId()), TYPE_CELL_TYPE, null));
+                    subregionHits.add(subregion.getStructureSubregion());
+                    idsAdded.add(subregion.getCellTypeId());
+                }
+            }
+        }
+		
 
 		List<String> regionHits = new ArrayList<>();
-		for (CellType region : regions) {
-			if (!(regionHits.contains(region.getStructureRegion()) || idsAdded.contains(region.getCellTypeId()))) {
-				autocompleteResults.add(new AutocompleteResult(region.getStructureRegion(), null,
-						Integer.toString(region.getCellTypeId()), TYPE_CELL_TYPE, null));
-				regionHits.add(region.getStructureRegion());
-				idsAdded.add(region.getCellTypeId());
-			}
-		}
+        if(regions != null){
+            for (CellType region : regions) {
+                if (!(regionHits.contains(region.getStructureRegion()) || idsAdded.contains(region.getCellTypeId()))) {
+                    autocompleteResults.add(new AutocompleteResult(region.getStructureRegion(), null,
+                            Integer.toString(region.getCellTypeId()), TYPE_CELL_TYPE, null));
+                    regionHits.add(region.getStructureRegion());
+                    idsAdded.add(region.getCellTypeId());
+                }
+            }
+        }
+		
 
 		autocompleteResults.sort(new Comparator<AutocompleteResult>() {
 			@Override

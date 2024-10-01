@@ -36,11 +36,11 @@ type AtlasRepoSummaryResult {
 }
 
 type AtlasRepoSummaryRow {
-  akiCount: Long
-  ckdCount: Long
-  hrtCount: Long
-  dmrCount: Long
-  totalCount: Long
+  akiCount: Int
+  ckdCount: Int
+  hrtCount: Int
+  dmrCount: Int
+  totalCount: Int
   omicsType: String
   linkInformation: AtlasRepositoryLinkInformation
 }
@@ -51,10 +51,10 @@ type AtlasRepositoryLinkInformation {
 }
 
 type ParticipantTissueTypeSummary {
-  akiCount: Long
-  ckdCount: Long
-  hrtCount: Long
-  dmrCount: Long
+  akiCount: Int
+  ckdCount: Int
+  hrtCount: Int
+  dmrCount: Int
 }
 
 type ParticipantDataTypeSummary {
@@ -64,7 +64,7 @@ type ParticipantDataTypeSummary {
 
 type ParticipantDataTypeInformation {
   dataType: String
-  count: Long
+  count: Int
   isAggregatedData: Boolean
 }
 
@@ -74,7 +74,7 @@ type ParticipantRepoDataTypeSummary {
 
 type ParticipantRepoDataTypeInformation {
   dataType: String
-  count: Long
+  count: Int
   linkInformation: AtlasRepositoryLinkInformation
 }
 
@@ -82,12 +82,12 @@ type DataTypeSummaryInformation {
   omicsType: String
   dataType: String
   dataTypeShort: String
-  akiCount: Long
-  ckdCount: Long
-  hrtCount: Long
-  dmrCount: Long
-  totalCount: Long
-  participantCount: Long
+  akiCount: Int
+  ckdCount: Int
+  hrtCount: Int
+  dmrCount: Int
+  totalCount: Int
+  participantCount: Int
 }
 
 

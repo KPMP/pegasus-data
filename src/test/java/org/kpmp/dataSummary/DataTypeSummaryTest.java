@@ -1,10 +1,10 @@
 package org.kpmp.dataSummary;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
@@ -13,7 +13,7 @@ public class DataTypeSummaryTest {
 
 	private DataTypeSummary datasetSummary;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 
 		datasetSummary = new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
@@ -21,7 +21,7 @@ public class DataTypeSummaryTest {
 				Long.valueOf(2), Long.valueOf(4), Long.valueOf(6), Long.valueOf(7), Long.valueOf(8));
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		datasetSummary = null;
 	}
