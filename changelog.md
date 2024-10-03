@@ -11,7 +11,7 @@ Just a place to keep track of things that have changed in the code that we may w
 
 ----
 
-## Release 2.5 (unreleased)
+## Release 2.5 (10/3/2024)
 - Java upgrade
 
 ### Breaking changes
