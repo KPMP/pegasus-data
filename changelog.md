@@ -1,6 +1,6 @@
 # Changelog
 
-## Release 2.5 (unreleased)
+## Release 2.6 (unreleased)
 Brief summary of what's in this release:
 
 ### Breaking changes
@@ -8,6 +8,17 @@ Breaking changes include any database updates needed, if we need to edit any fil
 
 ### Non-breaking changes
 Just a place to keep track of things that have changed in the code that we may want to pay special attention to when smoke testing, etc.
+
+----
+
+## Release 2.5 (unreleased)
+- Java upgrade
+
+### Breaking changes
+None
+
+### Non-breaking changes
+None
 
 ------
 ## Release 2.4 (released 07/08/2024)
