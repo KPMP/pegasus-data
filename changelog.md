@@ -1,5 +1,26 @@
 # Changelog
 
+## Release 2.6 (unreleased)
+Brief summary of what's in this release:
+
+### Breaking changes
+
+
+### Non-breaking changes
+
+
+## Release 2.5 (10/3/2024)
+- Java upgrade
+
+
+### Breaking changes
+None
+
+### Non-breaking changes
+None
+
+----
+
 ## Release 2.5 (10/3/2024)
 - Java upgrade
 
