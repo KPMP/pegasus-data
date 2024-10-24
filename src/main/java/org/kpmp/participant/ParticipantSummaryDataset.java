@@ -26,8 +26,8 @@ public class ParticipantSummaryDataset implements Serializable {
 	private String protocol;
 	@Column(name = "sample_type")
 	private String sampleType;
-	@Column(name = "tissue_type")
-	private String tissueType;
+	@Column(name = "enrollment_category")
+	private String enrollmentCategory;
 	@Column(name = "clinical_data")
 	private String clinicalData;
 
@@ -95,12 +95,12 @@ public class ParticipantSummaryDataset implements Serializable {
 		this.sampleType = sampleType;
 	}
 
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 
 	public String getClinicalData() {

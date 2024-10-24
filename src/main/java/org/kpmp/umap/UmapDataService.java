@@ -10,7 +10,7 @@ import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.kpmp.DataTypeEnum;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.geneExpression.SNSCExpressionDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,14 +30,14 @@ public class UmapDataService {
 		this.expressionService = expressionService;
 	}
 
-	public PlotData getPlotData(String dataType, String geneSymbol, String requestTissueType)
+	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory)
 			throws JSONException, Exception {
 		JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol);
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
 		List<? extends UmapPoint> umapPoints = new ArrayList<>();
-		TissueTypeEnum tissueType = TissueTypeEnum.fromRequestType(requestTissueType);
+		EnrollmentCategoryEnum enrollmentCategory = EnrollmentCategoryEnum.fromRequestType(requestEnrollmentCategory);
 
-		umapPoints = getUmapPoints(dataTypeEnum, umapPoints, tissueType);
+		umapPoints = getUmapPoints(dataTypeEnum, umapPoints, enrollmentCategory);
 
 		Map<String, ReferenceCluster> referenceClusters = new HashMap<>();
 		FeatureData featureDataWithExpressionValues = new FeatureData();
@@ -100,8 +100,8 @@ public class UmapDataService {
 	}
 
 	private List<? extends UmapPoint> getUmapPoints(DataTypeEnum dataTypeEnum, List<? extends UmapPoint> umapPoints,
-			TissueTypeEnum tissueType) {
-		if (tissueType == TissueTypeEnum.ALL) {
+			EnrollmentCategoryEnum enrollmentCategory) {
+		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo.findCount();
 				int limit = (int) Math.round(pointCount*.3);
@@ -111,15 +111,15 @@ public class UmapDataService {
 				int limit = (int) Math.round(pointCount*.3);
 				umapPoints = snMetadataRepo.findLimited(limit);
 			}
-		} else if (tissueType != TissueTypeEnum.UNKNOWN) {
+		} else if (enrollmentCategory != EnrollmentCategoryEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(DataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo.findCount();
 				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = scMetadataRepo.findLimitedWithTissueType(tissueType.getParticipantTissueType(), limit);
+				umapPoints = scMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			} else if (dataTypeEnum.equals(DataTypeEnum.SINGLE_NUCLEUS)) {
 				int pointCount = snMetadataRepo.findCount();
 				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = snMetadataRepo.findLimitedWithTissueType(tissueType.getParticipantTissueType(), limit);
+				umapPoints = snMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			}
 		}
 		return umapPoints;

@@ -18,8 +18,8 @@ public class SNRNAParticipantValue implements Participant, Serializable {
 
 	private static final long serialVersionUID = -2404700991479961255L;
 
-	@Column(name = "tissue_type")
-	private String tissueType;
+	@Column(name = "enrollment_category")
+	private String enrollmentCategory;
 
 	@Column(name = "redcap_id")
 	private String redcapId;
@@ -36,12 +36,12 @@ public class SNRNAParticipantValue implements Participant, Serializable {
 	}
 
 	@Override
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
 	@Override
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 }

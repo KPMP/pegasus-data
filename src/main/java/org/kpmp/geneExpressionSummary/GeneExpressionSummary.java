@@ -6,9 +6,9 @@ public interface GeneExpressionSummary {
 
     void setId(Integer id);
 
-    String getTissueType();
+    String getEnrollmentCategory();
 
-    void setTissueType(String tissueType);
+    void setEnrollmentCategory(String enrollmentCategory);
 
     String getGene();
 

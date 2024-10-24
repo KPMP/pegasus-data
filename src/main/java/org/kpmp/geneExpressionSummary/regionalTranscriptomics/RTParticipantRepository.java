@@ -10,9 +10,9 @@ public interface RTParticipantRepository extends CrudRepository<RTParticipantVal
 	@Query(value = "SELECT COUNT(DISTINCT rtp.redcap_id) FROM rt_participant_tissue_v rtp", nativeQuery = true)
 	Long getParticipantCount();
 
-	@Cacheable("rtCountsByTissue")
-	@Query(value = "SELECT COUNT(DISTINCT rtp.redcap_id) FROM rt_participant_tissue_v rtp WHERE rtp.tissue_type = :tissueType", nativeQuery = true)
-	Long getCountByTissueType(String tissueType);
+	@Cacheable("rtCountsByEnrollment")
+	@Query(value = "SELECT COUNT(DISTINCT rtp.redcap_id) FROM rt_participant_tissue_v rtp WHERE rtp.enrollment_category = :enrollmentCategory", nativeQuery = true)
+	Long getCountByEnrollmentCategory(String enrollmentCategory);
 
 	boolean existsByRedcapId(String redcapId);
 

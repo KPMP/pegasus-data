@@ -63,9 +63,9 @@ class RTExpressionDataGTITest {
 	}
 
 	@Test
-	void setTissueType() {
-		rtExpressionDataGTI.setTissueType("tt");
-		assertEquals("tt", rtExpressionDataGTI.getTissueType());
+	void setEnrollmentCategory() {
+		rtExpressionDataGTI.setEnrollmentCategory("tt");
+		assertEquals("tt", rtExpressionDataGTI.getEnrollmentCategory());
 	}
 
 	@Test

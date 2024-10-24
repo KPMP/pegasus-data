@@ -2,9 +2,9 @@ package org.kpmp.geneExpressionSummary;
 
 public interface Participant {
 
-    String getTissueType();
+    String getEnrollmentCategory();
 
-    void setTissueType(String tissueType);
+    void setEnrollmentCategory(String enrollmentCategory);
 
     String getRedcapId();
 

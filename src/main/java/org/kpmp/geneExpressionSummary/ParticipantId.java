@@ -4,20 +4,20 @@ import java.io.Serializable;
 
 public class ParticipantId implements Serializable {
 	private static final long serialVersionUID = 8123478456751869304L;
-	private String tissueType;
+	private String enrollmentCategory;
 	private String redcapId;
 
-	public void SNRNAParticipantId(String tissueType, String redcapId) {
-		this.tissueType = tissueType;
+	public void SNRNAParticipantId(String enrollmentCategory, String redcapId) {
+		this.enrollmentCategory = enrollmentCategory;
 		this.redcapId = redcapId;
 	}
 
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 
 	public String getRedcapId() {

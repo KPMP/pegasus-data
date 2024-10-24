@@ -1,20 +1,20 @@
 package org.kpmp;
 
-public enum TissueTypeEnum {
+public enum EnrollmentCategoryEnum {
 
 	ALL("all", "all"), AKI("aki", "AKI"), CKD("ckd", "CKD"), HEALTHY_REFERENCE("hrt", "Healthy Reference"),
 	DMR("dmr", "DM-R"), UNKNOWN("", "");
 
 	private String requestType;
-	private String participantTissueType;
+	private String participantEnrollmentCategory;
 
-	private TissueTypeEnum(String requestType, String participantTissueType) {
+	private EnrollmentCategoryEnum(String requestType, String participantEnrollmentCategory) {
 		this.requestType = requestType;
-		this.participantTissueType = participantTissueType;
+		this.participantEnrollmentCategory = participantEnrollmentCategory;
 	}
 
-	public String getParticipantTissueType() {
-		return this.participantTissueType;
+	public String getParticipantEnrollmentCategory() {
+		return this.participantEnrollmentCategory;
 	}
 
     public String getRequestType() {
@@ -22,7 +22,7 @@ public enum TissueTypeEnum {
     }
 
 
-    public static TissueTypeEnum fromRequestType(String requestType) {
+    public static EnrollmentCategoryEnum fromRequestType(String requestType) {
 		if (ALL.requestType.equalsIgnoreCase(requestType)) {
 			return ALL;
 		} else if (AKI.requestType.equalsIgnoreCase(requestType)) {

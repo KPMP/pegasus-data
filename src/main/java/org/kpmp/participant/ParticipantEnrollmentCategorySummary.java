@@ -2,14 +2,14 @@ package org.kpmp.participant;
 
 import java.io.Serializable;
 
-public class ParticipantTissueTypeSummary implements Serializable {
+public class ParticipantEnrollmentCategorySummary implements Serializable {
 	private static final long serialVersionUID = 4596059416539472482L;
 	private Long akiCount;
 	private Long ckdCount;
 	private Long hrtCount;
 
 	private Long dmrCount;
-	public ParticipantTissueTypeSummary(Long akiCount, Long ckdCount, Long hrtCount, Long dmrCount) {
+	public ParticipantEnrollmentCategorySummary(Long akiCount, Long ckdCount, Long hrtCount, Long dmrCount) {
 		this.akiCount = akiCount;
 		this.ckdCount = ckdCount;
 		this.hrtCount = hrtCount;

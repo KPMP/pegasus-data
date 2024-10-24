@@ -22,9 +22,9 @@ public class SNRNAParticipantValueTest {
 	}
 
 	@Test
-	public void testSetTissueType() throws Exception {
-		snrnaParticipantValue.setTissueType("aki");
-		assertEquals("aki", snrnaParticipantValue.getTissueType());
+	public void testSetEnrollmentCategory() throws Exception {
+		snrnaParticipantValue.setEnrollmentCategory("aki");
+		assertEquals("aki", snrnaParticipantValue.getEnrollmentCategory());
 	}
 
 	public void setRedcapId() throws Exception {

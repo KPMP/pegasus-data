@@ -33,9 +33,9 @@ public interface RTExpressionData {
 
 	void setPValLog10(Double pValLog10);
 
-	String getTissueType();
+	String getEnrollmentCategory();
 
-	void setTissueType(String tissueType);
+	void setEnrollmentCategory(String enrollmentCategory);
 
 	Integer getSampleCount();
 

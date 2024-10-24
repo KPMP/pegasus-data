@@ -9,26 +9,26 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RTExpressionByTissueTypeTest {
+public class RTExpressionByEnrollmentCategoryTest {
 
-	private RTExpressionByTissueType rtExpressionByTissueType;
+	private RTExpressionByEnrollmentCategory rtExpressionByEnrollmentCategory;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		rtExpressionByTissueType = new RTExpressionByTissueType();
+		rtExpressionByEnrollmentCategory = new RTExpressionByEnrollmentCategory();
 	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
-		rtExpressionByTissueType = null;
+		rtExpressionByEnrollmentCategory = null;
 	}
 
 	@Test
 	public void setAll() {
 		RTExpressionDataAllSegments allData = new RTExpressionDataAllSegments();
 		List<? extends RTExpressionData> allataList = Arrays.asList(allData);
-		rtExpressionByTissueType.setAll(allataList);
-		List<? extends RTExpressionData> actual = rtExpressionByTissueType.getAll();
+		rtExpressionByEnrollmentCategory.setAll(allataList);
+		List<? extends RTExpressionData> actual = rtExpressionByEnrollmentCategory.getAll();
 		assertEquals(allataList, actual);
 	}
 
@@ -36,8 +36,8 @@ public class RTExpressionByTissueTypeTest {
 	public void setAki() {
 		RTExpressionDataAllSegments allAkiData = new RTExpressionDataAllSegments();
 		List<? extends RTExpressionData> allAkiDataList = Arrays.asList(allAkiData);
-		rtExpressionByTissueType.setAki(allAkiDataList);
-		List<? extends RTExpressionData> actual = rtExpressionByTissueType.getAki();
+		rtExpressionByEnrollmentCategory.setAki(allAkiDataList);
+		List<? extends RTExpressionData> actual = rtExpressionByEnrollmentCategory.getAki();
 		assertEquals(allAkiDataList, actual);
 	}
 
@@ -45,8 +45,8 @@ public class RTExpressionByTissueTypeTest {
 	public void setCkd() {
 		RTExpressionDataAllSegments allCkdData = new RTExpressionDataAllSegments();
 		List<? extends RTExpressionData> allCkdDataList = Arrays.asList(allCkdData);
-		rtExpressionByTissueType.setCkd(allCkdDataList);
-		List<? extends RTExpressionData> actual = rtExpressionByTissueType.getCkd();
+		rtExpressionByEnrollmentCategory.setCkd(allCkdDataList);
+		List<? extends RTExpressionData> actual = rtExpressionByEnrollmentCategory.getCkd();
 		assertEquals(allCkdDataList, actual);
 	}
 
@@ -54,8 +54,8 @@ public class RTExpressionByTissueTypeTest {
 	public void setHrt() {
 		RTExpressionDataAllSegments allHrtData = new RTExpressionDataAllSegments();
 		List<? extends RTExpressionData> allHrtDataList = Arrays.asList(allHrtData);
-		rtExpressionByTissueType.setHrt(allHrtDataList);
-		List<? extends RTExpressionData> actual = rtExpressionByTissueType.getHrt();
+		rtExpressionByEnrollmentCategory.setHrt(allHrtDataList);
+		List<? extends RTExpressionData> actual = rtExpressionByEnrollmentCategory.getHrt();
 		assertEquals(allHrtDataList, actual);
 	}
 
@@ -63,8 +63,8 @@ public class RTExpressionByTissueTypeTest {
 	public void setDmr() {
 		RTExpressionDataAllSegments allDmrData = new RTExpressionDataAllSegments();
 		List<? extends RTExpressionData> allDmrDataList = Arrays.asList(allDmrData);
-		rtExpressionByTissueType.setDmr(allDmrDataList);
-		List<? extends RTExpressionData> actual = rtExpressionByTissueType.getDmr();
+		rtExpressionByEnrollmentCategory.setDmr(allDmrDataList);
+		List<? extends RTExpressionData> actual = rtExpressionByEnrollmentCategory.getDmr();
 		assertEquals(allDmrDataList, actual);
 	}
 

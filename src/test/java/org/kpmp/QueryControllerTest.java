@@ -29,9 +29,9 @@ import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
-import org.kpmp.geneExpression.RPExpressionByTissueType;
+import org.kpmp.geneExpression.RPExpressionByEnrollmentCategory;
 import org.kpmp.geneExpression.RPExpressionDataService;
-import org.kpmp.geneExpression.RTExpressionByTissueType;
+import org.kpmp.geneExpression.RTExpressionByEnrollmentCategory;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
@@ -42,7 +42,7 @@ import org.kpmp.participant.ParticipantRepoDataTypeInformation;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
-import org.kpmp.participant.ParticipantTissueTypeSummary;
+import org.kpmp.participant.ParticipantEnrollmentCategorySummary;
 import org.kpmp.umap.FeatureData;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.ReferenceCluster;
@@ -70,7 +70,7 @@ public class QueryControllerTest {
 	@Mock
 	private ParticipantService participantService;
 	@Mock
-	private ParticipantTissueTypeSummary participantTissueTypeSummary;
+	private ParticipantEnrollmentCategorySummary participantEnrollmentCategorySummary;
     @Mock
     private AtlasMessageService atlasMessageService;
 
@@ -132,14 +132,14 @@ public class QueryControllerTest {
 	public void geneExpression() throws Exception {
 		List expectedResultSN1 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
 		List expectedResultSN2 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
-		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN1);
-		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sn", "cell type", "aki"))
+		when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN1);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki"))
 				.thenReturn(expectedResultSN2);
 
 		List expectedResultSC1 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		List expectedResultSC2 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
-		when(geneExpressionService.getByDataTypeTissueTypeAndGene("sc", "gene", "aki")).thenReturn(expectedResultSC1);
-		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndTissueType("sc", "cell type", "aki"))
+		when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sc", "gene", "aki")).thenReturn(expectedResultSC1);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sc", "cell type", "aki"))
 				.thenReturn(expectedResultSC2);
 
 		assertEquals(expectedResultSN1, query.geneExpressionSummary("sn", "gene", "", "aki"));
@@ -235,12 +235,12 @@ public class QueryControllerTest {
 	@Test
 	public void testGetRTGeneExpression() throws Exception {
 		List<RTExpressionDataAllSegments> data = Arrays.asList(new RTExpressionDataAllSegments());
-		RTExpressionByTissueType rtExpressionByTissueType = new RTExpressionByTissueType();
-		rtExpressionByTissueType.setAki(data);
-		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue("all_segments", "gene"))
-				.thenReturn(rtExpressionByTissueType);
-		assertEquals(rtExpressionByTissueType, query.getRTGeneExpressionByTissue("all_segments", "gene"));
-		assertEquals(rtExpressionByTissueType.getAki(), data);
+		RTExpressionByEnrollmentCategory rtExpressionByEnrollmentCategory = new RTExpressionByEnrollmentCategory();
+		rtExpressionByEnrollmentCategory.setAki(data);
+		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerEnrollment("all_segments", "gene"))
+				.thenReturn(rtExpressionByEnrollmentCategory);
+		assertEquals(rtExpressionByEnrollmentCategory, query.getRTGeneExpressionByTissue("all_segments", "gene"));
+		assertEquals(rtExpressionByEnrollmentCategory.getAki(), data);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -253,10 +253,10 @@ public class QueryControllerTest {
 
 	@Test
 	public void testGetRPGeneExpressionByTissueAndProtein() throws Exception {
-		RPExpressionByTissueType expected = new RPExpressionByTissueType();
+		RPExpressionByEnrollmentCategory expected = new RPExpressionByEnrollmentCategory();
 		when(rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("APOL1", "steak")).thenReturn(expected);
 
-		RPExpressionByTissueType result = query.getRPGeneExpressionByTissueAndProtein("APOL1", "steak");
+		RPExpressionByEnrollmentCategory result = query.getRPGeneExpressionByTissueAndProtein("APOL1", "steak");
 
 		assertEquals(expected, result);
 	}
@@ -291,15 +291,15 @@ public class QueryControllerTest {
 		verify(participantService).getParticipantSummaryDataset("participant_id");
 	}
 
-	public void getParticipantTissueTypeSummary() throws Exception {
-		List<ParticipantTissueTypeSummary> expectedResult = new ArrayList<>();
+	public void getParticipantEnrollmentCategorySummary() throws Exception {
+		List<ParticipantEnrollmentCategorySummary> expectedResult = new ArrayList<>();
 
 		expectedResult.add(
-				new ParticipantTissueTypeSummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6), Long.valueOf(7)));
+				new ParticipantEnrollmentCategorySummary(Long.valueOf(4), Long.valueOf(5), Long.valueOf(6), Long.valueOf(7)));
 
-		List<ParticipantTissueTypeSummary> tissueSummary = query.getTissueTypeSummaryData();
+		List<ParticipantEnrollmentCategorySummary> enrollmentSummary = query.getEnrollmentCategorySummaryData();
 
-		assertEquals(expectedResult, tissueSummary);
+		assertEquals(expectedResult, enrollmentSummary);
 	}
 
     @Test

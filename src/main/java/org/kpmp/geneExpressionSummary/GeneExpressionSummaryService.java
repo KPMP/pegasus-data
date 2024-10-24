@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.RPExpressionDataRepository;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
@@ -48,26 +48,26 @@ public class GeneExpressionSummaryService {
 		this.rtExpressionDataAllSegmentsRepository = rtExpressionDataAllSegmentsRepository;
 	}
 
-	public List<? extends GeneExpressionSummary> getByDataTypeTissueTypeAndGene(String dataType, String geneSymbol,
-			String tissueType) {
+	public List<? extends GeneExpressionSummary> getByDataTypeEnrollmentCategoryAndGene(String dataType, String geneSymbol,
+			String enrollmentCategory) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
-		TissueTypeEnum tissueTypeEnum = TissueTypeEnum.fromRequestType(tissueType);
+		EnrollmentCategoryEnum enrollmentCategoryEnum = EnrollmentCategoryEnum.fromRequestType(enrollmentCategory);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
 			return scrnaGeneExpressionRepository
-					.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream()
+					.findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
 					.distinct().collect(Collectors.toList());
 		case SINGLE_NUCLEUS:
 			return snrnaGeneExpressionRepository
-					.findByTissueAndGeneAllClusters(geneSymbol, tissueTypeEnum.getParticipantTissueType()).stream()
+					.findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
 					.distinct().collect(Collectors.toList());
 		case UNKNOWN:
 			List<GeneExpressionSummary> allResults = new ArrayList<>();
-			allResults.addAll(scrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol,
-					tissueTypeEnum.getParticipantTissueType()));
-			allResults.addAll(snrnaGeneExpressionRepository.findByTissueAndGeneAllClusters(geneSymbol,
-					tissueTypeEnum.getParticipantTissueType()));
+			allResults.addAll(scrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
+					enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+			allResults.addAll(snrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
+					enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
 			return allResults;
 		default:
 			break;
@@ -77,26 +77,26 @@ public class GeneExpressionSummaryService {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<? extends GeneExpressionSummary> getExpressionSummaryPerGeneByCellTypeAndTissueType(String dataType,
-			String cellType, String tissueType) {
+	public List<? extends GeneExpressionSummary> getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(String dataType,
+			String cellType, String enrollmentCategory) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
-		TissueTypeEnum tissueTypeEnum = TissueTypeEnum.fromRequestType(tissueType);
+		EnrollmentCategoryEnum enrollmentCategoryEnum = EnrollmentCategoryEnum.fromRequestType(enrollmentCategory);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
-			results = scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType,
-					tissueTypeEnum.getParticipantTissueType());
+			results = scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(cellType,
+					enrollmentCategoryEnum.getParticipantEnrollmentCategory());
 			break;
 		case SINGLE_NUCLEUS:
-			results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(cellType,
-					tissueTypeEnum.getParticipantTissueType());
+			results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(cellType,
+					enrollmentCategoryEnum.getParticipantEnrollmentCategory());
 			break;
 		case UNKNOWN:
 			List allResults = new ArrayList<>();
-			allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(
-					cellType, tissueTypeEnum.getParticipantTissueType()));
-			allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndTissueType(
-					cellType, tissueTypeEnum.getParticipantTissueType()));
+			allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+					cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+			allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+					cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
 			results = allResults;
 		default:
 			break;
@@ -130,40 +130,40 @@ public class GeneExpressionSummaryService {
 		List<DataTypeSummary> dataTypeSummary = new ArrayList<>();
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
-				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
+				scrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+				scrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				scrnaGeneExpressionRepository
-						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
-				scrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.DMR.getParticipantTissueType()),
+						.getCountByEnrollment(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
+				scrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
 				scrnaParticipantRepository.getParticipantCount(),
 				scrnaParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
-				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.AKI.getParticipantTissueType()),
-				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.CKD.getParticipantTissueType()),
+				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				snrnaGeneExpressionRepository
-						.getCountByTissue(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
-				snrnaGeneExpressionRepository.getCountByTissue(TissueTypeEnum.DMR.getParticipantTissueType()),
+						.getCountByEnrollment(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
+				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
 				snrnaParticipantRepository.getParticipantCount(),
 				snrnaParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(),
 				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
-				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.AKI.getParticipantTissueType()),
-				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.CKD.getParticipantTissueType()),
+				rtParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+				rtParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				rtParticipantRepository
-						.getCountByTissueType(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
-				rtParticipantRepository.getCountByTissueType(TissueTypeEnum.DMR.getParticipantTissueType()),
+						.getCountByEnrollmentCategory(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
+				rtParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
 				rtParticipantRepository.getParticipantCount(),
 				rtParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_PROTEOMICS_FULL.getFullName(),
 				DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation(),
-				rpParticipantRepository.getCountByTissueType(TissueTypeEnum.AKI.getParticipantTissueType()),
-				rpParticipantRepository.getCountByTissueType(TissueTypeEnum.CKD.getParticipantTissueType()),
+				rpParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+				rpParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				rpParticipantRepository
-						.getCountByTissueType(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
-				rpParticipantRepository.getCountByTissueType(TissueTypeEnum.DMR.getParticipantTissueType()),
+						.getCountByEnrollmentCategory(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
+				rpParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
 				rpParticipantRepository.getParticipantCount(),
 				rpParticipantRepository.getParticipantCount()));
 		return dataTypeSummary;

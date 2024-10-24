@@ -10,13 +10,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RPExpressionByTissueTypeTest {
+public class RPExpressionByEnrollmentCategoryTest {
 
-	private RPExpressionByTissueType rpExpression;
+	private RPExpressionByEnrollmentCategory rpExpression;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		rpExpression = new RPExpressionByTissueType();
+		rpExpression = new RPExpressionByEnrollmentCategory();
 	}
 
 	@AfterEach

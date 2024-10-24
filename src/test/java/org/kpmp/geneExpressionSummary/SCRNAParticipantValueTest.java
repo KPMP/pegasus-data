@@ -22,9 +22,9 @@ public class SCRNAParticipantValueTest {
 	}
 
 	@Test
-	public void testSetTissueType() throws Exception {
-		scrnaParticipantValue.setTissueType("aki");
-		assertEquals("aki", scrnaParticipantValue.getTissueType());
+	public void testSetEnrollmentCategory() throws Exception {
+		scrnaParticipantValue.setEnrollmentCategory("aki");
+		assertEquals("aki", scrnaParticipantValue.getEnrollmentCategory());
 	}
 
 	public void setRedcapId() throws Exception {

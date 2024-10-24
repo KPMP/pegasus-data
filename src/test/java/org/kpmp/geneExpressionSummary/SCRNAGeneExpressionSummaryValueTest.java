@@ -95,9 +95,9 @@ public class SCRNAGeneExpressionSummaryValueTest {
 	}
 
 	@Test
-	public void testSetTissueType() throws Exception {
-		scrnaGeneExpressionValue.setTissueType("tissue");
-		assertEquals("tissue", scrnaGeneExpressionValue.getTissueType());
+	public void testSetEnrollmentCategory() throws Exception {
+		scrnaGeneExpressionValue.setEnrollmentCategory("tissue");
+		assertEquals("tissue", scrnaGeneExpressionValue.getEnrollmentCategory());
 	}
 
 	@Test
