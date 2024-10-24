@@ -21,7 +21,7 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 						+ "cluster_name, "
 						+ "cluster_color, "
 						+ "barcode, "
-						+ "tissue_type "
+						+ "enrollment_category "
 					+ "FROM sn_umap_point_v "
 					+ "LIMIT :limit", nativeQuery = true)
 	List<SNMetadata> findLimited(@Param("limit") int limit);
@@ -30,10 +30,10 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 	@Query(value = "SELECT COUNT(umap_x) FROM sn_umap_point_v;", nativeQuery = true)
 	int findCount();
 
-	@Cacheable("snMetadataByTissue")
-	List<SNMetadata> findByTissueType(String tissueType);
+	@Cacheable("snMetadataByEnrollment")
+	List<SNMetadata> findByEnrollmentCategory(String enrollmentCategory);
 	
-	@Cacheable("snMetadataWithTissue")
+	@Cacheable("snMetadataWithEnrollment")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "
@@ -41,9 +41,9 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 						+ "cluster_name, "
 						+ "cluster_color, "
 						+ "barcode, "
-						+ "tissue_type "
+						+ "enrollment_category "
 					+ "FROM sn_umap_point_v "
-					+ "WHERE tissue_type=:tissueType "
+					+ "WHERE enrollment_category=:enrollmentCategory "
 					+ "LIMIT :limit", nativeQuery = true)
-	List<SNMetadata> findLimitedWithTissueType(@Param("tissueType") String tissueType, @Param("limit") int limit);
+	List<SNMetadata> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory, @Param("limit") int limit);
 }

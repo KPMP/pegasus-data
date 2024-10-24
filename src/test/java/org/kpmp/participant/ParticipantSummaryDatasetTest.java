@@ -71,9 +71,9 @@ class ParticipantSummaryDatasetTest {
     }
 
     @Test
-    void setTissueType() {
-        participantSummaryDataset.setTissueType("tissue");
-        assertEquals("tissue", participantSummaryDataset.getTissueType());
+    void setEnrollmentCategory() {
+        participantSummaryDataset.setEnrollmentCategory("tissue");
+        assertEquals("tissue", participantSummaryDataset.getEnrollmentCategory());
     }
 
     @Test

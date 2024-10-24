@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -46,22 +46,22 @@ public class RPExpressionDataServiceTest {
 
         List<RPExpressionData>  rpExpressionDataAll2 = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
 
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType(), "a1")).
+        when(rpExpressionDataRepository.findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts("gene", EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory(), "a1")).
                 thenReturn(rpExpressionDataAll);
 
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType(), "a2")).
+        when(rpExpressionDataRepository.findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts("gene", EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory(), "a2")).
                 thenReturn(rpExpressionDataAll2);
 
         List<RPAccessionGroup> rpAccessionGroups = rpExpressionDataService.getByGeneSymbolPerTissue("gene");
 
         assertEquals("a1", rpAccessionGroups.get(0).getAccession());
         assertEquals("a2", rpAccessionGroups.get(1).getAccession());
-        RPExpressionByTissueType rpExpressionByTissueType1 = rpAccessionGroups.get(0).getRpExpressionByTissueType();
-        RPExpressionByTissueType rpExpressionByTissueType2 = rpAccessionGroups.get(1).getRpExpressionByTissueType();
+        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory1 = rpAccessionGroups.get(0).getRpExpressionByEnrollmentCategory();
+        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory2 = rpAccessionGroups.get(1).getRpExpressionByEnrollmentCategory();
 
 
-        assertEquals(rpExpressionByTissueType1.getAll(), rpExpressionDataAll);
-        assertEquals(rpExpressionByTissueType2.getAll(), rpExpressionDataAll2);
+        assertEquals(rpExpressionByEnrollmentCategory1.getAll(), rpExpressionDataAll);
+        assertEquals(rpExpressionByEnrollmentCategory2.getAll(), rpExpressionDataAll2);
         
     }
 
@@ -69,12 +69,12 @@ public class RPExpressionDataServiceTest {
     public void testGetByGeneSymbolAndProteinPerTissue() throws Exception {
         List<RPExpressionData>  rpExpressionDataAll = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
        
-        when(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts("gene", TissueTypeEnum.ALL.getParticipantTissueType(), "protein")).
+        when(rpExpressionDataRepository.findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts("gene", EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory(), "protein")).
                 thenReturn(rpExpressionDataAll);
 
-        RPExpressionByTissueType rpExpressionByTissueType = rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("gene", "protein");
+        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("gene", "protein");
 
-        assertEquals(rpExpressionByTissueType.getAll(), rpExpressionDataAll);
+        assertEquals(rpExpressionByEnrollmentCategory.getAll(), rpExpressionDataAll);
     }
 
     @Test

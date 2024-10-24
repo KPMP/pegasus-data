@@ -12,9 +12,9 @@ public interface RPExpressionDataRepository extends CrudRepository<RPExpressionD
 
     @Query(value = "SELECT rpe.*, count(*) as sample_count FROM rp_expression rpe " +
             "JOIN rp_metadata rpm ON LOWER(rpe.region) = LOWER(rpm.tissue_region) " +
-            "WHERE rpe.gene_symbol = :geneSymbol AND rpe.tissue_type = :tissueType " +
+            "WHERE rpe.gene_symbol = :geneSymbol AND rpe.enrollment_category = :enrollmentCategory " +
             "GROUP BY rpe.region, rpe.accession", nativeQuery = true)
-    List<RPExpressionData> findByGeneSymbolAndTissueTypeWithCounts(String geneSymbol, String tissueType);
+    List<RPExpressionData> findByGeneSymbolAndEnrollmentCategoryWithCounts(String geneSymbol, String enrollmentCategory);
 
     @Query(value = "SELECT rpe.accession from rp_expression rpe " +
             "WHERE rpe.gene_symbol = :geneSymbol " +
@@ -29,8 +29,8 @@ public interface RPExpressionDataRepository extends CrudRepository<RPExpressionD
     List<RPExpressionData> findByStructure(@Param("structure") String structure);
     @Query(value = "SELECT rpe.*, count(*) as sample_count FROM rp_expression rpe " +
             "JOIN rp_metadata rpm ON LOWER(rpe.region) = LOWER(rpm.tissue_region) " +
-            "WHERE rpe.gene_symbol = :geneSymbol AND rpe.tissue_type = :tissueType " +
+            "WHERE rpe.gene_symbol = :geneSymbol AND rpe.enrollment_category = :enrollmentCategory " +
             "AND rpe.accession = :protein " +
             "GROUP BY rpe.region", nativeQuery = true)
-    List<RPExpressionData> findByGeneSymbolAndTissueTypeAndProteinWithCounts(String geneSymbol, String tissueType, String protein);
+    List<RPExpressionData> findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts(String geneSymbol, String enrollmentCategory, String protein);
 }

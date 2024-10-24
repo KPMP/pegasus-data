@@ -29,8 +29,8 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 	private Double stdDev;
 	@Column(name = "p_val_log10")
 	private Double pValLog10;
-	@Column(name = "tissue_type")
-	private String tissueType;
+	@Column(name = "enrollment_category")
+	private String enrollmentCategory;
 	@Column(name = "adj_p_val")
 	private Double adjPVal;
 	@Column(name = "sample_count")
@@ -107,13 +107,13 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 	}
 
 	@Override
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
 	@Override
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 
 	@Override

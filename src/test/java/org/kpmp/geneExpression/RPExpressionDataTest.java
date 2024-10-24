@@ -35,7 +35,7 @@ public class RPExpressionDataTest {
         rpExpressionData.setDescription("desc");
         rpExpressionData.setNumPeptides(678);
         rpExpressionData.setNumUniquePeptides(456);
-        rpExpressionData.setTissueType("tissue");
+        rpExpressionData.setEnrollmentCategory("tissue");
         rpExpressionData.setRegion("region");
         assertEquals(rpExpressionData.getAccession(),"accession");
         assertEquals(rpExpressionData.getAdjPVal(), 123.123);
@@ -49,7 +49,7 @@ public class RPExpressionDataTest {
         assertEquals(rpExpressionData.getDescription(), "desc");
         assertEquals(rpExpressionData.getNumPeptides(), 678);
         assertEquals(rpExpressionData.getNumUniquePeptides(), 456);
-        assertEquals(rpExpressionData.getTissueType(), "tissue");
+        assertEquals(rpExpressionData.getEnrollmentCategory(), "tissue");
         assertEquals(rpExpressionData.getRegion(), "region");
 
     }

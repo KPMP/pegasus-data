@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,7 +64,7 @@ public class ParticipantServiceTest {
 		expectedResult.setTissueSource("6");
 		expectedResult.setProtocol("7");
 		expectedResult.setSampleType("8");
-		expectedResult.setTissueType("9");
+		expectedResult.setEnrollmentCategory("9");
 		expectedResult.setClinicalData("10");
 
 		when(participantSummaryDatasetRepository.findByRedcapId("1")).thenReturn(expectedResult);
@@ -81,7 +81,7 @@ public class ParticipantServiceTest {
 		assertEquals("6", result.getTissueSource());
 		assertEquals("7", result.getProtocol());
 		assertEquals("8", result.getSampleType());
-		assertEquals("9", result.getTissueType());
+		assertEquals("9", result.getEnrollmentCategory());
 		assertEquals("10", result.getClinicalData());
 	}
 
@@ -154,15 +154,15 @@ public class ParticipantServiceTest {
 	}
 
 	@Test
-	public void testGetTissueCounts() throws Exception {
-		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType())).thenReturn(Long .valueOf(4));
-		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType())).thenReturn(Long .valueOf(5));
-		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())).thenReturn(Long .valueOf(6));
+	public void testGetEnrollmentCounts() throws Exception {
+		when(participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory())).thenReturn(Long .valueOf(4));
+		when(participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory())).thenReturn(Long .valueOf(5));
+		when(participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory())).thenReturn(Long .valueOf(6));
 
-		List<ParticipantTissueTypeSummary> result = participantService.getTissueData();
-		ParticipantTissueTypeSummary resultDataAki = result.get(0);
-		ParticipantTissueTypeSummary resultDataCkd = result.get(0);
-		ParticipantTissueTypeSummary resultDataHrt = result.get(0);
+		List<ParticipantEnrollmentCategorySummary> result = participantService.getEnrollmentData();
+		ParticipantEnrollmentCategorySummary resultDataAki = result.get(0);
+		ParticipantEnrollmentCategorySummary resultDataCkd = result.get(0);
+		ParticipantEnrollmentCategorySummary resultDataHrt = result.get(0);
 
 
 		assertEquals(Long.valueOf(4), resultDataAki.getAkiCount());

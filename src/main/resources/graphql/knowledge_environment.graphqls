@@ -1,14 +1,14 @@
 type Query {
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
-  geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, tissueType: String) : [GeneExpressionSummary]
+  geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary]
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
-  getUmapPlotData(dataType: String!, geneSymbol: String!, tissueType: String): PlotData
+  getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation: [DataTypeSummaryInformation]
-  getRTGeneExpressionByTissue(comparisonType: String, geneSymbol: String): RTGeneExpressionByTissue
-  getRPGeneExpressionByTissue(geneSymbol: String!): [RPAccessionGroup]
-  getRPGeneExpressionByTissueAndProtein(geneSymbol: String!, protein: String!): RPExpressionByTissueType
+  getRTGeneExpressionByEnrollment(comparisonType: String, geneSymbol: String): RTGeneExpressionByEnrollment
+  getRPGeneExpressionByEnrollment(geneSymbol: String!): [RPAccessionGroup]
+  getRPGeneExpressionByEnrollmentAndProtein(geneSymbol: String!, protein: String!): RPExpressionByEnrollmentCategory
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getRPGeneExpressionByStructure(structure: String): [RPGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
@@ -16,7 +16,7 @@ type Query {
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String!): ParticipantSummaryDataset 
   getTotalParticipantFilesCount(redcapId: String!): ParticipantRepoDataTypeInformation
-  getTissueTypeSummaryData: [ParticipantTissueTypeSummary]
+  getEnrollmentCategorySummaryData: [ParticipantEnrollmentCategorySummary]
   getAtlasSummaryRows: AtlasRepoSummaryResult
   getAtlasMessages: [AtlasMessages]
   getExperimentalStrategyCountsByParticipant(redcapId: String!): [ParticipantRepoDataTypeInformation]
@@ -50,7 +50,7 @@ type AtlasRepositoryLinkInformation {
   linkValue: String
 }
 
-type ParticipantTissueTypeSummary {
+type ParticipantEnrollmentCategorySummary {
   akiCount: Int
   ckdCount: Int
   hrtCount: Int
@@ -119,7 +119,7 @@ type CellType {
 
 type GeneExpressionSummary {
     id: ID
-    tissueType: String
+    enrollmentCategory: String
     gene: String
     pVal: Float
     pValAdj: Float
@@ -176,12 +176,12 @@ type RTGeneExpression {
     pVal: Float
     stdDev: Float
     pValLog10: Float
-    tissueType: String
+    enrollmentCategory: String
     sampleCount: Int
     adjPVal: Float
 }
 
-type RTGeneExpressionByTissue {
+type RTGeneExpressionByEnrollment {
     all: [RTGeneExpression]
     hrt: [RTGeneExpression]
     ckd: [RTGeneExpression]
@@ -191,7 +191,7 @@ type RTGeneExpressionByTissue {
 
 type RPAccessionGroup {
     accession: String
-    rpExpressionByTissueType: RPExpressionByTissueType
+    rpExpressionByEnrollmentCategory: RPExpressionByEnrollmentCategory
 }
 
 type RPGeneExpression {
@@ -207,17 +207,17 @@ type RPGeneExpression {
     region: String
     foldChange: Float
     adjPVal: Float
-    tissueType: String
+    enrollmentCategory: String
     sampleCount: Int
 }
 
-type RPExpressionByTissueType {
+type RPExpressionByEnrollmentCategory {
     all: [RPGeneExpression]
 }
 
 type ParticipantSummaryDataset {
   participantId: String
   redcapId: String
-  tissueType: String
+  enrollmentCategory: String
   clinicalData: String
 }

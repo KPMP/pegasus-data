@@ -22,19 +22,19 @@ public class RPAccessionGroupTest {
 
     @Test
     public void testConstructor() throws Exception {
-        RPExpressionByTissueType rpExpressionByTissueType = new RPExpressionByTissueType();
-        RPAccessionGroup rpAccessionGroup1 = new RPAccessionGroup("accession", rpExpressionByTissueType);
-        assertEquals(rpExpressionByTissueType, rpAccessionGroup1.getRpExpressionByTissueType());
+        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = new RPExpressionByEnrollmentCategory();
+        RPAccessionGroup rpAccessionGroup1 = new RPAccessionGroup("accession", rpExpressionByEnrollmentCategory);
+        assertEquals(rpExpressionByEnrollmentCategory, rpAccessionGroup1.getRpExpressionByEnrollmentCategory());
         assertEquals("accession", rpAccessionGroup1.getAccession());
     }
 
     @Test
     public void testSetters() throws Exception {
-        RPExpressionByTissueType rpExpressionByTissueType = new RPExpressionByTissueType();
+        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = new RPExpressionByEnrollmentCategory();
         rpAccessionGroup.setAccession("1234");
-        rpAccessionGroup.setRpExpressionByTissueType(rpExpressionByTissueType);
+        rpAccessionGroup.setRpExpressionByEnrollmentCategory(rpExpressionByEnrollmentCategory);
         assertEquals("1234", rpAccessionGroup.getAccession());
-        assertEquals(rpExpressionByTissueType, rpAccessionGroup.getRpExpressionByTissueType());
+        assertEquals(rpExpressionByEnrollmentCategory, rpAccessionGroup.getRpExpressionByEnrollmentCategory());
     }
 
 

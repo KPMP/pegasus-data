@@ -24,8 +24,8 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 	private static final long serialVersionUID = 7265280085624504185L;
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "tissue_type")
-	private String tissueType;
+	@Column(name = "enrollment_category")
+	private String enrollmentCategory;
 	@Id
 	@Column(name = "gene")
 	private String gene;
@@ -91,13 +91,13 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 
 	@Override
 	@Nullable
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
 	@Override
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 
 	@Override

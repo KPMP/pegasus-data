@@ -10,13 +10,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RTExpressionDataAllSegments, Integer> {
-	@Cacheable("rtExpGeneSymbolAndTissueTypeWithCounts")
+	@Cacheable("rtExpGeneSymbolAndEnrollmentCategoryWithCounts")
 	@Query(value = "SELECT rts.*, rsv.sample_count, s.segment_name FROM rt_segments rts "
-			+ "LEFT JOIN rt_summary_v rsv ON rts.segment = rsv.segment AND rts.tissue_type = rsv.tissue_type "
+			+ "LEFT JOIN rt_summary_v rsv ON rts.segment = rsv.segment AND rts.enrollment_category = rsv.enrollment_category "
 			+ "LEFT JOIN segment s on rts.segment = s.abbreviation "
-			+ "WHERE rts.tissue_type = :tissueType AND rts.gene_symbol = :geneSymbol "
+			+ "WHERE rts.enrollment_category = :enrollmentCategory AND rts.gene_symbol = :geneSymbol "
 	       		+ "GROUP BY rts.segment", nativeQuery = true)
-	List<RTExpressionDataAllSegments> findByGeneSymbolAndTissueTypeWithCounts(String geneSymbol, String tissueType);
+	List<RTExpressionDataAllSegments> findByGeneSymbolAndEnrollmentCategoryWithCounts(String geneSymbol, String enrollmentCategory);
 
 	@Cacheable("rtExpByStructure")
 	@Query(value = "CALL rt_diffex_sp(:structure);", nativeQuery = true)

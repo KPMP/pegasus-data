@@ -64,9 +64,9 @@ public class SNMetadataTest {
 	}
 
 	@Test
-	public void testSetTissueType() throws Exception {
-		point.setTissueType("tissueType");
-		assertEquals("tissueType", point.getTissueType());
+	public void testSetEnrollmentCategory() throws Exception {
+		point.setEnrollmentCategory("enrollmentCategory");
+		assertEquals("enrollmentCategory", point.getEnrollmentCategory());
 	}
 
 }

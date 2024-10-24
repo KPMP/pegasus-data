@@ -3,7 +3,7 @@ package org.kpmp.geneExpression;
 import java.util.List;
 
 import org.kpmp.RTComparisonTypeEnum;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,44 +20,44 @@ public class RTExpressionDataService {
 		this.rtExpressionDataGTIRepository = rtExpressionDataGTIRepository;
 	}
 
-	public RTExpressionByTissueType getByComparisonTypeAndGeneSymbolPerTissue(String comparisonType,
+	public RTExpressionByEnrollmentCategory getByComparisonTypeAndGeneSymbolPerEnrollment(String comparisonType,
 			String geneSymbol) {
 		RTComparisonTypeEnum rtComparisonTypeEnum = RTComparisonTypeEnum.fromAbbreviation(comparisonType);
-		RTExpressionByTissueType rtExpressionByTissueType = new RTExpressionByTissueType();
+		RTExpressionByEnrollmentCategory rtExpressionByEnrollmentCategory = new RTExpressionByEnrollmentCategory();
 		switch (rtComparisonTypeEnum) {
 		case ALL_SEGMENTS:
-			rtExpressionByTissueType
-					.setAki(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol,
-							TissueTypeEnum.AKI.getParticipantTissueType()));
-			rtExpressionByTissueType
-					.setCkd(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol,
-							TissueTypeEnum.CKD.getParticipantTissueType()));
-			rtExpressionByTissueType
-					.setAll(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol,
-							TissueTypeEnum.ALL.getParticipantTissueType()));
-			rtExpressionByTissueType
-					.setHrt(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol,
-							TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
-			rtExpressionByTissueType.setDmr(
-					rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndTissueTypeWithCounts(geneSymbol,
-							TissueTypeEnum.DMR.getParticipantTissueType()));
+			rtExpressionByEnrollmentCategory
+					.setAki(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(geneSymbol,
+							EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory
+					.setCkd(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(geneSymbol,
+							EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory
+					.setAll(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(geneSymbol,
+							EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory
+					.setHrt(rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(geneSymbol,
+							EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory.setDmr(
+					rtExpressionDataAllSegmentsRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(geneSymbol,
+							EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()));
 			break;
 		case GLOM_V_TI:
-			rtExpressionByTissueType.setAki(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
-					geneSymbol, TissueTypeEnum.AKI.getParticipantTissueType()));
-			rtExpressionByTissueType.setCkd(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
-					geneSymbol, TissueTypeEnum.CKD.getParticipantTissueType()));
-			rtExpressionByTissueType.setAll(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
-					geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType()));
-			rtExpressionByTissueType.setHrt(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
-					geneSymbol, TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()));
-			rtExpressionByTissueType.setDmr(rtExpressionDataGTIRepository.findByGeneSymbolAndTissueTypeWithCounts(
-					geneSymbol, TissueTypeEnum.DMR.getParticipantTissueType()));
+			rtExpressionByEnrollmentCategory.setAki(rtExpressionDataGTIRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(
+					geneSymbol, EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory.setCkd(rtExpressionDataGTIRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(
+					geneSymbol, EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory.setAll(rtExpressionDataGTIRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(
+					geneSymbol, EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory.setHrt(rtExpressionDataGTIRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(
+					geneSymbol, EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()));
+			rtExpressionByEnrollmentCategory.setDmr(rtExpressionDataGTIRepository.findByGeneSymbolAndEnrollmentCategoryWithCounts(
+					geneSymbol, EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()));
 			break;
 		case UNKNOWN:
-			rtExpressionByTissueType = null;
+			rtExpressionByEnrollmentCategory = null;
 		}
-		return rtExpressionByTissueType;
+		return rtExpressionByEnrollmentCategory;
 	}
 
 	public List<? extends RTExpressionData> getByStructure(String structure) {

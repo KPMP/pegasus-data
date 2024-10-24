@@ -88,9 +88,9 @@ public class SNRNAGeneExpressionSummaryValueTest {
 	}
 
 	@Test
-	public void testSetTissueType() throws Exception {
-		snrnaGeneExpressionValue.setTissueType("tissue");
-		assertEquals("tissue", snrnaGeneExpressionValue.getTissueType());
+	public void testSetEnrollmentCategory() throws Exception {
+		snrnaGeneExpressionValue.setEnrollmentCategory("tissue");
+		assertEquals("tissue", snrnaGeneExpressionValue.getEnrollmentCategory());
 	}
 
 	@Test

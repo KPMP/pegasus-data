@@ -2,7 +2,7 @@ package org.kpmp.geneExpression;
 
 import java.util.List;
 
-public class RPExpressionByTissueType {
+public class RPExpressionByEnrollmentCategory {
 
 	private List<? extends RPExpressionData> all;
 	

@@ -21,7 +21,7 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 						+ "cluster_name, "
 						+ "cluster_color, "
 						+ "barcode, "
-						+ "tissue_type "
+						+ "enrollment_category "
 					+ "FROM sc_umap_point_v "
 					+ "LIMIT :limit", nativeQuery = true)
 	List<SCMetadata> findLimited(@Param("limit") int limit);
@@ -30,11 +30,11 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 	@Query(value = "SELECT COUNT(umap_x) FROM sc_umap_point_v;", nativeQuery = true)
 	int findCount();
 
-	List<SCMetadata> findByTissueType(String tissueType);
+	List<SCMetadata> findByEnrollmentCategory(String enrollmentCategory);
 
 	SCMetadata findByBarcode(String barcode);
 
-	@Cacheable("scMetadataWithTissue")
+	@Cacheable("scMetadataWithEnrollment")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "
@@ -42,9 +42,9 @@ public interface SCMetadataRepository extends CrudRepository<SCMetadata, String>
 						+ "cluster_name, "
 						+ "cluster_color, "
 						+ "barcode, "
-						+ "tissue_type "
+						+ "enrollment_category "
 					+ "FROM sc_umap_point_v "
-					+ "WHERE tissue_type=:tissueType "
+					+ "WHERE enrollment_category=:enrollmentCategory "
 					+ "LIMIT :limit", nativeQuery = true)
-	List<SCMetadata> findLimitedWithTissueType(@Param("tissueType") String tissueType, @Param("limit") int limit);
+	List<SCMetadata> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory, @Param("limit") int limit);
 }

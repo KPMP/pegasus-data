@@ -63,9 +63,9 @@ class RTExpressionDataAllSegmentsTest {
 	}
 
 	@Test
-	void setTissueType() {
-		rtExpressionDataAllSegments.setTissueType("tt");
-		assertEquals("tt", rtExpressionDataAllSegments.getTissueType());
+	void setEnrollmentCategory() {
+		rtExpressionDataAllSegments.setEnrollmentCategory("tt");
+		assertEquals("tt", rtExpressionDataAllSegments.getEnrollmentCategory());
 	}
 
 	@Test
