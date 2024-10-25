@@ -2,6 +2,7 @@ package org.kpmp.participant;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -38,12 +39,14 @@ public class ParticipantServiceTest {
 	private ParticipantRepoDataRepository fileByParticipantRepo;
 	@Mock
 	private RPParticipantRepository rpParticipantRepository;
+    @Mock 
+    private ParticipantClinicalDatasetRepository participantClinicalDatasetRepo;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
-				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo);
+				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo, participantClinicalDatasetRepo);
 	}
 
 	@AfterEach
@@ -51,6 +54,43 @@ public class ParticipantServiceTest {
 		MockitoAnnotations.openMocks(this).close();
 		participantService = null;
 	}
+
+    @Test
+    public void testGetParticipantClincialDataset() throws Exception {
+        ParticipantSummaryDataset newPart = new ParticipantSummaryDataset();
+        newPart.setRedcapId("1234");
+        newPart.setParticipantId(99);
+
+        ParticipantClinicalDataset expectedResult = new ParticipantClinicalDataset();
+        expectedResult.setA1c("40%");
+        expectedResult.setAlbuminuria("30 to <300 mg/g cr");
+        expectedResult.setBaselineEgfr("50-59 ml/min/1.73m2");
+        expectedResult.setDiabetesDuration("40-49 Years");
+        expectedResult.setDiabetesHistory("Yes");
+        expectedResult.setKdigoStage("Stage 4");
+        expectedResult.setOnRaasBlockade("Yes");
+        expectedResult.setParticipantClinicalId(0);
+        expectedResult.setParticipantId(99);
+        expectedResult.setProteinuria(">=1000 mg/g cr");
+
+
+        when(participantSummaryDatasetRepository.findIdByRedcapId(newPart.getRedcapId())).thenReturn(newPart.getParticipantId());
+
+        when(participantService.getParticipantClinicalDataset(newPart.getRedcapId())).thenReturn(expectedResult);
+
+        ParticipantClinicalDataset result = participantService.getParticipantClinicalDataset("1234");
+        
+        assertEquals(0, result.getParticipantClinicalId());
+        assertEquals(99, result.getParticipantId());
+        assertEquals("40%", result.getA1c());
+        assertEquals("30 to <300 mg/g cr", result.getAlbuminuria());
+        assertEquals("50-59 ml/min/1.73m2", result.getBaselineEgfr());
+        assertEquals("40-49 Years", result.getDiabetesDuration());
+        assertEquals("Yes", result.getDiabetesHistory());
+        assertEquals("Stage 4", result.getKdigoStage());
+        assertEquals("Yes", result.getOnRaasBlockade());
+        assertEquals(">=1000 mg/g cr", result.getProteinuria());
+    }
 
 	@Test
 	public void testGetParticipantSummaryDataset() throws Exception {

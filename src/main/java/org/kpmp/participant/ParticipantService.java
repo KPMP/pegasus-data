@@ -41,13 +41,14 @@ public class ParticipantService {
 	private RTParticipantRepository rtParticipantRepo;
 	private ParticipantRepoDataRepository fileByParticipantRepo;
 	private RPParticipantRepository rpParticipantRepository;
+    private ParticipantClinicalDatasetRepository participantClinicalDatasetRepo;
 
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
 			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
 			RTParticipantRepository rtParticipantRepo,
 			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository,
-			ParticipantRepoDataRepository fileByParticipantRepo) {
+			ParticipantRepoDataRepository fileByParticipantRepo, ParticipantClinicalDatasetRepository participantClinicalDatasetRepo) {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
 		this.scMetadataRepo = scMetadataRepo;
@@ -56,7 +57,13 @@ public class ParticipantService {
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 		this.rpParticipantRepository = rpParticipantRepository;
 		this.fileByParticipantRepo = fileByParticipantRepo;
+        this.participantClinicalDatasetRepo = participantClinicalDatasetRepo; 
 	}
+
+    public ParticipantClinicalDataset getParticipantClinicalDataset(String redcapId){
+        Integer participantId = participantSummaryDatasetRepository.findIdByRedcapId(redcapId);
+        return participantClinicalDatasetRepo.findByParticipantId(participantId);
+    }
 
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
 		return participantSummaryDatasetRepository.findByRedcapId(redcapId);

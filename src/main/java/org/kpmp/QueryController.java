@@ -18,6 +18,7 @@ import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.*;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.participant.ParticipantClinicalDataset;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantRepoDataTypeInformation;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
@@ -190,6 +191,16 @@ public class QueryController implements GraphQLQueryResolver {
 			throw e;
 		}
 	}
+
+    @QueryMapping
+    public ParticipantClinicalDataset getParticipantClinicalDataset(@Argument String redcapId) {
+        try{
+            return participantService.getParticipantClinicalDataset(redcapId);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+            throw e;
+        }
+    }
 
     @QueryMapping
 	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(@Argument String redcapId) {

@@ -20,6 +20,7 @@ type Query {
   getAtlasSummaryRows: AtlasRepoSummaryResult
   getAtlasMessages: [AtlasMessages]
   getExperimentalStrategyCountsByParticipant(redcapId: String!): [ParticipantRepoDataTypeInformation]
+  getParticipantClinicalDataset(redcapId: String!): ParticipantClinicalDataset
 }
 
 type AtlasMessages {
@@ -220,4 +221,19 @@ type ParticipantSummaryDataset {
   redcapId: String
   enrollmentCategory: String
   clinicalData: String
+}
+
+type ParticipantClinicalDataset {
+    participantId: String
+    participantClinicalId: String
+    kdigoStage: String
+    baselineEgfr: String
+    proteinuria: String
+    a1c: String
+    albuminuria: String
+    diabetesHistory: String
+    diabetesDuration: String
+    hypertensionHistory: String
+    hypertensionDuration: String
+    onRaasBlockade: String
 }
