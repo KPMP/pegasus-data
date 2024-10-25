@@ -35,6 +35,8 @@ public class ParticipantClinicalDataset implements Serializable{
     private String hypertensionDuration;
     @Column(name = "on_raas_blockade")
     private String onRaasBlockade;
+    @Column(name = "race")
+    private String race;
 
 
     public int getParticipantClinicalId() {
@@ -131,6 +133,14 @@ public class ParticipantClinicalDataset implements Serializable{
 
     public void setOnRaasBlockade(String onRaasBlockade) {
         this.onRaasBlockade = onRaasBlockade;
+    }
+
+    public void setRace(String race){
+        this.race = race;
+    }
+
+    public String getRace() {
+        return race;
     }
     
 }

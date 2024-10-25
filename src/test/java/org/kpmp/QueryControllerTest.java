@@ -37,6 +37,7 @@ import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.participant.ParticipantClinicalDataset;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantRepoDataTypeInformation;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
@@ -283,6 +284,16 @@ public class QueryControllerTest {
 
 	}
 
+    @Test
+    public void testGetParticipantClincialDataset() throws Exception {
+        ParticipantClinicalDataset expected = new ParticipantClinicalDataset();
+		when(participantService.getParticipantClinicalDataset("participant_id")).thenReturn(expected);
+
+		assertEquals(expected, query.getParticipantClinicalDataset("participant_id"));
+		verify(participantService).getParticipantClinicalDataset("participant_id");
+    }
+
+    @Test
 	public void testParticipantSummaryDataset() throws Exception {
 		ParticipantSummaryDataset expected = new ParticipantSummaryDataset();
 		when(participantService.getParticipantSummaryDataset("participant_id")).thenReturn(expected);
@@ -291,6 +302,7 @@ public class QueryControllerTest {
 		verify(participantService).getParticipantSummaryDataset("participant_id");
 	}
 
+    @Test
 	public void getParticipantEnrollmentCategorySummary() throws Exception {
 		List<ParticipantEnrollmentCategorySummary> expectedResult = new ArrayList<>();
 

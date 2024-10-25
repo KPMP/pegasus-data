@@ -92,5 +92,11 @@ public class ParticipantClinicalDatasetTest {
         participantClinicalDataset.setOnRaasBlockade("yes");
         assertEquals("yes", participantClinicalDataset.getOnRaasBlockade());
     }
+
+    @Test
+    void testSetRace(){
+        participantClinicalDataset.setRace("alien from outer space");
+        assertEquals("alien from outer space", participantClinicalDataset.getRace());
+    }
     
 }

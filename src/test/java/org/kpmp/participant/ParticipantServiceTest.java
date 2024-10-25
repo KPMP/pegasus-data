@@ -63,15 +63,16 @@ public class ParticipantServiceTest {
 
         ParticipantClinicalDataset expectedResult = new ParticipantClinicalDataset();
         expectedResult.setA1c("40%");
-        expectedResult.setAlbuminuria("30 to <300 mg/g cr");
-        expectedResult.setBaselineEgfr("50-59 ml/min/1.73m2");
+        expectedResult.setAlbuminuria("very bad");
+        expectedResult.setBaselineEgfr("no good");
         expectedResult.setDiabetesDuration("40-49 Years");
         expectedResult.setDiabetesHistory("Yes");
         expectedResult.setKdigoStage("Stage 4");
         expectedResult.setOnRaasBlockade("Yes");
         expectedResult.setParticipantClinicalId(0);
         expectedResult.setParticipantId(99);
-        expectedResult.setProteinuria(">=1000 mg/g cr");
+        expectedResult.setProteinuria("proteinuria");
+        expectedResult.setRace("alien from outer space");
 
 
         when(participantSummaryDatasetRepository.findIdByRedcapId(newPart.getRedcapId())).thenReturn(newPart.getParticipantId());
@@ -83,13 +84,14 @@ public class ParticipantServiceTest {
         assertEquals(0, result.getParticipantClinicalId());
         assertEquals(99, result.getParticipantId());
         assertEquals("40%", result.getA1c());
-        assertEquals("30 to <300 mg/g cr", result.getAlbuminuria());
-        assertEquals("50-59 ml/min/1.73m2", result.getBaselineEgfr());
+        assertEquals("very bad", result.getAlbuminuria());
+        assertEquals("no good", result.getBaselineEgfr());
         assertEquals("40-49 Years", result.getDiabetesDuration());
         assertEquals("Yes", result.getDiabetesHistory());
         assertEquals("Stage 4", result.getKdigoStage());
         assertEquals("Yes", result.getOnRaasBlockade());
-        assertEquals(">=1000 mg/g cr", result.getProteinuria());
+        assertEquals("proteinuria", result.getProteinuria());
+        assertEquals("alien from outer space", result.getRace());
     }
 
 	@Test
