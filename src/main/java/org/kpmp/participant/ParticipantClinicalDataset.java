@@ -37,6 +37,8 @@ public class ParticipantClinicalDataset implements Serializable{
     private String onRaasBlockade;
     @Column(name = "race")
     private String race;
+    @Column(name = "age_binned")
+    private String ageBinned;
 
 
     public int getParticipantClinicalId() {
@@ -141,6 +143,14 @@ public class ParticipantClinicalDataset implements Serializable{
 
     public String getRace() {
         return race;
+    }
+
+    public String getAgeBinned() {
+        return this.ageBinned;
+    }
+
+    public void setAgeBinned(String ageBinned) {
+        this.ageBinned = ageBinned;
     }
     
 }

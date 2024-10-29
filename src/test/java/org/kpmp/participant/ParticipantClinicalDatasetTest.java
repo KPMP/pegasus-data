@@ -98,5 +98,11 @@ public class ParticipantClinicalDatasetTest {
         participantClinicalDataset.setRace("alien from outer space");
         assertEquals("alien from outer space", participantClinicalDataset.getRace());
     }
+
+    @Test
+    void testSetAgeBinned() {
+        participantClinicalDataset.setAgeBinned("age-age2");
+        assertEquals("age-age2", participantClinicalDataset.getAgeBinned());
+    }
     
 }

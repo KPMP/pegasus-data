@@ -73,6 +73,7 @@ public class ParticipantServiceTest {
         expectedResult.setParticipantId(99);
         expectedResult.setProteinuria("proteinuria");
         expectedResult.setRace("alien from outer space");
+        expectedResult.setAgeBinned("age");
 
 
         when(participantSummaryDatasetRepository.findIdByRedcapId(newPart.getRedcapId())).thenReturn(newPart.getParticipantId());
@@ -92,6 +93,7 @@ public class ParticipantServiceTest {
         assertEquals("Yes", result.getOnRaasBlockade());
         assertEquals("proteinuria", result.getProteinuria());
         assertEquals("alien from outer space", result.getRace());
+        assertEquals("age", result.getAgeBinned());
     }
 
 	@Test
