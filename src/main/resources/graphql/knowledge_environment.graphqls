@@ -237,4 +237,5 @@ type ParticipantClinicalDataset {
     hypertensionDuration: String
     onRaasBlockade: String
     race: String
+    ageBinned: String
 }
