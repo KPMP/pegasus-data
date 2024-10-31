@@ -105,4 +105,27 @@ public class ParticipantClinicalDatasetTest {
         assertEquals("age-age2", participantClinicalDataset.getAgeBinned());
     }
     
+    @Test
+    void testSetTissueSource() {
+        participantClinicalDataset.setTissueSource("tissue");
+        assertEquals("tissue", participantClinicalDataset.getTissueSource());
+    }
+
+    @Test
+    void testSetProtocol() {
+        participantClinicalDataset.setProtocol("protocol");
+        assertEquals("protocol", participantClinicalDataset.getProtocol());
+    }
+
+    @Test
+    void testSetSampleType() {
+        participantClinicalDataset.setSampleType("Sample");
+        assertEquals("Sample", participantClinicalDataset.getSampleType());
+    }
+
+    @Test
+    void testSetSex() {
+        participantClinicalDataset.setSex("male");
+        assertEquals("male", participantClinicalDataset.getSex());
+    }
 }

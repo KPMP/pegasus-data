@@ -39,6 +39,14 @@ public class ParticipantClinicalDataset implements Serializable{
     private String race;
     @Column(name = "age_binned")
     private String ageBinned;
+    @Column(name = "tissue_source")
+    private String tissueSource;
+    @Column(name = "protocol")
+    private String protocol;
+    @Column(name = "sample_type")
+    private String sampleType;
+    @Column(name = "sex")
+    private String sex;
 
 
     public int getParticipantClinicalId() {
@@ -152,6 +160,40 @@ public class ParticipantClinicalDataset implements Serializable{
     public void setAgeBinned(String ageBinned) {
         this.ageBinned = ageBinned;
     }
+    
+
+    public String getTissueSource() {
+        return this.tissueSource;
+    }
+
+    public void setTissueSource(String tissueSource) {
+        this.tissueSource = tissueSource;
+    }
+
+    public String getProtocol() {
+        return this.protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getSampleType() {
+        return this.sampleType;
+    }
+
+    public void setSampleType(String sampleType) {
+        this.sampleType = sampleType;
+    }
+
+    public String getSex() {
+        return this.sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     
 }
 

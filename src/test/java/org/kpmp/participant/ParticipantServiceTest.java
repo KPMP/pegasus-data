@@ -74,6 +74,11 @@ public class ParticipantServiceTest {
         expectedResult.setProteinuria("proteinuria");
         expectedResult.setRace("alien from outer space");
         expectedResult.setAgeBinned("age");
+        expectedResult.setTissueSource("tissueSource");
+        expectedResult.setProtocol("protocol");
+        expectedResult.setSampleType("sample");
+        expectedResult.setSex("sex");
+
 
 
         when(participantSummaryDatasetRepository.findIdByRedcapId(newPart.getRedcapId())).thenReturn(newPart.getParticipantId());
@@ -94,6 +99,10 @@ public class ParticipantServiceTest {
         assertEquals("proteinuria", result.getProteinuria());
         assertEquals("alien from outer space", result.getRace());
         assertEquals("age", result.getAgeBinned());
+        assertEquals("tissueSource", result.getTissueSource());
+        assertEquals("protocol", result.getProtocol());
+        assertEquals("sex", result.getSex());
+        assertEquals("sample", result.getSampleType());
     }
 
 	@Test

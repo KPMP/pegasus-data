@@ -238,4 +238,8 @@ type ParticipantClinicalDataset {
     onRaasBlockade: String
     race: String
     ageBinned: String
+    sex: String
+    sampleType: String
+    tissueSource: String
+    protocol: String
 }
