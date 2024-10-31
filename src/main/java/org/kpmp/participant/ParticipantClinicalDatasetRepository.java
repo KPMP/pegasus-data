@@ -27,8 +27,8 @@ public interface ParticipantClinicalDatasetRepository extends CrudRepository<Par
                 "p.age_binned, " + 
                 "p.sex," + 
                 "p.tissue_source, " + 
-                "p.protocol," + 
-                "p.sample_type," + 
+                "p.protocol, " + 
+                "p.sample_type " + 
                 "from participant_clinical pc join participant p on pc.participant_id = p.participant_id where pc.participant_id = :participantId ", nativeQuery = true)
 	ParticipantClinicalDataset findByParticipantId(@Param("participantId") Integer participantId);
 
