@@ -35,7 +35,7 @@ public class RPExpressionDataServiceTest {
     }
 
     @Test
-    public void testGetByGeneSymbolPerTissue() throws Exception {
+    public void testGetByGeneSymbolPerEnrollment() throws Exception {
 
         List<String> accessions = new ArrayList<>();
         accessions.add("a1");
@@ -52,7 +52,7 @@ public class RPExpressionDataServiceTest {
         when(rpExpressionDataRepository.findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts("gene", EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory(), "a2")).
                 thenReturn(rpExpressionDataAll2);
 
-        List<RPAccessionGroup> rpAccessionGroups = rpExpressionDataService.getByGeneSymbolPerTissue("gene");
+        List<RPAccessionGroup> rpAccessionGroups = rpExpressionDataService.getByGeneSymbolPerEnrollment("gene");
 
         assertEquals("a1", rpAccessionGroups.get(0).getAccession());
         assertEquals("a2", rpAccessionGroups.get(1).getAccession());
@@ -66,13 +66,13 @@ public class RPExpressionDataServiceTest {
     }
 
     @Test
-    public void testGetByGeneSymbolAndProteinPerTissue() throws Exception {
+    public void testgetByGeneSymbolAndProteinPerEnrollment() throws Exception {
         List<RPExpressionData>  rpExpressionDataAll = Arrays.asList(new RPExpressionData[]{new RPExpressionData()});
        
         when(rpExpressionDataRepository.findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts("gene", EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory(), "protein")).
                 thenReturn(rpExpressionDataAll);
 
-        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("gene", "protein");
+        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = rpExpressionDataService.getByGeneSymbolAndProteinPerEnrollment("gene", "protein");
 
         assertEquals(rpExpressionByEnrollmentCategory.getAll(), rpExpressionDataAll);
     }

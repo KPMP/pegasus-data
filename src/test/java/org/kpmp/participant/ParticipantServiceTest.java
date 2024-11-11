@@ -118,7 +118,6 @@ public class ParticipantServiceTest {
 		expectedResult.setProtocol("7");
 		expectedResult.setSampleType("8");
 		expectedResult.setEnrollmentCategory("9");
-		expectedResult.setClinicalData("10");
 
 		when(participantSummaryDatasetRepository.findByRedcapId("1")).thenReturn(expectedResult);
 
@@ -135,7 +134,6 @@ public class ParticipantServiceTest {
 		assertEquals("7", result.getProtocol());
 		assertEquals("8", result.getSampleType());
 		assertEquals("9", result.getEnrollmentCategory());
-		assertEquals("10", result.getClinicalData());
 	}
 
 	@Test

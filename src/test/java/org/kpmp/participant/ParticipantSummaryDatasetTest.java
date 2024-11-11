@@ -76,10 +76,4 @@ class ParticipantSummaryDatasetTest {
         assertEquals("tissue", participantSummaryDataset.getEnrollmentCategory());
     }
 
-    @Test
-    void setClinicalData() {
-        participantSummaryDataset.setClinicalData("clinical");
-        assertEquals("clinical", participantSummaryDataset.getClinicalData());
-    }
-
 }

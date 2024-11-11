@@ -17,18 +17,18 @@ public class RPExpressionDataService {
         this.rpExpressionDataRepository = rpExpressionDataRepository;
     }
 
-    public List<RPAccessionGroup> getByGeneSymbolPerTissue(String geneSymbol) {
+    public List<RPAccessionGroup> getByGeneSymbolPerEnrollment(String geneSymbol) {
         List<String> accessionNums = rpExpressionDataRepository.findAccessionByGeneSymbol(geneSymbol);
         List<RPAccessionGroup> groups = new ArrayList<>();
         for (String accession: accessionNums) {
-            RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = getByGeneSymbolAndProteinPerTissue(geneSymbol, accession);
+            RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = getByGeneSymbolAndProteinPerEnrollment(geneSymbol, accession);
             RPAccessionGroup group = new RPAccessionGroup(accession, rpExpressionByEnrollmentCategory);
             groups.add(group);
         }
         return groups;
     }
 
-    public RPExpressionByEnrollmentCategory getByGeneSymbolAndProteinPerTissue(String geneSymbol, String protein) {
+    public RPExpressionByEnrollmentCategory getByGeneSymbolAndProteinPerEnrollment(String geneSymbol, String protein) {
         RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = new RPExpressionByEnrollmentCategory();
 
         rpExpressionByEnrollmentCategory.setAll(rpExpressionDataRepository.findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts(geneSymbol, EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory(), protein));
