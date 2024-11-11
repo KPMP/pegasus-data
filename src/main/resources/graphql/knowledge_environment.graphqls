@@ -220,7 +220,6 @@ type ParticipantSummaryDataset {
   participantId: String
   redcapId: String
   enrollmentCategory: String
-  clinicalData: String
 }
 
 type ParticipantClinicalDataset {

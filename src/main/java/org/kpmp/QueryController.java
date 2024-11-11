@@ -141,7 +141,7 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public RTExpressionByEnrollmentCategory getRTGeneExpressionByTissue(@Argument String comparisonType, @Argument String geneSymbol)
+	public RTExpressionByEnrollmentCategory getRTGeneExpressionByEnrollment(@Argument String comparisonType, @Argument String geneSymbol)
 			throws Exception {
 		try {
 			return rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerEnrollment(comparisonType, geneSymbol);
@@ -152,9 +152,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public RPExpressionByEnrollmentCategory getRPGeneExpressionByTissueAndProtein(@Argument String geneSymbol, @Argument String protein) throws Exception {
+	public RPExpressionByEnrollmentCategory getRPGeneExpressionByEnrollmentAndProtein(@Argument String geneSymbol, @Argument String protein) throws Exception {
 		try {
-			return rpExpressionDataService.getByGeneSymbolAndProteinPerTissue(geneSymbol, protein);
+			return rpExpressionDataService.getByGeneSymbolAndProteinPerEnrollment(geneSymbol, protein);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -182,10 +182,10 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public List<RPAccessionGroup> getRPGeneExpressionByTissue(@Argument String geneSymbol)
+	public List<RPAccessionGroup> getRPGeneExpressionByEnrollment(@Argument String geneSymbol)
 			throws Exception {
 		try {
-			return rpExpressionDataService.getByGeneSymbolPerTissue(geneSymbol);
+			return rpExpressionDataService.getByGeneSymbolPerEnrollment(geneSymbol);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

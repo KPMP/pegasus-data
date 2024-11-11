@@ -240,7 +240,7 @@ public class QueryControllerTest {
 		rtExpressionByEnrollmentCategory.setAki(data);
 		when(rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerEnrollment("all_segments", "gene"))
 				.thenReturn(rtExpressionByEnrollmentCategory);
-		assertEquals(rtExpressionByEnrollmentCategory, query.getRTGeneExpressionByTissue("all_segments", "gene"));
+		assertEquals(rtExpressionByEnrollmentCategory, query.getRTGeneExpressionByEnrollment("all_segments", "gene"));
 		assertEquals(rtExpressionByEnrollmentCategory.getAki(), data);
 	}
 
@@ -253,11 +253,11 @@ public class QueryControllerTest {
 	}
 
 	@Test
-	public void testGetRPGeneExpressionByTissueAndProtein() throws Exception {
+	public void testGetRPGeneExpressionByEnrollmentAndProtein() throws Exception {
 		RPExpressionByEnrollmentCategory expected = new RPExpressionByEnrollmentCategory();
-		when(rpExpressionDataService.getByGeneSymbolAndProteinPerTissue("APOL1", "steak")).thenReturn(expected);
+		when(rpExpressionDataService.getByGeneSymbolAndProteinPerEnrollment("APOL1", "steak")).thenReturn(expected);
 
-		RPExpressionByEnrollmentCategory result = query.getRPGeneExpressionByTissueAndProtein("APOL1", "steak");
+		RPExpressionByEnrollmentCategory result = query.getRPGeneExpressionByEnrollmentAndProtein("APOL1", "steak");
 
 		assertEquals(expected, result);
 	}

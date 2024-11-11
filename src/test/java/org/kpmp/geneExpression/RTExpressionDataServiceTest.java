@@ -35,7 +35,7 @@ public class RTExpressionDataServiceTest {
 	}
 
 	@Test
-	public void testGetByComparisonTypeAndGeneSymbolPerTissue_all() throws Exception {
+	public void testGetByComparisonTypeAndGeneSymbolPerEnrollment_all() throws Exception {
 
 		RTExpressionDataAllSegments allallData = new RTExpressionDataAllSegments();
 		List<RTExpressionDataAllSegments> allallDataList = Arrays.asList(allallData);
@@ -58,7 +58,7 @@ public class RTExpressionDataServiceTest {
 	}
 
 	@Test
-	public void testGetByComparisonTypeAndGeneSymbolPerTissue_hrt() throws Exception {
+	public void testGetByComparisonTypeAndGeneSymbolPerEnrollment_hrt() throws Exception {
 
 		RTExpressionDataAllSegments allhrtData = new RTExpressionDataAllSegments();
 		List<RTExpressionDataAllSegments> allhrtDataList = Arrays.asList(allhrtData);
@@ -81,7 +81,7 @@ public class RTExpressionDataServiceTest {
 	}
 
 	@Test
-	public void testGetByComparisonTypeAndGeneSymbolPerTissue_ckd() throws Exception {
+	public void testGetByComparisonTypeAndGeneSymbolPerEnrollment_ckd() throws Exception {
 		RTExpressionDataAllSegments allckdData = new RTExpressionDataAllSegments();
 		List<RTExpressionDataAllSegments> allckdDataList = Arrays.asList(allckdData);
 		RTExpressionDataGTI gckdData = new RTExpressionDataGTI();
@@ -103,7 +103,7 @@ public class RTExpressionDataServiceTest {
 	}
 
 	@Test
-	public void testGetByComparisonTypeAndGeneSymbolPerTissue_aki() throws Exception {
+	public void testGetByComparisonTypeAndGeneSymbolPerEnrollment_aki() throws Exception {
 		RTExpressionDataAllSegments allAkiData = new RTExpressionDataAllSegments();
 		List<RTExpressionDataAllSegments> allAkiDataList = Arrays.asList(allAkiData);
 		RTExpressionDataGTI gAkiData = new RTExpressionDataGTI();
@@ -125,7 +125,7 @@ public class RTExpressionDataServiceTest {
 	}
 
 	@Test
-	public void testGetByComparisonTypeAndGeneSymbolPerTissue_dmr() throws Exception {
+	public void testGetByComparisonTypeAndGeneSymbolPerEnrollment_dmr() throws Exception {
 		RTExpressionDataAllSegments allDmrData = new RTExpressionDataAllSegments();
 		List<RTExpressionDataAllSegments> allDmrDataList = Arrays.asList(allDmrData);
 		RTExpressionDataGTI gDmrData = new RTExpressionDataGTI();
