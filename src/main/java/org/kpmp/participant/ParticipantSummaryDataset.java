@@ -28,6 +28,8 @@ public class ParticipantSummaryDataset implements Serializable {
 	private String sampleType;
 	@Column(name = "enrollment_category")
 	private String enrollmentCategory;
+	@Column(name = "primary_adjudicated_cat")
+	private String adjudicatedCategory;
 
 	public int getParticipantId() {
 		return participantId;
@@ -99,6 +101,14 @@ public class ParticipantSummaryDataset implements Serializable {
 
 	public void setEnrollmentCategory(String enrollmentCategory) {
 		this.enrollmentCategory = enrollmentCategory;
+	}
+
+	public String getAdjudicatedCategory() {
+		return adjudicatedCategory;
+	}
+
+	public void setAdjudicatedCategory(String adjudicatedCategory) {
+		this.adjudicatedCategory = adjudicatedCategory;
 	}
 
 }
