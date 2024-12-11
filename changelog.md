@@ -2,12 +2,17 @@
 
 ## Release 2.6 (unreleased)
 Brief summary of what's in this release:
+- Added Primary adjudicated category to the participant summary
+- Modified participant summary endpoint to remove "clinicalData" section in favor of individual elements
+- Changed tables to refer to enrollment category rather than tissue type
 
 ### Breaking changes
-
-
-### Non-breaking changes
-
+- This version won't work with previous versions of the database because we:
+  - moved where/how we store clinical data for a participant
+  - changed the tissue type columns to enrollment category
+- This version won't work with previous versions of front end apps because we:
+  - changed the format of the data returned to refer to enrollment category rather than tissue type
+  - changed the format of the data returned for participant summary 
 
 ## Release 2.5 (10/3/2024)
 - Java upgrade
