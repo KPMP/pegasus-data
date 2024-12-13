@@ -43,8 +43,8 @@ public class RPExpressionData {
     @Column(name = "fold_change")
     private Double foldChange;
 
-    @Column(name = "tissue_type")
-    private String tissueType;
+    @Column(name = "enrollment_category")
+    private String enrollmentCategory;
 
     @Column(name = "region")
     private String region;
@@ -139,12 +139,12 @@ public class RPExpressionData {
         this.foldChange = foldChange;
     }
 
-    public String getTissueType() {
-        return tissueType;
+    public String getEnrollmentCategory() {
+        return enrollmentCategory;
     }
 
-    public void setTissueType(String tissueType) {
-        this.tissueType = tissueType;
+    public void setEnrollmentCategory(String enrollmentCategory) {
+        this.enrollmentCategory = enrollmentCategory;
     }
 
     public String getRegion() {

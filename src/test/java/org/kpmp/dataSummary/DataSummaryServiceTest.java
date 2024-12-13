@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.file.ARFileInfoService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -70,36 +70,36 @@ public class DataSummaryServiceTest {
 		strategies.get(3).setDataType("datatype");
 
 		when(atlasRepoSummaryRepository.findAll()).thenReturn(strategies);
-		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType())).thenReturn(Long.valueOf(1));
-		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())).thenReturn(Long.valueOf(3));
-		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())).thenReturn(4l);
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory())).thenReturn(Long.valueOf(1));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory())).thenReturn(Long.valueOf(2));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory())).thenReturn(Long.valueOf(3));
+		when(dataSummaryRepository.getRepoBiomarkerSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory())).thenReturn(4l);
 
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				"")).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				"")).thenReturn(Long.valueOf(6));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				"")).thenReturn(Long.valueOf(7));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				"")).thenReturn(8l);
 
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				"strategy1")).thenReturn(Long.valueOf(9));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				"strategy1")).thenReturn(Long.valueOf(10));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				"strategy1")).thenReturn(Long.valueOf(11));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				"strategy1")).thenReturn(12l);
 
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				"strategy2")).thenReturn(Long.valueOf(13));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				"strategy2")).thenReturn(Long.valueOf(14));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				"strategy2")).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getRepoDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getRepoDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				"strategy2")).thenReturn(16l);
 
 		List<AtlasRepoSummaryRow> result = dataSummaryService.getAtlasRepoSummary().getSummaryRows();
@@ -131,84 +131,84 @@ public class DataSummaryServiceTest {
 
 	@Test
 	public void testGetGeneDatasetInformation() throws Exception {
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(0));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(20));
 
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()))
 						.thenReturn(Long.valueOf(25));
 
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
 				.getParticipantSummaryCount(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX_FULL.getFullName()))
 				.thenReturn(Long.valueOf(22));
 
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.AKI.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.CKD.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
-		when(dataSummaryRepository.getDataSummaryLinkCount(TissueTypeEnum.DMR.getParticipantTissueType(),
+		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
 				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
 				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()))

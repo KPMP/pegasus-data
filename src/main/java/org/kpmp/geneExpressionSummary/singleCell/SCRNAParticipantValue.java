@@ -17,8 +17,8 @@ public class SCRNAParticipantValue implements Serializable {
 
 	private static final long serialVersionUID = 8746341469788157316L;
 
-	@Column(name = "tissue_type")
-	private String tissueType;
+	@Column(name = "enrollment_category")
+	private String enrollmentCategory;
 
 	@Column(name = "redcap_id")
 	private String redcapId;
@@ -32,11 +32,11 @@ public class SCRNAParticipantValue implements Serializable {
 		this.redcapId = redcapId;
 	}
 
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 }

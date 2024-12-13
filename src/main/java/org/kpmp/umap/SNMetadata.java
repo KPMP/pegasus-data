@@ -26,8 +26,8 @@ public class SNMetadata implements UmapPoint, Serializable {
 	@Id
 	@Column(name = "barcode")
 	private String barcode;
-	@Column(name = "tissue_type")
-	private String tissueType;
+	@Column(name = "enrollment_category")
+	private String enrollmentCategory;
 	@Transient
 	private double expressionValue;
 
@@ -101,12 +101,12 @@ public class SNMetadata implements UmapPoint, Serializable {
 		this.barcode = barcode;
 	}
 
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 
 }

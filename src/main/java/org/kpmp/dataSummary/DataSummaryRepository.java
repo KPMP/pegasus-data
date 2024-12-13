@@ -14,9 +14,9 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "select count(distinct(redcap_id)) from participant p "
 			+ "join file_participant fp on p.participant_id = fp.participant_id "
 			+ "join file f on f.file_id= fp.file_id " + "join sv_file_info sv on sv.file_id = f.file_id "
-			+ "where sv.config_type = :data_type " + "and p.tissue_type = :tissue_type " 
+			+ "where sv.config_type = :data_type " + "and p.enrollment_category = :enrollment_category " 
 	       		+ "and sv.release_sunset_version is null", nativeQuery = true)
-	Long getDataSummaryCount(@Param("tissue_type") String tissue_type, @Param("data_type") String data_type);
+	Long getDataSummaryCount(@Param("enrollment_category") String enrollment_category, @Param("data_type") String data_type);
 
 	@Cacheable("dataSummaryTotal")
 	@Query(value = "select count(distinct(redcap_id)) from participant p "
@@ -26,16 +26,16 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	Long getDataSummaryTotal(@Param("data_type") String data_type);
 	
 	@Cacheable("repoDataSummaryCount")
-	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where experimental_strategy = :exp_strat and tissue_type = :tissue_type", nativeQuery = true)
-	Long getRepoDataSummaryCount(@Param("tissue_type") String tissue_type, @Param("exp_strat") String exp_strat);
+	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where experimental_strategy = :exp_strat and enrollment_category = :enrollment_category", nativeQuery = true)
+	Long getRepoDataSummaryCount(@Param("enrollment_category") String enrollment_category, @Param("exp_strat") String exp_strat);
 
 	@Cacheable("repoDataSummaryTotal")
 	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where experimental_strategy = :exp_strat", nativeQuery = true)
 	Long getRepoDataSummaryTotal(@Param("exp_strat") String exp_strat);
 	
 	@Cacheable("repoBiomarkerSummaryCount")
-	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where data_category = 'Biomarker' and tissue_type = :tissue_type", nativeQuery = true)
-	Long getRepoBiomarkerSummaryCount(@Param("tissue_type") String tissue_type);
+	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where data_category = 'Biomarker' and enrollment_category = :enrollment_category", nativeQuery = true)
+	Long getRepoBiomarkerSummaryCount(@Param("enrollment_category") String enrollment_category);
 	
 	@Cacheable("repoBiomarkerSummaryTotal")
 	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where data_category = 'Biomarker' ", nativeQuery = true)
@@ -43,8 +43,8 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 
 	@Cacheable("dataSummaryLinkCount")
 	@Query(value = "select count(distinct(redcap_id)) " + "from sv_link_v " + "where data_type = :data_type "
-			+ "and tissue_type = :tissue_type", nativeQuery = true)
-	Long getDataSummaryLinkCount(@Param("tissue_type") String tissue_type, @Param("data_type") String data_type);
+			+ "and enrollment_category = :enrollment_category", nativeQuery = true)
+	Long getDataSummaryLinkCount(@Param("enrollment_category") String enrollment_category, @Param("data_type") String data_type);
 
 	@Cacheable("dataSummaryLinkTotal")
 	@Query(value = "select count(distinct(redcap_id)) " + "from sv_link_v " + "where data_type = :data_type ", nativeQuery = true)

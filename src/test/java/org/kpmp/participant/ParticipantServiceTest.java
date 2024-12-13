@@ -2,12 +2,13 @@ package org.kpmp.participant;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,12 +39,14 @@ public class ParticipantServiceTest {
 	private ParticipantRepoDataRepository fileByParticipantRepo;
 	@Mock
 	private RPParticipantRepository rpParticipantRepository;
+    @Mock 
+    private ParticipantClinicalDatasetRepository participantClinicalDatasetRepo;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
-				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo);
+				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo, participantClinicalDatasetRepo);
 	}
 
 	@AfterEach
@@ -51,6 +54,56 @@ public class ParticipantServiceTest {
 		MockitoAnnotations.openMocks(this).close();
 		participantService = null;
 	}
+
+    @Test
+    public void testGetParticipantClincialDataset() throws Exception {
+        ParticipantSummaryDataset newPart = new ParticipantSummaryDataset();
+        newPart.setRedcapId("1234");
+        newPart.setParticipantId(99);
+
+        ParticipantClinicalDataset expectedResult = new ParticipantClinicalDataset();
+        expectedResult.setA1c("40%");
+        expectedResult.setAlbuminuria("very bad");
+        expectedResult.setBaselineEgfr("no good");
+        expectedResult.setDiabetesDuration("40-49 Years");
+        expectedResult.setDiabetesHistory("Yes");
+        expectedResult.setKdigoStage("Stage 4");
+        expectedResult.setOnRaasBlockade("Yes");
+        expectedResult.setParticipantClinicalId(0);
+        expectedResult.setParticipantId(99);
+        expectedResult.setProteinuria("proteinuria");
+        expectedResult.setRace("alien from outer space");
+        expectedResult.setAgeBinned("age");
+        expectedResult.setTissueSource("tissueSource");
+        expectedResult.setProtocol("protocol");
+        expectedResult.setSampleType("sample");
+        expectedResult.setSex("sex");
+
+
+
+        when(participantSummaryDatasetRepository.findIdByRedcapId(newPart.getRedcapId())).thenReturn(newPart.getParticipantId());
+
+        when(participantService.getParticipantClinicalDataset(newPart.getRedcapId())).thenReturn(expectedResult);
+
+        ParticipantClinicalDataset result = participantService.getParticipantClinicalDataset("1234");
+        
+        assertEquals(0, result.getParticipantClinicalId());
+        assertEquals(99, result.getParticipantId());
+        assertEquals("40%", result.getA1c());
+        assertEquals("very bad", result.getAlbuminuria());
+        assertEquals("no good", result.getBaselineEgfr());
+        assertEquals("40-49 Years", result.getDiabetesDuration());
+        assertEquals("Yes", result.getDiabetesHistory());
+        assertEquals("Stage 4", result.getKdigoStage());
+        assertEquals("Yes", result.getOnRaasBlockade());
+        assertEquals("proteinuria", result.getProteinuria());
+        assertEquals("alien from outer space", result.getRace());
+        assertEquals("age", result.getAgeBinned());
+        assertEquals("tissueSource", result.getTissueSource());
+        assertEquals("protocol", result.getProtocol());
+        assertEquals("sex", result.getSex());
+        assertEquals("sample", result.getSampleType());
+    }
 
 	@Test
 	public void testGetParticipantSummaryDataset() throws Exception {
@@ -64,8 +117,7 @@ public class ParticipantServiceTest {
 		expectedResult.setTissueSource("6");
 		expectedResult.setProtocol("7");
 		expectedResult.setSampleType("8");
-		expectedResult.setTissueType("9");
-		expectedResult.setClinicalData("10");
+		expectedResult.setEnrollmentCategory("9");
 
 		when(participantSummaryDatasetRepository.findByRedcapId("1")).thenReturn(expectedResult);
 
@@ -81,8 +133,7 @@ public class ParticipantServiceTest {
 		assertEquals("6", result.getTissueSource());
 		assertEquals("7", result.getProtocol());
 		assertEquals("8", result.getSampleType());
-		assertEquals("9", result.getTissueType());
-		assertEquals("10", result.getClinicalData());
+		assertEquals("9", result.getEnrollmentCategory());
 	}
 
 	@Test
@@ -154,15 +205,15 @@ public class ParticipantServiceTest {
 	}
 
 	@Test
-	public void testGetTissueCounts() throws Exception {
-		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType())).thenReturn(Long .valueOf(4));
-		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType())).thenReturn(Long .valueOf(5));
-		when(participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType())).thenReturn(Long .valueOf(6));
+	public void testGetEnrollmentCounts() throws Exception {
+		when(participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory())).thenReturn(Long .valueOf(4));
+		when(participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory())).thenReturn(Long .valueOf(5));
+		when(participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory())).thenReturn(Long .valueOf(6));
 
-		List<ParticipantTissueTypeSummary> result = participantService.getTissueData();
-		ParticipantTissueTypeSummary resultDataAki = result.get(0);
-		ParticipantTissueTypeSummary resultDataCkd = result.get(0);
-		ParticipantTissueTypeSummary resultDataHrt = result.get(0);
+		List<ParticipantEnrollmentCategorySummary> result = participantService.getEnrollmentData();
+		ParticipantEnrollmentCategorySummary resultDataAki = result.get(0);
+		ParticipantEnrollmentCategorySummary resultDataCkd = result.get(0);
+		ParticipantEnrollmentCategorySummary resultDataHrt = result.get(0);
 
 
 		assertEquals(Long.valueOf(4), resultDataAki.getAkiCount());

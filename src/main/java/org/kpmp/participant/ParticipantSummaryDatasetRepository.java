@@ -13,7 +13,10 @@ public interface ParticipantSummaryDatasetRepository extends CrudRepository<Part
     @Query(value = "select * from participant where redcap_id= :redcapId", nativeQuery = true)
 	ParticipantSummaryDataset findByRedcapId(@Param("redcapId") String redcapId);
 
-	@Cacheable("partipantByTissueType")
-	@Query(value = "select count(*) from participant where tissue_type= :tissue_type", nativeQuery = true)
-	Long getDataSummaryCount(@Param("tissue_type") String tissue_type);
+    @Query(value = "SELECT participant_id FROM participant WHERE redcap_id= :redcapId", nativeQuery = true)
+    Integer findIdByRedcapId(@Param("redcapId") String redcapId);
+
+	@Cacheable("partipantByEnrollmentCategory")
+	@Query(value = "select count(*) from participant where enrollment_category= :enrollment_category", nativeQuery = true)
+	Long getDataSummaryCount(@Param("enrollment_category") String enrollment_category);
 }

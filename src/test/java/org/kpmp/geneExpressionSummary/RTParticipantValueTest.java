@@ -31,8 +31,8 @@ class RTParticipantValueTest {
     }
 
     @Test
-    void setTissueType() {
-        rtParticipantValue.setTissueType("ttype");
-        assertEquals("ttype", rtParticipantValue.getTissueType());
+    void setEnrollmentCategory() {
+        rtParticipantValue.setEnrollmentCategory("ttype");
+        assertEquals("ttype", rtParticipantValue.getEnrollmentCategory());
     }
 }

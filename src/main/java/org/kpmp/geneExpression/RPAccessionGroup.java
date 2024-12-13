@@ -1,15 +1,15 @@
 package org.kpmp.geneExpression;
 public class RPAccessionGroup {
         private String accession;
-        private RPExpressionByTissueType rpExpressionByTissueType;
+        private RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory;
 
         public RPAccessionGroup() {
                 this.accession = null;
-                this.rpExpressionByTissueType = null;
+                this.rpExpressionByEnrollmentCategory = null;
         }
-        public RPAccessionGroup(String accession, RPExpressionByTissueType rpExpressionByTissueType) {
+        public RPAccessionGroup(String accession, RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory) {
                 this.accession = accession;
-                this.rpExpressionByTissueType = rpExpressionByTissueType;
+                this.rpExpressionByEnrollmentCategory = rpExpressionByEnrollmentCategory;
         }
 
         public String getAccession() {
@@ -20,11 +20,11 @@ public class RPAccessionGroup {
                 this.accession = accession;
         }
 
-        public RPExpressionByTissueType getRpExpressionByTissueType() {
-                return rpExpressionByTissueType;
+        public RPExpressionByEnrollmentCategory getRpExpressionByEnrollmentCategory() {
+                return rpExpressionByEnrollmentCategory;
         }
 
-        public void setRpExpressionByTissueType(RPExpressionByTissueType rpExpressionByTissueType) {
-                this.rpExpressionByTissueType = rpExpressionByTissueType;
+        public void setRpExpressionByEnrollmentCategory(RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory) {
+                this.rpExpressionByEnrollmentCategory = rpExpressionByEnrollmentCategory;
         }
 }

@@ -18,12 +18,13 @@ import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.*;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.participant.ParticipantClinicalDataset;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantRepoDataTypeInformation;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
 import org.kpmp.participant.ParticipantSummaryDataset;
-import org.kpmp.participant.ParticipantTissueTypeSummary;
+import org.kpmp.participant.ParticipantEnrollmentCategorySummary;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService;
 import org.slf4j.Logger;
@@ -82,13 +83,13 @@ public class QueryController implements GraphQLQueryResolver {
 
     @QueryMapping
 	public List<? extends GeneExpressionSummary> geneExpressionSummary(@Argument String dataType, @Argument String geneSymbol,
-        @Argument String cellType, @Argument String tissueType) throws IOException {
+        @Argument String cellType, @Argument String enrollmentCategory) throws IOException {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		if (cellType.isEmpty()) {
-			results = geneExpressionSummaryService.getByDataTypeTissueTypeAndGene(dataType, geneSymbol, tissueType);
+			results = geneExpressionSummaryService.getByDataTypeEnrollmentCategoryAndGene(dataType, geneSymbol, enrollmentCategory);
 		} else if (geneSymbol.isEmpty()) {
-			results = geneExpressionSummaryService.getExpressionSummaryPerGeneByCellTypeAndTissueType(dataType,
-					cellType, tissueType);
+			results = geneExpressionSummaryService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(dataType,
+					cellType, enrollmentCategory);
 		}
 		return results;
 	}
@@ -99,9 +100,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String tissueType) throws Exception {
+	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
 		try {
-			return umapService.getPlotData(dataType, geneSymbol, tissueType);
+			return umapService.getPlotData(dataType, geneSymbol, enrollmentCategory);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -140,10 +141,10 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public RTExpressionByTissueType getRTGeneExpressionByTissue(@Argument String comparisonType, @Argument String geneSymbol)
+	public RTExpressionByEnrollmentCategory getRTGeneExpressionByEnrollment(@Argument String comparisonType, @Argument String geneSymbol)
 			throws Exception {
 		try {
-			return rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerTissue(comparisonType, geneSymbol);
+			return rtExpressionDataService.getByComparisonTypeAndGeneSymbolPerEnrollment(comparisonType, geneSymbol);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -151,9 +152,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public RPExpressionByTissueType getRPGeneExpressionByTissueAndProtein(@Argument String geneSymbol, @Argument String protein) throws Exception {
+	public RPExpressionByEnrollmentCategory getRPGeneExpressionByEnrollmentAndProtein(@Argument String geneSymbol, @Argument String protein) throws Exception {
 		try {
-			return rpExpressionDataService.getByGeneSymbolAndProteinPerTissue(geneSymbol, protein);
+			return rpExpressionDataService.getByGeneSymbolAndProteinPerEnrollment(geneSymbol, protein);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -181,15 +182,25 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public List<RPAccessionGroup> getRPGeneExpressionByTissue(@Argument String geneSymbol)
+	public List<RPAccessionGroup> getRPGeneExpressionByEnrollment(@Argument String geneSymbol)
 			throws Exception {
 		try {
-			return rpExpressionDataService.getByGeneSymbolPerTissue(geneSymbol);
+			return rpExpressionDataService.getByGeneSymbolPerEnrollment(geneSymbol);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
 		}
 	}
+
+    @QueryMapping
+    public ParticipantClinicalDataset getParticipantClinicalDataset(@Argument String redcapId) {
+        try{
+            return participantService.getParticipantClinicalDataset(redcapId);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+            throw e;
+        }
+    }
 
     @QueryMapping
 	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(@Argument String redcapId) {
@@ -225,9 +236,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public List<ParticipantTissueTypeSummary> getTissueTypeSummaryData() throws Exception {
+	public List<ParticipantEnrollmentCategorySummary> getEnrollmentCategorySummaryData() throws Exception {
 		try {
-			return participantService.getTissueData();
+			return participantService.getEnrollmentData();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

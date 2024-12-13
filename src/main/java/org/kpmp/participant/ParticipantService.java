@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.kpmp.FullDataTypeEnum;
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.dataSummary.AtlasRepositoryLinkInformation;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
@@ -41,13 +41,14 @@ public class ParticipantService {
 	private RTParticipantRepository rtParticipantRepo;
 	private ParticipantRepoDataRepository fileByParticipantRepo;
 	private RPParticipantRepository rpParticipantRepository;
+    private ParticipantClinicalDatasetRepository participantClinicalDatasetRepo;
 
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
 			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
 			RTParticipantRepository rtParticipantRepo,
 			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository,
-			ParticipantRepoDataRepository fileByParticipantRepo) {
+			ParticipantRepoDataRepository fileByParticipantRepo, ParticipantClinicalDatasetRepository participantClinicalDatasetRepo) {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
 		this.scMetadataRepo = scMetadataRepo;
@@ -56,21 +57,27 @@ public class ParticipantService {
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 		this.rpParticipantRepository = rpParticipantRepository;
 		this.fileByParticipantRepo = fileByParticipantRepo;
+        this.participantClinicalDatasetRepo = participantClinicalDatasetRepo; 
 	}
+
+    public ParticipantClinicalDataset getParticipantClinicalDataset(String redcapId){
+        Integer participantId = participantSummaryDatasetRepository.findIdByRedcapId(redcapId);
+        return participantClinicalDatasetRepo.findByParticipantId(participantId);
+    }
 
 	public ParticipantSummaryDataset getParticipantSummaryDataset(String redcapId) {
 		return participantSummaryDatasetRepository.findByRedcapId(redcapId);
 	}
 
-	public List<ParticipantTissueTypeSummary> getTissueData() {
-		List<ParticipantTissueTypeSummary> tissueData = new ArrayList<>();
+	public List<ParticipantEnrollmentCategorySummary> getEnrollmentData() {
+		List<ParticipantEnrollmentCategorySummary> enrollmentData = new ArrayList<>();
 
-		tissueData.add(new ParticipantTissueTypeSummary(
-				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.AKI.getParticipantTissueType()),
-				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.CKD.getParticipantTissueType()),
-				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.HEALTHY_REFERENCE.getParticipantTissueType()),
-				participantSummaryDatasetRepository.getDataSummaryCount(TissueTypeEnum.DMR.getParticipantTissueType())));
-		return tissueData;
+		enrollmentData.add(new ParticipantEnrollmentCategorySummary(
+				participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+				participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
+				participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
+				participantSummaryDatasetRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory())));
+		return enrollmentData;
 	}
 
 	public ParticipantRepoDataTypeSummary getDataTypeCounts(String redcapId) {

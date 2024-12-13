@@ -21,9 +21,9 @@ public class ParticipantIdTest {
     }
 
     @Test
-    public void testSetTissueType() throws Exception {
-        participantId.setTissueType("aki");
-        assertEquals("aki", participantId.getTissueType());
+    public void testSetEnrollmentCategory() throws Exception {
+        participantId.setEnrollmentCategory("aki");
+        assertEquals("aki", participantId.getEnrollmentCategory());
     }
 
     @Test

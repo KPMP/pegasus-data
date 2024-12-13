@@ -11,8 +11,8 @@ import java.io.Serializable;
 @IdClass(ParticipantId.class)
 public class RPParticipantValue implements Participant, Serializable {
 
-    @Column(name = "tissue_type")
-    private String tissueType;
+    @Column(name = "enrollment_category")
+    private String enrollmentCategory;
 
     @Column(name = "redcap_id")
     private String redcapId;
@@ -29,13 +29,13 @@ public class RPParticipantValue implements Participant, Serializable {
     }
 
     @Override
-    public String getTissueType() {
-        return tissueType;
+    public String getEnrollmentCategory() {
+        return enrollmentCategory;
     }
 
     @Override
-    public void setTissueType(String tissueType) {
-        this.tissueType = tissueType;
+    public void setEnrollmentCategory(String enrollmentCategory) {
+        this.enrollmentCategory = enrollmentCategory;
     }
 
 }

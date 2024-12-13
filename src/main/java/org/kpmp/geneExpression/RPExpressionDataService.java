@@ -3,7 +3,7 @@ package org.kpmp.geneExpression;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kpmp.TissueTypeEnum;
+import org.kpmp.EnrollmentCategoryEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +17,23 @@ public class RPExpressionDataService {
         this.rpExpressionDataRepository = rpExpressionDataRepository;
     }
 
-    public List<RPAccessionGroup> getByGeneSymbolPerTissue(String geneSymbol) {
+    public List<RPAccessionGroup> getByGeneSymbolPerEnrollment(String geneSymbol) {
         List<String> accessionNums = rpExpressionDataRepository.findAccessionByGeneSymbol(geneSymbol);
         List<RPAccessionGroup> groups = new ArrayList<>();
         for (String accession: accessionNums) {
-            RPExpressionByTissueType rpExpressionByTissueType = getByGeneSymbolAndProteinPerTissue(geneSymbol, accession);
-            RPAccessionGroup group = new RPAccessionGroup(accession, rpExpressionByTissueType);
+            RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = getByGeneSymbolAndProteinPerEnrollment(geneSymbol, accession);
+            RPAccessionGroup group = new RPAccessionGroup(accession, rpExpressionByEnrollmentCategory);
             groups.add(group);
         }
         return groups;
     }
 
-    public RPExpressionByTissueType getByGeneSymbolAndProteinPerTissue(String geneSymbol, String protein) {
-        RPExpressionByTissueType rpExpressionByTissueType = new RPExpressionByTissueType();
+    public RPExpressionByEnrollmentCategory getByGeneSymbolAndProteinPerEnrollment(String geneSymbol, String protein) {
+        RPExpressionByEnrollmentCategory rpExpressionByEnrollmentCategory = new RPExpressionByEnrollmentCategory();
 
-        rpExpressionByTissueType.setAll(rpExpressionDataRepository.findByGeneSymbolAndTissueTypeAndProteinWithCounts(geneSymbol, TissueTypeEnum.ALL.getParticipantTissueType(), protein));
+        rpExpressionByEnrollmentCategory.setAll(rpExpressionDataRepository.findByGeneSymbolAndEnrollmentCategoryAndProteinWithCounts(geneSymbol, EnrollmentCategoryEnum.ALL.getParticipantEnrollmentCategory(), protein));
 
-        return rpExpressionByTissueType;
+        return rpExpressionByEnrollmentCategory;
     }
 
     public List<RPExpressionData> getByStructure(String structure) {

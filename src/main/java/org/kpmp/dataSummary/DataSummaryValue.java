@@ -44,8 +44,8 @@ public class DataSummaryValue implements Serializable {
 	private String sex;
 	@Column(name = "tissue_source")
 	private String tissueSource;
-	@Column(name = "tissue_type")
-	private String tissueType;
+	@Column(name = "enrollment_category")
+	private String enrollmentCategory;
 	@Column(name = "spectrack_sample_id")
 	private String spectrackSampleId;
 
@@ -183,12 +183,12 @@ public class DataSummaryValue implements Serializable {
 	}
 
 	@Nullable
-	public String getTissueType() {
-		return tissueType;
+	public String getEnrollmentCategory() {
+		return enrollmentCategory;
 	}
 
-	public void setTissueType(String tissueType) {
-		this.tissueType = tissueType;
+	public void setEnrollmentCategory(String enrollmentCategory) {
+		this.enrollmentCategory = enrollmentCategory;
 	}
 
 	@Nullable
