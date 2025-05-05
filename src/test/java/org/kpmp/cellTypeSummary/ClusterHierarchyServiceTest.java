@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.DataTypeEnum;
+import org.kpmp.FullDataTypeEnum;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -108,8 +108,8 @@ public class ClusterHierarchyServiceTest {
 		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
 
 		assertEquals(2, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+		assertEquals(Arrays.asList(FullDataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
 		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
 
@@ -125,7 +125,7 @@ public class ClusterHierarchyServiceTest {
 		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
 
 		assertEquals(1, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
+		assertEquals(Arrays.asList(FullDataTypeEnum.SINGLE_CELL.getAbbreviation()), dataTypes);
 		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
 
@@ -141,7 +141,7 @@ public class ClusterHierarchyServiceTest {
 		List<String> dataTypes = service.findDataTypesByClusterName("cluster");
 
 		assertEquals(1, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+		assertEquals(Arrays.asList(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
 		verify(clusterHierarchyRepo).findFirstByClusterOrRegion("cluster");
 	}
 
@@ -206,9 +206,9 @@ public class ClusterHierarchyServiceTest {
 	@Test
 	public void testFindDataTypesByClusterNameTi() throws Exception {
 		List<String> dataTypes = service.findDataTypesByClusterName("Tubulo-interstitium");
-		assertTrue(dataTypes.contains(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation()));
-		assertTrue(dataTypes.contains(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()));
-		assertFalse(dataTypes.contains(DataTypeEnum.SINGLE_CELL.getAbbreviation()));
-		assertFalse(dataTypes.contains(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()));
+		assertTrue(dataTypes.contains(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation()));
+		assertTrue(dataTypes.contains(FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()));
+		assertFalse(dataTypes.contains(FullDataTypeEnum.SINGLE_CELL.getAbbreviation()));
+		assertFalse(dataTypes.contains(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()));
 	}
 }

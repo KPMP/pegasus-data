@@ -152,7 +152,7 @@ public class ParticipantService {
 		}
 
 		ParticipantDataTypeInformation singleCellData = new ParticipantDataTypeInformation(
-				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), scCount, true);
+				FullDataTypeEnum.SINGLE_CELL.getFullName(), scCount, true);
 		explorerExperiments.add(singleCellData);
 
 		int snCount = 0;
@@ -160,7 +160,7 @@ public class ParticipantService {
 			snCount = 1;
 		}
 		ParticipantDataTypeInformation singleNucData = new ParticipantDataTypeInformation(
-				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), snCount, true);
+				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), snCount, true);
 		explorerExperiments.add(singleNucData);
 
 		int regionalTranscriptomicsCount = 0;
@@ -168,7 +168,7 @@ public class ParticipantService {
 			regionalTranscriptomicsCount = 1;
 		}
 		ParticipantDataTypeInformation regionalTranscriptomicsData = new ParticipantDataTypeInformation(
-				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(), regionalTranscriptomicsCount, true);
+				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getFullName(), regionalTranscriptomicsCount, true);
 		explorerExperiments.add(regionalTranscriptomicsData);
 
 		int regionalProteomicsCount = 0;
@@ -176,7 +176,7 @@ public class ParticipantService {
 			regionalProteomicsCount = 1;
 		}
 		ParticipantDataTypeInformation regionalProteomicsData = new ParticipantDataTypeInformation(
-				FullDataTypeEnum.REGIONAL_PROTEOMICS_FULL.getFullName(), regionalProteomicsCount, true);
+				FullDataTypeEnum.REGIONAL_PROTEOMICS.getFullName(), regionalProteomicsCount, true);
 		explorerExperiments.add(regionalProteomicsData);
 
 		return explorerExperiments;

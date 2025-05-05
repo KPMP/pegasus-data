@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 
@@ -17,7 +16,7 @@ public class DataTypeSummaryTest {
 	public void setUp() {
 
 		datasetSummary = new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_CELL.getFullName(), FullDataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				Long.valueOf(2), Long.valueOf(4), Long.valueOf(6), Long.valueOf(7), Long.valueOf(8));
 	}
 
@@ -29,8 +28,8 @@ public class DataTypeSummaryTest {
 	@Test
 	public void testInitalSetup() throws Exception {
 		assertEquals(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(), datasetSummary.getOmicsType());
-		assertEquals(FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), datasetSummary.getDataType());
-		assertEquals(DataTypeEnum.SINGLE_CELL.getAbbreviation(), datasetSummary.getDataTypeShort());
+		assertEquals(FullDataTypeEnum.SINGLE_CELL.getFullName(), datasetSummary.getDataType());
+		assertEquals(FullDataTypeEnum.SINGLE_CELL.getAbbreviation(), datasetSummary.getDataTypeShort());
 		assertEquals(Long.valueOf(2), datasetSummary.getAkiCount());
 		assertEquals(Long.valueOf(4), datasetSummary.getCkdCount());
 		assertEquals(Long.valueOf(6), datasetSummary.getHrtCount());
@@ -46,14 +45,14 @@ public class DataTypeSummaryTest {
 
 	@Test
 	public void testSetDataType() throws Exception {
-		datasetSummary.setDataTypeType(FullDataTypeEnum.SINGLE_CELL_FULL.getFullName());
-		assertEquals(FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), datasetSummary.getDataType());
+		datasetSummary.setDataTypeType(FullDataTypeEnum.SINGLE_CELL.getFullName());
+		assertEquals(FullDataTypeEnum.SINGLE_CELL.getFullName(), datasetSummary.getDataType());
 	}
 
 	@Test
 	public void testSetDataTypeShort() throws Exception {
-		datasetSummary.setDataTypeShort(DataTypeEnum.SINGLE_CELL.getAbbreviation());
-		assertEquals(DataTypeEnum.SINGLE_CELL.getAbbreviation(), datasetSummary.getDataTypeShort());
+		datasetSummary.setDataTypeShort(FullDataTypeEnum.SINGLE_CELL.getAbbreviation());
+		assertEquals(FullDataTypeEnum.SINGLE_CELL.getAbbreviation(), datasetSummary.getDataTypeShort());
 	}
 
 	@Test

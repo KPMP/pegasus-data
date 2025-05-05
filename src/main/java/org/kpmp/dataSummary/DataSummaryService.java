@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 import org.kpmp.EnrollmentCategoryEnum;
@@ -147,128 +146,70 @@ public class DataSummaryService {
 	public List<DataTypeSummary> getSummaryData() {
 		List<DataTypeSummary> summaryData = new ArrayList<>();
 
-		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName(),
-				DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()),
-				dataSummaryRepository
-						.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())));
+		List<String> svDataTypes = dataSummaryRepository.getSpatialViewerDataTypes();
+
+		for ( String dataType : svDataTypes) {
+			summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+					dataType, "",
+					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType),
+					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType),
+					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), dataType),
+					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType),
+					dataSummaryRepository.getDataSummaryTotal(dataType),
+					dataSummaryRepository.getParticipantSummaryCount(dataType)));
+		}
+
+
 
 		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName(),
-				DataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getAbbreviation(),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()),
-				dataSummaryRepository.getParticipantSummaryCount(
-						FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())));
-
-		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName(),
-				DataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getAbbreviation(),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(
-						FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()),
-				dataSummaryRepository.getParticipantSummaryCount(
-						FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())));
-
-		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.CODEX_FULL.getFullName(), DataTypeEnum.CODEX.getAbbreviation(),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.CODEX_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.CODEX_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.CODEX_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.CODEX_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(FullDataTypeEnum.CODEX_FULL.getFullName()),
-				dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX_FULL.getFullName())));
-
-		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName(),
-				DataTypeEnum.SPATIAL_LIPIDOMICS.getAbbreviation(),
+				FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName(),
+				FullDataTypeEnum.SPATIAL_LIPIDOMICS.getAbbreviation(),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(
 						EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName()),
+				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName()),
 				dataSummaryRepository
-						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())));
+						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName())));
 
 		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName(),
-				DataTypeEnum.SPATIAL_METABOLOMICS.getAbbreviation(),
+				FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName(),
+				FullDataTypeEnum.SPATIAL_METABOLOMICS.getAbbreviation(),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(
 						EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName()),
+				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName()),
 				dataSummaryRepository
-						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())));
+						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName())));
 
 		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName(),
-				DataTypeEnum.SPATIAL_NGLYCOMICS.getAbbreviation(),
+				FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName(),
+				FullDataTypeEnum.SPATIAL_NGLYCOMICS.getAbbreviation(),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(
 						EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName()),
 				dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-						FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()),
+						FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName()),
+				dataSummaryRepository.getDataSummaryLinkTotal(FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName()),
 				dataSummaryRepository
-						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())));
+						.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName())));
         
-        summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-                FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName(),
-                DataTypeEnum.IMAGING_MASS_CYTOMETRY.getAbbreviation(),
-                dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-                dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-                dataSummaryRepository.getDataSummaryCount(
-                        EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-                dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-                        FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-				dataSummaryRepository.getDataSummaryTotal(FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName()),
-                dataSummaryRepository
-                        .getParticipantSummaryCount(FullDataTypeEnum.IMAGING_MASS_CYTOMETRY_FULL.getFullName())));
+
 		return summaryData;
 	}
 }

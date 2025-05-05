@@ -82,5 +82,8 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "SELECT count(DISTINCT fp.file_id) FROM file_participant fp JOIN ar_file_info ar ON fp.file_id = ar.file_id "
 				+ "WHERE fp.participant_id= :participant_id AND ar.release_sunset_version IS NULL", nativeQuery = true)
 	Integer getParticipantTotalFileCount(@Param("participant_id") String participantId);
-	
+
+	@Cacheable("sv_data_types")
+	@Query(value="SELECT distinct(data_type) from sv_file_v", nativeQuery = true)
+	List<String> getSpatialViewerDataTypes();
 }
