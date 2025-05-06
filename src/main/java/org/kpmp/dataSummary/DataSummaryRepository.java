@@ -86,4 +86,8 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Cacheable("sv_data_types")
 	@Query(value="SELECT distinct(data_type) from sv_file_v", nativeQuery = true)
 	List<String> getSpatialViewerDataTypes();
+
+	@Cacheable("sv_link_data_types")
+	@Query(value="select distinct(data_type) from sv_link_v", nativeQuery = true)
+	List<String> getSpatialViewerLinkDataTypes();
 }
