@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.DataTypeEnum;
+import org.kpmp.FullDataTypeEnum;
 import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.RPExpressionDataRepository;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
@@ -155,8 +155,8 @@ public class GeneExpressionSummaryServiceTest {
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
 		assertEquals(4, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(), DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation()),
+		assertEquals(Arrays.asList(FullDataTypeEnum.SINGLE_CELL.getAbbreviation(),
+						FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(), FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(), FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation()),
 				dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
@@ -173,8 +173,8 @@ public class GeneExpressionSummaryServiceTest {
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
 		assertEquals(2, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_CELL.getAbbreviation(),
-				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
+		assertEquals(Arrays.asList(FullDataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(rtExpressionDataAllSegmentsRepository).getCountByGene("gene");
@@ -188,7 +188,7 @@ public class GeneExpressionSummaryServiceTest {
 		List<String> dataTypes = geneExpressionService.findDataTypesByGene("gene");
 
 		assertEquals(1, dataTypes.size());
-		assertEquals(Arrays.asList(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
+		assertEquals(Arrays.asList(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation()), dataTypes);
 		verify(snrnaGeneExpressionRepository).getCountByGene("gene");
 		verify(scrnaGeneExpressionRepository).getCountByGene("gene");
 	}

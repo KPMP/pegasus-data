@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.kpmp.DataTypeEnum;
+import org.kpmp.FullDataTypeEnum;
 import org.kpmp.geneExpressionSummary.GeneExpressionId;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 
@@ -54,7 +54,7 @@ public class SCRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 	@Override
 	@Transient
 	public String getDataType() {
-		return DataTypeEnum.SINGLE_CELL.getAbbreviation();
+		return FullDataTypeEnum.SINGLE_CELL.getAbbreviation();
 	}
 
 	@Override
