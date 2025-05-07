@@ -149,7 +149,7 @@ public class DataSummaryService {
 
 		for ( String dataType : svDataTypes) {
 			summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-					dataType, "",
+					dataType, FullDataTypeEnum.fromLong(dataType).getAbbreviation(),
 					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), dataType),
@@ -161,15 +161,15 @@ public class DataSummaryService {
 		List<String> linkDataTypes = dataSummaryRepository.getSpatialViewerLinkDataTypes();
 		for ( String dataType : linkDataTypes) {
 			summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-					dataType, "",
-					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType),
-					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType),
-					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), dataType),
-					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType),
+					dataType, FullDataTypeEnum.fromLong(dataType).getAbbreviation(),
+					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType),
+					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType),
+					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), dataType),
+					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryTotal(dataType),
 					dataSummaryRepository.getParticipantSummaryCount(dataType)));
 		}
-		
+
 		return summaryData;
 	}
 }
