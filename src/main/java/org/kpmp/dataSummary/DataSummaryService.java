@@ -28,6 +28,7 @@ public class DataSummaryService {
 	private DataSummaryRepository dataSummaryRepository;
 	private AtlasRepoSummaryRepository repoSummaryRepository;
 	private ARFileInfoService fileInfoService;
+	private static final String SEGMENTATION_MASKS = "Segmentation Masks & Pathomics Vectors";
 
 	@Autowired
 	public DataSummaryService(DataSummaryRepository dataSummaryRepository,
@@ -169,6 +170,16 @@ public class DataSummaryService {
 					dataSummaryRepository.getDataSummaryTotal(dataType),
 					dataSummaryRepository.getParticipantSummaryCount(dataType)));
 		}
+
+		// This is a special case since the segmentation masks are a LM data type, but we wanted to call them out specially
+		summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(), SEGMENTATION_MASKS, "", 
+			dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), SEGMENTATION_MASKS), 
+			dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), SEGMENTATION_MASKS), 
+			dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), SEGMENTATION_MASKS), 
+			dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), SEGMENTATION_MASKS),
+			dataSummaryRepository.getDataSummaryTotal(SEGMENTATION_MASKS),
+			dataSummaryRepository.getParticipantSummaryCountByConfigType(SEGMENTATION_MASKS)));
+			
 
 		return summaryData;
 	}
