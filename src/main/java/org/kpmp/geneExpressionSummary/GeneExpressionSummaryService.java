@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
 import org.kpmp.EnrollmentCategoryEnum;
@@ -51,7 +50,7 @@ public class GeneExpressionSummaryService {
 	public List<? extends GeneExpressionSummary> getByDataTypeEnrollmentCategoryAndGene(String dataType, String geneSymbol,
 			String enrollmentCategory) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
-		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
+		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		EnrollmentCategoryEnum enrollmentCategoryEnum = EnrollmentCategoryEnum.fromRequestType(enrollmentCategory);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
@@ -80,7 +79,7 @@ public class GeneExpressionSummaryService {
 	public List<? extends GeneExpressionSummary> getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(String dataType,
 			String cellType, String enrollmentCategory) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
-		DataTypeEnum dataTypeEnum = DataTypeEnum.fromAbbreviation(dataType);
+		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		EnrollmentCategoryEnum enrollmentCategoryEnum = EnrollmentCategoryEnum.fromRequestType(enrollmentCategory);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
@@ -108,20 +107,20 @@ public class GeneExpressionSummaryService {
 		List<String> dataTypes = new ArrayList<>();
 		long scCountByGene = scrnaGeneExpressionRepository.getCountByGene(gene);
 		if (scCountByGene != 0) {
-			dataTypes.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
+			dataTypes.add(FullDataTypeEnum.SINGLE_CELL.getAbbreviation());
 		}
 
 		long snCountByGene = snrnaGeneExpressionRepository.getCountByGene(gene);
 		if (snCountByGene != 0) {
-			dataTypes.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
+			dataTypes.add(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 		}
 		long rtCountByGene = rtExpressionDataAllSegmentsRepository.getCountByGene(gene);
 		if (rtCountByGene != 0) {
-			dataTypes.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+			dataTypes.add(FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
 		}
 		long rpCountByGene = rpExpressionDataRepository.getCountByGene(gene);
 		if (rpCountByGene != 0) {
-			dataTypes.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
+			dataTypes.add(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
 		}
 		return dataTypes;
 	}
@@ -129,7 +128,7 @@ public class GeneExpressionSummaryService {
 	public List<DataTypeSummary> getDataTypeSummaryInformation() {
 		List<DataTypeSummary> dataTypeSummary = new ArrayList<>();
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-				FullDataTypeEnum.SINGLE_CELL_FULL.getFullName(), DataTypeEnum.SINGLE_CELL.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_CELL.getFullName(), FullDataTypeEnum.SINGLE_CELL.getAbbreviation(),
 				scrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
 				scrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				scrnaGeneExpressionRepository
@@ -138,7 +137,7 @@ public class GeneExpressionSummaryService {
 				scrnaParticipantRepository.getParticipantCount(),
 				scrnaParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.SINGLE_NUCLEUS_FULL.getFullName(), DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
 				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				snrnaGeneExpressionRepository
@@ -147,8 +146,8 @@ public class GeneExpressionSummaryService {
 				snrnaParticipantRepository.getParticipantCount(),
 				snrnaParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS_FULL.getFullName(),
-				DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
+				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getFullName(),
+				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),
 				rtParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
 				rtParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				rtParticipantRepository
@@ -157,8 +156,8 @@ public class GeneExpressionSummaryService {
 				rtParticipantRepository.getParticipantCount(),
 				rtParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.REGIONAL_PROTEOMICS_FULL.getFullName(),
-				DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation(),
+				FullDataTypeEnum.REGIONAL_PROTEOMICS.getFullName(),
+				FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation(),
 				rpParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
 				rpParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
 				rpParticipantRepository

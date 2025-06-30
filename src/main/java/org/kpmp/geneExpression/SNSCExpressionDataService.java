@@ -2,7 +2,7 @@ package org.kpmp.geneExpression;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.kpmp.DataTypeEnum;
+import org.kpmp.FullDataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +19,10 @@ public class SNSCExpressionDataService {
 	}
 
 	public JSONObject getGeneExpressionValues(String dataType, String geneSymbol) throws JSONException, Exception {
-		if (dataType.equals(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation())) {
+		if (dataType.equals(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation())) {
 			SNExpressionData expressionData = snRepo.findByGeneSymbol(geneSymbol);
 			return expressionData.getExpressionDataAsJson();
-		} else if (dataType.equals(DataTypeEnum.SINGLE_CELL.getAbbreviation())) {
+		} else if (dataType.equals(FullDataTypeEnum.SINGLE_CELL.getAbbreviation())) {
 			SCExpressionData expressionData = scRepo.findByGeneSymbol(geneSymbol);
 			return expressionData.getExpressionDataAsJson();
 		}

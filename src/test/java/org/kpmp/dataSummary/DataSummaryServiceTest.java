@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.DataTypeEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.file.ARFileInfoService;
@@ -132,141 +131,141 @@ public class DataSummaryServiceTest {
 	@Test
 	public void testGetGeneDatasetInformation() throws Exception {
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
+				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(Long.valueOf(0));
+				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName())).thenReturn(Long.valueOf(0));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName())).thenReturn(88l);
+				FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
-				.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName()))
+				.getParticipantSummaryCount(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName()))
 						.thenReturn(Long.valueOf(20));
 
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(15));
+				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName())).thenReturn(88l);
+				FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
-				.getParticipantSummaryCount(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName()))
+				.getParticipantSummaryCount(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getFullName()))
 						.thenReturn(Long.valueOf(25));
 
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(15));
+				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(Long.valueOf(2));
+				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getFullName())).thenReturn(Long.valueOf(2));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName())).thenReturn(88l);
+				FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getFullName())).thenReturn(88l);
 		when(dataSummaryRepository
-				.getParticipantSummaryCount(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName()))
+				.getParticipantSummaryCount(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.CODEX.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(15));
+				FullDataTypeEnum.CODEX.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(Long.valueOf(2));
+				FullDataTypeEnum.CODEX.getFullName())).thenReturn(Long.valueOf(2));
 		when(dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.CODEX_FULL.getFullName())).thenReturn(88l);
-		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX_FULL.getFullName()))
+				FullDataTypeEnum.CODEX.getFullName())).thenReturn(88l);
+		when(dataSummaryRepository.getParticipantSummaryCount(FullDataTypeEnum.CODEX.getFullName()))
 				.thenReturn(Long.valueOf(22));
 
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
+				FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
+				FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName())).thenReturn(Long.valueOf(2));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
+				FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
-				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName()))
+				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
+				FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
+				FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName())).thenReturn(Long.valueOf(2));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
+				FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
-				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName()))
+				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(5));
+				FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName())).thenReturn(Long.valueOf(5));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(15));
+				FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName())).thenReturn(Long.valueOf(15));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(2));
+				FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName())).thenReturn(Long.valueOf(2));
 		when(dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(),
-				FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName())).thenReturn(Long.valueOf(88));
+				FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName())).thenReturn(Long.valueOf(88));
 		when(dataSummaryRepository
-				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName()))
+				.getParticipantSummaryLinkCount(FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName()))
 						.thenReturn(Long.valueOf(22));
 
 		List<DataTypeSummary> result = dataSummaryService.getSummaryData();
 
-		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS_FULL.getFullName(), result.get(0).getDataType());
-		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName(), result.get(0).getDataType());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
 		assertEquals(Long.valueOf(5), result.get(0).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(0).getCkdCount());
 		assertEquals(Long.valueOf(0), result.get(0).getHrtCount());
 		assertEquals(Long.valueOf(88), result.get(0).getDmrCount());
 		assertEquals(Long.valueOf(20), result.get(0).getParticipantCount());
 
-		assertEquals(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.getFullName(), result.get(1).getDataType());
-		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(FullDataTypeEnum.TISSUE_IMAGING_AND_CYTOMETRY_3D.getFullName(), result.get(1).getDataType());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
 		assertEquals(Long.valueOf(5), result.get(1).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(1).getCkdCount());
 		assertEquals(Long.valueOf(5), result.get(1).getHrtCount());
 		assertEquals(Long.valueOf(88), result.get(1).getDmrCount());
 		assertEquals(Long.valueOf(25), result.get(1).getParticipantCount());
 
-		assertEquals(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.getFullName(),
+		assertEquals(FullDataTypeEnum.LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.getFullName(),
 				result.get(2).getDataType());
-		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
 		assertEquals(Long.valueOf(5), result.get(2).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(2).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(2).getHrtCount());
 		assertEquals(Long.valueOf(88), result.get(2).getDmrCount());
 		assertEquals(Long.valueOf(22), result.get(2).getParticipantCount());
 
-		assertEquals(FullDataTypeEnum.CODEX_FULL.getFullName(), result.get(3).getDataType());
-		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(FullDataTypeEnum.CODEX.getFullName(), result.get(3).getDataType());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
 		assertEquals(Long.valueOf(5), result.get(3).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(3).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(3).getHrtCount());
 		assertEquals(Long.valueOf(88), result.get(3).getDmrCount());
 		assertEquals(Long.valueOf(22), result.get(3).getParticipantCount());
 
-		assertEquals(FullDataTypeEnum.SPATIAL_LIPIDOMICS_FULL.getFullName(), result.get(4).getDataType());
-		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(FullDataTypeEnum.SPATIAL_LIPIDOMICS.getFullName(), result.get(4).getDataType());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
 		assertEquals(Long.valueOf(5), result.get(4).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(4).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(4).getHrtCount());
 		assertEquals(Long.valueOf(88), result.get(4).getDmrCount());
 		assertEquals(Long.valueOf(22), result.get(4).getParticipantCount());
 
-		assertEquals(FullDataTypeEnum.SPATIAL_METABOLOMICS_FULL.getFullName(), result.get(5).getDataType());
-		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(FullDataTypeEnum.SPATIAL_METABOLOMICS.getFullName(), result.get(5).getDataType());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
 		assertEquals(Long.valueOf(5), result.get(5).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(5).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(5).getHrtCount());
 		assertEquals(Long.valueOf(88), result.get(5).getDmrCount());
 		assertEquals(Long.valueOf(22), result.get(5).getParticipantCount());
 
-		assertEquals(FullDataTypeEnum.SPATIAL_NGLYCOMICS_FULL.getFullName(), result.get(6).getDataType());
-		assertEquals(DataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
+		assertEquals(FullDataTypeEnum.SPATIAL_NGLYCOMICS.getFullName(), result.get(6).getDataType());
+		assertEquals(FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), result.get(0).getDataTypeShort());
 		assertEquals(Long.valueOf(5), result.get(6).getAkiCount());
 		assertEquals(Long.valueOf(15), result.get(6).getCkdCount());
 		assertEquals(Long.valueOf(2), result.get(6).getHrtCount());

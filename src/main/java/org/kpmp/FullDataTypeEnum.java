@@ -2,57 +2,92 @@ package org.kpmp;
 
 public enum FullDataTypeEnum {
 
-	SINGLE_CELL_FULL("Single-cell RNA-seq (scRNA-seq)"),
-	SINGLE_NUCLEUS_FULL("Single-nucleus RNA-seq (snRNA-seq)"),
-	REGIONAL_TRANSCRIPTOMICS_FULL("Regional transcriptomics"),
+	SINGLE_CELL("Single-cell RNA-seq (scRNA-seq)", "sc"),
+	SINGLE_NUCLEUS("Single-nucleus RNA-seq (snRNA-seq)", "sn"),
+	REGIONAL_TRANSCRIPTOMICS("Regional transcriptomics", "rt"),
 
-	REGIONAL_PROTEOMICS_FULL("Regional proteomics"),
-	SPATIAL_TRANSCRIPTOMICS_FULL("Spatial Transcriptomics"),
-	TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL("3D Tissue Imaging and Cytometry"),
-	LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL("Light Microscopic Whole Slide Images"),
-	CODEX_FULL("CODEX"),
-	SPATIAL_LIPIDOMICS_FULL("Spatial Lipidomics"),
-	SPATIAL_METABOLOMICS_FULL("Spatial Metabolomics"),
-	SPATIAL_NGLYCOMICS_FULL("Spatial N-glycomics"),
-    IMAGING_MASS_CYTOMETRY_FULL("Imaging Mass Cytometry"),
-	UNKNOWN_FULL("");
+	REGIONAL_PROTEOMICS("Regional proteomics", "rp"),
+	SPATIAL_TRANSCRIPTOMICS("Spatial Transcriptomics", "st"),
+	TISSUE_IMAGING_AND_CYTOMETRY_3D("3D Tissue Imaging and Cytometry", "3d"),
+	LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES("Light Microscopic Whole Slide Images", "wsi"),
+	CODEX("CODEX", "codex"),
+	SPATIAL_LIPIDOMICS("Spatial Lipidomics", "sl"),
+	SPATIAL_METABOLOMICS("Spatial Metabolomics", "sm"),
+	SPATIAL_NGLYCOMICS("Spatial N-glycomics", "sng"),
+    IMAGING_MASS_CYTOMETRY("Imaging Mass Cytometry", "imc"),
+	UNKNOWN("", "");
 
-	private String dataEnum;
+	private final String fullName;
+	private final String abbreviation;
 
-	FullDataTypeEnum(String dataEnum) {
-		this.dataEnum = dataEnum;
+	FullDataTypeEnum(String fullName, String abbreviation) {
+		this.fullName = fullName;
+		this.abbreviation = abbreviation;
 	}
 
 	public String getFullName() {
-		return this.dataEnum;
+		return this.fullName;
+	}
+
+	public String getAbbreviation() {
+		return this.abbreviation;
 	}
 
 	public static FullDataTypeEnum fromLong(String dataEnum) {
-		if (SINGLE_CELL_FULL.dataEnum.equals(dataEnum)) {
-			return SINGLE_CELL_FULL;
-		} else if (SINGLE_NUCLEUS_FULL.dataEnum.equals(dataEnum)) {
-			return SINGLE_NUCLEUS_FULL;
-		} else if (REGIONAL_TRANSCRIPTOMICS_FULL.dataEnum.equals(dataEnum)) {
-			return REGIONAL_TRANSCRIPTOMICS_FULL;
-		} else if (REGIONAL_PROTEOMICS_FULL.dataEnum.equals(dataEnum)) {
-			return REGIONAL_PROTEOMICS_FULL;
-		} else if (SPATIAL_TRANSCRIPTOMICS_FULL.dataEnum.equals(dataEnum)) {
-			return SPATIAL_TRANSCRIPTOMICS_FULL;
-		} else if (TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL.dataEnum.equals(dataEnum)) {
-			return TISSUE_IMAGING_AND_CYTOMETRY_3D_FULL;
-		} else if (LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL.dataEnum.equals(dataEnum)) {
-			return LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES_FULL;
-		} else if (CODEX_FULL.dataEnum.equals(dataEnum)) {
-			return CODEX_FULL;
-		} else if (SPATIAL_LIPIDOMICS_FULL.dataEnum.equals(dataEnum)) {
-			return SPATIAL_LIPIDOMICS_FULL;
-		} else if (SPATIAL_METABOLOMICS_FULL.dataEnum.equals(dataEnum)) {
-			return SPATIAL_METABOLOMICS_FULL;
-		} else if (SPATIAL_NGLYCOMICS_FULL.dataEnum.equals(dataEnum)) {
-			return SPATIAL_NGLYCOMICS_FULL;
-		}else if (IMAGING_MASS_CYTOMETRY_FULL.dataEnum.equals(dataEnum)){
-            return IMAGING_MASS_CYTOMETRY_FULL;
+		if (SINGLE_CELL.fullName.equals(dataEnum)) {
+			return SINGLE_CELL;
+		} else if (SINGLE_NUCLEUS.fullName.equals(dataEnum)) {
+			return SINGLE_NUCLEUS;
+		} else if (REGIONAL_TRANSCRIPTOMICS.fullName.equals(dataEnum)) {
+			return REGIONAL_TRANSCRIPTOMICS;
+		} else if (REGIONAL_PROTEOMICS.fullName.equals(dataEnum)) {
+			return REGIONAL_PROTEOMICS;
+		} else if (SPATIAL_TRANSCRIPTOMICS.fullName.equals(dataEnum)) {
+			return SPATIAL_TRANSCRIPTOMICS;
+		} else if (TISSUE_IMAGING_AND_CYTOMETRY_3D.fullName.equals(dataEnum)) {
+			return TISSUE_IMAGING_AND_CYTOMETRY_3D;
+		} else if (LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.fullName.equals(dataEnum)) {
+			return LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES;
+		} else if (CODEX.fullName.equals(dataEnum)) {
+			return CODEX;
+		} else if (SPATIAL_LIPIDOMICS.fullName.equals(dataEnum)) {
+			return SPATIAL_LIPIDOMICS;
+		} else if (SPATIAL_METABOLOMICS.fullName.equals(dataEnum)) {
+			return SPATIAL_METABOLOMICS;
+		} else if (SPATIAL_NGLYCOMICS.fullName.equals(dataEnum)) {
+			return SPATIAL_NGLYCOMICS;
+		}else if (IMAGING_MASS_CYTOMETRY.fullName.equals(dataEnum)){
+            return IMAGING_MASS_CYTOMETRY;
         }
-		return UNKNOWN_FULL;
+		return UNKNOWN;
+	}
+
+	public static FullDataTypeEnum fromAbbreviation(String abbreviation) {
+		if (SINGLE_CELL.abbreviation.equals(abbreviation)) {
+			return SINGLE_CELL;
+		} else if (SINGLE_NUCLEUS.abbreviation.equals(abbreviation)) {
+			return SINGLE_NUCLEUS;
+		} else if (REGIONAL_TRANSCRIPTOMICS.abbreviation.equals(abbreviation)) {
+			return REGIONAL_TRANSCRIPTOMICS;
+		} else if (REGIONAL_PROTEOMICS.abbreviation.equals(abbreviation)) {
+			return REGIONAL_PROTEOMICS;
+		} else if (SPATIAL_TRANSCRIPTOMICS.abbreviation.equals(abbreviation)) {
+			return SPATIAL_TRANSCRIPTOMICS;
+		} else if (TISSUE_IMAGING_AND_CYTOMETRY_3D.abbreviation.equals(abbreviation)) {
+			return TISSUE_IMAGING_AND_CYTOMETRY_3D;
+		} else if (LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES.abbreviation.equals(abbreviation)) {
+			return LIGHT_MICROSCOPIC_WHOLE_SLIDE_IMAGES;
+		} else if (CODEX.abbreviation.equals(abbreviation)) {
+			return CODEX;
+		} else if (SPATIAL_LIPIDOMICS.abbreviation.equals(abbreviation)) {
+			return SPATIAL_LIPIDOMICS;
+		} else if (SPATIAL_METABOLOMICS.abbreviation.equals(abbreviation)) {
+			return SPATIAL_METABOLOMICS;
+		} else if (SPATIAL_NGLYCOMICS.abbreviation.equals(abbreviation)) {
+			return SPATIAL_NGLYCOMICS;
+		}else if (IMAGING_MASS_CYTOMETRY.abbreviation.equals(abbreviation)){
+			return IMAGING_MASS_CYTOMETRY;
+		}
+		return UNKNOWN;
 	}
 }

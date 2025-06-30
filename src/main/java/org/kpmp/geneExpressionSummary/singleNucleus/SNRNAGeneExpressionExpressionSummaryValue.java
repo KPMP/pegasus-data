@@ -9,7 +9,7 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
-import org.kpmp.DataTypeEnum;
+import org.kpmp.FullDataTypeEnum;
 import org.kpmp.geneExpressionSummary.GeneExpressionId;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.springframework.lang.Nullable;
@@ -59,7 +59,7 @@ public class SNRNAGeneExpressionExpressionSummaryValue implements GeneExpression
 	@Override
 	@Transient
 	public String getDataType() {
-		return DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation();
+		return FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation();
 	}
 
 	@Column(name = "cluster_name")

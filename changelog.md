@@ -1,6 +1,17 @@
 # Changelog
 
-## Release 2.6 (unreleased)
+## Release 2.8 (unreleased)
+Brief summary:
+- Updates to how we calculate the numbers for the tables so it is more data driven
+
+---
+
+## Release 2.7 (SKIPPED)
+There happened to be nothing of note to release for the 2.7 release of the other Atlas apps, so we decided to skip this version number to keep all the version numbers in sync.
+
+---
+
+## Release 2.6 (12/19/2024)
 Brief summary of what's in this release:
 - Added Primary adjudicated category to the participant summary
 - Modified participant summary endpoint to remove "clinicalData" section in favor of individual elements
@@ -14,9 +25,10 @@ Brief summary of what's in this release:
   - changed the format of the data returned to refer to enrollment category rather than tissue type
   - changed the format of the data returned for participant summary 
 
+---
+
 ## Release 2.5 (10/3/2024)
 - Java upgrade
-
 
 ### Breaking changes
 None

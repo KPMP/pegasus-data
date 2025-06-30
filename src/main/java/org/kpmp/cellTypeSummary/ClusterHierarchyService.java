@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.kpmp.DataTypeEnum;
+import org.kpmp.FullDataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,21 +61,21 @@ public class ClusterHierarchyService {
 	public List<String> findDataTypesByClusterName(String clusterName) {
 		List<String> dataTypesRepresented = new ArrayList<>();
 		if (clusterName.equals("Tubulo-interstitium")) {
-			dataTypesRepresented.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
-			dataTypesRepresented.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+			dataTypesRepresented.add(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
+			dataTypesRepresented.add(FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
 		} else {
 			ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterOrRegion(clusterName);
 			if (clustersInDataTypes.getIsSingleCellCluster().equalsIgnoreCase("Y")) {
-				dataTypesRepresented.add(DataTypeEnum.SINGLE_CELL.getAbbreviation());
+				dataTypesRepresented.add(FullDataTypeEnum.SINGLE_CELL.getAbbreviation());
 			}
 			if (clustersInDataTypes.getIsSingleNucCluster().equalsIgnoreCase("Y")) {
-				dataTypesRepresented.add(DataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
+				dataTypesRepresented.add(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 			}
 			if (clustersInDataTypes.getIsRegionalTranscriptomics().equalsIgnoreCase("Y")) {
-				dataTypesRepresented.add(DataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+				dataTypesRepresented.add(FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
 			}
 			if (clustersInDataTypes.getIsRegionalProteomics().equalsIgnoreCase("Y")) {
-				dataTypesRepresented.add(DataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
+				dataTypesRepresented.add(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
 			}
 		}
 		return dataTypesRepresented;
