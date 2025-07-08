@@ -13,7 +13,7 @@ plugins {
 }
 
 group = 'kingstonduo'
-version = '2.8.0'
+version = '2.9.0'
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
