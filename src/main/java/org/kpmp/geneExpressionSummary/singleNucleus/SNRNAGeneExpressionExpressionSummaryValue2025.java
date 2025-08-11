@@ -209,9 +209,9 @@ public class SNRNAGeneExpressionExpressionSummaryValue2025 implements GeneExpres
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (!(obj instanceof SNRNAGeneExpressionExpressionSummaryValue))
+		if (!(obj instanceof SNRNAGeneExpressionExpressionSummaryValue2025))
 			return false;
-		SNRNAGeneExpressionExpressionSummaryValue snrnaGeneExpressionExpressionSummaryValue = (SNRNAGeneExpressionExpressionSummaryValue) obj;
+		SNRNAGeneExpressionExpressionSummaryValue2025 snrnaGeneExpressionExpressionSummaryValue = (SNRNAGeneExpressionExpressionSummaryValue2025) obj;
 		return (snrnaGeneExpressionExpressionSummaryValue.getGene().equals(this.getGene())
 				&& snrnaGeneExpressionExpressionSummaryValue.getCluster().equals(this.getCluster()));
 	}
