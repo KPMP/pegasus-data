@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class SNSCExpressionDataService2025 {
 
-	private SNExpressionDataRepository2025 snRepo;
+	private SNExpressionDataRepository snRepo;
 	private SCExpressionDataRepository2025 scRepo;
 
 	@Autowired
-	public SNSCExpressionDataService2025(SNExpressionDataRepository2025 snRepo, SCExpressionDataRepository2025 scRepo) {
+	public SNSCExpressionDataService2025(SNExpressionDataRepository snRepo, SCExpressionDataRepository2025 scRepo) {
 		this.snRepo = snRepo;
 		this.scRepo = scRepo;
 	}
 
 	public JSONObject getGeneExpressionValues(String dataType, String geneSymbol) throws JSONException, Exception {
 		if (dataType.equals(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation())) {
-			SNExpressionData2025 expressionData = snRepo.findByGeneSymbol(geneSymbol);
+			SNExpressionData expressionData = snRepo.findByGeneSymbol(geneSymbol);
 			return expressionData.getExpressionDataAsJson();
 		} else if (dataType.equals(FullDataTypeEnum.SINGLE_CELL.getAbbreviation())) {
 			SCExpressionData2025 expressionData = scRepo.findByGeneSymbol(geneSymbol);
