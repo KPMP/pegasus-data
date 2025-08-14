@@ -10,18 +10,26 @@ import org.springframework.stereotype.Service;
 public class SNSCExpressionDataService {
 
 	private SNExpressionDataRepository snRepo;
+    private SNExpressionDataRepositoryNewData snRepoNewData;
 	private SCExpressionDataRepository scRepo;
 
 	@Autowired
-	public SNSCExpressionDataService(SNExpressionDataRepository snRepo, SCExpressionDataRepository scRepo) {
+	public SNSCExpressionDataService(SNExpressionDataRepository snRepo, SNExpressionDataRepositoryNewData snRepoNewData, SCExpressionDataRepository scRepo) {
+        this.snRepoNewData = snRepoNewData;
 		this.snRepo = snRepo;
 		this.scRepo = scRepo;
 	}
 
-	public JSONObject getGeneExpressionValues(String dataType, String geneSymbol) throws JSONException, Exception {
+	public JSONObject getGeneExpressionValues(String dataType, String geneSymbol, Boolean newData) throws JSONException, Exception {
 		if (dataType.equals(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation())) {
-			SNExpressionData expressionData = snRepo.findByGeneSymbol(geneSymbol);
-			return expressionData.getExpressionDataAsJson();
+            if (newData != null && newData) {
+                SNExpressionDataNewData expressionData = snRepoNewData.findByGeneSymbol(geneSymbol);
+                return expressionData.getExpressionDataAsJson();
+            }else{
+                SNExpressionData expressionData = snRepo.findByGeneSymbol(geneSymbol);
+                return expressionData.getExpressionDataAsJson();
+
+            }
 		} else if (dataType.equals(FullDataTypeEnum.SINGLE_CELL.getAbbreviation())) {
 			SCExpressionData expressionData = scRepo.findByGeneSymbol(geneSymbol);
 			return expressionData.getExpressionDataAsJson();

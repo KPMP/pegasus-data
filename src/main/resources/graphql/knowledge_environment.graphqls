@@ -1,18 +1,18 @@
 type Query {
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
-  geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary]
+  geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String, newData: Boolean) : [GeneExpressionSummary]
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
-  getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData
+  getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String, newData: Boolean): PlotData
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
-  getDataTypeSummaryInformation: [DataTypeSummaryInformation]
+  getDataTypeSummaryInformation(newData: Boolean): [DataTypeSummaryInformation]
   getRTGeneExpressionByEnrollment(comparisonType: String, geneSymbol: String): RTGeneExpressionByEnrollment
   getRPGeneExpressionByEnrollment(geneSymbol: String!): [RPAccessionGroup]
   getRPGeneExpressionByEnrollmentAndProtein(geneSymbol: String!, protein: String!): RPExpressionByEnrollmentCategory
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getRPGeneExpressionByStructure(structure: String): [RPGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
-  getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
+  getDataTypeInformationByParticipant(redcapId: String!, newData: Boolean): ParticipantDataTypeSummary
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String!): ParticipantSummaryDataset 
   getTotalParticipantFilesCount(redcapId: String!): ParticipantRepoDataTypeInformation

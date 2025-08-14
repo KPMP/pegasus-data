@@ -19,12 +19,14 @@ public class ExpressionDataServiceTest {
 	private SNExpressionDataRepository snRepo;
 	@Mock
 	private SCExpressionDataRepository scRepo;
+    @Mock
+    private SNExpressionDataRepositoryNewData snRepoNewData;
 	private SNSCExpressionDataService service;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		service = new SNSCExpressionDataService(snRepo, scRepo);
+		service = new SNSCExpressionDataService(snRepo, snRepoNewData, scRepo);
 	}
 
 	@AfterEach
@@ -35,12 +37,17 @@ public class ExpressionDataServiceTest {
 
 	@Test
 	public void testGetGeneExpressionValuesWhenSingleNuc() throws JSONException, Exception {
-		SNExpressionData expressionData = mock(SNExpressionData.class);
-		JSONObject expectedResult = new JSONObject();
-		when(expressionData.getExpressionDataAsJson()).thenReturn(expectedResult);
-		when(snRepo.findByGeneSymbol("geneSymbol")).thenReturn(expressionData);
+		SNExpressionData expressionData1 = mock(SNExpressionData.class);
+        SNExpressionDataNewData expressionDataNewData = mock(SNExpressionDataNewData.class);
+		JSONObject expectedResult1 = new JSONObject();
+        JSONObject expectedResult2 = new JSONObject();
+		when(expressionData1.getExpressionDataAsJson()).thenReturn(expectedResult1);
+        when(expressionDataNewData.getExpressionDataAsJson()).thenReturn(expectedResult2);
+		when(snRepo.findByGeneSymbol("geneSymbol")).thenReturn(expressionData1);
+        when(snRepoNewData.findByGeneSymbol("geneSymbol")).thenReturn(expressionDataNewData);
 
-		assertEquals(expectedResult, service.getGeneExpressionValues("sn", "geneSymbol"));
+		assertEquals(expectedResult1, service.getGeneExpressionValues("sn", "geneSymbol", false));
+        assertEquals(expectedResult2, service.getGeneExpressionValues("sn", "geneSymbol", true));
 	}
 
 	@Test
@@ -50,14 +57,14 @@ public class ExpressionDataServiceTest {
 		when(expressionData.getExpressionDataAsJson()).thenReturn(expectedResult);
 		when(scRepo.findByGeneSymbol("geneSymbol")).thenReturn(expressionData);
 
-		assertEquals(expectedResult, service.getGeneExpressionValues("sc", "geneSymbol"));
+		assertEquals(expectedResult, service.getGeneExpressionValues("sc", "geneSymbol", false));
 	}
 
 	@Test
 	public void testGetGeneExpressionValuesWhenOtherDataType() throws JSONException {
 
 		try {
-			service.getGeneExpressionValues("garbage", "geneSymbol");
+			service.getGeneExpressionValues("garbage", "geneSymbol", false);
 			fail("Should have thrown exception");
 		} catch (Exception expected) {
 			assertEquals("Invalid data type: garbage", expected.getMessage());

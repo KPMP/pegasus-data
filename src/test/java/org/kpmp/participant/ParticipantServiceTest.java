@@ -33,6 +33,8 @@ public class ParticipantServiceTest {
 	private SingleCellMetadataRepository scMetadataRepo;
 	@Mock
 	private SingleNucleusMetadataRepository snMetadataRepo;
+    @Mock 
+    private SingleNucleusMetadataRepositoryNewData snMetadataRepoNewData;
 	@Mock
 	private RTParticipantRepository rtParticipantRepo;
 	@Mock
@@ -46,7 +48,7 @@ public class ParticipantServiceTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
-				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo, participantClinicalDatasetRepo);
+				snMetadataRepoNewData, rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo, participantClinicalDatasetRepo);
 	}
 
 	@AfterEach
@@ -152,7 +154,7 @@ public class ParticipantServiceTest {
 		when(rtParticipantRepo.existsByRedcapId("redcapId")).thenReturn(true);
 		when(rpParticipantRepository.existsByRedcapId("redcapId")).thenReturn(true);
 
-		ParticipantDataTypeSummary result = participantService.getExperimentCounts("redcapId");
+		ParticipantDataTypeSummary result = participantService.getExperimentCounts("redcapId", false);
 
 		List<ParticipantDataTypeInformation> spatialViewerDataTypes = result.getSpatialViewerDataTypes();
 		assertEquals(2, spatialViewerDataTypes.size());
