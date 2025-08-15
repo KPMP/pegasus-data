@@ -43,11 +43,13 @@ public class ParticipantServiceTest {
 	private RPParticipantRepository rpParticipantRepository;
     @Mock 
     private ParticipantClinicalDatasetRepository participantClinicalDatasetRepo;
+    @Mock
+    private SingleCellMetadataRepositoryNewData scMetadataRepoNewData;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
+		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, scMetadataRepoNewData, snMetadataRepo,
 				snMetadataRepoNewData, rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo, participantClinicalDatasetRepo);
 	}
 

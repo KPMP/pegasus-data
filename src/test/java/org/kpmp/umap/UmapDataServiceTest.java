@@ -21,17 +21,19 @@ public class UmapDataServiceTest {
 	private SNSCExpressionDataService expressionDataService;
 	@Mock
 	private SCMetadataRepository scMetadataRepository;
+    @Mock
+    private SNMetadataRepositoryNewData snMetadataRepositoryNewData;
 	@Mock
 	private SNMetadataRepository snMetadataRepository;
     @Mock 
-    private SNMetadataRepositoryNewData snMetadataRepositoryNewData;
+    private SCMetadataRepositoryNewData scMetadataRepositoryNewData;
 
 	private static double DOUBLE_PRECISION = 0.000001d;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		service = new UmapDataService(scMetadataRepository, snMetadataRepository, snMetadataRepositoryNewData, expressionDataService);
+		service = new UmapDataService(scMetadataRepository, scMetadataRepositoryNewData, snMetadataRepository, snMetadataRepositoryNewData, expressionDataService);
 	}
 
 	@AfterEach

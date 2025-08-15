@@ -22,15 +22,17 @@ public class UmapDataService {
 	private SNMetadataRepository snMetadataRepo;
 	private SCMetadataRepository scMetadataRepo;
     private SNMetadataRepositoryNewData snMetadataRepoNewData;
+    private SCMetadataRepositoryNewData scMetadataRepoNewData;
 
 	@Autowired
-	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo, 
+	public UmapDataService(SCMetadataRepository scMetadataRepo, SCMetadataRepositoryNewData scMetadataRepoNewData, SNMetadataRepository snMetadataRepo, 
             SNMetadataRepositoryNewData snMetadataRepoNewData,
 			SNSCExpressionDataService expressionService) {
 		this.scMetadataRepo = scMetadataRepo;
 		this.snMetadataRepo = snMetadataRepo;
 		this.expressionService = expressionService;
         this.snMetadataRepoNewData = snMetadataRepoNewData;
+        this.scMetadataRepoNewData = scMetadataRepoNewData;
 	}
 
 	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory, Boolean newData)
@@ -106,9 +108,15 @@ public class UmapDataService {
 			EnrollmentCategoryEnum enrollmentCategory, Boolean newData) {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
-				int pointCount = scMetadataRepo.findCount();
-				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = scMetadataRepo.findLimited(limit);
+                if(newData != null && newData) {
+                    int pointCount = scMetadataRepoNewData.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = scMetadataRepoNewData.findLimited(limit);
+                }else{
+                    int pointCount = scMetadataRepo.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = scMetadataRepo.findLimited(limit);
+                }
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                 if (newData != null && newData) {
                     int pointCount = snMetadataRepoNewData.findCount();

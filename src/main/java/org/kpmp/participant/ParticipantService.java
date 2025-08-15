@@ -39,6 +39,7 @@ public class ParticipantService {
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
 	private SingleNucleusMetadataRepository snMetadataRepo;
     private SingleNucleusMetadataRepositoryNewData snMetadataRepoNewData;
+    private SingleCellMetadataRepositoryNewData scMetadataRepoNewData;
 	private RTParticipantRepository rtParticipantRepo;
 	private ParticipantRepoDataRepository fileByParticipantRepo;
 	private RPParticipantRepository rpParticipantRepository;
@@ -46,7 +47,8 @@ public class ParticipantService {
 
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
-			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo, 
+			SingleCellMetadataRepository scMetadataRepo, SingleCellMetadataRepositoryNewData scMetadataRepoNewData, 
+            SingleNucleusMetadataRepository snMetadataRepo, 
             SingleNucleusMetadataRepositoryNewData snMetadataRepoNewData,
 			RTParticipantRepository rtParticipantRepo,
 			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository,
@@ -61,6 +63,7 @@ public class ParticipantService {
 		this.fileByParticipantRepo = fileByParticipantRepo;
         this.participantClinicalDatasetRepo = participantClinicalDatasetRepo; 
         this.snMetadataRepoNewData = snMetadataRepoNewData;
+        this.scMetadataRepoNewData = scMetadataRepoNewData;
 	}
 
     public ParticipantClinicalDataset getParticipantClinicalDataset(String redcapId){
@@ -150,9 +153,15 @@ public class ParticipantService {
 	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId, Boolean newData) {
 		List<ParticipantDataTypeInformation> explorerExperiments = new ArrayList<>();
 		int scCount = 0;
-		if (scMetadataRepo.existsByRedcapId(redcapId)) {
-			scCount = 1;
-		}
+        if (newData != null && newData) {
+            if (scMetadataRepoNewData.existsByRedcapId(redcapId)) {
+                scCount = 1;
+            }
+        } else {
+            if (scMetadataRepo.existsByRedcapId(redcapId)) {
+                scCount = 1;
+            }
+        }
 
 		ParticipantDataTypeInformation singleCellData = new ParticipantDataTypeInformation(
 				FullDataTypeEnum.SINGLE_CELL.getFullName(), scCount, true);

@@ -14,6 +14,7 @@ import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepositoryNewData;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepositoryNewData;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
@@ -30,6 +31,7 @@ public class GeneExpressionSummaryService {
     private SNRNAParticipantRepositoryNewData snrnaParticipantRepositoryNewData;
 	private RTParticipantRepository rtParticipantRepository;
     private SNRNAGeneExpressionSummaryRepositoryNewData snrnaGeneExpressionRepositoryNewData;
+    private SCRNAParticipantRepositoryNewData scrnaParticipantRepositoryNewData;
 
 	private RPParticipantRepository rpParticipantRepository;
 	private RPExpressionDataRepository rpExpressionDataRepository;
@@ -40,6 +42,7 @@ public class GeneExpressionSummaryService {
 			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository, 
             SNRNAGeneExpressionSummaryRepositoryNewData snrnaGeneExpressionRepositoryNewData,
 			SCRNAParticipantRepository scrnaParticipantRepository,
+            SCRNAParticipantRepositoryNewData scrnaParticipantRepositoryNewData,
 			SNRNAParticipantRepository snrnaParticipantRepository, SNRNAParticipantRepositoryNewData snrnaParticipantRepositoryNewData, RTParticipantRepository rtParticipantRepository,
 			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository, RPExpressionDataRepository rpExpressionDataRepository, RPParticipantRepository rpParticipantRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
@@ -51,6 +54,7 @@ public class GeneExpressionSummaryService {
 		this.rpExpressionDataRepository = rpExpressionDataRepository;
 		this.rpParticipantRepository = rpParticipantRepository;
 		this.rtExpressionDataAllSegmentsRepository = rtExpressionDataAllSegmentsRepository;
+        this.scrnaParticipantRepositoryNewData = scrnaParticipantRepositoryNewData;
 	}
 
 	public List<? extends GeneExpressionSummary> getByDataTypeEnrollmentCategoryAndGene(String dataType, String geneSymbol,
@@ -60,6 +64,9 @@ public class GeneExpressionSummaryService {
 		EnrollmentCategoryEnum enrollmentCategoryEnum = EnrollmentCategoryEnum.fromRequestType(enrollmentCategory);
 		switch (dataTypeEnum) {
 		case SINGLE_CELL:
+            if (newData != null && newData) {
+                
+            }
 			return scrnaGeneExpressionRepository
 					.findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
 					.distinct().collect(Collectors.toList());

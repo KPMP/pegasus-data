@@ -19,6 +19,7 @@ import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepositoryNewData;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValueNewData;
@@ -56,13 +57,15 @@ public class GeneExpressionSummaryServiceTest {
 
     @Mock
     private SNRNAGeneExpressionSummaryRepositoryNewData snrnaGeneExpressionRepositoryNewData;
+    @Mock
+    private SCRNAGeneExpressionSummaryRepositoryNewData scrnaGeneExpressionRepositoryNewData;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		geneExpressionService = new GeneExpressionSummaryService(
 				scrnaGeneExpressionRepository,
-				snrnaGeneExpressionRepository, snrnaGeneExpressionRepositoryNewData, scrnaParticipantRepository, snrnaParticipantRepository,
+				snrnaGeneExpressionRepository, snrnaGeneExpressionRepositoryNewData, scrnaParticipantRepository, scrnaGeneExpressionRepositoryNewData, snrnaParticipantRepository,
 				snrnaParticipantRepositoryNewData, rtParticipantRepository, rtExpressionDataAllSegmentsRepository, rpExpressionDataRepository, rpParticipantRepository);
 	}
 
