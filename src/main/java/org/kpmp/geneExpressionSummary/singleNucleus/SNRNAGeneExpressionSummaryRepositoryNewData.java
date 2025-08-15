@@ -29,7 +29,7 @@ public interface SNRNAGeneExpressionSummaryRepositoryNewData
 			@Param("cellType") String cellType, @Param("enrollmentCategory") String enrollmentCategory);
 
     @Cacheable("snCounts")
-    @Query(value = "select count(*) from (select p.redcap_id from sn_metadata sn "
+    @Query(value = "select count(*) from (select p.redcap_id from sn_metadata_2025 sn "
 	+ "join participant p on sn.specimen_id = p.redcap_id "
 	+ "where p.enrollment_category=:enrollmentCategory group by p.redcap_id) as mycount", nativeQuery = true)
 	long getCountByEnrollment(@Param("enrollmentCategory") String enrollmentCategory);
