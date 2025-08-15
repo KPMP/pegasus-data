@@ -23,13 +23,15 @@ public class UmapDataServiceTest {
 	private SCMetadataRepository scMetadataRepository;
 	@Mock
 	private SNMetadataRepository snMetadataRepository;
+    @Mock 
+    private SNMetadataRepositoryNewData snMetadataRepositoryNewData;
 
 	private static double DOUBLE_PRECISION = 0.000001d;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		service = new UmapDataService(scMetadataRepository, snMetadataRepository, expressionDataService);
+		service = new UmapDataService(scMetadataRepository, snMetadataRepository, snMetadataRepositoryNewData, expressionDataService);
 	}
 
 	@AfterEach
@@ -55,10 +57,10 @@ public class UmapDataServiceTest {
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("sn", "gene"))
+		when(expressionDataService.getGeneExpressionValues("sn", "gene", false))
 				.thenReturn(new JSONObject("{ 'barcode': 0.4d , 'barcode2': 2.2d}"));
 
-		PlotData plotData = service.getPlotData("sn", "gene", "all");
+		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
 
 		List<FeatureData> featureData = plotData.getFeatureData();
 		assertEquals(2, featureData.size());
@@ -102,9 +104,9 @@ public class UmapDataServiceTest {
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
+		when(expressionDataService.getGeneExpressionValues("sn", "gene", false)).thenReturn(new JSONObject());
 
-		PlotData plotData = service.getPlotData("sn", "gene", "all");
+		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
 
 		List<ReferenceCluster> clusters = plotData.getReferenceData();
 		assertEquals(1, clusters.size());
@@ -138,9 +140,9 @@ public class UmapDataServiceTest {
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
+		when(expressionDataService.getGeneExpressionValues("sn", "gene", false)).thenReturn(new JSONObject());
 
-		PlotData plotData = service.getPlotData("sn", "gene", "all");
+		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
 
 		List<ReferenceCluster> clusters = plotData.getReferenceData();
 		assertEquals(2, clusters.size());

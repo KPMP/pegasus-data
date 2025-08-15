@@ -15,7 +15,9 @@ import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepos
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepositoryNewData;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepositoryNewData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,9 @@ public class GeneExpressionSummaryService {
 	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
 	private SCRNAParticipantRepository scrnaParticipantRepository;
 	private SNRNAParticipantRepository snrnaParticipantRepository;
+    private SNRNAParticipantRepositoryNewData snrnaParticipantRepositoryNewData;
 	private RTParticipantRepository rtParticipantRepository;
+    private SNRNAGeneExpressionSummaryRepositoryNewData snrnaGeneExpressionRepositoryNewData;
 
 	private RPParticipantRepository rpParticipantRepository;
 	private RPExpressionDataRepository rpExpressionDataRepository;
@@ -33,12 +37,14 @@ public class GeneExpressionSummaryService {
 
 	@Autowired
 	public GeneExpressionSummaryService(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
-			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
+			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository, 
+            SNRNAGeneExpressionSummaryRepositoryNewData snrnaGeneExpressionRepositoryNewData,
 			SCRNAParticipantRepository scrnaParticipantRepository,
-			SNRNAParticipantRepository snrnaParticipantRepository, RTParticipantRepository rtParticipantRepository,
+			SNRNAParticipantRepository snrnaParticipantRepository, SNRNAParticipantRepositoryNewData snrnaParticipantRepositoryNewData, RTParticipantRepository rtParticipantRepository,
 			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository, RPExpressionDataRepository rpExpressionDataRepository, RPParticipantRepository rpParticipantRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
+        this.snrnaGeneExpressionRepositoryNewData = snrnaGeneExpressionRepositoryNewData;
 		this.scrnaParticipantRepository = scrnaParticipantRepository;
 		this.snrnaParticipantRepository = snrnaParticipantRepository;
 		this.rtParticipantRepository = rtParticipantRepository;
@@ -48,7 +54,7 @@ public class GeneExpressionSummaryService {
 	}
 
 	public List<? extends GeneExpressionSummary> getByDataTypeEnrollmentCategoryAndGene(String dataType, String geneSymbol,
-			String enrollmentCategory) {
+			String enrollmentCategory, Boolean newData) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		EnrollmentCategoryEnum enrollmentCategoryEnum = EnrollmentCategoryEnum.fromRequestType(enrollmentCategory);
@@ -58,16 +64,33 @@ public class GeneExpressionSummaryService {
 					.findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
 					.distinct().collect(Collectors.toList());
 		case SINGLE_NUCLEUS:
-			return snrnaGeneExpressionRepository
-					.findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
-					.distinct().collect(Collectors.toList());
+            if(newData != null && newData){
+                return snrnaGeneExpressionRepositoryNewData
+                        .findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
+                        .distinct().collect(Collectors.toList());
+            }
+            else{
+                return snrnaGeneExpressionRepository
+                .findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
+                .distinct().collect(Collectors.toList());
+            }
 		case UNKNOWN:
-			List<GeneExpressionSummary> allResults = new ArrayList<>();
-			allResults.addAll(scrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
-					enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
-			allResults.addAll(snrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
-					enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
-			return allResults;
+            if (newData != null && newData) {
+                List<GeneExpressionSummary> allResults = new ArrayList<>();
+                allResults.addAll(scrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
+                        enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                allResults.addAll(snrnaGeneExpressionRepositoryNewData.findByEnrollmentAndGeneAllClusters(geneSymbol,
+                        enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                return allResults;
+            }else {
+                List<GeneExpressionSummary> allResults = new ArrayList<>();
+                allResults.addAll(scrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
+                        enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                allResults.addAll(snrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
+                        enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                return allResults;
+
+            }
 		default:
 			break;
 
@@ -77,7 +100,7 @@ public class GeneExpressionSummaryService {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<? extends GeneExpressionSummary> getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(String dataType,
-			String cellType, String enrollmentCategory) {
+			String cellType, String enrollmentCategory, Boolean newData) {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		EnrollmentCategoryEnum enrollmentCategoryEnum = EnrollmentCategoryEnum.fromRequestType(enrollmentCategory);
@@ -87,30 +110,50 @@ public class GeneExpressionSummaryService {
 					enrollmentCategoryEnum.getParticipantEnrollmentCategory());
 			break;
 		case SINGLE_NUCLEUS:
-			results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(cellType,
-					enrollmentCategoryEnum.getParticipantEnrollmentCategory());
+            if(newData != null && newData){
+                results = snrnaGeneExpressionRepositoryNewData.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(cellType,
+                        enrollmentCategoryEnum.getParticipantEnrollmentCategory());
+            }else{
+                results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(cellType,
+                        enrollmentCategoryEnum.getParticipantEnrollmentCategory());
+            }
 			break;
 		case UNKNOWN:
-			List allResults = new ArrayList<>();
-			allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
-					cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
-			allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
-					cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
-			results = allResults;
+            if(newData != null && newData){
+                List allResults = new ArrayList<>();
+                allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+                        cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+                        cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                results = allResults;
+            }
+            else{
+                List allResults = new ArrayList<>();
+                allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+                        cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+                        cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
+                results = allResults;   
+            }
+			
 		default:
 			break;
 		}
 		return results;
 	}
 
-	public List<String> findDataTypesByGene(String gene) {
+	public List<String> findDataTypesByGene(String gene, Boolean newData) {
 		List<String> dataTypes = new ArrayList<>();
 		long scCountByGene = scrnaGeneExpressionRepository.getCountByGene(gene);
 		if (scCountByGene != 0) {
 			dataTypes.add(FullDataTypeEnum.SINGLE_CELL.getAbbreviation());
 		}
-
-		long snCountByGene = snrnaGeneExpressionRepository.getCountByGene(gene);
+		long snCountByGene;
+		if (newData != null && newData) {
+			snCountByGene = snrnaGeneExpressionRepositoryNewData.getCountByGene(gene);
+		} else {
+			snCountByGene = snrnaGeneExpressionRepository.getCountByGene(gene);
+		}
 		if (snCountByGene != 0) {
 			dataTypes.add(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 		}
@@ -125,7 +168,7 @@ public class GeneExpressionSummaryService {
 		return dataTypes;
 	}
 
-	public List<DataTypeSummary> getDataTypeSummaryInformation() {
+	public List<DataTypeSummary> getDataTypeSummaryInformation(Boolean newData) {
 		List<DataTypeSummary> dataTypeSummary = new ArrayList<>();
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL.getFullName(), FullDataTypeEnum.SINGLE_CELL.getAbbreviation(),
@@ -136,15 +179,27 @@ public class GeneExpressionSummaryService {
 				scrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
 				scrnaParticipantRepository.getParticipantCount(),
 				scrnaParticipantRepository.getParticipantCount()));
-		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
-				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
-				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
-				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
-				snrnaGeneExpressionRepository
-						.getCountByEnrollment(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
-				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
-				snrnaParticipantRepository.getParticipantCount(),
-				snrnaParticipantRepository.getParticipantCount()));
+                if (newData != null && newData) {
+                    dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
+                        FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+                        snrnaGeneExpressionRepositoryNewData.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+                        snrnaGeneExpressionRepositoryNewData.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
+                        snrnaGeneExpressionRepositoryNewData
+                                .getCountByEnrollment(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
+                        snrnaGeneExpressionRepositoryNewData.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
+                        snrnaParticipantRepositoryNewData.getParticipantCount(),
+                        snrnaParticipantRepositoryNewData.getParticipantCount()));
+                }else{
+                    dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
+                        FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
+                        snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+                        snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
+                        snrnaGeneExpressionRepository
+                                .getCountByEnrollment(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
+                        snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
+                        snrnaParticipantRepository.getParticipantCount(),
+                        snrnaParticipantRepository.getParticipantCount()));
+                }
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getFullName(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),

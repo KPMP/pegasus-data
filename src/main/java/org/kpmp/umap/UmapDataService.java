@@ -21,23 +21,26 @@ public class UmapDataService {
 	private SNSCExpressionDataService expressionService;
 	private SNMetadataRepository snMetadataRepo;
 	private SCMetadataRepository scMetadataRepo;
+    private SNMetadataRepositoryNewData snMetadataRepoNewData;
 
 	@Autowired
-	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo,
+	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo, 
+            SNMetadataRepositoryNewData snMetadataRepoNewData,
 			SNSCExpressionDataService expressionService) {
 		this.scMetadataRepo = scMetadataRepo;
 		this.snMetadataRepo = snMetadataRepo;
 		this.expressionService = expressionService;
+        this.snMetadataRepoNewData = snMetadataRepoNewData;
 	}
 
-	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory)
+	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory, Boolean newData)
 			throws JSONException, Exception {
-		JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol);
+		JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol, newData);
 		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		List<? extends UmapPoint> umapPoints = new ArrayList<>();
 		EnrollmentCategoryEnum enrollmentCategory = EnrollmentCategoryEnum.fromRequestType(requestEnrollmentCategory);
 
-		umapPoints = getUmapPoints(dataTypeEnum, umapPoints, enrollmentCategory);
+		umapPoints = getUmapPoints(dataTypeEnum, umapPoints, enrollmentCategory, newData);
 
 		Map<String, ReferenceCluster> referenceClusters = new HashMap<>();
 		FeatureData featureDataWithExpressionValues = new FeatureData();
@@ -100,16 +103,22 @@ public class UmapDataService {
 	}
 
 	private List<? extends UmapPoint> getUmapPoints(FullDataTypeEnum dataTypeEnum, List<? extends UmapPoint> umapPoints,
-			EnrollmentCategoryEnum enrollmentCategory) {
+			EnrollmentCategoryEnum enrollmentCategory, Boolean newData) {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo.findCount();
 				int limit = (int) Math.round(pointCount*.3);
 				umapPoints = scMetadataRepo.findLimited(limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
-				int pointCount = snMetadataRepo.findCount();
-				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = snMetadataRepo.findLimited(limit);
+                if (newData != null && newData) {
+                    int pointCount = snMetadataRepoNewData.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = snMetadataRepoNewData.findLimited(limit);
+                }else{
+                    int pointCount = snMetadataRepo.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = snMetadataRepo.findLimited(limit);
+                }
 			}
 		} else if (enrollmentCategory != EnrollmentCategoryEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
@@ -117,9 +126,15 @@ public class UmapDataService {
 				int limit = (int) Math.round(pointCount*.3);
 				umapPoints = scMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
-				int pointCount = snMetadataRepo.findCount();
-				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = snMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+                if (newData != null && newData) { 
+                    int pointCount = snMetadataRepoNewData.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = snMetadataRepoNewData.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+                }else{
+                    int pointCount = snMetadataRepo.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = snMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+                }
 			}
 		}
 		return umapPoints;

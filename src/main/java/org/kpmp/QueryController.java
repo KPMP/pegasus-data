@@ -83,13 +83,13 @@ public class QueryController implements GraphQLQueryResolver {
 
     @QueryMapping
 	public List<? extends GeneExpressionSummary> geneExpressionSummary(@Argument String dataType, @Argument String geneSymbol,
-        @Argument String cellType, @Argument String enrollmentCategory) throws IOException {
+        @Argument String cellType, @Argument String enrollmentCategory, @Argument Boolean newData) throws IOException {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
 		if (cellType.isEmpty()) {
-			results = geneExpressionSummaryService.getByDataTypeEnrollmentCategoryAndGene(dataType, geneSymbol, enrollmentCategory);
+			results = geneExpressionSummaryService.getByDataTypeEnrollmentCategoryAndGene(dataType, geneSymbol, enrollmentCategory, newData);
 		} else if (geneSymbol.isEmpty()) {
 			results = geneExpressionSummaryService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(dataType,
-					cellType, enrollmentCategory);
+					cellType, enrollmentCategory, newData);
 		}
 		return results;
 	}
@@ -100,9 +100,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
+	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory, @Argument Boolean newData) throws Exception {
 		try {
-			return umapService.getPlotData(dataType, geneSymbol, enrollmentCategory);
+			return umapService.getPlotData(dataType, geneSymbol, enrollmentCategory, newData);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -110,9 +110,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public List<DataTypeSummary> getDataTypeSummaryInformation() throws Exception {
+	public List<DataTypeSummary> getDataTypeSummaryInformation(@Argument Boolean newData) throws Exception {
 		try {
-			return geneExpressionSummaryService.getDataTypeSummaryInformation();
+            return geneExpressionSummaryService.getDataTypeSummaryInformation(newData);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -130,9 +130,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public List<String> dataTypesForConcept(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
+	public List<String> dataTypesForConcept(@Argument String geneSymbol, @Argument String clusterName, @Argument Boolean newData) throws Exception {
 		if (geneSymbol != null && !geneSymbol.isEmpty()) {
-			return geneExpressionSummaryService.findDataTypesByGene(geneSymbol);
+			return geneExpressionSummaryService.findDataTypesByGene(geneSymbol, newData);
 		} else if (clusterName != null && !clusterName.isEmpty()) {
 			return clusterHierarchyService.findDataTypesByClusterName(clusterName);
 		}
@@ -203,8 +203,8 @@ public class QueryController implements GraphQLQueryResolver {
     }
 
     @QueryMapping
-	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(@Argument String redcapId) {
-		return participantService.getExperimentCounts(redcapId);
+	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(@Argument String redcapId, @Argument Boolean newData) {
+		return participantService.getExperimentCounts(redcapId, newData);
 	}
 
     @QueryMapping

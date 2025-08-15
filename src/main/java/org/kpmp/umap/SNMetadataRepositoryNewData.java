@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
+interface SNMetadataRepositoryNewData extends CrudRepository<SNMetadataNewData, String> {
 
 	@Cacheable("snMetadataAll")
 	@Override
-	List<SNMetadata> findAll();
+	List<SNMetadataNewData> findAll();
 
 	@Cacheable("snMetadataLimited")
 	@Query(value = "SELECT "
@@ -22,7 +22,7 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 						+ "cluster_color, "
 						+ "barcode, "
 						+ "enrollment_category "
-					+ "FROM sn_umap_point_2025_v "
+					+ "FROM sn_umap_point_2025v "
 					+ "LIMIT :limit", nativeQuery = true)
 	List<SNMetadata> findLimited(@Param("limit") int limit);
 

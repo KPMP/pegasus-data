@@ -38,6 +38,7 @@ public class ParticipantService {
 	private final String SPATIAL_VIEWER_FILE_VIEW = "sv_file_v";
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
 	private SingleNucleusMetadataRepository snMetadataRepo;
+    private SingleNucleusMetadataRepositoryNewData snMetadataRepoNewData;
 	private RTParticipantRepository rtParticipantRepo;
 	private ParticipantRepoDataRepository fileByParticipantRepo;
 	private RPParticipantRepository rpParticipantRepository;
@@ -45,7 +46,8 @@ public class ParticipantService {
 
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
-			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
+			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo, 
+            SingleNucleusMetadataRepositoryNewData snMetadataRepoNewData,
 			RTParticipantRepository rtParticipantRepo,
 			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository,
 			ParticipantRepoDataRepository fileByParticipantRepo, ParticipantClinicalDatasetRepository participantClinicalDatasetRepo) {
@@ -58,6 +60,7 @@ public class ParticipantService {
 		this.rpParticipantRepository = rpParticipantRepository;
 		this.fileByParticipantRepo = fileByParticipantRepo;
         this.participantClinicalDatasetRepo = participantClinicalDatasetRepo; 
+        this.snMetadataRepoNewData = snMetadataRepoNewData;
 	}
 
     public ParticipantClinicalDataset getParticipantClinicalDataset(String redcapId){
@@ -86,10 +89,10 @@ public class ParticipantService {
 		return summaryData;
 	}
 
-	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
+	public ParticipantDataTypeSummary getExperimentCounts(String redcapId, Boolean newData) {
 		ParticipantDataTypeSummary summaryData = new ParticipantDataTypeSummary();
 		summaryData.setSpatialViewerDataTypes(getSpatialViewerCounts(redcapId));
-		summaryData.setExplorerDataTypes(getExplorerCounts(redcapId));
+		summaryData.setExplorerDataTypes(getExplorerCounts(redcapId, newData));
 
 		return summaryData;
 	}
@@ -144,7 +147,7 @@ public class ParticipantService {
 		return results;
 	}
 
-	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId) {
+	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId, Boolean newData) {
 		List<ParticipantDataTypeInformation> explorerExperiments = new ArrayList<>();
 		int scCount = 0;
 		if (scMetadataRepo.existsByRedcapId(redcapId)) {
@@ -156,9 +159,15 @@ public class ParticipantService {
 		explorerExperiments.add(singleCellData);
 
 		int snCount = 0;
-		if (snMetadataRepo.existsByRedcapId(redcapId)) {
-			snCount = 1;
-		}
+        if (newData != null && newData) {
+            if (snMetadataRepoNewData.existsByRedcapId(redcapId)) {
+                snCount = 1;
+            }
+        } else {
+            if (snMetadataRepo.existsByRedcapId(redcapId)) {
+                snCount = 1;
+            }
+        }
 		ParticipantDataTypeInformation singleNucData = new ParticipantDataTypeInformation(
 				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), snCount, true);
 		explorerExperiments.add(singleNucData);
