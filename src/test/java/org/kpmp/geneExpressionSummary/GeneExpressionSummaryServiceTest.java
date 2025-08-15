@@ -21,6 +21,7 @@ import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSu
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepositoryNewData;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepositoryNewData;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValueNewData;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
@@ -58,7 +59,7 @@ public class GeneExpressionSummaryServiceTest {
     @Mock
     private SNRNAGeneExpressionSummaryRepositoryNewData snrnaGeneExpressionRepositoryNewData;
     @Mock
-    private SCRNAGeneExpressionSummaryRepositoryNewData scrnaGeneExpressionRepositoryNewData;
+    private SCRNAParticipantRepositoryNewData scrnaGeneExpressionRepositoryNewData;
 
 	@BeforeEach
 	public void setUp() throws Exception {
