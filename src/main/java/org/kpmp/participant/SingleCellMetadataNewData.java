@@ -8,10 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "sn_metadata_2025")
-class SingleNucleusMetadata2025 implements Serializable {
+@Table(name = "sc_metadata_2025")
+class SingleCellMetadataNewData implements Serializable {
 
-	private static final long serialVersionUID = -504357775835334661L;
+	private static final long serialVersionUID = -7074542040879592316L;
 	@Id
 	private String barcode;
 	@Column(name = "specimen_id")

@@ -22,16 +22,16 @@ interface SNMetadataRepositoryNewData extends CrudRepository<SNMetadataNewData, 
 						+ "cluster_color, "
 						+ "barcode, "
 						+ "enrollment_category "
-					+ "FROM sn_umap_point_2025v "
+					+ "FROM sn_umap_point_2025_v "
 					+ "LIMIT :limit", nativeQuery = true)
-	List<SNMetadata> findLimited(@Param("limit") int limit);
+	List<SNMetadataNewData> findLimited(@Param("limit") int limit);
 
 	@Cacheable("snMetadataCount")
 	@Query(value = "SELECT COUNT(umap_x) FROM sn_umap_point_2025_v;", nativeQuery = true)
 	int findCount();
 
 	@Cacheable("snMetadataByEnrollment")
-	List<SNMetadata> findByEnrollmentCategory(String enrollmentCategory);
+	List<SNMetadataNewData> findByEnrollmentCategory(String enrollmentCategory);
 	
 	@Cacheable("snMetadataWithEnrollment")
 	@Query(value = "SELECT "
@@ -45,5 +45,5 @@ interface SNMetadataRepositoryNewData extends CrudRepository<SNMetadataNewData, 
 					+ "FROM sn_umap_point_2025_v "
 					+ "WHERE enrollment_category=:enrollmentCategory "
 					+ "LIMIT :limit", nativeQuery = true)
-	List<SNMetadata> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory, @Param("limit") int limit);
+	List<SNMetadataNewData> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory, @Param("limit") int limit);
 }

@@ -1,6 +1,5 @@
-package org.kpmp.geneExpressionSummary.singleNucleus;
+package org.kpmp.geneExpressionSummary.singleCell;
 
-import org.kpmp.geneExpressionSummary.Participant;
 import org.kpmp.geneExpressionSummary.ParticipantId;
 
 import java.io.Serializable;
@@ -14,9 +13,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "sn_participant_tissue_2025_v")
 @IdClass(ParticipantId.class)
-public class SNRNAParticipantValue2025 implements Participant, Serializable {
+public class SCRNAParticipantValueNewData implements Serializable {
 
-	private static final long serialVersionUID = -2404700991479961255L;
+	private static final long serialVersionUID = 8746341469788157316L;
 
 	@Column(name = "enrollment_category")
 	private String enrollmentCategory;
@@ -24,23 +23,19 @@ public class SNRNAParticipantValue2025 implements Participant, Serializable {
 	@Column(name = "redcap_id")
 	private String redcapId;
 
-	@Override
 	@Id
 	public String getRedcapId() {
 		return redcapId;
 	}
 
-	@Override
 	public void setRedcapId(String redcapId) {
 		this.redcapId = redcapId;
 	}
 
-	@Override
 	public String getEnrollmentCategory() {
 		return enrollmentCategory;
 	}
 
-	@Override
 	public void setEnrollmentCategory(String enrollmentCategory) {
 		this.enrollmentCategory = enrollmentCategory;
 	}
