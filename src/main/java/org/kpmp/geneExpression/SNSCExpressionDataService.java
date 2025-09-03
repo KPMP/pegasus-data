@@ -20,10 +20,7 @@ public class SNSCExpressionDataService {
 
 	public JSONObject getGeneExpressionValues(String dataType, String geneSymbol) throws JSONException, Exception {
 		if (dataType.equals(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation())) {
-            System.out.println("Getting SN Expression Data for " + geneSymbol);
             SNExpressionData expressionData = snRepo.findByGeneSymbol(geneSymbol);
-            System.out.println("Got SN Expression Data for " + geneSymbol);
-            System.out.println("Expression Data: " + expressionData.getExpressionDataAsJson().toString());
 			return expressionData.getExpressionDataAsJson();
 		} else if (dataType.equals(FullDataTypeEnum.SINGLE_CELL.getAbbreviation())) {
 			SCExpressionData expressionData = scRepo.findByGeneSymbol(geneSymbol);

@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.geneExpression.SNSCExpressionDataService;
-import org.kpmp.geneExpression.SNSCExpressionDataService2025;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

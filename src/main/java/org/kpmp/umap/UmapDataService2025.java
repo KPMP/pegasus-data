@@ -33,7 +33,6 @@ public class UmapDataService2025 {
 
 	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory)
 			throws JSONException, Exception {
-                System.out.println("Getting Plot Data for " + dataType + " " + geneSymbol + " " + requestEnrollmentCategory);
         JSONObject geneExpressionValues = expressionService2025.getGeneExpressionValues(dataType, geneSymbol);
 		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		List<? extends UmapPoint> umapPoints = new ArrayList<>();
