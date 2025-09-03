@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 interface SCExpressionDataRepositoryNewData extends CrudRepository<SCExpressionDataNewData, String> {
 
-	@Cacheable("scExpression")
+	@Cacheable("scExpressionNewData")
 	SCExpressionDataNewData findByGeneSymbol(String geneSymbol);
 
 }
