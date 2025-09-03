@@ -23,17 +23,15 @@ public class UmapDataService2025 {
     private SNMetadataRepository2025 snMetadataRepo2025;
 
 	@Autowired
-	public UmapDataService2025(SCMetadataRepository scMetadataRepo, SNMetadataRepository2025 snMetadataRepo, 
-            SNMetadataRepository2025 snMetadataRepo2025,
+	public UmapDataService2025(SCMetadataRepository scMetadataRepo, SNMetadataRepository2025 snMetadataRepo,
             SNSCExpressionDataService2025 expressionService2025) {
 		this.scMetadataRepo = scMetadataRepo;
-		this.snMetadataRepo2025 = snMetadataRepo2025;
+        this.snMetadataRepo2025 = snMetadataRepo;
 		this.expressionService2025 = expressionService2025;
         this.expressionService2025 = expressionService2025;
-        this.snMetadataRepo2025 = snMetadataRepo2025;
 	}
 
-	public PlotData getPlotData2025(String dataType, String geneSymbol, String requestEnrollmentCategory)
+	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory)
 			throws JSONException, Exception {
                 System.out.println("Getting Plot Data for " + dataType + " " + geneSymbol + " " + requestEnrollmentCategory);
         JSONObject geneExpressionValues = expressionService2025.getGeneExpressionValues(dataType, geneSymbol);
@@ -41,7 +39,7 @@ public class UmapDataService2025 {
 		List<? extends UmapPoint> umapPoints = new ArrayList<>();
 		EnrollmentCategoryEnum enrollmentCategory = EnrollmentCategoryEnum.fromRequestType(requestEnrollmentCategory);
 
-		umapPoints = getUmapPoints2025(dataTypeEnum, umapPoints, enrollmentCategory);
+		umapPoints = getUmapPoints(dataTypeEnum, umapPoints, enrollmentCategory);
 
 		Map<String, ReferenceCluster> referenceClusters = new HashMap<>();
 		FeatureData featureDataWithExpressionValues = new FeatureData();
@@ -103,7 +101,7 @@ public class UmapDataService2025 {
 				Arrays.asList(featureDataWithExpressionValues, featureDataWithNoExpressionValues));
 	}
 
-	private List<? extends UmapPoint> getUmapPoints2025(FullDataTypeEnum dataTypeEnum, List<? extends UmapPoint> umapPoints,
+	private List<? extends UmapPoint> getUmapPoints(FullDataTypeEnum dataTypeEnum, List<? extends UmapPoint> umapPoints,
 			EnrollmentCategoryEnum enrollmentCategory) {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {

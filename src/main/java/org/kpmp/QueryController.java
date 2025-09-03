@@ -18,6 +18,7 @@ import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.*;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService2025;
 import org.kpmp.participant.ParticipantClinicalDataset;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantDataTypeSummary2025;
@@ -45,7 +46,7 @@ public class QueryController implements GraphQLQueryResolver {
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
 	private GeneExpressionSummaryService geneExpressionSummaryService;
-    private GeneExpressionSummaryService geneExpressionSummaryService2025;
+    private GeneExpressionSummaryService2025 geneExpressionSummaryService2025;
 	private DataSummaryService dataSummaryService;
 	private UmapDataService umapService;
     private UmapDataService2025 umapService2025;
@@ -61,7 +62,7 @@ public class QueryController implements GraphQLQueryResolver {
 	@Autowired
 	public QueryController(AutocompleteService autocompleteService, CellTypeService cellTypeService,
 			UmapDataService umapService, UmapDataService2025 umapService2025, GeneExpressionSummaryService geneExpressionSummaryService, 
-            GeneExpressionSummaryService geneExpressionSummaryService2025,
+            GeneExpressionSummaryService2025 geneExpressionService2025,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
 			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService,
       ParticipantService participantService, ParticipantService2025 participantService2025, AtlasMessageService atlasMessageService) {
@@ -71,7 +72,7 @@ public class QueryController implements GraphQLQueryResolver {
 		this.umapService = umapService;
         this.umapService2025 = umapService2025;
 		this.geneExpressionSummaryService = geneExpressionSummaryService;
-        this.geneExpressionSummaryService2025 = geneExpressionSummaryService2025;
+        this.geneExpressionSummaryService2025 = geneExpressionService2025;
 		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
@@ -135,7 +136,7 @@ public class QueryController implements GraphQLQueryResolver {
     @QueryMapping
 	public PlotData getUmapPlotData2025(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
 		try {
-			return umapService2025.getPlotData2025(dataType, geneSymbol, enrollmentCategory);
+			return umapService2025.getPlotData(dataType, geneSymbol, enrollmentCategory);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;

@@ -22,18 +22,13 @@ public class UmapDataService {
 	private SNSCExpressionDataService expressionService;
 	private SNMetadataRepository snMetadataRepo;
 	private SCMetadataRepository scMetadataRepo;
-    private SNMetadataRepository2025 snMetadataRepo2025;
-    private SNSCExpressionDataService2025 expressionService2025;
 
 	@Autowired
-	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo, 
-            SNMetadataRepository2025 snMetadataRepo2025,
-			SNSCExpressionDataService expressionService, SNSCExpressionDataService2025 expressionService2025) {
+	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo,
+			SNSCExpressionDataService expressionService) {
 		this.scMetadataRepo = scMetadataRepo;
 		this.snMetadataRepo = snMetadataRepo;
 		this.expressionService = expressionService;
-        this.expressionService2025 = expressionService2025;
-        this.snMetadataRepo2025 = snMetadataRepo2025;
 	}
 
 	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory)
