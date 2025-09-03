@@ -63,7 +63,7 @@ public class UmapDataServiceTest {
 		when(expressionDataService.getGeneExpressionValues("sn", "gene"))
 				.thenReturn(new JSONObject("{ 'barcode': 0.4d , 'barcode2': 2.2d}"));
 
-		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
+		PlotData plotData = service.getPlotData("sn", "gene", "all");
 
 		List<FeatureData> featureData = plotData.getFeatureData();
 		assertEquals(2, featureData.size());
@@ -109,7 +109,7 @@ public class UmapDataServiceTest {
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
 
-		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
+		PlotData plotData = service.getPlotData("sn", "gene", "all");
 
 		List<ReferenceCluster> clusters = plotData.getReferenceData();
 		assertEquals(1, clusters.size());
@@ -145,7 +145,7 @@ public class UmapDataServiceTest {
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
 
-		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
+		PlotData plotData = service.getPlotData("sn", "gene", "all");
 
 		List<ReferenceCluster> clusters = plotData.getReferenceData();
 		assertEquals(2, clusters.size());

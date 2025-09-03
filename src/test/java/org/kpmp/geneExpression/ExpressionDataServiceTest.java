@@ -46,8 +46,8 @@ public class ExpressionDataServiceTest {
 		when(snRepo.findByGeneSymbol("geneSymbol")).thenReturn(expressionData1);
         when(snRepo2025.findByGeneSymbol("geneSymbol")).thenReturn(expressionData2025);
 
-		assertEquals(expectedResult1, service.getGeneExpressionValues("sn", "geneSymbol", false));
-        assertEquals(expectedResult2, service.getGeneExpressionValues("sn", "geneSymbol", true));
+		assertEquals(expectedResult1, service.getGeneExpressionValues("sn", "geneSymbol"));
+        assertEquals(expectedResult2, service.getGeneExpressionValues("sn", "geneSymbol"));
 	}
 
 	@Test
@@ -57,14 +57,14 @@ public class ExpressionDataServiceTest {
 		when(expressionData.getExpressionDataAsJson()).thenReturn(expectedResult);
 		when(scRepo.findByGeneSymbol("geneSymbol")).thenReturn(expressionData);
 
-		assertEquals(expectedResult, service.getGeneExpressionValues("sc", "geneSymbol", false));
+		assertEquals(expectedResult, service.getGeneExpressionValues("sc", "geneSymbol"));
 	}
 
 	@Test
 	public void testGetGeneExpressionValuesWhenOtherDataType() throws JSONException {
 
 		try {
-			service.getGeneExpressionValues("garbage", "geneSymbol", false);
+			service.getGeneExpressionValues("garbage", "geneSymbol");
 			fail("Should have thrown exception");
 		} catch (Exception expected) {
 			assertEquals("Invalid data type: garbage", expected.getMessage());

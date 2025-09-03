@@ -154,7 +154,7 @@ public class ParticipantServiceTest {
 		when(rtParticipantRepo.existsByRedcapId("redcapId")).thenReturn(true);
 		when(rpParticipantRepository.existsByRedcapId("redcapId")).thenReturn(true);
 
-		ParticipantDataTypeSummary result = participantService.getExperimentCounts("redcapId", false);
+		ParticipantDataTypeSummary result = participantService.getExperimentCounts("redcapId");
 
 		List<ParticipantDataTypeInformation> spatialViewerDataTypes = result.getSpatialViewerDataTypes();
 		assertEquals(2, spatialViewerDataTypes.size());
