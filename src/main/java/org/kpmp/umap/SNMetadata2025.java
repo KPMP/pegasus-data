@@ -9,10 +9,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 @Entity
-@Table(name = "sc_umap_point_2025_v")
-public class SCMetadataNewData implements UmapPoint, Serializable {
+@Table(name = "sn_umap_point_2025_v")
+public class SNMetadata2025 implements UmapPoint, Serializable {
 
-	private static final long serialVersionUID = 7947867645080936879L;
+	private static final long serialVersionUID = -8871186152958713643L;
 	@Column(name = "umap_x")
 	private double umapX;
 	@Column(name = "umap_y")

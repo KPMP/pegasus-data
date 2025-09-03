@@ -10,22 +10,22 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SNRNAGeneExpressionSummaryRepositoryNewData
-		extends CrudRepository<SNRNAGeneExpressionExpressionSummaryValueNewData, GeneExpressionId> {
+public interface SNRNAGeneExpressionSummaryRepository2025
+		extends CrudRepository<SNRNAGeneExpressionExpressionSummaryValue2025, GeneExpressionId> {
 
 	@Cacheable("snCountsBy")
 	@Query(value = "SELECT DISTINCT snc.cluster, snc.cluster_name, snc.cell_count as cell_count, snc.cluster_id as id, IF(isnull(snr.enrollment_category), :enrollmentCategory, snr.enrollment_category) as enrollment_category, IF(isnull(snr.gene), :geneSymbol, snr.gene) as gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
 			+ "FROM sn_cluster_v_2025 snc "
 			+ "LEFT JOIN sn_rnaseq_2025 snr ON snc.cluster = snr.cluster AND snr.gene = :geneSymbol AND snr.enrollment_category = LCASE(:enrollmentCategory) "
 			+ "WHERE snc.enrollment_category = LCASE(:enrollmentCategory) ORDER BY snr.p_val IS NULL, snr.p_val ASC", nativeQuery = true)
-	List<SNRNAGeneExpressionExpressionSummaryValueNewData> findByEnrollmentAndGeneAllClusters(
+	List<SNRNAGeneExpressionExpressionSummaryValue2025> findByEnrollmentAndGeneAllClusters(
 			@Param("geneSymbol") String geneSymbol, @Param("enrollmentCategory") String enrollmentCategory);
 
 	@Cacheable("snCounts")
 	@Query(value = "SELECT DISTINCT snr.cluster, c.cluster_name, 0 as cell_count, snr.id, snr.enrollment_category, snr.gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
 			+ "FROM sn_rnaseq_2025 snr " + "JOIN cluster c ON snr.cluster = c.abbreviation AND c.cluster_name = :cellType "
 			+ "WHERE snr.enrollment_category = LCASE(:enrollmentCategory) " + "ORDER BY snr.fold_change DESC", nativeQuery = true)
-	List<SNRNAGeneExpressionExpressionSummaryValueNewData> findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+	List<SNRNAGeneExpressionExpressionSummaryValue2025> findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
 			@Param("cellType") String cellType, @Param("enrollmentCategory") String enrollmentCategory);
 
     @Cacheable("snCounts")

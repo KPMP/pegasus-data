@@ -21,11 +21,11 @@ import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSu
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValueNewData;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue2025;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepositoryNewData;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository2025;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepositoryNewData;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -52,18 +52,18 @@ public class GeneExpressionSummaryServiceTest {
 	private RPParticipantRepository rpParticipantRepository;
 
     @Mock
-    private SNRNAParticipantRepositoryNewData snrnaParticipantRepositoryNewData;
+    private SNRNAParticipantRepository2025 snrnaParticipantRepository2025;
 
     @Mock
-    private SNRNAGeneExpressionSummaryRepositoryNewData snrnaGeneExpressionRepositoryNewData;
+    private SNRNAGeneExpressionSummaryRepository2025 snrnaGeneExpressionRepository2025;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		geneExpressionService = new GeneExpressionSummaryService(
 				scrnaGeneExpressionRepository,
-				snrnaGeneExpressionRepository, snrnaGeneExpressionRepositoryNewData, scrnaParticipantRepository, snrnaParticipantRepository,
-				snrnaParticipantRepositoryNewData, rtParticipantRepository, rtExpressionDataAllSegmentsRepository, rpExpressionDataRepository, rpParticipantRepository);
+				snrnaGeneExpressionRepository, snrnaGeneExpressionRepository2025, scrnaParticipantRepository, snrnaParticipantRepository,
+				snrnaParticipantRepository2025, rtParticipantRepository, rtExpressionDataAllSegmentsRepository, rpExpressionDataRepository, rpParticipantRepository);
 	}
 
 	@AfterEach
@@ -78,9 +78,9 @@ public class GeneExpressionSummaryServiceTest {
 		List<SNRNAGeneExpressionExpressionSummaryValue> snResults = Arrays
 				.asList(new SNRNAGeneExpressionExpressionSummaryValue());
         when(snrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters("gene", "AKI")).thenReturn(snResults);
-        List<SNRNAGeneExpressionExpressionSummaryValueNewData> snResultsNewData = Arrays
-                .asList(new SNRNAGeneExpressionExpressionSummaryValueNewData());
-        when(snrnaGeneExpressionRepositoryNewData.findByEnrollmentAndGeneAllClusters("gene", "AKI")).thenReturn(snResultsNewData);
+        List<SNRNAGeneExpressionExpressionSummaryValue2025> snResults2025 = Arrays
+                .asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
+        when(snrnaGeneExpressionRepository2025.findByEnrollmentAndGeneAllClusters("gene", "AKI")).thenReturn(snResults2025);
 		List<SCRNAGeneExpressionExpressionSummaryValue> scResults = Arrays
 				.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		when(scrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters("gene", "AKI")).thenReturn(scResults);
@@ -106,10 +106,10 @@ public class GeneExpressionSummaryServiceTest {
 				.asList(new SNRNAGeneExpressionExpressionSummaryValue());
 		when(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("cell type", "AKI"))
 				.thenReturn(snResults);
-        List<SNRNAGeneExpressionExpressionSummaryValueNewData> snResultsNewData = Arrays
-                .asList(new SNRNAGeneExpressionExpressionSummaryValueNewData());
-        when(snrnaGeneExpressionRepositoryNewData.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("cell type", "AKI"))
-                .thenReturn(snResultsNewData);
+        List<SNRNAGeneExpressionExpressionSummaryValue2025> snResults2025 = Arrays
+                .asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
+        when(snrnaGeneExpressionRepository2025.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("cell type", "AKI"))
+                .thenReturn(snResults2025);
 		List<SCRNAGeneExpressionExpressionSummaryValue> scResults = Arrays
 				.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		when(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("cell type", "AKI"))
@@ -126,10 +126,10 @@ public class GeneExpressionSummaryServiceTest {
 				.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "AKI", false);
 		assertEquals(snResults, resultsSN);
 		assertEquals("sn", resultsSN.get(0).getDataType());
-        List<? extends GeneExpressionSummary> resultsSNNewData = geneExpressionService
+        List<? extends GeneExpressionSummary> resultsSN2025 = geneExpressionService
 				.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "AKI", true);
-        assertEquals(snResults, resultsSNNewData);
-		assertEquals("sn", resultsSNNewData.get(0).getDataType());
+        assertEquals(snResults, resultsSN2025);
+		assertEquals("sn", resultsSN2025.get(0).getDataType());
 
 
 	}

@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValueNewData;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue2025;
 
-public class SNRNAGeneExpressionSummaryValueNewDataTest {
+public class SNRNAGeneExpressionSummaryValue2025Test {
 
-	SNRNAGeneExpressionExpressionSummaryValueNewData snrnaGeneExpressionValue;
+	SNRNAGeneExpressionExpressionSummaryValue2025 snrnaGeneExpressionValue;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		snrnaGeneExpressionValue = new SNRNAGeneExpressionExpressionSummaryValueNewData();
+		snrnaGeneExpressionValue = new SNRNAGeneExpressionExpressionSummaryValue2025();
 	}
 
 	@AfterEach
@@ -109,7 +109,7 @@ public class SNRNAGeneExpressionSummaryValueNewDataTest {
 	public void testEquals() throws Exception {
 		snrnaGeneExpressionValue.setGene("gene");
 		snrnaGeneExpressionValue.setCluster("cluster");
-		SNRNAGeneExpressionExpressionSummaryValueNewData value = new SNRNAGeneExpressionExpressionSummaryValueNewData();
+		SNRNAGeneExpressionExpressionSummaryValue2025 value = new SNRNAGeneExpressionExpressionSummaryValue2025();
 		value.setGene("gene");
 		value.setCluster("cluster");
 		assertEquals(value, snrnaGeneExpressionValue);

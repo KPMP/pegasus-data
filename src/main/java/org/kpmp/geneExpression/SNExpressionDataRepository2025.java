@@ -3,9 +3,9 @@ package org.kpmp.geneExpression;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.CrudRepository;
 
-interface SNExpressionDataRepositoryNewData extends CrudRepository<SNExpressionDataNewData, String> {
+interface SNExpressionDataRepository2025 extends CrudRepository<SNExpressionData2025, String> {
 
 	@Cacheable("snExpression")
-	SNExpressionDataNewData findByGeneSymbol(String geneSymbol);
+	SNExpressionData2025 findByGeneSymbol(String geneSymbol);
 
 }

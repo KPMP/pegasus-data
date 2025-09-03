@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sc_metadata_2025")
-class SingleCellMetadataNewData implements Serializable {
+class SingleCellMetadata2025 implements Serializable {
 
 	private static final long serialVersionUID = -7074542040879592316L;
 	@Id

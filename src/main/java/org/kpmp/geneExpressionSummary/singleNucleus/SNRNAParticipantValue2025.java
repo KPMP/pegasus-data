@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "sn_participant_tissue_2025_v")
 @IdClass(ParticipantId.class)
-public class SNRNAParticipantValueNewData implements Participant, Serializable {
+public class SNRNAParticipantValue2025 implements Participant, Serializable {
 
 	private static final long serialVersionUID = -2404700991479961255L;
 

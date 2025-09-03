@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SNRNAParticipantRepositoryNewData extends CrudRepository<SNRNAParticipantValueNewData, ParticipantId> {
+public interface SNRNAParticipantRepository2025 extends CrudRepository<SNRNAParticipantValue2025, ParticipantId> {
 
 	@Cacheable("snParticipantCount")
 	@Query(value = "SELECT COUNT(DISTINCT snp.redcap_id) FROM sn_participant_tissue_2025_v snp", nativeQuery = true)

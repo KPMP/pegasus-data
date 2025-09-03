@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.kpmp.geneExpression.SNSCExpressionDataService;
+import org.kpmp.geneExpression.SNSCExpressionDataService2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -19,19 +20,21 @@ public class UmapDataServiceTest {
 	private UmapDataService service;
 	@Mock
 	private SNSCExpressionDataService expressionDataService;
+    @Mock 
+    private SNSCExpressionDataService2025 expressionDataService2025;
 	@Mock
 	private SCMetadataRepository scMetadataRepository;
 	@Mock
 	private SNMetadataRepository snMetadataRepository;
     @Mock 
-    private SNMetadataRepositoryNewData snMetadataRepositoryNewData;
+    private SNMetadataRepository2025 snMetadataRepository2025;
 
 	private static double DOUBLE_PRECISION = 0.000001d;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		service = new UmapDataService(scMetadataRepository, snMetadataRepository, snMetadataRepositoryNewData, expressionDataService);
+		service = new UmapDataService(scMetadataRepository, snMetadataRepository, snMetadataRepository2025, expressionDataService, expressionDataService2025);
 	}
 
 	@AfterEach
@@ -57,7 +60,7 @@ public class UmapDataServiceTest {
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("sn", "gene", false))
+		when(expressionDataService.getGeneExpressionValues("sn", "gene"))
 				.thenReturn(new JSONObject("{ 'barcode': 0.4d , 'barcode2': 2.2d}"));
 
 		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
@@ -104,7 +107,7 @@ public class UmapDataServiceTest {
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("sn", "gene", false)).thenReturn(new JSONObject());
+		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
 
 		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
 
@@ -140,7 +143,7 @@ public class UmapDataServiceTest {
 		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
-		when(expressionDataService.getGeneExpressionValues("sn", "gene", false)).thenReturn(new JSONObject());
+		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
 
 		PlotData plotData = service.getPlotData("sn", "gene", "all", false);
 

@@ -6,14 +6,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SCMetadataNewDataTest {
+public class SNMetadata2025Test {
 
 	private static double DOUBLE_PRECISION = 0.000001d;
-	private SCMetadataNewData point;
+	private SNMetadata2025 point;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		point = new SCMetadataNewData();
+		point = new SNMetadata2025();
 	}
 
 	@AfterEach

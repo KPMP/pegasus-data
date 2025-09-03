@@ -20,13 +20,13 @@ public class ExpressionDataServiceTest {
 	@Mock
 	private SCExpressionDataRepository scRepo;
     @Mock
-    private SNExpressionDataRepositoryNewData snRepoNewData;
+    private SNExpressionDataRepository2025 snRepo2025;
 	private SNSCExpressionDataService service;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		service = new SNSCExpressionDataService(snRepo, snRepoNewData, scRepo);
+		service = new SNSCExpressionDataService(snRepo, scRepo);
 	}
 
 	@AfterEach
@@ -38,13 +38,13 @@ public class ExpressionDataServiceTest {
 	@Test
 	public void testGetGeneExpressionValuesWhenSingleNuc() throws JSONException, Exception {
 		SNExpressionData expressionData1 = mock(SNExpressionData.class);
-        SNExpressionDataNewData expressionDataNewData = mock(SNExpressionDataNewData.class);
+        SNExpressionData2025 expressionData2025 = mock(SNExpressionData2025.class);
 		JSONObject expectedResult1 = new JSONObject();
         JSONObject expectedResult2 = new JSONObject();
 		when(expressionData1.getExpressionDataAsJson()).thenReturn(expectedResult1);
-        when(expressionDataNewData.getExpressionDataAsJson()).thenReturn(expectedResult2);
+        when(expressionData2025.getExpressionDataAsJson()).thenReturn(expectedResult2);
 		when(snRepo.findByGeneSymbol("geneSymbol")).thenReturn(expressionData1);
-        when(snRepoNewData.findByGeneSymbol("geneSymbol")).thenReturn(expressionDataNewData);
+        when(snRepo2025.findByGeneSymbol("geneSymbol")).thenReturn(expressionData2025);
 
 		assertEquals(expectedResult1, service.getGeneExpressionValues("sn", "geneSymbol", false));
         assertEquals(expectedResult2, service.getGeneExpressionValues("sn", "geneSymbol", true));

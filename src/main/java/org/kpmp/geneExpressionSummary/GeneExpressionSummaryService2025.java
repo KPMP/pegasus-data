@@ -14,17 +14,17 @@ import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository2025;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository2025;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GeneExpressionSummaryService {
+public class GeneExpressionSummaryService2025 {
 	private SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository;
-	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
+	private SNRNAGeneExpressionSummaryRepository2025 snrnaGeneExpressionRepository2025;
 	private SCRNAParticipantRepository scrnaParticipantRepository;
-	private SNRNAParticipantRepository snrnaParticipantRepository;
+	private SNRNAParticipantRepository2025 snrnaParticipantRepository2025;
 	private RTParticipantRepository rtParticipantRepository;
 
 	private RPParticipantRepository rpParticipantRepository;
@@ -32,15 +32,15 @@ public class GeneExpressionSummaryService {
 	RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository;
 
 	@Autowired
-	public GeneExpressionSummaryService(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
-			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
+	public GeneExpressionSummaryService2025(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
+			SNRNAGeneExpressionSummaryRepository2025 snrnaGeneExpressionRepository2025,
 			SCRNAParticipantRepository scrnaParticipantRepository,
-			SNRNAParticipantRepository snrnaParticipantRepository, RTParticipantRepository rtParticipantRepository,
+			SNRNAParticipantRepository2025 snrnaParticipantRepository2025, RTParticipantRepository rtParticipantRepository,
 			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository, RPExpressionDataRepository rpExpressionDataRepository, RPParticipantRepository rpParticipantRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
-		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
+		this.snrnaGeneExpressionRepository2025 = snrnaGeneExpressionRepository2025;
 		this.scrnaParticipantRepository = scrnaParticipantRepository;
-		this.snrnaParticipantRepository = snrnaParticipantRepository;
+		this.snrnaParticipantRepository2025 = snrnaParticipantRepository2025;
 		this.rtParticipantRepository = rtParticipantRepository;
 		this.rpExpressionDataRepository = rpExpressionDataRepository;
 		this.rpParticipantRepository = rpParticipantRepository;
@@ -58,14 +58,14 @@ public class GeneExpressionSummaryService {
 					.findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
 					.distinct().collect(Collectors.toList());
 		case SINGLE_NUCLEUS:
-			return snrnaGeneExpressionRepository
+			return snrnaGeneExpressionRepository2025
 					.findByEnrollmentAndGeneAllClusters(geneSymbol, enrollmentCategoryEnum.getParticipantEnrollmentCategory()).stream()
 					.distinct().collect(Collectors.toList());
 		case UNKNOWN:
 			List<GeneExpressionSummary> allResults = new ArrayList<>();
 			allResults.addAll(scrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
 					enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
-			allResults.addAll(snrnaGeneExpressionRepository.findByEnrollmentAndGeneAllClusters(geneSymbol,
+			allResults.addAll(snrnaGeneExpressionRepository2025.findByEnrollmentAndGeneAllClusters(geneSymbol,
 					enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
 			return allResults;
 		default:
@@ -87,14 +87,14 @@ public class GeneExpressionSummaryService {
 					enrollmentCategoryEnum.getParticipantEnrollmentCategory());
 			break;
 		case SINGLE_NUCLEUS:
-			results = snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(cellType,
+			results = snrnaGeneExpressionRepository2025.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(cellType,
 					enrollmentCategoryEnum.getParticipantEnrollmentCategory());
 			break;
 		case UNKNOWN:
 			List allResults = new ArrayList<>();
 			allResults.addAll(scrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
 					cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
-			allResults.addAll(snrnaGeneExpressionRepository.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
+			allResults.addAll(snrnaGeneExpressionRepository2025.findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
 					cellType, enrollmentCategoryEnum.getParticipantEnrollmentCategory()));
 			results = allResults;
 		default:
@@ -110,7 +110,7 @@ public class GeneExpressionSummaryService {
 			dataTypes.add(FullDataTypeEnum.SINGLE_CELL.getAbbreviation());
 		}
 
-		long snCountByGene = snrnaGeneExpressionRepository.getCountByGene(gene);
+		long snCountByGene = snrnaGeneExpressionRepository2025.getCountByGene(gene);
 		if (snCountByGene != 0) {
 			dataTypes.add(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
 		}
@@ -138,13 +138,13 @@ public class GeneExpressionSummaryService {
 				scrnaParticipantRepository.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
-				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
-				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
-				snrnaGeneExpressionRepository
+				snrnaGeneExpressionRepository2025.getCountByEnrollment(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory()),
+				snrnaGeneExpressionRepository2025.getCountByEnrollment(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory()),
+				snrnaGeneExpressionRepository2025
 						.getCountByEnrollment(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory()),
-				snrnaGeneExpressionRepository.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
-				snrnaParticipantRepository.getParticipantCount(),
-				snrnaParticipantRepository.getParticipantCount()));
+				snrnaGeneExpressionRepository2025.getCountByEnrollment(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
+				snrnaParticipantRepository2025.getParticipantCount(),
+				snrnaParticipantRepository2025.getParticipantCount()));
 		dataTypeSummary.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getFullName(),
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation(),

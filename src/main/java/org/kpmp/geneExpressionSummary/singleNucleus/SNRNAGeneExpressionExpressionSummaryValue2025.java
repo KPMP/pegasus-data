@@ -17,7 +17,7 @@ import org.springframework.lang.Nullable;
 @Entity
 @Table(name = "sn_rnaseq_2025")
 @IdClass(GeneExpressionId.class)
-public class SNRNAGeneExpressionExpressionSummaryValueNewData implements GeneExpressionSummary, Serializable {
+public class SNRNAGeneExpressionExpressionSummaryValue2025 implements GeneExpressionSummary, Serializable {
 
 	private static final long serialVersionUID = -443713903175981503L;
 
@@ -209,10 +209,10 @@ public class SNRNAGeneExpressionExpressionSummaryValueNewData implements GeneExp
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (!(obj instanceof SNRNAGeneExpressionExpressionSummaryValueNewData))
+		if (!(obj instanceof SNRNAGeneExpressionExpressionSummaryValue2025))
 			return false;
-		SNRNAGeneExpressionExpressionSummaryValueNewData snrnaGeneExpressionExpressionSummaryValueNewData = (SNRNAGeneExpressionExpressionSummaryValueNewData) obj;
-		return (snrnaGeneExpressionExpressionSummaryValueNewData.getGene().equals(this.getGene())
-				&& snrnaGeneExpressionExpressionSummaryValueNewData.getCluster().equals(this.getCluster()));
+		SNRNAGeneExpressionExpressionSummaryValue2025 snrnaGeneExpressionExpressionSummaryValue2025 = (SNRNAGeneExpressionExpressionSummaryValue2025) obj;
+		return (snrnaGeneExpressionExpressionSummaryValue2025.getGene().equals(this.getGene())
+				&& snrnaGeneExpressionExpressionSummaryValue2025.getCluster().equals(this.getCluster()));
 	}
 }

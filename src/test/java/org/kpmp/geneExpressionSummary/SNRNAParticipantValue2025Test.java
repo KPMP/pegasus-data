@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantValueNewData;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantValue2025;
 
-public class SNRNAParticipantValueNewDataTest {
+public class SNRNAParticipantValue2025Test {
 
-	SNRNAParticipantValueNewData snrnaParticipantValue;
+	SNRNAParticipantValue2025 snrnaParticipantValue;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		snrnaParticipantValue = new SNRNAParticipantValueNewData();
+		snrnaParticipantValue = new SNRNAParticipantValue2025();
 	}
 
 	@AfterEach

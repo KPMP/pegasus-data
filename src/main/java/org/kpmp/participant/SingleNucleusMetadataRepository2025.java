@@ -3,7 +3,7 @@ package org.kpmp.participant;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.CrudRepository;
 
-public interface SingleNucleusMetadataRepositoryNewData extends CrudRepository<SingleNucleusMetadataNewData, String> {
+public interface SingleNucleusMetadataRepository2025 extends CrudRepository<SingleNucleusMetadata2025, String> {
 
 	@Cacheable("snParticipantExistsByRedcap")
 

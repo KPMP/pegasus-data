@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sc_feature_data_2025")
-class SCExpressionDataNewData implements Serializable {
+class SCExpressionData2025 implements Serializable {
 
 	private static final long serialVersionUID = 1079445825708102694L;
 	@Id

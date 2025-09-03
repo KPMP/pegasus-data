@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 @Entity
 @Table(name = "sn_feature_data_2025")
-class SNExpressionDataNewData implements Serializable {
+public class SNExpressionData2025 implements Serializable {
 
 	private static final long serialVersionUID = -3363426907715685587L;
 	@Id

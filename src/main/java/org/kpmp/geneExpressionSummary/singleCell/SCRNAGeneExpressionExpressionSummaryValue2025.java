@@ -19,7 +19,7 @@ import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 @Entity
 @Table(name = "sc_rnaseq_2025")
 @IdClass(GeneExpressionId.class)
-public class SCRNAGeneExpressionExpressionSummaryValueNewData implements GeneExpressionSummary, Serializable {
+public class SCRNAGeneExpressionExpressionSummaryValue2025 implements GeneExpressionSummary, Serializable {
 
 	private static final long serialVersionUID = 7265280085624504185L;
 	@Column(name = "id")
@@ -197,9 +197,9 @@ public class SCRNAGeneExpressionExpressionSummaryValueNewData implements GeneExp
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if (!(obj instanceof SCRNAGeneExpressionExpressionSummaryValueNewData))
+		if (!(obj instanceof SCRNAGeneExpressionExpressionSummaryValue2025))
 			return false;
-		SCRNAGeneExpressionExpressionSummaryValueNewData that = (SCRNAGeneExpressionExpressionSummaryValueNewData) obj;
+		SCRNAGeneExpressionExpressionSummaryValue2025 that = (SCRNAGeneExpressionExpressionSummaryValue2025) obj;
 		return new EqualsBuilder().append(this.gene, that.gene).append(this.cluster, that.cluster).build();
 	}
 

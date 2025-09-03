@@ -7,13 +7,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SNExpressionDataNewDataTest {
+public class SNExpressionData2025Test {
 
-	private SNExpressionDataNewData data;
+	private SNExpressionData2025 data;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		data = new SNExpressionDataNewData();
+		data = new SNExpressionData2025();
 	}
 
 	@AfterEach

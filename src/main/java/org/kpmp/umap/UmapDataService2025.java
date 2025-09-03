@@ -11,39 +11,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.FullDataTypeEnum;
-import org.kpmp.geneExpression.SNSCExpressionDataService;
 import org.kpmp.geneExpression.SNSCExpressionDataService2025;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UmapDataService {
+public class UmapDataService2025 {
 
-	private SNSCExpressionDataService expressionService;
-	private SNMetadataRepository snMetadataRepo;
+	private SNSCExpressionDataService2025 expressionService2025;
 	private SCMetadataRepository scMetadataRepo;
     private SNMetadataRepository2025 snMetadataRepo2025;
-    private SNSCExpressionDataService2025 expressionService2025;
 
 	@Autowired
-	public UmapDataService(SCMetadataRepository scMetadataRepo, SNMetadataRepository snMetadataRepo, 
+	public UmapDataService2025(SCMetadataRepository scMetadataRepo, SNMetadataRepository2025 snMetadataRepo, 
             SNMetadataRepository2025 snMetadataRepo2025,
-			SNSCExpressionDataService expressionService, SNSCExpressionDataService2025 expressionService2025) {
+            SNSCExpressionDataService2025 expressionService2025) {
 		this.scMetadataRepo = scMetadataRepo;
-		this.snMetadataRepo = snMetadataRepo;
-		this.expressionService = expressionService;
+		this.snMetadataRepo2025 = snMetadataRepo2025;
+		this.expressionService2025 = expressionService2025;
         this.expressionService2025 = expressionService2025;
         this.snMetadataRepo2025 = snMetadataRepo2025;
 	}
 
-	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory)
+	public PlotData getPlotData2025(String dataType, String geneSymbol, String requestEnrollmentCategory)
 			throws JSONException, Exception {
-        JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol);
+                System.out.println("Getting Plot Data for " + dataType + " " + geneSymbol + " " + requestEnrollmentCategory);
+        JSONObject geneExpressionValues = expressionService2025.getGeneExpressionValues(dataType, geneSymbol);
 		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		List<? extends UmapPoint> umapPoints = new ArrayList<>();
 		EnrollmentCategoryEnum enrollmentCategory = EnrollmentCategoryEnum.fromRequestType(requestEnrollmentCategory);
 
-		umapPoints = getUmapPoints(dataTypeEnum, umapPoints, enrollmentCategory);
+		umapPoints = getUmapPoints2025(dataTypeEnum, umapPoints, enrollmentCategory);
 
 		Map<String, ReferenceCluster> referenceClusters = new HashMap<>();
 		FeatureData featureDataWithExpressionValues = new FeatureData();
@@ -105,7 +103,7 @@ public class UmapDataService {
 				Arrays.asList(featureDataWithExpressionValues, featureDataWithNoExpressionValues));
 	}
 
-	private List<? extends UmapPoint> getUmapPoints(FullDataTypeEnum dataTypeEnum, List<? extends UmapPoint> umapPoints,
+	private List<? extends UmapPoint> getUmapPoints2025(FullDataTypeEnum dataTypeEnum, List<? extends UmapPoint> umapPoints,
 			EnrollmentCategoryEnum enrollmentCategory) {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
@@ -113,9 +111,9 @@ public class UmapDataService {
 				int limit = (int) Math.round(pointCount*.3);
 				umapPoints = scMetadataRepo.findLimited(limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
-                int pointCount = snMetadataRepo.findCount();
-                int limit = (int) Math.round(pointCount*.3);
-                umapPoints = snMetadataRepo.findLimited(limit);
+                    int pointCount = snMetadataRepo2025.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = snMetadataRepo2025.findLimited(limit);
 			}
 		} else if (enrollmentCategory != EnrollmentCategoryEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
@@ -123,9 +121,9 @@ public class UmapDataService {
 				int limit = (int) Math.round(pointCount*.3);
 				umapPoints = scMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
-                int pointCount = snMetadataRepo.findCount();
-                int limit = (int) Math.round(pointCount*.3);
-                umapPoints = snMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+                    int pointCount = snMetadataRepo2025.findCount();
+                    int limit = (int) Math.round(pointCount*.3);
+                    umapPoints = snMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			}
 		}
 		return umapPoints;

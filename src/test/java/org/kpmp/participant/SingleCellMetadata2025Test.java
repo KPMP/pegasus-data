@@ -6,30 +6,30 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SingleNucleusMetadataNewDataTest {
+public class SingleCellMetadata2025Test {
 
-	private SingleNucleusMetadataNewData snMetadata;
+	private SingleCellMetadata2025 scMetadata;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		snMetadata = new SingleNucleusMetadataNewData();
+		scMetadata = new SingleCellMetadata2025();
 	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
-		snMetadata = null;
+		scMetadata = null;
 	}
 
 	@Test
 	public void testSetBarcode() {
-		snMetadata.setBarcode("barcode");
-		assertEquals("barcode", snMetadata.getBarcode());
+		scMetadata.setBarcode("barcode");
+		assertEquals("barcode", scMetadata.getBarcode());
 	}
 
 	@Test
 	public void testSetRedcapId() {
-		snMetadata.setRedcapId("redcapid");
-		assertEquals("redcapid", snMetadata.getRedcapId());
+		scMetadata.setRedcapId("redcapid");
+		assertEquals("redcapid", scMetadata.getRedcapId());
 	}
 
 }
