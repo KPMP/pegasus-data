@@ -3,9 +3,10 @@ package org.kpmp.participant;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.CrudRepository;
 
-interface SingleCellMetadataRepository2025 extends CrudRepository<SingleCellMetadata2025, String> {
+public interface SingleNucleusMetadataRepository2025 extends CrudRepository<SingleNucleusMetadata2025, String> {
 
-	@Cacheable("scParticipantExistsByRedcap")
+	@Cacheable("snParticipantExistsByRedcap")
+
 	boolean existsByRedcapId(String redcapId);
 
 }

@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ParticipantService {
+public class ParticipantService2025 {
 	@Value("${experiment.label.clinicalStudyData}")
 	private String CLINICAL_STUDY_DATA;
 	@Value("${experiment.label.biomarkers}")
@@ -37,7 +37,6 @@ public class ParticipantService {
 
 	private final String SPATIAL_VIEWER_FILE_VIEW = "sv_file_v";
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
-	private SingleNucleusMetadataRepository snMetadataRepo;
     private SingleNucleusMetadataRepository2025 snMetadataRepo2025;
 	private RTParticipantRepository rtParticipantRepo;
 	private ParticipantRepoDataRepository fileByParticipantRepo;
@@ -45,8 +44,8 @@ public class ParticipantService {
     private ParticipantClinicalDatasetRepository participantClinicalDatasetRepo;
 
 	@Autowired
-	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
-			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo, 
+	public ParticipantService2025(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
+			SingleCellMetadataRepository scMetadataRepo, 
             SingleNucleusMetadataRepository2025 snMetadataRepo2025,
 			RTParticipantRepository rtParticipantRepo,
 			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository,
@@ -54,7 +53,7 @@ public class ParticipantService {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
 		this.scMetadataRepo = scMetadataRepo;
-		this.snMetadataRepo = snMetadataRepo;
+		this.snMetadataRepo2025 = snMetadataRepo2025;
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
 		this.rpParticipantRepository = rpParticipantRepository;
@@ -89,8 +88,8 @@ public class ParticipantService {
 		return summaryData;
 	}
 
-	public ParticipantDataTypeSummary getExperimentCounts(String redcapId) {
-		ParticipantDataTypeSummary summaryData = new ParticipantDataTypeSummary();
+	public ParticipantDataTypeSummary2025 getExperimentCounts(String redcapId) {
+		ParticipantDataTypeSummary2025 summaryData = new ParticipantDataTypeSummary2025();
 		summaryData.setSpatialViewerDataTypes(getSpatialViewerCounts(redcapId));
 		summaryData.setExplorerDataTypes(getExplorerCounts(redcapId));
 
@@ -147,22 +146,22 @@ public class ParticipantService {
 		return results;
 	}
 
-	private List<ParticipantDataTypeInformation> getExplorerCounts(String redcapId) {
-		List<ParticipantDataTypeInformation> explorerExperiments = new ArrayList<>();
+	private List<ParticipantDataTypeInformation2025> getExplorerCounts(String redcapId) {
+		List<ParticipantDataTypeInformation2025> explorerExperiments = new ArrayList<>();
 		int scCount = 0;
 		if (scMetadataRepo.existsByRedcapId(redcapId)) {
 			scCount = 1;
 		}
 
-		ParticipantDataTypeInformation singleCellData = new ParticipantDataTypeInformation(
+		ParticipantDataTypeInformation2025 singleCellData = new ParticipantDataTypeInformation2025(
 				FullDataTypeEnum.SINGLE_CELL.getFullName(), scCount, true);
 		explorerExperiments.add(singleCellData);
 
 		int snCount = 0;
-        if (snMetadataRepo.existsByRedcapId(redcapId)) {
+        if (snMetadataRepo2025.existsByRedcapId(redcapId)) {
                 snCount = 1;
-            }
-		ParticipantDataTypeInformation singleNucData = new ParticipantDataTypeInformation(
+        }
+		ParticipantDataTypeInformation2025 singleNucData = new ParticipantDataTypeInformation2025(
 				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), snCount, true);
 		explorerExperiments.add(singleNucData);
 
@@ -170,7 +169,7 @@ public class ParticipantService {
 		if (rtParticipantRepo.existsByRedcapId(redcapId)) {
 			regionalTranscriptomicsCount = 1;
 		}
-		ParticipantDataTypeInformation regionalTranscriptomicsData = new ParticipantDataTypeInformation(
+		ParticipantDataTypeInformation2025 regionalTranscriptomicsData = new ParticipantDataTypeInformation2025(
 				FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getFullName(), regionalTranscriptomicsCount, true);
 		explorerExperiments.add(regionalTranscriptomicsData);
 
@@ -178,15 +177,15 @@ public class ParticipantService {
 		if (rpParticipantRepository.existsByRedcapId(redcapId)) {
 			regionalProteomicsCount = 1;
 		}
-		ParticipantDataTypeInformation regionalProteomicsData = new ParticipantDataTypeInformation(
+		ParticipantDataTypeInformation2025 regionalProteomicsData = new ParticipantDataTypeInformation2025(
 				FullDataTypeEnum.REGIONAL_PROTEOMICS.getFullName(), regionalProteomicsCount, true);
 		explorerExperiments.add(regionalProteomicsData);
 
 		return explorerExperiments;
 	}
 
-	private List<ParticipantDataTypeInformation> getSpatialViewerCounts(String redcapId) {
-		List<ParticipantDataTypeInformation> spatialViewerExperiments = new ArrayList<>();
+	private List<ParticipantDataTypeInformation2025> getSpatialViewerCounts(String redcapId) {
+		List<ParticipantDataTypeInformation2025> spatialViewerExperiments = new ArrayList<>();
 
 		List<SpatialViewerDataType> spatialViewerDataTypes = svTypeRepo.findAll();
 		for (SpatialViewerDataType spatialViewerDataType : spatialViewerDataTypes) {
@@ -194,12 +193,12 @@ public class ParticipantService {
 			if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_FILE_VIEW)) {
 
 				Integer count = dataSummaryRepo.getParticipantSvFileDataTypeCount(redcapId, dataType);
-				ParticipantDataTypeInformation dataTypeInfo = new ParticipantDataTypeInformation(dataType, count,
+				ParticipantDataTypeInformation2025 dataTypeInfo = new ParticipantDataTypeInformation2025(dataType, count,
 						false);
 				spatialViewerExperiments.add(dataTypeInfo);
 			} else if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_LINK_VIEW)) {
 				Integer count = dataSummaryRepo.getParticipantSvLinkDataTypeCount(redcapId, dataType);
-				ParticipantDataTypeInformation dataTypeInfo = new ParticipantDataTypeInformation(dataType, count,
+				ParticipantDataTypeInformation2025 dataTypeInfo = new ParticipantDataTypeInformation2025(dataType, count,
 						false);
 				spatialViewerExperiments.add(dataTypeInfo);
 			} else {

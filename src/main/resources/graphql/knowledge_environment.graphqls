@@ -1,18 +1,22 @@
 type Query {
   autocomplete(searchTerm: String): [AutoCompleteResult]
   cellTypeHierarchy: CellTypeHierarchy
-  geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String, newData: Boolean) : [GeneExpressionSummary]
+  geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary]
+  geneExpressionSummary2025(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary2025]
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
-  getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String, newData: Boolean): PlotData
+  getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData
+  getUmapPlotData2025(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData2025
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
-  getDataTypeSummaryInformation(newData: Boolean): [DataTypeSummaryInformation]
+  getDataTypeSummaryInformation: [DataTypeSummaryInformation]
+  getDataTypeSummaryInformation2025: [DataTypeSummaryInformation2025]
   getRTGeneExpressionByEnrollment(comparisonType: String, geneSymbol: String): RTGeneExpressionByEnrollment
   getRPGeneExpressionByEnrollment(geneSymbol: String!): [RPAccessionGroup]
   getRPGeneExpressionByEnrollmentAndProtein(geneSymbol: String!, protein: String!): RPExpressionByEnrollmentCategory
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getRPGeneExpressionByStructure(structure: String): [RPGeneExpression]
   getSummaryData: [DataTypeSummaryInformation]
-  getDataTypeInformationByParticipant(redcapId: String!, newData: Boolean): ParticipantDataTypeSummary
+  getDataTypeInformationByParticipant(redcapId: String!): ParticipantDataTypeSummary
+  getDataTypeInformationByParticipant2025(redcapId: String!): ParticipantDataTypeSummary2025
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String!): ParticipantSummaryDataset 
   getTotalParticipantFilesCount(redcapId: String!): ParticipantRepoDataTypeInformation
@@ -63,6 +67,17 @@ type ParticipantDataTypeSummary {
   explorerDataTypes: [ParticipantDataTypeInformation]
 }
 
+type ParticipantDataTypeSummary2025 {
+  spatialViewerDataTypes: [ParticipantDataTypeInformation]
+  explorerDataTypes: [ParticipantDataTypeInformation2025]
+}
+
+type ParticipantDataTypeInformation2025 {
+  dataType: String
+  count: Int
+  isAggregatedData: Boolean
+}
+
 type ParticipantDataTypeInformation {
   dataType: String
   count: Int
@@ -78,6 +93,19 @@ type ParticipantRepoDataTypeInformation {
   count: Int
   linkInformation: AtlasRepositoryLinkInformation
 }
+
+type DataTypeSummaryInformation2025 {
+  omicsType: String
+  dataType: String
+  dataTypeShort: String
+  akiCount: Int
+  ckdCount: Int
+  hrtCount: Int
+  dmrCount: Int
+  totalCount: Int
+  participantCount: Int
+}
+
 
 type DataTypeSummaryInformation {
   omicsType: String
@@ -134,6 +162,22 @@ type GeneExpressionSummary {
     cellCount: Int
 }
 
+type GeneExpressionSummary2025 {
+    id: ID
+    enrollmentCategory: String
+    gene: String
+    pVal: Float
+    pValAdj: Float
+    foldChange: Float
+    pct1: Float
+    pct2: Float
+    avgExp: Float
+    cluster: String
+    clusterName: String
+    dataType: String
+    cellCount: Int
+}
+
 type ClusterHierarchy {
 	cellType: String
 	cellTypeId: Int
@@ -146,6 +190,26 @@ type ClusterHierarchy {
     isRegionalTranscriptomics: String
     isRegionalProteomics: String
     cellTypeOrder: Float
+}
+
+type PlotData2025 {
+	referenceData: [ReferenceCluster2025]
+	featureData: [FeatureData2025]
+}
+
+type FeatureData2025 {
+	xValues: [Float]
+	yValues: [Float]
+	expression: [Float]
+    hoverDisplay: [String]
+}
+
+type ReferenceCluster2025 {
+	xValues: [Float]
+	yValues: [Float]
+	color: String
+	clusterName: String
+    clusterAbbreviation: String
 }
 
 type PlotData {

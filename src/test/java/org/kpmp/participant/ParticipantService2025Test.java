@@ -20,9 +20,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
 
-public class ParticipantServiceTest {
+public class ParticipantService2025Test {
 
-	private ParticipantService participantService;
+	private ParticipantService2025 participantService;
 	@Mock
 	private ParticipantSummaryDatasetRepository participantSummaryDatasetRepository;
 	@Mock
@@ -32,9 +32,7 @@ public class ParticipantServiceTest {
 	@Mock
 	private SingleCellMetadataRepository scMetadataRepo;
 	@Mock
-	private SingleNucleusMetadataRepository snMetadataRepo;
-    @Mock 
-    private SingleNucleusMetadataRepository2025 snMetadataRepo2025;
+	private SingleNucleusMetadataRepository2025 snMetadataRepo;
 	@Mock
 	private RTParticipantRepository rtParticipantRepo;
 	@Mock
@@ -47,8 +45,8 @@ public class ParticipantServiceTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		participantService = new ParticipantService(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
-				snMetadataRepo2025, rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo, participantClinicalDatasetRepo);
+		participantService = new ParticipantService2025(dataSummaryRepo, svTypeRepo, scMetadataRepo, snMetadataRepo,
+				rtParticipantRepo, participantSummaryDatasetRepository, rpParticipantRepository,fileByParticipantRepo, participantClinicalDatasetRepo);
 	}
 
 	@AfterEach
@@ -154,13 +152,13 @@ public class ParticipantServiceTest {
 		when(rtParticipantRepo.existsByRedcapId("redcapId")).thenReturn(true);
 		when(rpParticipantRepository.existsByRedcapId("redcapId")).thenReturn(true);
 
-		ParticipantDataTypeSummary result = participantService.getExperimentCounts("redcapId");
+		ParticipantDataTypeSummary2025 result = participantService.getExperimentCounts("redcapId");
 
-		List<ParticipantDataTypeInformation> spatialViewerDataTypes = result.getSpatialViewerDataTypes();
+		List<ParticipantDataTypeInformation2025> spatialViewerDataTypes = result.getSpatialViewerDataTypes();
 		assertEquals(2, spatialViewerDataTypes.size());
-		List<ParticipantDataTypeInformation> explorerDataTypes = result.getExplorerDataTypes();
+		List<ParticipantDataTypeInformation2025> explorerDataTypes = result.getExplorerDataTypes();
 		assertEquals(4, explorerDataTypes.size());
-		for (ParticipantDataTypeInformation participantDataTypeInformation : spatialViewerDataTypes) {
+		for (ParticipantDataTypeInformation2025 participantDataTypeInformation : spatialViewerDataTypes) {
 			if (participantDataTypeInformation.getDataType().equals("Light Microscopy")) {
 				assertEquals(Integer.valueOf(5), participantDataTypeInformation.getCount());
 				assertEquals(false, participantDataTypeInformation.isAggregatedData());
@@ -169,7 +167,7 @@ public class ParticipantServiceTest {
 				assertEquals(false, participantDataTypeInformation.isAggregatedData());
 			}
 		}
-		for (ParticipantDataTypeInformation participantDataTypeInformation : explorerDataTypes) {
+		for (ParticipantDataTypeInformation2025 participantDataTypeInformation : explorerDataTypes) {
 			assertEquals(Integer.valueOf(1), participantDataTypeInformation.getCount());
 			assertEquals(true, participantDataTypeInformation.isAggregatedData());
 		}

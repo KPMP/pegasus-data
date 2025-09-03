@@ -7,13 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
+public interface SCMetadataRepository2025 extends CrudRepository<SCMetadata2025, String> {
 
-	@Cacheable("snMetadataAll")
+	@Cacheable("scMetadataAll")
 	@Override
-	List<SNMetadata> findAll();
-
-	@Cacheable("snMetadataLimited")
+	List<SCMetadata2025> findAll();
+	
+	@Cacheable("scMetadataLimited")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "
@@ -22,18 +22,19 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 						+ "cluster_color, "
 						+ "barcode, "
 						+ "enrollment_category "
-					+ "FROM sn_umap_point_v "
+					+ "FROM sc_umap_point_2025_v "
 					+ "LIMIT :limit", nativeQuery = true)
-	List<SNMetadata> findLimited(@Param("limit") int limit);
+	List<SCMetadata2025> findLimited(@Param("limit") int limit);
 
-	@Cacheable("snMetadataCount")
-	@Query(value = "SELECT COUNT(umap_x) FROM sn_umap_point_v;", nativeQuery = true)
+	@Cacheable("scMetadataCount")
+	@Query(value = "SELECT COUNT(umap_x) FROM sc_umap_point_2025_v;", nativeQuery = true)
 	int findCount();
 
-	@Cacheable("snMetadataByEnrollment")
-	List<SNMetadata> findByEnrollmentCategory(String enrollmentCategory);
-	
-	@Cacheable("snMetadataWithEnrollment")
+	List<SCMetadata2025> findByEnrollmentCategory(String enrollmentCategory);
+
+	SCMetadata findByBarcode(String barcode);
+
+	@Cacheable("scMetadataWithEnrollment")
 	@Query(value = "SELECT "
 						+ "umap_x, "
 						+ "umap_y, "
@@ -42,8 +43,8 @@ interface SNMetadataRepository extends CrudRepository<SNMetadata, String> {
 						+ "cluster_color, "
 						+ "barcode, "
 						+ "enrollment_category "
-					+ "FROM sn_umap_point_v "
+					+ "FROM sc_umap_point_2025_v "
 					+ "WHERE enrollment_category=:enrollmentCategory "
 					+ "LIMIT :limit", nativeQuery = true)
-	List<SNMetadata> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory, @Param("limit") int limit);
+	List<SCMetadata2025> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory, @Param("limit") int limit);
 }

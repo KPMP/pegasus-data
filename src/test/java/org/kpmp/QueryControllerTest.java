@@ -35,23 +35,26 @@ import org.kpmp.geneExpression.RTExpressionByEnrollmentCategory;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
+import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService2025;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue2025;
 import org.kpmp.participant.ParticipantClinicalDataset;
 import org.kpmp.participant.ParticipantDataTypeSummary;
 import org.kpmp.participant.ParticipantRepoDataTypeInformation;
 import org.kpmp.participant.ParticipantRepoDataTypeSummary;
 import org.kpmp.participant.ParticipantService;
+import org.kpmp.participant.ParticipantService2025;
 import org.kpmp.participant.ParticipantSummaryDataset;
 import org.kpmp.participant.ParticipantEnrollmentCategorySummary;
 import org.kpmp.umap.FeatureData;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.ReferenceCluster;
 import org.kpmp.umap.UmapDataService;
+import org.kpmp.umap.UmapDataService2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import graphql.AssertException;
 
 public class QueryControllerTest {
 
@@ -61,6 +64,8 @@ public class QueryControllerTest {
 	private AutocompleteService autocompleteService;
 	@Mock
 	private GeneExpressionSummaryService geneExpressionService;
+    @Mock
+    private GeneExpressionSummaryService2025 geneExpressionService2025;
 	@Mock
 	private DataSummaryService dataSummaryService;
 	private QueryController query;
@@ -80,12 +85,17 @@ public class QueryControllerTest {
 	@Mock
 	private RPExpressionDataService rpExpressionDataService;
 
+    @Mock
+    private UmapDataService2025 umapDataService2025;
+
+    @Mock ParticipantService2025 participantService2025;
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		query = new QueryController(autocompleteService, cellTypeService, umapDataService, geneExpressionService,
-				dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
-        participantService, atlasMessageService);
+		query = new QueryController(autocompleteService, cellTypeService, umapDataService, umapDataService2025, geneExpressionService,
+				geneExpressionService2025, dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
+        participantService, participantService2025, atlasMessageService);
 	}
 
 	@AfterEach
@@ -137,27 +147,56 @@ public class QueryControllerTest {
 		List expectedResultSN2 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
         List expectedResultSN3 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue());
         List expectedResultSN4 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
-		when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki", false)).thenReturn(expectedResultSN1);
-		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki", false))
+		when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN1);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki"))
 				.thenReturn(expectedResultSN2);
 
-        when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki", true)).thenReturn(expectedResultSN3);
-		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki", true))
+        when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN3);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki"))
 				.thenReturn(expectedResultSN4);
 
 		List expectedResultSC1 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
 		List expectedResultSC2 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
-		when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sc", "gene", "aki", false)).thenReturn(expectedResultSC1);
-		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sc", "cell type", "aki", false))
+		when(geneExpressionService.getByDataTypeEnrollmentCategoryAndGene("sc", "gene", "aki")).thenReturn(expectedResultSC1);
+		when(geneExpressionService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sc", "cell type", "aki"))
 				.thenReturn(expectedResultSC2);
 
-		assertEquals(expectedResultSN1, query.geneExpressionSummary("sn", "gene", "", "aki", false));
-		assertEquals(expectedResultSC1, query.geneExpressionSummary("sc", "gene", "", "aki", false));
+		assertEquals(expectedResultSN1, query.geneExpressionSummary("sn", "gene", "", "aki"));
+		assertEquals(expectedResultSC1, query.geneExpressionSummary("sc", "gene", "", "aki"));
 
-		assertEquals(expectedResultSN2, query.geneExpressionSummary("sn", "", "cell type", "aki", false));
-		assertEquals(expectedResultSC2, query.geneExpressionSummary("sc", "", "cell type", "aki", false));
+		assertEquals(expectedResultSN2, query.geneExpressionSummary("sn", "", "cell type", "aki"));
+		assertEquals(expectedResultSC2, query.geneExpressionSummary("sc", "", "cell type", "aki"));
 
-        assertEquals(expectedResultSN2, query.geneExpressionSummary("sn", "", "cell type", "aki", true));
+        assertEquals(expectedResultSN2, query.geneExpressionSummary("sn", "", "cell type", "aki"));
+	}
+
+    @Test
+	public void geneExpression2025() throws Exception {
+		List expectedResultSN1 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
+		List expectedResultSN2 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
+        List expectedResultSN3 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
+        List expectedResultSN4 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
+		when(geneExpressionService2025.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN1);
+		when(geneExpressionService2025.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki"))
+				.thenReturn(expectedResultSN2);
+
+        when(geneExpressionService2025.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN3);
+		when(geneExpressionService2025.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki"))
+				.thenReturn(expectedResultSN4);
+
+		List expectedResultSC1 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
+		List expectedResultSC2 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
+		when(geneExpressionService2025.getByDataTypeEnrollmentCategoryAndGene("sc", "gene", "aki")).thenReturn(expectedResultSC1);
+		when(geneExpressionService2025.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sc", "cell type", "aki"))
+				.thenReturn(expectedResultSC2);
+
+		assertEquals(expectedResultSN1, query.geneExpressionSummary("sn", "gene", "", "aki"));
+		assertEquals(expectedResultSC1, query.geneExpressionSummary("sc", "gene", "", "aki"));
+
+		assertEquals(expectedResultSN2, query.geneExpressionSummary("sn", "", "cell type", "aki"));
+		assertEquals(expectedResultSC2, query.geneExpressionSummary("sc", "", "cell type", "aki"));
+
+        assertEquals(expectedResultSN2, query.geneExpressionSummary("sn", "", "cell type", "aki"));
 	}
 
 	@Test
@@ -166,17 +205,36 @@ public class QueryControllerTest {
 		List<ReferenceCluster> referenceData = new ArrayList<>();
 		PlotData expectedPlotData1 = new PlotData(referenceData, featureData);
         PlotData expectedPlotData2 = new PlotData(referenceData, featureData);
-		when(umapDataService.getPlotData("sn", "gene", "all", false)).thenReturn(expectedPlotData1);
-        when(umapDataService.getPlotData("sn", "gene", "all", true)).thenReturn(expectedPlotData2);
+		when(umapDataService.getPlotData("sn", "gene", "all")).thenReturn(expectedPlotData1);
+        when(umapDataService.getPlotData("sn", "gene", "all")).thenReturn(expectedPlotData2);
 
-		PlotData umapPlotData1 = query.getUmapPlotData("sn", "gene", "all", false);
-        PlotData umapPlotData2 = query.getUmapPlotData("sn", "gene", "all", true);
+		PlotData umapPlotData1 = query.getUmapPlotData("sn", "gene", "all");
+        PlotData umapPlotData2 = query.getUmapPlotData("sn", "gene", "all");
 
 		assertEquals(expectedPlotData1, umapPlotData1);
-		verify(umapDataService).getPlotData("sn", "gene", "all", false);
+		verify(umapDataService).getPlotData("sn", "gene", "all");
 
         assertEquals(expectedPlotData2, umapPlotData2);
-        verify(umapDataService).getPlotData("sn", "gene", "all", true);
+        verify(umapDataService).getPlotData("sn", "gene", "all");
+	}
+
+    @Test
+	public void testGetUmapPlotData2025() throws Exception {
+		List<FeatureData> featureData = new ArrayList<>();
+		List<ReferenceCluster> referenceData = new ArrayList<>();
+		PlotData expectedPlotData1 = new PlotData(referenceData, featureData);
+        PlotData expectedPlotData2 = new PlotData(referenceData, featureData);
+		when(umapDataService2025.getPlotData("sn", "gene", "all")).thenReturn(expectedPlotData1);
+        when(umapDataService2025.getPlotData("sn", "gene", "all")).thenReturn(expectedPlotData2);
+
+		PlotData umapPlotData1 = query.getUmapPlotData2025("sn", "gene", "all");
+        PlotData umapPlotData2 = query.getUmapPlotData2025("sn", "gene", "all");
+
+		assertEquals(expectedPlotData1, umapPlotData1);
+		verify(umapDataService).getPlotData("sn", "gene", "all");
+
+        assertEquals(expectedPlotData2, umapPlotData2);
+        verify(umapDataService).getPlotData("sn", "gene", "all");
 	}
 
 	@Test
@@ -192,10 +250,10 @@ public class QueryControllerTest {
 	public void dataTypesForConceptWhenGeneSymbolAndNullClusterName() throws Exception {
 		List<String> expectedResult1 = Arrays.asList("1", "2");
         List<String> expectedResult2 = Arrays.asList("3", "4");
-		when(geneExpressionService.findDataTypesByGene("gene", false)).thenReturn(expectedResult1);
+		when(geneExpressionService.findDataTypesByGene("gene")).thenReturn(expectedResult1);
 
-		List<String> dataTypesForConcept1 = query.dataTypesForConcept("gene", null, false);
-        List<String> dataTypesForConcept2 = query.dataTypesForConcept("gene", null, true);
+		List<String> dataTypesForConcept1 = query.dataTypesForConcept("gene", null);
+        List<String> dataTypesForConcept2 = query.dataTypesForConcept("gene", null);
 
 		assertEquals(expectedResult1, dataTypesForConcept1);
 		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
@@ -208,11 +266,11 @@ public class QueryControllerTest {
 	public void dataTypesForConceptWhenGeneSymbolAndBlankClusterName() throws Exception {
 		List<String> expectedResult1 = Arrays.asList("1", "2");
         List<String> expectedResult2 = Arrays.asList("3", "4");
-		when(geneExpressionService.findDataTypesByGene("gene", false)).thenReturn(expectedResult1);
-        when(geneExpressionService.findDataTypesByGene("gene", true)).thenReturn(expectedResult2);
+		when(geneExpressionService.findDataTypesByGene("gene")).thenReturn(expectedResult1);
+        when(geneExpressionService.findDataTypesByGene("gene")).thenReturn(expectedResult2);
 
-		List<String> dataTypesForConcept1 = query.dataTypesForConcept("gene", "", false);
-        List<String> dataTypesForConcept2 = query.dataTypesForConcept("gene", "", true);
+		List<String> dataTypesForConcept1 = query.dataTypesForConcept("gene", "");
+        List<String> dataTypesForConcept2 = query.dataTypesForConcept("gene", "");
 
 		assertEquals(expectedResult1, dataTypesForConcept1);
 		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
@@ -228,13 +286,13 @@ public class QueryControllerTest {
         when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult1);
         when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult2);
 
-		List<String> dataTypesForConcept1 = query.dataTypesForConcept(null, "cluster", false);
-        List<String> dataTypesForConcept2 = query.dataTypesForConcept(null, "cluster", true);
+		List<String> dataTypesForConcept1 = query.dataTypesForConcept(null, "cluster");
+        List<String> dataTypesForConcept2 = query.dataTypesForConcept(null, "cluster");
 
 		assertEquals(expectedResult1, dataTypesForConcept1);
-		verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class), any(Boolean.class));
+		verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class));
         assertEquals(expectedResult2, dataTypesForConcept2);
-        verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class), any(Boolean.class));
+        verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class));
 	}
 
 	@Test
@@ -244,14 +302,14 @@ public class QueryControllerTest {
         when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult1);
         when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult2);
 
-		List<String> dataTypesForConcept1 = query.dataTypesForConcept("", "cluster", false);
-        List<String> dataTypesForConcept2 = query.dataTypesForConcept("", "cluster", true);
+		List<String> dataTypesForConcept1 = query.dataTypesForConcept("", "cluster");
+        List<String> dataTypesForConcept2 = query.dataTypesForConcept("", "cluster");
 
 
 		assertEquals(expectedResult1, dataTypesForConcept1);
-		verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class), any(Boolean.class));
+		verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class));
         assertEquals(expectedResult2, dataTypesForConcept2);
-        verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class), any(Boolean.class));
+        verify(geneExpressionService, times(0)).findDataTypesByGene(any(String.class));
 	}
 
 	@Test
@@ -265,7 +323,7 @@ public class QueryControllerTest {
 		expectedResult1.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
-		when(geneExpressionService.getDataTypeSummaryInformation(false)).thenReturn(expectedResult1);
+		when(geneExpressionService.getDataTypeSummaryInformation()).thenReturn(expectedResult1);
 
         expectedResult2.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 				FullDataTypeEnum.SINGLE_CELL.getFullName(), FullDataTypeEnum.SINGLE_CELL.getAbbreviation(),
@@ -273,10 +331,10 @@ public class QueryControllerTest {
 		expectedResult2.add(new DataTypeSummary(OmicsTypeEnum.NONE.getEnum(),
 				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation(),
 				Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0)));
-		when(geneExpressionService.getDataTypeSummaryInformation(true)).thenReturn(expectedResult2);
+		when(geneExpressionService.getDataTypeSummaryInformation()).thenReturn(expectedResult2);
 
-		List<DataTypeSummary> datasetSummary1 = query.getDataTypeSummaryInformation(false);
-        List<DataTypeSummary> datasetSummary2 = query.getDataTypeSummaryInformation(true);
+		List<DataTypeSummary> datasetSummary1 = query.getDataTypeSummaryInformation();
+        List<DataTypeSummary> datasetSummary2 = query.getDataTypeSummaryInformation();
 
 		assertEquals(expectedResult1, datasetSummary1);
         assertEquals(expectedResult2, datasetSummary2);
@@ -315,11 +373,11 @@ public class QueryControllerTest {
 	public void testGetDataTypeInformationByParticipant() throws Exception {
 		ParticipantDataTypeSummary expected1 = mock(ParticipantDataTypeSummary.class);
         ParticipantDataTypeSummary expected2 = mock(ParticipantDataTypeSummary.class);
-		when(participantService.getExperimentCounts("123", false)).thenReturn(expected1);
-        when(participantService.getExperimentCounts("123", true)).thenReturn(expected2);
+		when(participantService.getExperimentCounts("123")).thenReturn(expected1);
+        when(participantService.getExperimentCounts("123")).thenReturn(expected2);
 
-		ParticipantDataTypeSummary result1 = query.getDataTypeInformationByParticipant("123", false);
-        ParticipantDataTypeSummary result2 = query.getDataTypeInformationByParticipant("123", true);
+		ParticipantDataTypeSummary result1 = query.getDataTypeInformationByParticipant("123");
+        ParticipantDataTypeSummary result2 = query.getDataTypeInformationByParticipant("123");
 
 		assertEquals(expected1, result1);
         assertEquals(expected2, result2);

@@ -15,26 +15,22 @@ import org.kpmp.geneExpression.SNSCExpressionDataService2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class UmapDataServiceTest {
+public class UmapDataServiceTest2025 {
 
-	private UmapDataService service;
+	private UmapDataService2025 service;
 	@Mock
-	private SNSCExpressionDataService expressionDataService;
-    @Mock 
-    private SNSCExpressionDataService2025 expressionDataService2025;
+	private SNSCExpressionDataService2025 expressionDataService;
 	@Mock
 	private SCMetadataRepository scMetadataRepository;
-	@Mock
-	private SNMetadataRepository snMetadataRepository;
     @Mock 
-    private SNMetadataRepository2025 snMetadataRepository2025;
+    private SNMetadataRepository2025 snMetadataRepository;
 
 	private static double DOUBLE_PRECISION = 0.000001d;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		service = new UmapDataService(scMetadataRepository, snMetadataRepository, expressionDataService);
+		service = new UmapDataService2025(scMetadataRepository, snMetadataRepository, expressionDataService);
 	}
 
 	@AfterEach
@@ -45,19 +41,19 @@ public class UmapDataServiceTest {
 
 	@Test
 	public void testGetPlotDataFeatureData() throws Exception {
-		SNMetadata snMetadata = new SNMetadata();
+		SNMetadata2025 snMetadata = new SNMetadata2025();
 		snMetadata.setUmapX(3d);
 		snMetadata.setUmapY(4d);
 		snMetadata.setClusterName("clusterName");
 		snMetadata.setClusterAbbreviation("clusterAbbrev");
 		snMetadata.setBarcode("barcodeNotInExpression");
-		SNMetadata snMetadata2 = new SNMetadata();
+		SNMetadata2025 snMetadata2 = new SNMetadata2025();
 		snMetadata2.setUmapX(5d);
 		snMetadata2.setUmapY(6d);
 		snMetadata2.setClusterName("clusterName");
 		snMetadata2.setClusterAbbreviation("clusterAbbrev");
 		snMetadata2.setBarcode("barcode");
-		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
+		List<SNMetadata2025> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene"))
@@ -90,21 +86,21 @@ public class UmapDataServiceTest {
 
 	@Test
 	public void testGetPlotDataReferenceDataOneCluster() throws Exception {
-		SNMetadata snMetadata = new SNMetadata();
+		SNMetadata2025 snMetadata = new SNMetadata2025();
 		snMetadata.setUmapX(3d);
 		snMetadata.setUmapY(4d);
 		snMetadata.setClusterName("clusterName");
 		snMetadata.setClusterAbbreviation("clusterAbbreviation");
 		snMetadata.setClusterColor("color");
 		snMetadata.setBarcode("barcodeNotInExpression");
-		SNMetadata snMetadata2 = new SNMetadata();
+		SNMetadata2025 snMetadata2 = new SNMetadata2025();
 		snMetadata2.setUmapX(5d);
 		snMetadata2.setUmapY(6d);
 		snMetadata2.setClusterName("clusterName");
 		snMetadata2.setClusterAbbreviation("clusterAbbreviation");
 		snMetadata2.setClusterColor("color");
 		snMetadata2.setBarcode("barcode");
-		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
+		List<SNMetadata2025> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
@@ -128,19 +124,19 @@ public class UmapDataServiceTest {
 
 	@Test
 	public void testGetPlotDataReferenceDataMultipleClusters() throws Exception {
-		SNMetadata snMetadata = new SNMetadata();
+		SNMetadata2025 snMetadata = new SNMetadata2025();
 		snMetadata.setUmapX(3d);
 		snMetadata.setUmapY(4d);
 		snMetadata.setClusterAbbreviation("clusterAbbrev1");
 		snMetadata.setClusterColor("color1");
 		snMetadata.setBarcode("barcodeNotInExpression");
-		SNMetadata snMetadata2 = new SNMetadata();
+		SNMetadata2025 snMetadata2 = new SNMetadata2025();
 		snMetadata2.setUmapX(5d);
 		snMetadata2.setUmapY(6d);
 		snMetadata2.setClusterAbbreviation("clusterAbbrev2");
 		snMetadata2.setClusterColor("color2");
 		snMetadata2.setBarcode("barcode");
-		List<SNMetadata> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
+		List<SNMetadata2025> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
 		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());

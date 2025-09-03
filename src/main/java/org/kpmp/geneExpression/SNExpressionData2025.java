@@ -2,20 +2,19 @@ package org.kpmp.geneExpression;
 
 import java.io.Serializable;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @Entity
-@Table(name = "sc_feature_data_2025")
-class SCExpressionData2025 implements Serializable {
+@Table(name = "sn_feature_data_2025")
+public class SNExpressionData2025 implements Serializable {
 
-	private static final long serialVersionUID = 1079445825708102694L;
+	private static final long serialVersionUID = -3363426907715685587L;
 	@Id
 	@Column(name = "gene_symbol")
 	private String geneSymbol;
