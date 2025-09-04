@@ -15,7 +15,7 @@ public interface SNRNAGeneExpressionSummaryRepository2025
 
 	@Cacheable("snCountsBy")
 	@Query(value = "SELECT DISTINCT snc.cluster, snc.cluster_name, snc.cell_count as cell_count, snc.cluster_id as id, IF(isnull(snr.enrollment_category), :enrollmentCategory, snr.enrollment_category) as enrollment_category, IF(isnull(snr.gene), :geneSymbol, snr.gene) as gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
-			+ "FROM sn_cluster_v_2025 snc "
+			+ "FROM sn_cluster_2025_v snc "
 			+ "LEFT JOIN sn_rnaseq_2025 snr ON snc.cluster = snr.cluster AND snr.gene = :geneSymbol AND snr.enrollment_category = LCASE(:enrollmentCategory) "
 			+ "WHERE snc.enrollment_category = LCASE(:enrollmentCategory) ORDER BY snr.p_val IS NULL, snr.p_val ASC", nativeQuery = true)
 	List<SNRNAGeneExpressionExpressionSummaryValue2025> findByEnrollmentAndGeneAllClusters(
