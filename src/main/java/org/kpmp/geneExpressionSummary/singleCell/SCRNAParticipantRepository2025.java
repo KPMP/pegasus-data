@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SCRNAParticipantRepository2025 extends CrudRepository<SCRNAParticipantValue2025, ParticipantId> {
-	@Cacheable("scParticipantCount")
+	@Cacheable("scParticipantCount2025")
 	@Query(value = "SELECT COUNT(DISTINCT scp.redcap_id) FROM sc_participant_tissue_2025_v scp", nativeQuery = true)
 	Long getParticipantCount();
 }

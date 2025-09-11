@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kpmp.geneExpression.SNSCExpressionDataService;
 import org.kpmp.geneExpression.SNSCExpressionDataService2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -21,7 +20,7 @@ public class UmapDataServiceTest2025 {
 	@Mock
 	private SNSCExpressionDataService2025 expressionDataService;
 	@Mock
-	private SCMetadataRepository scMetadataRepository;
+	private SCMetadataRepository2025 scMetadataRepository;
     @Mock 
     private SNMetadataRepository2025 snMetadataRepository;
 

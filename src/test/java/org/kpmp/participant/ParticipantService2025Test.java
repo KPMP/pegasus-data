@@ -30,7 +30,7 @@ public class ParticipantService2025Test {
 	@Mock
 	private SpatialViewerTypeRepository svTypeRepo;
 	@Mock
-	private SingleCellMetadataRepository scMetadataRepo;
+	private SingleCellMetadataRepository2025 scMetadataRepo;
 	@Mock
 	private SingleNucleusMetadataRepository2025 snMetadataRepo;
 	@Mock
