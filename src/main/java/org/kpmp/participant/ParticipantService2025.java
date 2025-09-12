@@ -32,7 +32,7 @@ public class ParticipantService2025 {
 	private ParticipantSummaryDatasetRepository participantSummaryDatasetRepository;
 	private DataSummaryRepository dataSummaryRepo;
 	private SpatialViewerTypeRepository svTypeRepo;
-	private SingleCellMetadataRepository scMetadataRepo;
+	private SingleCellMetadataRepository2025 scMetadataRepo2025;
 	private Logger logger = LoggerFactory.getLogger(ParticipantService.class);
 
 	private final String SPATIAL_VIEWER_FILE_VIEW = "sv_file_v";
@@ -45,14 +45,14 @@ public class ParticipantService2025 {
 
 	@Autowired
 	public ParticipantService2025(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
-			SingleCellMetadataRepository scMetadataRepo, 
+			SingleCellMetadataRepository2025 scMetadataRepo2025, 
             SingleNucleusMetadataRepository2025 snMetadataRepo2025,
 			RTParticipantRepository rtParticipantRepo,
 			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository,
 			ParticipantRepoDataRepository fileByParticipantRepo, ParticipantClinicalDatasetRepository participantClinicalDatasetRepo) {
 		this.dataSummaryRepo = dataSummaryRepo;
 		this.svTypeRepo = svTypeRepo;
-		this.scMetadataRepo = scMetadataRepo;
+		this.scMetadataRepo2025 = scMetadataRepo2025;
 		this.snMetadataRepo2025 = snMetadataRepo2025;
 		this.rtParticipantRepo = rtParticipantRepo;
 		this.participantSummaryDatasetRepository = participantSummaryDatasetRepository;
@@ -149,7 +149,7 @@ public class ParticipantService2025 {
 	private List<ParticipantDataTypeInformation2025> getExplorerCounts(String redcapId) {
 		List<ParticipantDataTypeInformation2025> explorerExperiments = new ArrayList<>();
 		int scCount = 0;
-		if (scMetadataRepo.existsByRedcapId(redcapId)) {
+		if (scMetadataRepo2025.existsByRedcapId(redcapId)) {
 			scCount = 1;
 		}
 

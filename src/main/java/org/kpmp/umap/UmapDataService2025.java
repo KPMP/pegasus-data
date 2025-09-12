@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 public class UmapDataService2025 {
 
 	private SNSCExpressionDataService2025 expressionService2025;
-	private SCMetadataRepository scMetadataRepo;
+	private SCMetadataRepository2025 scMetadataRepo2025;
     private SNMetadataRepository2025 snMetadataRepo2025;
 
 	@Autowired
-	public UmapDataService2025(SCMetadataRepository scMetadataRepo, SNMetadataRepository2025 snMetadataRepo,
+	public UmapDataService2025(SCMetadataRepository2025 scMetadataRepo2025, SNMetadataRepository2025 snMetadataRepo,
             SNSCExpressionDataService2025 expressionService2025) {
-		this.scMetadataRepo = scMetadataRepo;
+		this.scMetadataRepo2025 = scMetadataRepo2025;
         this.snMetadataRepo2025 = snMetadataRepo;
 		this.expressionService2025 = expressionService2025;
         this.expressionService2025 = expressionService2025;
@@ -87,7 +87,7 @@ public class UmapDataService2025 {
 			while(keys.hasNext()) {
 				String barcode = keys.next();
 				Double expressionValue = geneExpressionValues.getDouble(barcode);
-				UmapPoint umapPoint = scMetadataRepo.findByBarcode(barcode);
+				UmapPoint umapPoint = scMetadataRepo2025.findByBarcode(barcode);
 				featureDataWithExpressionValues.addXValue(umapPoint.getUmapX());
 				featureDataWithExpressionValues.addYValue(umapPoint.getUmapY());
 				featureDataWithExpressionValues.addExpression(expressionValue);
@@ -104,9 +104,9 @@ public class UmapDataService2025 {
 			EnrollmentCategoryEnum enrollmentCategory) {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
-				int pointCount = scMetadataRepo.findCount();
+				int pointCount = scMetadataRepo2025.findCount();
 				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = scMetadataRepo.findLimited(limit);
+				umapPoints = scMetadataRepo2025.findLimited(limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                     int pointCount = snMetadataRepo2025.findCount();
                     int limit = (int) Math.round(pointCount*.3);
@@ -114,9 +114,9 @@ public class UmapDataService2025 {
 			}
 		} else if (enrollmentCategory != EnrollmentCategoryEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
-				int pointCount = scMetadataRepo.findCount();
+				int pointCount = scMetadataRepo2025.findCount();
 				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = scMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+				umapPoints = scMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                     int pointCount = snMetadataRepo2025.findCount();
                     int limit = (int) Math.round(pointCount*.3);
