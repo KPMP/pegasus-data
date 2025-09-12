@@ -34,7 +34,8 @@ public interface SCRNAGeneExpressionSummaryRepository2025
 
 	@Cacheable("scCountsByEnrollment2025")
 	@Query(value = "select count(*) from (select p.redcap_id from sc_metadata_2025 sc "
-			+ "join participant p on sc.specimen_id = p.redcap_id "
+			+ "join participant p on sc.redcap_id = p.redcap_id "
 			+ "where p.enrollment_category=:enrollmentCategory group by p.redcap_id) as mycount", nativeQuery = true)
 	long getCountByEnrollment(@Param("enrollmentCategory") String enrollmentCategory);
+
 }
