@@ -4,7 +4,8 @@ type Query {
   geneExpressionSummary(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary]
   geneExpressionSummary2025(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary2025]
   getClusterHieararchies(cellType: String!): [ClusterHierarchy]
-  getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData
+    getClusterHieararchies2025(cellType: String!): [ClusterHierarchy]
+    getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData
   getUmapPlotData2025(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData2025
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation: [DataTypeSummaryInformation]

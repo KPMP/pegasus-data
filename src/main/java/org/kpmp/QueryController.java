@@ -124,6 +124,11 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
+    public List<ClusterHierarchy> getClusterHieararchies2025(@Argument String cellType) throws IOException {
+        return clusterHierarchyService.findClustersByCellType2025(cellType);
+    }
+
+    @QueryMapping
 	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
 		try {
 			return umapService.getPlotData(dataType, geneSymbol, enrollmentCategory);
