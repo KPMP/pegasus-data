@@ -91,7 +91,7 @@ public class ClusterHierarchyService {
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesRegional);
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesRT);
 
-        for (ClusterHierarchy clusterHierarchy : clusterHierarchiesRegional) {
+        for (ClusterHierarchy clusterHierarchy : clusterHierarchiesRNASeq) {
             String clusterName = clusterHierarchy.getClusterName();
             if (clusterToHierarchy.containsKey(clusterName)) {
                 if (clusterName == null) {
