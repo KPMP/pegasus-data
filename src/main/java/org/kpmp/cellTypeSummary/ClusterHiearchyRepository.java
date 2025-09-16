@@ -15,7 +15,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
 	List<ClusterHierarchy> findAll();
 
     @Cacheable("clusterHierarchyRNA2025ByCellType")
-    @Query(value = "SELECT ch.*, c.cell_type_order, 'N' AS is_rt, 'N' AS is_rp, 'Y' AS is_single_cell, 'Y' as is_single_nuc FROM cluster_hierarchy_2025_v ch JOIN cell_type c on ch.cell_type_id = c.cell_type_id WHERE ch.cell_type = :cell_type OR structure_region = :cell_type OR structure_subregion = :cell_type", nativeQuery = true)
+    @Query(value = "SELECT ch.*, c.cell_type_order, 'N' AS is_rt, 'N' AS is_rp, 'Y' AS is_single_cell, 'Y' as is_single_nuc FROM cluster_hierarchy_2025_v ch JOIN cell_type c on ch.cell_type_id = c.cell_type_id WHERE ch.cell_type = :cell_type OR ch.structure_region = :cell_type OR ch.structure_subregion = :cell_type", nativeQuery = true)
     List<ClusterHierarchy> findRnaSeqByCellTypeOrRegion(@Param("cell_type") String cell_type);
 
     @Cacheable("clusterHierarchyRT2025ByCellType")
