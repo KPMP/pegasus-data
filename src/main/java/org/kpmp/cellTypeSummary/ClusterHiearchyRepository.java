@@ -32,7 +32,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
     List<ClusterHierarchy> findRTRPByCellTypeOrRegion(@Param("cell_type") String cell_type);
 
     @Cacheable("clusterHierarchy2025ByCellTypeRegionsSubregions")
-    @Query(value = "SELECT v1.*, 0 AS cluster_id, c.cell_type_order FROM rt_segment_hierarchy_2025_v v1 " +
+    @Query(value = "SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc, c.cell_type_order FROM rt_segment_hierarchy_2025_v v1 " +
     "JOIN cell_type c on v1.cell_type_id = c.cell_type_id " +
     "WHERE v1.cell_type IS NULL AND v1.structure_subregion IS NULL AND v1.structure_region IN (" +
             "SELECT v2.structure_region FROM cell_type_2025 v2 " +
@@ -40,7 +40,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
                     "v2.structure_subregion = :cell_type OR " +
                     "v2.structure_region = :cell_type) " +
     "UNION ALL " +
-    "SELECT v1.*, 0 AS cluster_id, c.cell_type_order FROM knowledge_environment.rt_segment_hierarchy_2025_v v1 " +
+    "SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc, c.cell_type_order FROM knowledge_environment.rt_segment_hierarchy_2025_v v1 " +
     "JOIN cell_type c on v1.cell_type_id = c.cell_type_id " +
     "WHERE v1.cell_type IS NULL AND v1.structure_subregion IN ( " +
             "SELECT v2.structure_subregion FROM cell_type_2025 v2 " +
