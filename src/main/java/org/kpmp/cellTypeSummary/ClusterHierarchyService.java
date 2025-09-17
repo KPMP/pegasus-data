@@ -87,9 +87,9 @@ public class ClusterHierarchyService {
         Map<String, ClusterHierarchy> clusterToHierarchy = new HashMap<>();
         List<ClusterHierarchy> clusterHierarchiesRNASeq = clusterHierarchyRepo.findRnaSeqByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesRegional = clusterHierarchyRepo.findRTRPByCellTypeOrRegion(cellType);
-        List<ClusterHierarchy> clusterHierarchiesRT = clusterHierarchyRepo.findRTByCellTypeOrRegion(cellType);
+        //List<ClusterHierarchy> clusterHierarchiesRT = clusterHierarchyRepo.findRTByCellTypeOrRegion(cellType);
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesRegional);
-        clusterHierarchiesRNASeq.addAll(clusterHierarchiesRT);
+        //clusterHierarchiesRNASeq.addAll(clusterHierarchiesRT);
 
         for (ClusterHierarchy clusterHierarchy : clusterHierarchiesRNASeq) {
             String clusterName = clusterHierarchy.getClusterName();
