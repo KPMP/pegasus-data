@@ -25,7 +25,10 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
 
     @Cacheable("clusterHierarchyRP2025ByCellType")
     @Query(value = "SELECT rt.*, 0 AS cluster_id, rt.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
-            "WHERE rt.abbreviation <> 'Ti' AND rt.abbreviation <> 'INT' AND rt.structure_subregion IS NULL AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type)", nativeQuery = true)
+            "WHERE rt.abbreviation <> 'Ti' AND rt.abbreviation <> 'INT' AND rt.structure_subregion IS NULL AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type) " +
+            "UNION ALL " +
+            "SELECT rt.*, 0 AS cluster_id, NULL AS `cluster_name`, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
+            "WHERE rt.abbreviation <> 'Ti' AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type)", nativeQuery = true)
     List<ClusterHierarchy> findRTRPByCellTypeOrRegion(@Param("cell_type") String cell_type);
 
     @Cacheable("clusterHierarchyRNA2025ByCluster")
