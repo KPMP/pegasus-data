@@ -33,15 +33,13 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
     "WHERE v1.cell_type IS NULL AND v1.structure_subregion IS NULL AND v1.structure_region IN (" +
             "SELECT v2.structure_region FROM cell_type_2025 v2 " +
                     "WHERE v2.cell_type = :cell_type OR " +
-                    "v2.structure_subregion = :cell_type OR " +
-                    "v2.structure_region = :cell_type) " +
+                    "v2.structure_subregion = :cell_type) " +
     "UNION ALL " +
     "SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM knowledge_environment.rt_segment_hierarchy_2025_v v1 " +
     "WHERE v1.cell_type IS NULL AND v1.structure_subregion IN ( " +
             "SELECT v2.structure_subregion FROM cell_type_2025 v2 " +
                     "WHERE v2.cell_type = :cell_type OR " +
-                    "v2.structure_subregion = :cell_type OR " +
-                    "v2.structure_region = :cell_type)) x GROUP BY x.cluster_name, x.structure_subregion, x.structure_region ORDER BY x.cell_type_order ASC", nativeQuery = true)
+                    "v2.structure_subregion = :cell_type)) x GROUP BY x.cluster_name, x.structure_subregion, x.structure_region ORDER BY x.cell_type_order ASC", nativeQuery = true)
     List<ClusterHierarchy> findRTRPParentRegions(@Param("cell_type") String cell_type);
 
     @Cacheable("clusterHierarchyRNA2025ByCluster")
