@@ -31,6 +31,24 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
             "WHERE rt.abbreviation <> 'Ti' AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type)", nativeQuery = true)
     List<ClusterHierarchy> findRTRPByCellTypeOrRegion(@Param("cell_type") String cell_type);
 
+    @Cacheable("clusterHierarchy2025ByCellTypeRegionsSubregions")
+    @Query(value = "SELECT v1.*, c.cell_type_order FROM rt_segment_hierarchy_2025_v v1 " +
+    "JOIN cell_type c on v1.cell_type_id = c.cell_type_id " +
+    "WHERE v1.cell_type IS NULL AND v1.structure_subregion IS NULL AND v1.structure_region IN (" +
+            "SELECT v2.structure_region FROM cell_type_2025 v2 " +
+                    "WHERE v2.cell_type = :cell_type OR " +
+                    "v2.structure_subregion = :cell_type OR " +
+                    "v2.structure_region = :cell_type) " +
+    "UNION ALL " +
+    "SELECT v1.*, c.cell_type_order FROM knowledge_environment.rt_segment_hierarchy_2025_v v1 " +
+    "JOIN cell_type c on v1.cell_type_id = c.cell_type_id " +
+    "WHERE v1.cell_type IS NULL AND v1.structure_subregion IN ( " +
+            "SELECT v2.structure_subregion FROM cell_type_2025 v2 " +
+                    "WHERE v2.cell_type = :cell_type OR " +
+                    "v2.structure_subregion = :cell_type OR " +
+                    "v2.structure_region = :cell_type)", nativeQuery = true)
+    List<ClusterHierarchy> findRTRPParentRegions(@Param("cell_type") String cell_type);
+
     @Cacheable("clusterHierarchyRNA2025ByCluster")
     @Query(value = "SELECT * FROM cluster_hierarchy_2025_v WHERE cluster_name = :cluster_name", nativeQuery = true)
     List<ClusterHierarchy> findRnaSeqByCluster(@Param("cluster_name") String cell_type);
