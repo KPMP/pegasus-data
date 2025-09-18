@@ -87,7 +87,6 @@ public class ClusterHierarchyService {
         Map<String, ClusterHierarchy> clusterToHierarchy = new HashMap<>();
         List<ClusterHierarchy> clusterHierarchiesRNASeq = clusterHierarchyRepo.findRnaSeqByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesRegional = clusterHierarchyRepo.findRTRPByCellTypeOrRegion(cellType);
-        //List<ClusterHierarchy> clusterHierarchiesRT = clusterHierarchyRepo.findRTByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesParentRegions = clusterHierarchyRepo.findRTRPParentRegions(cellType);
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesRegional);
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesParentRegions);
@@ -130,7 +129,7 @@ public class ClusterHierarchyService {
             dataTypesRepresented.add(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
             dataTypesRepresented.add(FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
         } else {
-            ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterOrRegion(clusterName);
+            ClusterHierarchy clustersInDataTypes = clusterHierarchyRepo.findFirstByClusterOrRegion2025(clusterName);
             if (clustersInDataTypes.getIsSingleCellCluster().equalsIgnoreCase("Y")) {
                 dataTypesRepresented.add(FullDataTypeEnum.SINGLE_CELL.getAbbreviation());
             }

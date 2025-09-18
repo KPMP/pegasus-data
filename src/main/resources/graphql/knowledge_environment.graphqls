@@ -8,6 +8,7 @@ type Query {
     getUmapPlotData(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData
   getUmapPlotData2025(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData2025
   dataTypesForConcept(geneSymbol: String, clusterName: String): [String]
+    dataTypesForConcept2025(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation: [DataTypeSummaryInformation]
   getDataTypeSummaryInformation2025: [DataTypeSummaryInformation2025]
   getRTGeneExpressionByEnrollment(comparisonType: String, geneSymbol: String): RTGeneExpressionByEnrollment

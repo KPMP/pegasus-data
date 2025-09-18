@@ -190,6 +190,17 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
+    public List<String> dataTypesForConcept2025(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
+        if (geneSymbol != null && !geneSymbol.isEmpty()) {
+            return geneExpressionSummaryService.findDataTypesByGene(geneSymbol);
+        } else if (clusterName != null && !clusterName.isEmpty()) {
+            return clusterHierarchyService.findDataTypesByClusterName2025(clusterName);
+        }
+        throw new Exception("Must provide either a cluster or a gene symbol.");
+
+    }
+
+    @QueryMapping
 	public RTExpressionByEnrollmentCategory getRTGeneExpressionByEnrollment(@Argument String comparisonType, @Argument String geneSymbol)
 			throws Exception {
 		try {
