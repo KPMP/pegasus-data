@@ -96,7 +96,7 @@ public class ClusterHierarchyService {
             if (clusterToHierarchy.containsKey(clusterName)) {
                 if (clusterName == null) {
                     result.add(clusterHierarchy);
-                } else if (clusterName != null && clusterName.equals(clusterHierarchy.getCellType())) {
+                } else if (clusterName.equals(clusterHierarchy.getCellType())) {
                     clusterToHierarchy.put(clusterName, clusterHierarchy);
                 }
             } else {
