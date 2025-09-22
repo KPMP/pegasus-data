@@ -42,14 +42,6 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
                     "v2.structure_subregion = :cell_type)) x GROUP BY x.cluster_name, x.structure_subregion, x.structure_region ORDER BY x.cell_type_order ASC", nativeQuery = true)
     List<ClusterHierarchy> findRTRPParentRegions(@Param("cell_type") String cell_type);
 
-    @Cacheable("clusterHierarchyRNA2025ByCluster")
-    @Query(value = "SELECT * FROM cluster_hierarchy_2025_v WHERE cluster_name = :cluster_name", nativeQuery = true)
-    List<ClusterHierarchy> findRnaSeqByCluster(@Param("cluster_name") String cell_type);
-
-    @Cacheable("clusterHierarchyRegional2025ByCluster")
-    @Query(value = "SELECT * FROM rt_segment_hierarchy_2025_v WHERE (cell_type IS NULL AND (structure_subregion = :cluster_name OR structure_region = :cluster_name)) OR cell_type = :cluster_name LIMIT 1", nativeQuery = true)
-    List<ClusterHierarchy> findRegionalByCluster(@Param("cluster_name") String cell_type);
-
     @Query(value = "SELECT v1.*, null as cell_type_order FROM cluster_hierarchy_2025_v v1 " +
     "WHERE v1.cluster_name = cluster " +
     "UNION ALL " +
