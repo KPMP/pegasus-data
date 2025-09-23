@@ -124,6 +124,11 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
+    public List<ClusterHierarchy> getClusterHieararchies2025(@Argument String cellType) throws IOException {
+        return clusterHierarchyService.findClustersByCellType2025(cellType);
+    }
+
+    @QueryMapping
 	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
 		try {
 			return umapService.getPlotData(dataType, geneSymbol, enrollmentCategory);
@@ -183,6 +188,17 @@ public class QueryController implements GraphQLQueryResolver {
 		throw new Exception("Must provide either a cluster or a gene symbol.");
 
 	}
+
+    @QueryMapping
+    public List<String> dataTypesForConcept2025(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
+        if (geneSymbol != null && !geneSymbol.isEmpty()) {
+            return geneExpressionSummaryService.findDataTypesByGene(geneSymbol);
+        } else if (clusterName != null && !clusterName.isEmpty()) {
+            return clusterHierarchyService.findDataTypesByClusterName2025(clusterName);
+        }
+        throw new Exception("Must provide either a cluster or a gene symbol.");
+
+    }
 
     @QueryMapping
 	public RTExpressionByEnrollmentCategory getRTGeneExpressionByEnrollment(@Argument String comparisonType, @Argument String geneSymbol)
