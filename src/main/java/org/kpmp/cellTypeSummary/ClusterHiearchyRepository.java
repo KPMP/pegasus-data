@@ -54,10 +54,10 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
             "SELECT v1.*, 'N' AS is_rt, 'N' AS is_rp, 'Y' AS is_single_cell, 'Y' as is_single_nuc FROM cluster_hierarchy_2025_v v1 " +
             "WHERE v1.cluster_name = :cluster_name " +
             "UNION ALL " +
-            "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, rt.cell_type_order, 0 as cluster_id, rt.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
+            "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, 0 as cluster_id, rt.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
             "WHERE rt.abbreviation <> 'Ti' AND rt.abbreviation <> 'INT' AND rt.structure_subregion IS NULL AND rt.structure_region = :cluster_name " +
             "UNION ALL " +
-            "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, rt.cell_type_order, 0 as cluster_id, rt.cell_type AS cluster_name, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
+            "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, 0 as cluster_id, rt.cell_type AS cluster_name, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
             "WHERE rt.abbreviation <> 'Ti' AND rt.structure_subregion = :cluster_name LIMIT 1", nativeQuery = true)
     ClusterHierarchy findFirstByClusterOrRegion2025(@Param("cluster_name") String cell_type);
 
