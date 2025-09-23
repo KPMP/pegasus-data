@@ -42,10 +42,10 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
                     "v2.structure_subregion = :cell_type)) x GROUP BY x.cluster_name, x.structure_subregion, x.structure_region ORDER BY x.cell_type_order ASC", nativeQuery = true)
     List<ClusterHierarchy> findRTRPParentRegions(@Param("cell_type") String cell_type);
 
-    @Query(value = "SELECT v1.*, null as cell_type_order FROM cluster_hierarchy_2025_v v1 " +
+    @Query(value = "SELECT v1.* FROM cluster_hierarchy_2025_v v1 " +
     "WHERE v1.cluster_name = :cluster_name " +
     "UNION ALL " +
-    "SELECT v1.*, null as cell_type_order FROM rt_segment_hierarchy_2025_v v1 " +
+    "SELECT v1.cell_type, v1.structure_region, v1.structure_subregion, v1.cell_type_id, v1.cell_type_order, 0 as cluster_id, v1.cell_type AS cluster_name FROM rt_segment_hierarchy_2025_v v1 " +
     "WHERE v1.cell_type IS NULL AND (v1.structure_subregion = :cluster_name OR v1.structure_region = :cluster_name) LIMIT 1", nativeQuery = true)
     ClusterHierarchy findFirstByClusterOrRegion2025(@Param("cluster_name") String cell_type);
 
