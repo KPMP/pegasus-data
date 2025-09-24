@@ -58,7 +58,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
             "WHERE rt.abbreviation <> 'Ti' AND rt.abbreviation <> 'INT' AND rt.structure_subregion IS NULL AND rt.structure_region = :cluster_name " +
             "UNION ALL " +
             "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, 0 as cluster_id, rt.cell_type AS cluster_name, NULL as cell_type, rt.cell_type_order, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
-            "WHERE rt.abbreviation <> 'Ti' AND rt.structure_subregion = :cluster_name LIMIT 1", nativeQuery = true)
+            "WHERE rt.structure_region = :cluster_name LIMIT 1", nativeQuery = true)
     ClusterHierarchy findFirstByClusterOrRegion2025(@Param("cluster_name") String cluster_name);
 
     @Cacheable("clusterHierarchyCt")
