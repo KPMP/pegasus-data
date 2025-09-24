@@ -51,7 +51,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
 
     @Cacheable("clusterHierarchyCluster2025")
     @Query(value =
-            "SELECT v1.*, 'N' AS is_rt, 'N' AS is_rp, 'Y' AS is_single_cell, 'Y' as is_single_nuc FROM cluster_hierarchy_2025_v v1 " +
+            "SELECT v1.structure_region, v1.structure_subregion, v1.cell_type_id, v1.cluster_id, v1.cell_type, v1.cluster_name, v1.cell_type_order, 'N' AS is_rt, 'N' AS is_rp, 'Y' AS is_single_cell, 'Y' as is_single_nuc FROM cluster_hierarchy_2025_v v1 " +
             "WHERE v1.cluster_name = :cluster_name " +
             "UNION ALL " +
             "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, 0 as cluster_id, NULL as cell_type, rt.cell_type AS cluster_name, rt.cell_type_order, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
