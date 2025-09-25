@@ -93,6 +93,11 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
+    public CellTypeHierarchy cellTypeHierarchy2025() throws IOException {
+        return cellTypeService.getCellTypeHierarchy2025();
+    }
+
+    @QueryMapping
 	public List<? extends GeneExpressionSummary> geneExpressionSummary(@Argument String dataType, @Argument String geneSymbol,
         @Argument String cellType, @Argument String enrollmentCategory) throws IOException {
 		List<? extends GeneExpressionSummary> results = new ArrayList<>();
