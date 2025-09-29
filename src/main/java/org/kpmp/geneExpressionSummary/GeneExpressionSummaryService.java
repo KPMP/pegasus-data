@@ -13,8 +13,10 @@ import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
 import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository2025;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
+import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository2025;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ import org.springframework.stereotype.Service;
 public class GeneExpressionSummaryService {
 	private SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository;
 	private SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository;
+    private SCRNAGeneExpressionSummaryRepository2025 scrnaGeneExpressionRepository2025;
+    private SNRNAGeneExpressionSummaryRepository2025 snrnaGeneExpressionRepository2025;
 	private SCRNAParticipantRepository scrnaParticipantRepository;
 	private SNRNAParticipantRepository snrnaParticipantRepository;
 	private RTParticipantRepository rtParticipantRepository;
@@ -34,11 +38,15 @@ public class GeneExpressionSummaryService {
 	@Autowired
 	public GeneExpressionSummaryService(SCRNAGeneExpressionSummaryRepository scrnaGeneExpressionRepository,
 			SNRNAGeneExpressionSummaryRepository snrnaGeneExpressionRepository,
+            SNRNAGeneExpressionSummaryRepository2025 snrnaGeneExpressionRepository2025,
 			SCRNAParticipantRepository scrnaParticipantRepository,
+            SCRNAGeneExpressionSummaryRepository2025 scrnaGeneExpressionRepository2025,
 			SNRNAParticipantRepository snrnaParticipantRepository, RTParticipantRepository rtParticipantRepository,
 			RTExpressionDataAllSegmentsRepository rtExpressionDataAllSegmentsRepository, RPExpressionDataRepository rpExpressionDataRepository, RPParticipantRepository rpParticipantRepository) {
 		this.scrnaGeneExpressionRepository = scrnaGeneExpressionRepository;
 		this.snrnaGeneExpressionRepository = snrnaGeneExpressionRepository;
+        this.snrnaGeneExpressionRepository2025 = snrnaGeneExpressionRepository2025;
+        this.scrnaGeneExpressionRepository2025 = scrnaGeneExpressionRepository2025;
 		this.scrnaParticipantRepository = scrnaParticipantRepository;
 		this.snrnaParticipantRepository = snrnaParticipantRepository;
 		this.rtParticipantRepository = rtParticipantRepository;
@@ -101,6 +109,28 @@ public class GeneExpressionSummaryService {
 			break;
 		}
 		return results;
+	}
+
+    public List<String> findDataTypesByGene2025(String gene) {
+		List<String> dataTypes = new ArrayList<>();
+		long scCountByGene = scrnaGeneExpressionRepository2025.getCountByGene(gene);
+		if (scCountByGene != 0) {
+			dataTypes.add(FullDataTypeEnum.SINGLE_CELL.getAbbreviation());
+		}
+
+		long snCountByGene = snrnaGeneExpressionRepository2025.getCountByGene(gene);
+		if (snCountByGene != 0) {
+			dataTypes.add(FullDataTypeEnum.SINGLE_NUCLEUS.getAbbreviation());
+		}
+		long rtCountByGene = rtExpressionDataAllSegmentsRepository.getCountByGene(gene);
+		if (rtCountByGene != 0) {
+			dataTypes.add(FullDataTypeEnum.REGIONAL_TRANSCRIPTOMICS.getAbbreviation());
+		}
+		long rpCountByGene = rpExpressionDataRepository.getCountByGene(gene);
+		if (rpCountByGene != 0) {
+			dataTypes.add(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
+		}
+		return dataTypes;
 	}
 
 	public List<String> findDataTypesByGene(String gene) {
