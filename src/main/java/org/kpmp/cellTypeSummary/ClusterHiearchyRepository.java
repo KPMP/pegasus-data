@@ -24,7 +24,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
             "WHERE rt.abbreviation <> 'Ti' AND rt.abbreviation <> 'INT' AND rt.structure_subregion IS NULL AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type) " +
             "UNION ALL " +
             "SELECT rt.*, 0 AS cluster_id, NULL AS `cluster_name`, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
-            "WHERE rt.abbreviation <> 'Ti' AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type)) x ORDER BY x.cell_type_order ASC", nativeQuery = true)
+            "WHERE rt.abbreviation <> 'Ti' AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type)) x GROUP BY x.cluster_name, x.structure_subregion, x.structure_region ORDER BY x.cell_type_order ASC", nativeQuery = true)
     List<ClusterHierarchy> findRTRPByCellTypeOrRegion(@Param("cell_type") String cell_type);
 
     // This query gets the regions or subregions that RT/RP data are in given a more specific cell type.
