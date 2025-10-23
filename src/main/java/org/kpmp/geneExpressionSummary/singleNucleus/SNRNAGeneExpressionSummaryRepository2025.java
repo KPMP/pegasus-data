@@ -23,7 +23,7 @@ public interface SNRNAGeneExpressionSummaryRepository2025
 
 	@Cacheable("snCounts2025")
 	@Query(value = "SELECT DISTINCT snr.cluster, c.cluster_name, 0 as cell_count, snr.id, snr.enrollment_category, snr.gene, snr.p_val as pval, snr.p_val_adj as pval_adj, snr.fold_change, snr.pct_1 as pct1, snr.pct_2 as pct2, snr.avg_exp as avg_exp "
-			+ "FROM sn_rnaseq_2025 snr " + "JOIN cluster c ON snr.cluster = c.abbreviation AND c.cluster_name = :cellType "
+			+ "FROM sn_rnaseq_2025 snr " + "JOIN cluster_2025 c ON snr.cluster = c.abbreviation AND c.cluster_name = :cellType "
 			+ "WHERE snr.enrollment_category = LCASE(:enrollmentCategory) " + "ORDER BY snr.fold_change DESC", nativeQuery = true)
 	List<SNRNAGeneExpressionExpressionSummaryValue2025> findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
 			@Param("cellType") String cellType, @Param("enrollmentCategory") String enrollmentCategory);
@@ -38,3 +38,4 @@ public interface SNRNAGeneExpressionSummaryRepository2025
     @Query(value = "SELECT COUNT(*) FROM sn_rnaseq_2025 snr WHERE snr.gene= :gene", nativeQuery = true)
 	long getCountByGene(@Param("gene") String gene);
 }
+
