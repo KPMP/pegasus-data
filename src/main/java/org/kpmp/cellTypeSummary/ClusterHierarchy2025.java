@@ -6,7 +6,7 @@ import org.springframework.lang.Nullable;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "cluster_hierarchy_v")
+@Table(name = "cluster_hierarchy_2025_v")
 @IdClass(ClusterHierarchyId.class)
 public class ClusterHierarchy2025 implements Serializable {
 
