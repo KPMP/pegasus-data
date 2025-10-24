@@ -167,8 +167,8 @@ public class DataSummaryService {
 					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType),
-					dataSummaryRepository.getDataSummaryTotal(dataType),
-					dataSummaryRepository.getParticipantSummaryCount(dataType)));
+					dataSummaryRepository.getDataSummaryLinkTotal(dataType),
+					dataSummaryRepository.getParticipantSummaryLinkCount(dataType)));
 		}
 
 		// This is a special case since the segmentation masks are a LM data type, but we wanted to call them out specially
