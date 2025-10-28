@@ -23,7 +23,7 @@ public class CellTypeSynonym implements Serializable {
 	private int cellTypeId;
 
 	@Id
-	@Column(name = "cell_type_synonym")
+	@Column(name = "synonym")
 	private String cellTypeSynonym;
 
 	@ManyToOne(fetch = FetchType.EAGER)
