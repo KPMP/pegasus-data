@@ -106,8 +106,9 @@ public class UmapDataService2025 {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo2025.findCount();
-				int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
-				umapPoints = scMetadataRepo2025.findLimited(limit);
+				int largeClusterLimit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
+				int mediumClusterLimit = (int)Math.round(pointCount*.5);
+				umapPoints = scMetadataRepo2025.findLimited(mediumClusterLimit, largeClusterLimit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                     int pointCount = snMetadataRepo2025.findCount();
                     int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
