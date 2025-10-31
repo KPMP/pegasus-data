@@ -21,6 +21,7 @@ public class UmapDataService2025 {
 	private SNSCExpressionDataService2025 expressionService2025;
 	private SCMetadataRepository2025 scMetadataRepo2025;
     private SNMetadataRepository2025 snMetadataRepo2025;
+	private static final float DOWNSAMPLE_PERCENT = .3f;
 
 	@Autowired
 	public UmapDataService2025(SCMetadataRepository2025 scMetadataRepo2025, SNMetadataRepository2025 snMetadataRepo,
@@ -105,21 +106,21 @@ public class UmapDataService2025 {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo2025.findCount();
-				int limit = (int) Math.round(pointCount*.3);
+				int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
 				umapPoints = scMetadataRepo2025.findLimited(limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                     int pointCount = snMetadataRepo2025.findCount();
-                    int limit = (int) Math.round(pointCount*.3);
+                    int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
                     umapPoints = snMetadataRepo2025.findLimited(limit);
 			}
 		} else if (enrollmentCategory != EnrollmentCategoryEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo2025.findCount();
-				int limit = (int) Math.round(pointCount*.3);
+				int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
 				umapPoints = scMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                     int pointCount = snMetadataRepo2025.findCount();
-                    int limit = (int) Math.round(pointCount*.3);
+                    int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
                     umapPoints = snMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			}
 		}
