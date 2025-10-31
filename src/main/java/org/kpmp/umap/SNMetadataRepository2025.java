@@ -29,7 +29,7 @@ interface SNMetadataRepository2025 extends CrudRepository<SNMetadata2025, String
 			+ "from sn_umap_point_2025_v "
 			+ "group by cluster_abbreviation "
 			+ "having count(cluster_abbreviation) < 1000 "
-			+ "UNION ALL"
+			+ "UNION ALL "
 			+ "(SELECT "
 			+ "umap_x, "
 			+ "umap_y, "
