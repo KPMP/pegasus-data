@@ -15,15 +15,30 @@ public interface SCMetadataRepository2025 extends CrudRepository<SCMetadata2025,
 	
 	@Cacheable("scMetadataLimited")
 	@Query(value = "SELECT "
-						+ "umap_x, "
-						+ "umap_y, "
-						+ "cluster_abbreviation, "
-						+ "cluster_name, "
-						+ "cluster_color, "
-						+ "barcode, "
-						+ "enrollment_category "
-					+ "FROM sc_umap_point_2025_v "
-					+ "LIMIT :limit", nativeQuery = true)
+			+ "umap_x, "
+			+ "umap_y, "
+			+ "cluster_abbreviation, "
+			+ "cluster_name, "
+			+ "cluster_color, "
+			+ "barcode, "
+			+ "enrollment_category "
+			+ "FROM sc_umap_point_2025_v "
+			+ "WHERE cluster_abbreviation in ( "
+			+ "select cluster_abbreviation "
+			+ "from sc_umap_point_2025_v "
+			+ "group by cluster_abbreviation "
+			+ "having count(cluster_abbreviation) < 1000 "
+			+ "UNION "
+			+ "(SELECT "
+			+ "umap_x, "
+			+ "umap_y, "
+			+ "cluster_abbreviation, "
+			+ "cluster_name, "
+			+ "cluster_color, "
+			+ "barcode, "
+			+ "enrollment_category "
+			+ "FROM sc_umap_point_2025_v "
+			+ "limit :limit)", nativeQuery = true)
 	List<SCMetadata2025> findLimited(@Param("limit") int limit);
 
 	@Cacheable("scMetadataCount")
