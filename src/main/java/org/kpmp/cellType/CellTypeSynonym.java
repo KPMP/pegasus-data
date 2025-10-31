@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "celltype_synonym")
+@Table(name = "celltype_synonym_2025")
 @IdClass(CellTypeSynonymId.class)
 public class CellTypeSynonym implements Serializable {
 
@@ -23,7 +23,7 @@ public class CellTypeSynonym implements Serializable {
 	private int cellTypeId;
 
 	@Id
-	@Column(name = "cell_type_synonym")
+	@Column(name = "synonym")
 	private String cellTypeSynonym;
 
 	@ManyToOne(fetch = FetchType.EAGER)

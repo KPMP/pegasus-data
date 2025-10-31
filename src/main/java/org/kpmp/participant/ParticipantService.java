@@ -38,6 +38,7 @@ public class ParticipantService {
 	private final String SPATIAL_VIEWER_FILE_VIEW = "sv_file_v";
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";
 	private SingleNucleusMetadataRepository snMetadataRepo;
+    private SingleNucleusMetadataRepository2025 snMetadataRepo2025;
 	private RTParticipantRepository rtParticipantRepo;
 	private ParticipantRepoDataRepository fileByParticipantRepo;
 	private RPParticipantRepository rpParticipantRepository;
@@ -45,7 +46,8 @@ public class ParticipantService {
 
 	@Autowired
 	public ParticipantService(DataSummaryRepository dataSummaryRepo, SpatialViewerTypeRepository svTypeRepo,
-			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo,
+			SingleCellMetadataRepository scMetadataRepo, SingleNucleusMetadataRepository snMetadataRepo, 
+            SingleNucleusMetadataRepository2025 snMetadataRepo2025,
 			RTParticipantRepository rtParticipantRepo,
 			ParticipantSummaryDatasetRepository participantSummaryDatasetRepository, RPParticipantRepository rpParticipantRepository,
 			ParticipantRepoDataRepository fileByParticipantRepo, ParticipantClinicalDatasetRepository participantClinicalDatasetRepo) {
@@ -58,6 +60,7 @@ public class ParticipantService {
 		this.rpParticipantRepository = rpParticipantRepository;
 		this.fileByParticipantRepo = fileByParticipantRepo;
         this.participantClinicalDatasetRepo = participantClinicalDatasetRepo; 
+        this.snMetadataRepo2025 = snMetadataRepo2025;
 	}
 
     public ParticipantClinicalDataset getParticipantClinicalDataset(String redcapId){
@@ -156,9 +159,9 @@ public class ParticipantService {
 		explorerExperiments.add(singleCellData);
 
 		int snCount = 0;
-		if (snMetadataRepo.existsByRedcapId(redcapId)) {
-			snCount = 1;
-		}
+        if (snMetadataRepo.existsByRedcapId(redcapId)) {
+                snCount = 1;
+            }
 		ParticipantDataTypeInformation singleNucData = new ParticipantDataTypeInformation(
 				FullDataTypeEnum.SINGLE_NUCLEUS.getFullName(), snCount, true);
 		explorerExperiments.add(singleNucData);

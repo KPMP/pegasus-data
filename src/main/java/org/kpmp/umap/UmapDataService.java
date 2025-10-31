@@ -32,7 +32,7 @@ public class UmapDataService {
 
 	public PlotData getPlotData(String dataType, String geneSymbol, String requestEnrollmentCategory)
 			throws JSONException, Exception {
-		JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol);
+        JSONObject geneExpressionValues = expressionService.getGeneExpressionValues(dataType, geneSymbol);
 		FullDataTypeEnum dataTypeEnum = FullDataTypeEnum.fromAbbreviation(dataType);
 		List<? extends UmapPoint> umapPoints = new ArrayList<>();
 		EnrollmentCategoryEnum enrollmentCategory = EnrollmentCategoryEnum.fromRequestType(requestEnrollmentCategory);
@@ -107,9 +107,9 @@ public class UmapDataService {
 				int limit = (int) Math.round(pointCount*.3);
 				umapPoints = scMetadataRepo.findLimited(limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
-				int pointCount = snMetadataRepo.findCount();
-				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = snMetadataRepo.findLimited(limit);
+                int pointCount = snMetadataRepo.findCount();
+                int limit = (int) Math.round(pointCount*.3);
+                umapPoints = snMetadataRepo.findLimited(limit);
 			}
 		} else if (enrollmentCategory != EnrollmentCategoryEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
@@ -117,9 +117,9 @@ public class UmapDataService {
 				int limit = (int) Math.round(pointCount*.3);
 				umapPoints = scMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
-				int pointCount = snMetadataRepo.findCount();
-				int limit = (int) Math.round(pointCount*.3);
-				umapPoints = snMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+                int pointCount = snMetadataRepo.findCount();
+                int limit = (int) Math.round(pointCount*.3);
+                umapPoints = snMetadataRepo.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
 			}
 		}
 		return umapPoints;

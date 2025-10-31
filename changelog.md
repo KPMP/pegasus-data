@@ -1,6 +1,11 @@
 # Changelog
 
-## Release 2.8 (unreleased)
+## Release 2.9 (unreleased)
+Breief summary:
+- Created new Objects for Single-Cell & Single-Nuc data
+- Created new Endpoints to retrieve new SN / SC data
+
+## Release 2.8 (6/30/2025)
 Brief summary:
 - Updates to how we calculate the numbers for the tables so it is more data driven
 

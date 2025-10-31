@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "cell_type")
+@Table(name = "cell_type_2025")
 public class CellType implements Serializable {
 
 	private static final long serialVersionUID = -7240769211757430938L;

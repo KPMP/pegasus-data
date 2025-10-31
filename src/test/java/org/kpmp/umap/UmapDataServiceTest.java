@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.kpmp.geneExpression.SNSCExpressionDataService;
+import org.kpmp.geneExpression.SNSCExpressionDataService2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -19,10 +20,14 @@ public class UmapDataServiceTest {
 	private UmapDataService service;
 	@Mock
 	private SNSCExpressionDataService expressionDataService;
+    @Mock 
+    private SNSCExpressionDataService2025 expressionDataService2025;
 	@Mock
 	private SCMetadataRepository scMetadataRepository;
 	@Mock
 	private SNMetadataRepository snMetadataRepository;
+    @Mock 
+    private SNMetadataRepository2025 snMetadataRepository2025;
 
 	private static double DOUBLE_PRECISION = 0.000001d;
 
