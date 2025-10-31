@@ -27,7 +27,7 @@ public interface SCMetadataRepository2025 extends CrudRepository<SCMetadata2025,
 			+ "select cluster_abbreviation "
 			+ "from sc_umap_point_2025_v "
 			+ "group by cluster_abbreviation "
-			+ "having count(cluster_abbreviation) < 1000 "
+			+ "having count(cluster_abbreviation) < 1000 ) "
 			+ "UNION ALL "
 			+ "(SELECT "
 			+ "umap_x, "
