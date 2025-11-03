@@ -15,31 +15,25 @@ public interface SCMetadataRepository2025 extends CrudRepository<SCMetadata2025,
 	
 	@Cacheable("scMetadataLimited")
 	@Query(value = "SELECT "
-			+ "umap_x, "
-			+ "umap_y, "
-			+ "cluster_abbreviation, "
-			+ "cluster_name, "
-			+ "cluster_color, "
-			+ "barcode, "
-			+ "enrollment_category "
+			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
 			+ "FROM sc_umap_point_2025_v "
-			+ "WHERE cluster_abbreviation in ( "
-			+ "select cluster_abbreviation "
-			+ "from sc_umap_point_2025_v "
-			+ "group by cluster_abbreviation "
-			+ "having count(cluster_abbreviation) < 1000 "
-			+ "UNION "
+			+ "WHERE cluster_abbreviation in ( select cluster_abbreviation from sc_umap_point_2025_v "
+			+ "group by cluster_abbreviation having count(cluster_abbreviation) < 1000) "
+			+ "UNION ALL "
 			+ "(SELECT "
-			+ "umap_x, "
-			+ "umap_y, "
-			+ "cluster_abbreviation, "
-			+ "cluster_name, "
-			+ "cluster_color, "
-			+ "barcode, "
-			+ "enrollment_category "
+			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
+					+ "FROM sc_umap_point_2025_v "
+					+ "WHERE cluster_abbreviation in ( select cluster_abbreviation from sc_umap_point_2025_v "
+					+ "group by cluster_abbreviation having count(cluster_abbreviation) BETWEEN 1000 AND 5000 ) "
+			+ "limit :mediumClusterLimit) "
+			+ "UNION ALL "
+			+ "(SELECT "
+			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
 			+ "FROM sc_umap_point_2025_v "
-			+ "limit :limit)", nativeQuery = true)
-	List<SCMetadata2025> findLimited(@Param("limit") int limit);
+			+ "WHERE cluster_abbreviation in ( select cluster_abbreviation from sc_umap_point_2025_v "
+			+ "group by cluster_abbreviation having count(cluster_abbreviation) > 5000 ) "
+			+ "limit :largeClusterLimit) ", nativeQuery = true)
+	List<SCMetadata2025> findLimited(@Param("mediumClusterLimit") int mediumClusterLimit, @Param("largeClusterLimit") int largeClusterLimit);
 
 	@Cacheable("scMetadataCount")
 	@Query(value = "SELECT COUNT(umap_x) FROM sc_umap_point_2025_v;", nativeQuery = true)
