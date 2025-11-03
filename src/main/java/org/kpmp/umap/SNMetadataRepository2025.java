@@ -34,7 +34,7 @@ interface SNMetadataRepository2025 extends CrudRepository<SNMetadata2025, String
 			+ "WHERE cluster_abbreviation in ( select cluster_abbreviation from sn_umap_point_2025_v "
 			+ "group by cluster_abbreviation having count(cluster_abbreviation) > 5000 ) "
 			+ "limit :largeClusterLimit) ", nativeQuery = true)
-	List<SNMetadata2025> findLimited(@Param("limit") int limit);
+	List<SNMetadata2025> findLimited(@Param("mediumClusterLimit") int mediumClusterLimit, @Param("largeClusterLimit") int largeClusterLimit);
 
 	@Cacheable("snMetadataCount2025")
 	@Query(value = "SELECT COUNT(umap_x) FROM sn_umap_point_2025_v;", nativeQuery = true)
