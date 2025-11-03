@@ -54,7 +54,7 @@ public class UmapDataServiceTest2025 {
 		snMetadata2.setBarcode("barcode");
 		List<SNMetadata2025> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
-		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
+		when(snMetadataRepository.findLimited(2,3)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene"))
 				.thenReturn(new JSONObject("{ 'barcode': 0.4d , 'barcode2': 2.2d}"));
 
@@ -101,7 +101,7 @@ public class UmapDataServiceTest2025 {
 		snMetadata2.setBarcode("barcode");
 		List<SNMetadata2025> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
-		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
+		when(snMetadataRepository.findLimited(2,3)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
 
 		PlotData plotData = service.getPlotData("sn", "gene", "all");
@@ -137,7 +137,7 @@ public class UmapDataServiceTest2025 {
 		snMetadata2.setBarcode("barcode");
 		List<SNMetadata2025> expectedPoints = Arrays.asList(snMetadata, snMetadata2);
 		when(snMetadataRepository.findCount()).thenReturn(7);
-		when(snMetadataRepository.findLimited(2)).thenReturn(expectedPoints);
+		when(snMetadataRepository.findLimited(2,3)).thenReturn(expectedPoints);
 		when(expressionDataService.getGeneExpressionValues("sn", "gene")).thenReturn(new JSONObject());
 
 		PlotData plotData = service.getPlotData("sn", "gene", "all");
