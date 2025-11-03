@@ -21,7 +21,8 @@ public class UmapDataService2025 {
 	private SNSCExpressionDataService2025 expressionService2025;
 	private SCMetadataRepository2025 scMetadataRepo2025;
     private SNMetadataRepository2025 snMetadataRepo2025;
-	private static final float DOWNSAMPLE_PERCENT = .3f;
+	private static final float LARGE_CLUSTER_DOWNSAMPLE_PERCENT = .3f;
+	private static final float MEDIUM_CLUSTER_DOWNSAMPLE_PERCENT = .5f;
 
 	@Autowired
 	public UmapDataService2025(SCMetadataRepository2025 scMetadataRepo2025, SNMetadataRepository2025 snMetadataRepo,
@@ -106,23 +107,26 @@ public class UmapDataService2025 {
 		if (enrollmentCategory == EnrollmentCategoryEnum.ALL) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo2025.findCount();
-				int largeClusterLimit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
-				int mediumClusterLimit = (int)Math.round(pointCount*.5);
+				int largeClusterLimit = (int) Math.round(pointCount*LARGE_CLUSTER_DOWNSAMPLE_PERCENT);
+				int mediumClusterLimit = (int)Math.round(pointCount*MEDIUM_CLUSTER_DOWNSAMPLE_PERCENT);
 				umapPoints = scMetadataRepo2025.findLimited(mediumClusterLimit, largeClusterLimit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                     int pointCount = snMetadataRepo2025.findCount();
-                    int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
-                    umapPoints = snMetadataRepo2025.findLimited(limit);
+					int largeClusterLimit = (int) Math.round(pointCount*LARGE_CLUSTER_DOWNSAMPLE_PERCENT);
+					int mediumClusterLimit = (int)Math.round(pointCount*MEDIUM_CLUSTER_DOWNSAMPLE_PERCENT);
+                    umapPoints = snMetadataRepo2025.findLimited(mediumClusterLimit, largeClusterLimit);
 			}
 		} else if (enrollmentCategory != EnrollmentCategoryEnum.UNKNOWN) {
 			if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_CELL)) {
 				int pointCount = scMetadataRepo2025.findCount();
-				int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
-				umapPoints = scMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+				int largeClusterLimit = (int) Math.round(pointCount*LARGE_CLUSTER_DOWNSAMPLE_PERCENT);
+				int mediumClusterLimit = (int)Math.round(pointCount*MEDIUM_CLUSTER_DOWNSAMPLE_PERCENT);
+				umapPoints = scMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), mediumClusterLimit, largeClusterLimit);
 			} else if (dataTypeEnum.equals(FullDataTypeEnum.SINGLE_NUCLEUS)) {
                     int pointCount = snMetadataRepo2025.findCount();
-                    int limit = (int) Math.round(pointCount*DOWNSAMPLE_PERCENT);
-                    umapPoints = snMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), limit);
+					int largeClusterLimit = (int) Math.round(pointCount*LARGE_CLUSTER_DOWNSAMPLE_PERCENT);
+					int mediumClusterLimit = (int)Math.round(pointCount*MEDIUM_CLUSTER_DOWNSAMPLE_PERCENT);
+                    umapPoints = snMetadataRepo2025.findLimitedWithEnrollmentCategory(enrollmentCategory.getParticipantEnrollmentCategory(), mediumClusterLimit, largeClusterLimit);
 			}
 		}
 		return umapPoints;
