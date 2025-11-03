@@ -45,15 +45,28 @@ interface SNMetadataRepository2025 extends CrudRepository<SNMetadata2025, String
 
 	@Cacheable("snMetadataWithEnrollment2025")
 	@Query(value = "SELECT "
-						+ "umap_x, "
-						+ "umap_y, "
-						+ "cluster_abbreviation, "
-						+ "cluster_name, "
-						+ "cluster_color, "
-						+ "barcode, "
-						+ "enrollment_category "
-					+ "FROM sn_umap_point_2025_v "
-					+ "WHERE enrollment_category=:enrollmentCategory "
-					+ "LIMIT :limit", nativeQuery = true)
-	List<SNMetadata2025> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory, @Param("limit") int limit);
+			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
+			+ "FROM sn_umap_point_2025_v "
+			+ "WHERE cluster_abbreviation in ( select cluster_abbreviation from sn_umap_point_2025_v "
+			+ "AND enrollment_category=:enrollmentCategory "
+			+ "group by cluster_abbreviation having count(cluster_abbreviation) < 1000) "
+			+ "UNION ALL "
+			+ "(SELECT "
+			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
+			+ "FROM sn_umap_point_2025_v "
+			+ "WHERE cluster_abbreviation in ( select cluster_abbreviation from sn_umap_point_2025_v "
+			+ "AND enrollment_category=:enrollmentCategory "
+			+ "group by cluster_abbreviation having count(cluster_abbreviation) BETWEEN 1000 AND 5000 ) "
+			+ "limit :mediumClusterLimit) "
+			+ "UNION ALL "
+			+ "(SELECT "
+			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
+			+ "FROM sn_umap_point_2025_v "
+			+ "WHERE cluster_abbreviation in ( select cluster_abbreviation from sn_umap_point_2025_v "
+			+ "AND enrollment_category=:enrollmentCategory "
+			+ "group by cluster_abbreviation having count(cluster_abbreviation) > 5000 ) "
+			+ "limit :largeClusterLimit) ", nativeQuery = true)
+	List<SNMetadata2025> findLimitedWithEnrollmentCategory(@Param("enrollmentCategory") String enrollmentCategory,
+														   @Param("mediumClusterLimit") int mediumClusterLimit,
+														   @Param("largeClusterLimit") int largeClusterLimit);
 }
