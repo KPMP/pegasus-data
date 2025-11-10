@@ -1,11 +1,6 @@
 package org.kpmp.cellTypeSummary;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.kpmp.FullDataTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,13 +80,14 @@ public class ClusterHierarchyService {
 
         ArrayList<ClusterHierarchy> result = new ArrayList<>();
         Map<String, ClusterHierarchy> clusterToHierarchy = new HashMap<>();
+        Set<ClusterHierarchy> clusterHierarchySet = new HashSet<>();
         List<ClusterHierarchy> clusterHierarchiesRNASeq = clusterHierarchyRepo.findRnaSeqByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesRegional = clusterHierarchyRepo.findRTRPByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesParentRegions = clusterHierarchyRepo.findRTRPParentRegions(cellType);
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesRegional);
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesParentRegions);
-
-        for (ClusterHierarchy clusterHierarchy : clusterHierarchiesRNASeq) {
+        clusterHierarchySet.addAll(clusterHierarchiesRNASeq);
+        for (ClusterHierarchy clusterHierarchy : clusterHierarchySet) {
             String clusterName = clusterHierarchy.getClusterName();
             if (clusterToHierarchy.containsKey(clusterName)) {
                 if (clusterName == null) {
