@@ -22,7 +22,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
     @Cacheable("clusterHierarchyRP2025ByCellType")
     @Query(value = "SELECT * FROM (SELECT rt.*, 0 AS cluster_id, rt.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
             "WHERE rt.abbreviation <> 'Ti' AND rt.abbreviation <> 'INT' AND rt.structure_subregion IS NULL AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type) " +
-            "UNION ALL " +
+            "UNION " +
             "SELECT rt.*, 0 AS cluster_id, NULL AS `cluster_name`, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
             "WHERE rt.abbreviation <> 'Ti' AND (rt.cell_type = :cell_type OR rt.structure_region = :cell_type OR rt.structure_subregion = :cell_type)) x GROUP BY x.cluster_name, x.structure_subregion, x.structure_region ORDER BY x.cell_type_order ASC", nativeQuery = true)
     List<ClusterHierarchy> findRTRPByCellTypeOrRegion(@Param("cell_type") String cell_type);
@@ -34,7 +34,7 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
             "SELECT v2.structure_region FROM cell_type_2025 v2 " +
                     "WHERE v2.cell_type = :cell_type OR " +
                     "v2.structure_subregion = :cell_type) " +
-    "UNION ALL " +
+    "UNION " +
     "SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM knowledge_environment.rt_segment_hierarchy_2025_v v1 " +
     "WHERE v1.cell_type IS NULL AND v1.structure_subregion IN ( " +
             "SELECT v2.structure_subregion FROM cell_type_2025 v2 " +
@@ -44,12 +44,12 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
 
     @Cacheable("clusterHierarchyCluster2025")
     @Query(value =
-            "SELECT v1.structure_region, v1.structure_subregion, v1.cell_type_id, v1.cluster_id, v1.cell_type, v1.cluster_name, v1.cell_type_order, 'N' AS is_rt, 'N' AS is_rp, 'Y' AS is_single_cell, 'Y' as is_single_nuc FROM cluster_hierarchy_2025_v v1 " +
+            "SELECT v1.structure_region, v1.structure_subregion, v1.cell_type_id, v1.cluster_id, v1.cell_type, v1.cluster_name, v1.cell_type_order, 'N' AS is_rt, 'N' AS is_rp, v1.is_single_cell, v1.is_single_nuc FROM cluster_hierarchy_2025_v v1 " +
             "WHERE v1.cluster_name = :cluster_name " +
-            "UNION ALL " +
+            "UNION " +
             "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, 0 as cluster_id, NULL as cell_type, rt.cell_type AS cluster_name, rt.cell_type_order, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
             "WHERE rt.abbreviation <> 'Ti' AND rt.abbreviation <> 'INT' AND rt.structure_subregion IS NULL AND rt.structure_region = :cluster_name " +
-            "UNION ALL " +
+            "UNION " +
             "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, 0 as cluster_id, rt.cell_type AS cluster_name, NULL as cell_type, rt.cell_type_order, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
             "WHERE rt.structure_region = :cluster_name OR rt.structure_subregion = :cluster_name LIMIT 1", nativeQuery = true)
     ClusterHierarchy findFirstByClusterOrRegion2025(@Param("cluster_name") String cluster_name);
