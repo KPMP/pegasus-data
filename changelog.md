@@ -1,13 +1,13 @@
 # Changelog
 
-## Release 2.10 (unreleased)
+## Release 3.1 (unreleased)
 Brief summary:
 
 ### Breaking changes
 
 ---
 
-## Release 2.9 (11/13/2025)
+## Release 3.0 (11/13/2025)
 Breief summary:
 - Created new Objects for Single-Cell & Single-Nuc data
 - Created new Endpoints to retrieve new SN / SC data
