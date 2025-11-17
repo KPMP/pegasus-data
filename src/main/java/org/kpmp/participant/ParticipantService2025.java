@@ -195,7 +195,9 @@ public class ParticipantService2025 {
 				Integer count = dataSummaryRepo.getParticipantSvFileDataTypeCount(redcapId, dataType);
 				ParticipantDataTypeInformation2025 dataTypeInfo = new ParticipantDataTypeInformation2025(dataType, count,
 						false);
+
 				spatialViewerExperiments.add(dataTypeInfo);
+                
 			} else if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_LINK_VIEW)) {
 				Integer count = dataSummaryRepo.getParticipantSvLinkDataTypeCount(redcapId, dataType);
 				ParticipantDataTypeInformation2025 dataTypeInfo = new ParticipantDataTypeInformation2025(dataType, count,
@@ -205,6 +207,10 @@ public class ParticipantService2025 {
 				logger.error("Unable to query for data type: " + dataType + ". Need to change code to handle.");
 			}
 		}
+        Integer segmentationCount = dataSummaryRepo.getParticipantSegmentationConfigTypeCount(redcapId, "Segmentation Masks & Pathomics Vectors");
+        ParticipantDataTypeInformation2025 segmentationDataTypeInfo = new ParticipantDataTypeInformation2025("Segmentation Masks & Pathomics Vectors", segmentationCount,
+                        false);
+                spatialViewerExperiments.add(segmentationDataTypeInfo);
 		return spatialViewerExperiments;
 	}
 
