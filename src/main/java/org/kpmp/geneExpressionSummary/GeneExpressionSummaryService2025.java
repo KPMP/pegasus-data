@@ -170,7 +170,7 @@ public class GeneExpressionSummaryService2025 {
 			FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName(), 
 			FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), 
 			1000L, 1000L, 1000L, 
-			1000L, 1000L));
+			1000L, 1000L, 1000L));
 		return dataTypeSummary;
 	}
 
