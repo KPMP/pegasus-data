@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.OmicsTypeEnum;
-import org.kpmp.EnrollmentCategoryEnum;
 import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.RPExpressionDataRepository;
 import org.kpmp.geneExpression.RTExpressionDataAllSegmentsRepository;
@@ -165,6 +165,12 @@ public class GeneExpressionSummaryService2025 {
 				rpParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
 				rpParticipantRepository.getParticipantCount(),
 				rpParticipantRepository.getParticipantCount()));
+		dataTypeSummary.add(new DataTypeSummary(
+			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(), 
+			FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName(), 
+			FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), 
+			1000L, 1000L, 1000L, 
+			1000L, 1000L, 1000L));
 		return dataTypeSummary;
 	}
 
