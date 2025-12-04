@@ -41,7 +41,7 @@ public interface SCMetadataRepository2025 extends CrudRepository<SCMetadata2025,
 
 	List<SCMetadata2025> findByEnrollmentCategory(String enrollmentCategory);
 
-	SCMetadata findByBarcode(String barcode);
+	SCMetadata2025 findByBarcode(String barcode);
 
 	@Cacheable("scMetadataWithEnrollment")
 	@Query(value = "SELECT "
