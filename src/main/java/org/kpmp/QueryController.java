@@ -18,11 +18,7 @@ import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.*;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService2025;
-import org.kpmp.participant.ParticipantDataTypeSummary2025;
-import org.kpmp.participant.ParticipantRepoDataTypeInformation;
-import org.kpmp.participant.ParticipantService2025;
-import org.kpmp.participant.ParticipantSummaryDataset;
-import org.kpmp.participant.ParticipantEnrollmentCategorySummary;
+import org.kpmp.participant.*;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.UmapDataService2025;
 import org.slf4j.Logger;
@@ -190,9 +186,24 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
+    public ParticipantClinicalDataset getParticipantClinicalDataset(@Argument String redcapId) {
+        try{
+            return participantService2025.getParticipantClinicalDataset(redcapId);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+            throw e;
+        }
+    }
+
+    @QueryMapping
 	public ParticipantDataTypeSummary2025 getDataTypeInformationByParticipant2025(@Argument String redcapId) {
 		return participantService2025.getExperimentCounts(redcapId);
 	}
+
+    @QueryMapping
+    public ParticipantRepoDataTypeSummary getRepoDataTypeInformationByParticipant(@Argument String redcapId) {
+        return participantService2025.getDataTypeCounts(redcapId);
+    }
 
     @QueryMapping
 	public ParticipantSummaryDataset participantSummaryDataset(@Argument String redcapId) throws Exception {

@@ -22,7 +22,6 @@ import org.kpmp.atlasMessage.AtlasMessage;
 import org.kpmp.atlasMessage.AtlasMessageService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
-import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
@@ -35,8 +34,7 @@ import org.kpmp.geneExpression.RTExpressionByEnrollmentCategory;
 import org.kpmp.geneExpression.RTExpressionDataAllSegments;
 import org.kpmp.geneExpression.RTExpressionDataService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService2025;
-import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
+import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue2025;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue2025;
 import org.kpmp.participant.*;
 import org.kpmp.umap.FeatureData;
@@ -125,7 +123,7 @@ public class QueryControllerTest {
 		List expectedResultSN1 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
 		List expectedResultSN2 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
         List expectedResultSN3 = Arrays.asList(new SNRNAGeneExpressionExpressionSummaryValue2025());
-        List expectedResultSN4 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
+        List expectedResultSN4 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue2025());
 		when(geneExpressionService2025.getByDataTypeEnrollmentCategoryAndGene("sn", "gene", "aki")).thenReturn(expectedResultSN1);
 		when(geneExpressionService2025.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki"))
 				.thenReturn(expectedResultSN2);
@@ -134,8 +132,8 @@ public class QueryControllerTest {
 		when(geneExpressionService2025.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sn", "cell type", "aki"))
 				.thenReturn(expectedResultSN4);
 
-		List expectedResultSC1 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
-		List expectedResultSC2 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue());
+		List expectedResultSC1 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue2025());
+		List expectedResultSC2 = Arrays.asList(new SCRNAGeneExpressionExpressionSummaryValue2025());
 		when(geneExpressionService2025.getByDataTypeEnrollmentCategoryAndGene("sc", "gene", "aki")).thenReturn(expectedResultSC1);
 		when(geneExpressionService2025.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory("sc", "cell type", "aki"))
 				.thenReturn(expectedResultSC2);
@@ -329,19 +327,19 @@ public class QueryControllerTest {
     @Test
     public void testGetParticipantClincialDataset() throws Exception {
         ParticipantClinicalDataset expected = new ParticipantClinicalDataset();
-		when(participantService.getParticipantClinicalDataset("participant_id")).thenReturn(expected);
+		when(participantService2025.getParticipantClinicalDataset("participant_id")).thenReturn(expected);
 
 		assertEquals(expected, query.getParticipantClinicalDataset("participant_id"));
-		verify(participantService).getParticipantClinicalDataset("participant_id");
+		verify(participantService2025).getParticipantClinicalDataset("participant_id");
     }
 
     @Test
 	public void testParticipantSummaryDataset() throws Exception {
 		ParticipantSummaryDataset expected = new ParticipantSummaryDataset();
-		when(participantService.getParticipantSummaryDataset("participant_id")).thenReturn(expected);
+		when(participantService2025.getParticipantSummaryDataset("participant_id")).thenReturn(expected);
 
 		assertEquals(expected, query.participantSummaryDataset("participant_id"));
-		verify(participantService).getParticipantSummaryDataset("participant_id");
+		verify(participantService2025).getParticipantSummaryDataset("participant_id");
 	}
 
     @Test
@@ -377,7 +375,7 @@ public class QueryControllerTest {
 	@Test
 	public void testGetExperimentalStrategyCountsByParticipant() {
 		List<ParticipantRepoDataTypeInformation> expectedResults = new ArrayList<>();
-		when(participantService.getExperimentalStrategyCountsByParticipant("redcapId")).thenReturn(expectedResults);
+		when(participantService2025.getExperimentalStrategyCountsByParticipant("redcapId")).thenReturn(expectedResults);
 
 		List<ParticipantRepoDataTypeInformation> result = query.getExperimentalStrategyCountsByParticipant("redcapId");
 
