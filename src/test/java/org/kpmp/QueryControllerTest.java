@@ -40,7 +40,6 @@ import org.kpmp.participant.*;
 import org.kpmp.umap.FeatureData;
 import org.kpmp.umap.PlotData;
 import org.kpmp.umap.ReferenceCluster;
-import org.kpmp.umap.UmapDataService;
 import org.kpmp.umap.UmapDataService2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -58,7 +57,7 @@ public class QueryControllerTest {
 	private DataSummaryService dataSummaryService;
 	private QueryController query;
 	@Mock
-	private UmapDataService umapDataService;
+	private UmapDataService2025 umapDataService;
 	@Mock
 	private ClusterHierarchyService clusterHierarchyService;
 	@Mock
