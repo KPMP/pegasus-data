@@ -20,12 +20,10 @@ import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepos
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleCell.SCRNAGeneExpressionSummaryRepository2025;
-import org.kpmp.geneExpressionSummary.singleCell.SCRNAParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionExpressionSummaryValue2025;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAGeneExpressionSummaryRepository2025;
-import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository;
 import org.kpmp.geneExpressionSummary.singleNucleus.SNRNAParticipantRepository2025;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;

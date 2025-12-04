@@ -434,6 +434,12 @@ public class ClusterHierarchyServiceTest {
     }
 
     @Test
+    public void testfindClustersByCellType2025RemovesDupes() throws Exception {
+        List<ClusterHierarchy> clusterHierarchies = new ArrayList<>();
+
+    }
+
+    @Test
     public void testFindDataTypesByClusterNameTi2025() throws Exception {
         List<String> dataTypes = service.findDataTypesByClusterName2025("Tubulo-interstitium");
         assertTrue(dataTypes.contains(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation()));

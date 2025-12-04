@@ -19,9 +19,6 @@ public interface CellTypeRepository extends CrudRepository<CellType, Integer> {
 			+ "    WHERE ct.cell_type LIKE %:searchTerm% ", nativeQuery = true)
 	List<CellType> findByCellTypeContainingOrSynonymContaining(@Param("searchTerm") String searchTerm);
 
-	@Cacheable("cellTypeIsNotNullOrderByCellTypeOrdering")
-	List<CellType> findAllByCellTypeIsNotNullOrderByCellTypeOrdering();
-
     @Cacheable("cellTypeIsNotNullOrderByCellTypeOrdering2025")
     @Query(value = "SELECT * FROM cell_type_2025 WHERE cell_type IS NOT NULL ORDER BY cell_type_order ASC", nativeQuery = true)
     List<CellType> findAllByCellTypeIsNotNullOrderByCellTypeOrdering2025();
