@@ -11,7 +11,7 @@ type Query {
   getRPGeneExpressionByEnrollmentAndProtein(geneSymbol: String!, protein: String!): RPExpressionByEnrollmentCategory
   getRTGeneExpressionByStructure(structure: String): [RTGeneExpression]
   getRPGeneExpressionByStructure(structure: String): [RPGeneExpression]
-  getSummaryData: [DataTypeSummaryInformation]
+  getSummaryData: [DataTypeSummaryInformation2025]
   getDataTypeInformationByParticipant2025(redcapId: String!): ParticipantDataTypeSummary2025
   getRepoDataTypeInformationByParticipant(redcapId: String!): ParticipantRepoDataTypeSummary
   participantSummaryDataset(redcapId: String!): ParticipantSummaryDataset 
