@@ -59,7 +59,7 @@ type ParticipantEnrollmentCategorySummary {
 }
 
 type ParticipantDataTypeSummary2025 {
-  spatialViewerDataTypes: [ParticipantDataTypeInformation]
+  spatialViewerDataTypes: [ParticipantDataTypeInformation2025]
   explorerDataTypes: [ParticipantDataTypeInformation2025]
 }
 
@@ -70,7 +70,7 @@ type ParticipantDataTypeInformation2025 {
 }
 
 type ParticipantRepoDataTypeSummary {
-  repositoryDataTypes: [ParticipantRepoDataTypeInformation]
+  repositoryDataTypes: [ParticipantDataTypeInformation2025]
 }
 
 type ParticipantRepoDataTypeInformation {
