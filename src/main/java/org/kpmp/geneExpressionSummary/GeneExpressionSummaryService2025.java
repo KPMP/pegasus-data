@@ -165,12 +165,12 @@ public class GeneExpressionSummaryService2025 {
 				rpParticipantRepository.getCountByEnrollmentCategory(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory()),
 				rpParticipantRepository.getParticipantCount(),
 				rpParticipantRepository.getParticipantCount()));
-		dataTypeSummary.add(new DataTypeSummary(
-			OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(), 
-			FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName(), 
-			FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), 
-			1000L, 1000L, 1000L, 
-			1000L, 1000L, 1000L));
+		// dataTypeSummary.add(new DataTypeSummary(
+		// 	OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(), 
+		// 	FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getFullName(), 
+		// 	FullDataTypeEnum.SPATIAL_TRANSCRIPTOMICS.getAbbreviation(), 
+		// 	1000L, 1000L, 1000L, 
+		// 	1000L, 1000L, 1000L));
 		return dataTypeSummary;
 	}
 
