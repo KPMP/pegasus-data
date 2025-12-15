@@ -1,10 +1,17 @@
 # Changelog
 
-## Release 3.1 (unreleased)
+## Release 3.2 (unreleased)
 Brief summary:
 
 ### Breaking changes
 
+---
+
+## Release 3.1 
+Brief summary:
+
+- Fixed issue with gene expression tables not showing up for some UMAPs
+  
 ---
 
 ## Release 3.0 (11/13/2025)
