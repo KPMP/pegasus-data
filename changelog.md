@@ -1,12 +1,31 @@
 # Changelog
 
-## Release 2.9 (unreleased)
+## Release 3.2 (unreleased)
+Brief summary:
+
+### Breaking changes
+
+---
+
+## Release 3.1 
+Brief summary:
+
+- Fixed issue with gene expression tables not showing up for some UMAPs
+  
+---
+
+## Release 3.0 (11/13/2025)
 Breief summary:
 - Created new Objects for Single-Cell & Single-Nuc data
 - Created new Endpoints to retrieve new SN / SC data
 - Dynamic count returning for cluster counts
 - Use a Union instead of Union All for ClusterHierarchy Endpoint
 - Use a Set for ClusterHierarchy
+
+### Breaking changes
+N/A
+
+---
 
 ## Release 2.8 (6/30/2025)
 Brief summary:

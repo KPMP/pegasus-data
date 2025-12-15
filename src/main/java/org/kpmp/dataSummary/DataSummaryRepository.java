@@ -66,6 +66,10 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "SELECT count(*) from sv_file_v WHERE data_type= :data_type AND redcap_id= :redcap_id", nativeQuery = true)
 	Integer getParticipantSvFileDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);
 
+    @Cacheable("dataParticipantSvFileConfigTypeCount")
+    @Query(value = "SELECT count(*) from sv_file_v WHERE config_type= :config_type AND redcap_id= :redcap_id", nativeQuery = true)
+    Integer getParticipantSegmentationConfigTypeCount(@Param("redcap_id") String redcapId, @Param("config_type") String configType);
+
 	@Cacheable("dataParticipantSvLinkDataTypeCount")
 	@Query(value = "SELECT count(*) from sv_link_v WHERE data_type= :data_type AND redcap_id= :redcap_id", nativeQuery = true)
 	Integer getParticipantSvLinkDataTypeCount(@Param("redcap_id") String redcapId, @Param("data_type") String dataType);

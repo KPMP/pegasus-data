@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface SCMetadataRepository2025 extends CrudRepository<SCMetadata2025, String> {
 
-	@Cacheable("scMetadataAll")
+	@Cacheable("scMetadataAll2025")
 	@Override
 	List<SCMetadata2025> findAll();
 	
-	@Cacheable("scMetadataLimited")
+	@Cacheable("scMetadataLimited2025")
 	@Query(value = "SELECT "
 			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
 			+ "FROM sc_umap_point_2025_v "
@@ -35,15 +35,15 @@ public interface SCMetadataRepository2025 extends CrudRepository<SCMetadata2025,
 			+ "limit :largeClusterLimit) ", nativeQuery = true)
 	List<SCMetadata2025> findLimited(@Param("mediumClusterLimit") int mediumClusterLimit, @Param("largeClusterLimit") int largeClusterLimit);
 
-	@Cacheable("scMetadataCount")
+	@Cacheable("scMetadataCount2025")
 	@Query(value = "SELECT COUNT(umap_x) FROM sc_umap_point_2025_v;", nativeQuery = true)
 	int findCount();
 
 	List<SCMetadata2025> findByEnrollmentCategory(String enrollmentCategory);
 
-	SCMetadata findByBarcode(String barcode);
+	SCMetadata2025 findByBarcode(String barcode);
 
-	@Cacheable("scMetadataWithEnrollment")
+	@Cacheable("scMetadataWithEnrollment2025")
 	@Query(value = "SELECT "
 			+ "umap_x, umap_y, cluster_abbreviation, cluster_name, cluster_color, barcode, enrollment_category "
 			+ "FROM sc_umap_point_2025_v "
