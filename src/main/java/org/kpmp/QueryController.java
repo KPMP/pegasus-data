@@ -39,8 +39,10 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Controller
+@Tag(name = "GraphQL Queries", description = "GraphQL queries for retrieving KPMP atlas data - accessible via POST /graphql")
 public class QueryController implements GraphQLQueryResolver {
 
 	private AutocompleteService autocompleteService;
