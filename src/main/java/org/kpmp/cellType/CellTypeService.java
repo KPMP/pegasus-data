@@ -15,21 +15,6 @@ public class CellTypeService {
 		this.cellTypeRepo = cellTypeRepo;
 	}
 
-	public CellTypeHierarchy getCellTypeHierarchy() {
-		List<CellType> cellTypes = cellTypeRepo.findAllByCellTypeIsNotNullOrderByCellTypeOrdering();
-		CellTypeHierarchy hierarchy = new CellTypeHierarchy();
-
-		for (CellType cellType : cellTypes) {
-			CellTypeStructureSubregion subregion = new CellTypeStructureSubregion(cellType.getStructureSubregion());
-			subregion.addCellType(cellType);
-			CellTypeStructureRegion region = new CellTypeStructureRegion(cellType.getStructureRegion());
-			region.addCellTypeSubregion(subregion);
-			hierarchy.addCellTypeStructureRegion(region);
-		}
-
-		return hierarchy;
-	}
-
     public CellTypeHierarchy getCellTypeHierarchy2025() {
         List<CellType> cellTypes = cellTypeRepo.findAllByCellTypeIsNotNullOrderByCellTypeOrdering2025();
         CellTypeHierarchy hierarchy = new CellTypeHierarchy();

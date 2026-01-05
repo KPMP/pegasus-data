@@ -33,7 +33,7 @@ public class ParticipantService2025 {
 	private DataSummaryRepository dataSummaryRepo;
 	private SpatialViewerTypeRepository svTypeRepo;
 	private SingleCellMetadataRepository2025 scMetadataRepo2025;
-	private Logger logger = LoggerFactory.getLogger(ParticipantService.class);
+	private Logger logger = LoggerFactory.getLogger(ParticipantService2025.class);
 
 	private final String SPATIAL_VIEWER_FILE_VIEW = "sv_file_v";
 	private final String SPATIAL_VIEWER_LINK_VIEW = "sv_link_v";

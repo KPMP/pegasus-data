@@ -10,10 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, ClusterHierarchyId> {
 
-	@Override
-	@Cacheable("clusterHierarchy")
-	List<ClusterHierarchy> findAll();
-
     @Cacheable("clusterHierarchyRNA2025ByCellType")
     @Query(value = "SELECT ch.*, 'N' AS is_rt, 'N' AS is_rp FROM cluster_hierarchy_2025_v ch WHERE ch.cell_type = :cell_type OR ch.structure_region = :cell_type OR ch.structure_subregion = :cell_type " +
             "ORDER BY ch.cell_type_order ASC", nativeQuery = true)
@@ -53,13 +49,5 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
             "SELECT rt.structure_region, rt.structure_subregion, rt.cell_type_id, 0 as cluster_id, rt.cell_type AS cluster_name, NULL as cell_type, rt.cell_type_order, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v rt " +
             "WHERE rt.structure_region = :cluster_name OR rt.structure_subregion = :cluster_name LIMIT 1", nativeQuery = true)
     ClusterHierarchy findFirstByClusterOrRegion2025(@Param("cluster_name") String cluster_name);
-
-    @Cacheable("clusterHierarchyCt")
-	@Query(value = "CALL cluster_hierarchy_sp(:cell_type);", nativeQuery = true)
-	List<ClusterHierarchy> findByCellType(@Param("cell_type") String cellType);
-
-	@Cacheable("clusterHierarchyCluster")
-	@Query(value = "CALL cluster_hierarchy_by_cluster_sp(:cluster);", nativeQuery = true)
-    ClusterHierarchy findFirstByClusterOrRegion(String cluster);
 
 }
