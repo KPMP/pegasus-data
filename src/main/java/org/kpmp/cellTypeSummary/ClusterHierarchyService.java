@@ -24,6 +24,7 @@ public class ClusterHierarchyService {
         List<ClusterHierarchy> clusterHierarchiesRNASeq = clusterHierarchyRepo.findRnaSeqByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesRegional = clusterHierarchyRepo.findRTRPByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesParentRegions = clusterHierarchyRepo.findRTRPParentRegions(cellType);
+        
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesRegional);
         clusterHierarchiesRNASeq.addAll(clusterHierarchiesParentRegions);
         clusterHierarchySet.addAll(clusterHierarchiesRNASeq);
@@ -49,6 +50,15 @@ public class ClusterHierarchyService {
             tiCluster.setCellTypeOrder(0.01);
             result.add(tiCluster);
         }
+        ClusterHierarchy bogusST = new ClusterHierarchy();
+        bogusST.setIsSpatialTranscriptomics("Y");
+        bogusST.setCellTypeOrder(-1.0);
+        bogusST.setIsSingleCellCluster("N");
+        bogusST.setIsSingleNucCluster("N");
+        bogusST.setIsRegionalProteomics("N");
+        bogusST.setIsRegionalTranscriptomics("N");
+        bogusST.setStructureRegion("Glomerulus / Renal Corpuscle");
+        result.add(bogusST);
         result.addAll(clusterToHierarchy.values());
         Collections.sort(result, new Comparator<ClusterHierarchy>() {
             @Override
