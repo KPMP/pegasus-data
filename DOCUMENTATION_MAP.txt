@@ -1,0 +1,234 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                    KPMP PEGASUS DATA - DOCUMENTATION MAP                       ║
+║                                                                                ║
+║  This guide shows all available documentation and how to access it            ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+📚 DOCUMENTATION FILES LOCATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/Users/rlreamy/git/kpmp/pegasus-data/
+
+  📄 API_DOCUMENTATION_README.md ⭐ START HERE
+     └─ Overview of all documentation
+     └─ Navigation guide by role
+     └─ Quick links to specific use cases
+     └─ Read time: ~5 minutes
+
+  📖 ENDPOINTS.md
+     └─ Complete endpoint reference
+     └─ All 30+ GraphQL queries documented
+     └─ REST endpoints with examples
+     └─ Data types and error handling
+     └─ Read time: ~15 minutes
+
+  📄 API_QUICK_REFERENCE.md
+     └─ Quick lookup tables
+     └─ Common tasks with code
+     └─ Status codes and errors
+     └─ Troubleshooting tips
+     └─ Read time: ~5 minutes
+
+  👨‍💻 DEVELOPER_GUIDE.md
+     └─ Getting started guide
+     └─ GraphQL vs REST comparison
+     └─ 5 complete code examples
+     └─ Best practices
+     └─ Detailed troubleshooting
+     └─ Read time: ~20 minutes
+
+  📋 DOCUMENTATION_IMPLEMENTATION.md
+     └─ What was added and how
+     └─ Code changes summary
+     └─ Maintenance notes
+     └─ Next steps
+
+  🗺️ DOCUMENTATION_MAP.txt (This file)
+     └─ Visual guide to all resources
+
+
+🌐 INTERACTIVE DOCUMENTATION (Browser)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Start the application:
+  $ ./gradlew bootRun
+
+Then visit:
+
+  🔍 REST Endpoint Documentation
+     http://localhost:8080/swagger-ui.html
+     └─ Interactive Swagger UI
+     └─ Test REST endpoints
+     └─ View request/response schemas
+
+  📊 GraphQL Query Documentation  
+     http://localhost:8080/graphiql
+     └─ Interactive GraphQL IDE
+     └─ Explore schema
+     └─ Test queries
+     └─ Auto-completion
+
+  📋 OpenAPI Specification
+     http://localhost:8080/v3/api-docs
+     └─ Machine-readable API spec
+     └─ Use for code generation
+     └─ View raw JSON format
+
+  📋 OpenAPI Specification (YAML)
+     http://localhost:8080/v3/api-docs.yaml
+     └─ YAML format of API spec
+     └─ Alternative format
+
+
+📖 DOCUMENTATION BY ROLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 I'm a Frontend/Mobile Developer
+   1. Start: API_DOCUMENTATION_README.md
+   2. Visit: /graphiql (interactive)
+   3. Reference: API_QUICK_REFERENCE.md
+   4. Deep dive: DEVELOPER_GUIDE.md
+
+👤 I'm a Backend/Server Developer
+   1. Start: API_DOCUMENTATION_README.md
+   2. Reference: ENDPOINTS.md (REST section)
+   3. Best practices: DEVELOPER_GUIDE.md
+
+👤 I'm a DevOps/Infrastructure Engineer
+   1. Start: ENDPOINTS.md (monitoring section)
+   2. See: API statistics and configuration
+   3. Check: Cache management endpoints
+
+👤 I'm Maintaining This API
+   1. See: DOCUMENTATION_IMPLEMENTATION.md
+   2. Review: OpenAPIConfiguration.java
+   3. Update: Documentation when changing endpoints
+   4. Test: /swagger-ui.html and /graphiql
+
+
+🔍 FINDING WHAT YOU NEED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+I want to...                          See...
+───────────────────────────────────  ──────────────────────────────────────
+Get started quickly                   API_DOCUMENTATION_README.md
+Find a quick example                  API_QUICK_REFERENCE.md
+See all endpoints documented          ENDPOINTS.md
+Write production code                 DEVELOPER_GUIDE.md
+Test with interactive tools           /graphiql or /swagger-ui.html
+Understand what was added             DOCUMENTATION_IMPLEMENTATION.md
+Query gene expression data             ENDPOINTS.md (geneExpressionSummary)
+Get cell type information             ENDPOINTS.md (cellTypeHierarchy)
+Retrieve UMAP visualization           ENDPOINTS.md (getUmapPlotData)
+Access participant data               ENDPOINTS.md (getParticipantClinicalDataset)
+Clear server caches                   ENDPOINTS.md (clearCache REST endpoint)
+Log frontend errors                   ENDPOINTS.md (error REST endpoint)
+See code examples                     DEVELOPER_GUIDE.md (Examples section)
+Handle errors properly                DEVELOPER_GUIDE.md (Error Handling)
+Optimize performance                  DEVELOPER_GUIDE.md (Best Practices)
+Troubleshoot issues                   API_QUICK_REFERENCE.md or DEVELOPER_GUIDE.md
+
+
+📊 API QUICK FACTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GraphQL Queries         30+ available queries
+REST Endpoints          2 endpoints for admin tasks
+Data Types             Single-cell RNA, Regional Transcriptomics, Regional Proteomics
+Versions Supported      Current + 2025
+Caching                Hazelcast-based caching for performance
+Authentication         None required (add for production)
+CORS                   Enabled for /graphql endpoint
+Default Port           3030 (configurable)
+Java Version           21
+Spring Boot            3.2.5
+
+
+⚡ QUICK START (5 MINUTES)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Read the overview
+   $ cat API_DOCUMENTATION_README.md | head -50
+
+2. Start the application
+   $ ./gradlew bootRun
+
+3. Visit interactive docs
+   Browser: http://localhost:8080/graphiql
+   Browser: http://localhost:8080/swagger-ui.html
+
+4. Make your first request
+   $ curl -X POST http://localhost:8080/graphql \
+     -H "Content-Type: application/json" \
+     -d '{"query": "query { autocomplete(searchTerm: \"APOL\") { label } }"}'
+
+
+💡 KEY POINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Documentation generated from code annotations
+✓ Always stays in sync with actual API
+✓ Multiple formats for different needs
+✓ Interactive testing available
+✓ Comprehensive examples included
+✓ Troubleshooting guides provided
+✓ Best practices documented
+✓ Easy to maintain and update
+
+
+🔄 KEEPING DOCUMENTATION UPDATED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When adding new endpoints:
+  1. Add @Tag and @Operation annotations to controller
+  2. Update ENDPOINTS.md with new endpoint details
+  3. Add code examples to DEVELOPER_GUIDE.md if complex
+  4. Update API_QUICK_REFERENCE.md if commonly used
+  5. Test with /swagger-ui.html and /graphiql
+
+When changing existing endpoints:
+  1. Update annotations in controller
+  2. Update relevant .md files
+  3. Test changes with interactive UI
+  4. Verify examples still work
+
+
+📞 SUPPORT RESOURCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Check these in order:
+  1. Relevant .md file (ENDPOINTS.md, API_QUICK_REFERENCE.md, etc.)
+  2. Interactive docs (/graphiql, /swagger-ui.html)
+  3. Code comments in controller classes
+  4. Server logs (check for detailed error messages)
+  5. Contact KPMP team: https://www.kpmp.org
+
+
+✅ VERIFICATION CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure these files exist:
+  [✓] API_DOCUMENTATION_README.md
+  [✓] ENDPOINTS.md
+  [✓] API_QUICK_REFERENCE.md
+  [✓] DEVELOPER_GUIDE.md
+  [✓] DOCUMENTATION_IMPLEMENTATION.md
+  [✓] src/main/java/org/kpmp/OpenAPIConfiguration.java
+
+Ensure these changes are made:
+  [✓] build.gradle has springdoc-openapi dependencies
+  [✓] application.properties has springdoc configuration
+  [✓] Controllers have @Tag and @Operation annotations
+
+After building, ensure these URLs work:
+  [✓] http://localhost:8080/swagger-ui.html
+  [✓] http://localhost:8080/graphiql
+  [✓] http://localhost:8080/v3/api-docs
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Last Updated: December 17, 2025
+Documentation Version: 1.0
+API Version: 3.1.0
+Status: ✅ Complete and Ready for Use
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
