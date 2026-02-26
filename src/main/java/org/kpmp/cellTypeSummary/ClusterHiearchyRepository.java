@@ -2,7 +2,6 @@ package org.kpmp.cellTypeSummary;
 
 import java.util.List;
 
-import org.kpmp.cluster.Cluster;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

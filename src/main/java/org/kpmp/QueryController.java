@@ -3,6 +3,7 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.kpmp.atlasMessage.AtlasMessage;
 import org.kpmp.atlasMessage.AtlasMessageService;
@@ -10,6 +11,7 @@ import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
+import org.kpmp.cellType.HubmapCellTypeMappingService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
@@ -43,6 +45,7 @@ public class QueryController implements GraphQLQueryResolver {
 	private RPExpressionDataService rpExpressionDataService;
     private ParticipantService2025 participantService2025;
     private AtlasMessageService atlasMessageService;
+	private HubmapCellTypeMappingService hubmapCellTypeMappingService;
 	private Logger logger = LoggerFactory.getLogger(QueryController.class);
 
 	@Autowired
@@ -50,7 +53,7 @@ public class QueryController implements GraphQLQueryResolver {
             GeneExpressionSummaryService2025 geneExpressionService2025,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
 			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService, ParticipantService2025 participantService2025,
-                           AtlasMessageService atlasMessageService) {
+                           AtlasMessageService atlasMessageService, HubmapCellTypeMappingService hubmapCellTypeMappingService) {
 
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
@@ -62,6 +65,7 @@ public class QueryController implements GraphQLQueryResolver {
 		this.rpExpressionDataService = rpExpressionDataService;
         this.participantService2025 = participantService2025;
         this.atlasMessageService = atlasMessageService;
+		this.hubmapCellTypeMappingService = hubmapCellTypeMappingService;
 	}
 
     @QueryMapping
@@ -261,5 +265,10 @@ public class QueryController implements GraphQLQueryResolver {
     @QueryMapping
 	public List<ParticipantRepoDataTypeInformation> getExperimentalStrategyCountsByParticipant(@Argument String redcapId) {
 		return participantService2025.getExperimentalStrategyCountsByParticipant(redcapId);
+	}
+
+	@QueryMapping
+	public Map<String, String> getHubmapTermMap() {
+		return hubmapCellTypeMappingService.buildHubmapIdToCellTypeMap();
 	}
 }

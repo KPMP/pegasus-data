@@ -11,7 +11,6 @@ import jakarta.persistence.Transient;
 
 import org.springframework.lang.Nullable;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "cluster_hierarchy_v")

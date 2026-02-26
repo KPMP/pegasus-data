@@ -1,3 +1,5 @@
+scalar JSON
+
 type Query {
   autocomplete(searchTerm: String): [AutoCompleteResult]
     cellTypeHierarchy2025: CellTypeHierarchy
@@ -21,6 +23,7 @@ type Query {
   getAtlasMessages: [AtlasMessages]
   getExperimentalStrategyCountsByParticipant(redcapId: String!): [ParticipantRepoDataTypeInformation]
   getParticipantClinicalDataset(redcapId: String!): ParticipantClinicalDataset
+  getHubmapTermMap(): JSON
 }
 
 type AtlasMessages {
