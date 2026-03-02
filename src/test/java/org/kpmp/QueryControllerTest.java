@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,8 @@ import org.kpmp.atlasMessage.AtlasMessageService;
 import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeService;
+import org.kpmp.cellType.HubmapCellTypeMappingService;
+import org.kpmp.cellType.HubmapOntologyCellType;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
@@ -74,13 +77,15 @@ public class QueryControllerTest {
     private UmapDataService2025 umapDataService2025;
 
     @Mock ParticipantService2025 participantService2025;
+	@Mock
+	HubmapCellTypeMappingService hubmapCellTypeMappingService;
 
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new QueryController(autocompleteService, cellTypeService, umapDataService2025,
 				geneExpressionService2025, dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
-        participantService2025, atlasMessageService);
+        participantService2025, atlasMessageService, hubmapCellTypeMappingService);
 	}
 
 	@AfterEach
@@ -379,5 +384,22 @@ public class QueryControllerTest {
 		List<ParticipantRepoDataTypeInformation> result = query.getExperimentalStrategyCountsByParticipant("redcapId");
 
 		assertEquals(expectedResults, result);
+	}
+	@Test
+	public void testGetHubmapTermMap() {
+		HubmapOntologyCellType cellType1 = mock(HubmapOntologyCellType.class);
+		when(cellType1.getHubmapOntologyId()).thenReturn("HUBMAP:001");
+		when(cellType1.getCellType()).thenReturn("Podocyte");
+
+		HubmapOntologyCellType cellType2 = mock(HubmapOntologyCellType.class);
+		when(cellType2.getHubmapOntologyId()).thenReturn("HUBMAP:002");
+		when(cellType2.getCellType()).thenReturn("Tubule cell");
+
+		List<HubmapOntologyCellType> expectedList = Arrays.asList(cellType1, cellType2);
+		when(hubmapCellTypeMappingService.buildHubmapIdToCellTypeMap()).thenReturn(expectedList);
+
+		List<HubmapOntologyCellType> result = query.getHubmapTermMap();
+		assertEquals(expectedList, result);
+		verify(hubmapCellTypeMappingService).buildHubmapIdToCellTypeMap();
 	}
 }

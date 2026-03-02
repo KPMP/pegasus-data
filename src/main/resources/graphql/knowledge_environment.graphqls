@@ -1,10 +1,10 @@
 type Query {
   autocomplete(searchTerm: String): [AutoCompleteResult]
-    cellTypeHierarchy2025: CellTypeHierarchy
+  cellTypeHierarchy2025: CellTypeHierarchy
   geneExpressionSummary2025(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary2025]
-    getClusterHieararchies2025(cellType: String!): [ClusterHierarchy]
+  getClusterHieararchies2025(cellType: String!): [ClusterHierarchy]
   getUmapPlotData2025(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData2025
-    dataTypesForConcept2025(geneSymbol: String, clusterName: String): [String]
+  dataTypesForConcept2025(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation2025: [DataTypeSummaryInformation2025]
   getRTGeneExpressionByEnrollment(comparisonType: String, geneSymbol: String): RTGeneExpressionByEnrollment
   getRPGeneExpressionByEnrollment(geneSymbol: String!): [RPAccessionGroup]
@@ -21,6 +21,12 @@ type Query {
   getAtlasMessages: [AtlasMessages]
   getExperimentalStrategyCountsByParticipant(redcapId: String!): [ParticipantRepoDataTypeInformation]
   getParticipantClinicalDataset(redcapId: String!): ParticipantClinicalDataset
+  getHubmapTermMap: [HubmapOntologyCellType]
+}
+
+type HubmapOntologyCellType {
+  hubmapOntologyId: String
+  cellType: String
 }
 
 type AtlasMessages {
