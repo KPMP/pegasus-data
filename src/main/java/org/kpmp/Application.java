@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import graphql.scalars.ExtendedScalars;
+import org.springframework.graphql.execution.RuntimeWiringConfigurer;
+
 @Configuration
 @EnableCaching
 @SpringBootApplication
@@ -28,4 +31,9 @@ public class Application {
 			}
 		};
 	}
+
+    @Bean
+    public RuntimeWiringConfigurer runtimeWiringConfigurer() {
+        return wiringBuilder -> wiringBuilder.scalar(ExtendedScalars.Json);
+    }
 }

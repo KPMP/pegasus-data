@@ -12,6 +12,7 @@ import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellType.HubmapCellTypeMappingService;
+import org.kpmp.cellType.HubmapOntologyCellType;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
@@ -268,7 +269,7 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
 	@QueryMapping
-	public Map<String, String> getHubmapTermMap() {
+	public List<HubmapOntologyCellType>  getHubmapTermMap() {
 		return hubmapCellTypeMappingService.buildHubmapIdToCellTypeMap();
 	}
 }

@@ -9,16 +9,16 @@ class HubmapOntologyCellTypeTest {
     void testGettersAndSetters() {
         HubmapOntologyCellType cellType = new HubmapOntologyCellType();
         cellType.setHubmapOntologyId("HUBMAP:123");
-        cellType.setCell_type("Podocyte");
+        cellType.setCellType("Podocyte");
 
         assertEquals("HUBMAP:123", cellType.getHubmapOntologyId());
-        assertEquals("Podocyte", cellType.getCell_type());
+        assertEquals("Podocyte", cellType.getCellType());
     }
 
     @Test
     void testDefaultValues() {
         HubmapOntologyCellType cellType = new HubmapOntologyCellType();
         assertNull(cellType.getHubmapOntologyId());
-        assertNull(cellType.getCell_type());
+        assertNull(cellType.getCellType());
     }
 }

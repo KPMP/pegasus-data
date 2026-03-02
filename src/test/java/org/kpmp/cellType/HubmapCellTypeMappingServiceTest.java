@@ -19,28 +19,28 @@ class HubmapCellTypeMappingServiceTest {
     }
 
     @Test
-    void testBuildHubmapIdToCellTypeMap_returnsCorrectMapping() {
+    void testBuildHubmapIdToCellTypeMap_returnsCorrectList() {
         HubmapOntologyCellType cellType1 = mock(HubmapOntologyCellType.class);
         when(cellType1.getHubmapOntologyId()).thenReturn("HUBMAP:001");
-        when(cellType1.getCell_type()).thenReturn("Podocyte");
+        when(cellType1.getCellType()).thenReturn("Podocyte");
 
         HubmapOntologyCellType cellType2 = mock(HubmapOntologyCellType.class);
         when(cellType2.getHubmapOntologyId()).thenReturn("HUBMAP:002");
-        when(cellType2.getCell_type()).thenReturn("Tubule cell");
+        when(cellType2.getCellType()).thenReturn("Tubule cell");
 
         List<HubmapOntologyCellType> cellTypes = Arrays.asList(cellType1, cellType2);
         when(repo.findAll()).thenReturn(cellTypes);
 
-        Map<String, String> result = service.buildHubmapIdToCellTypeMap();
+        List<HubmapOntologyCellType> result = service.buildHubmapIdToCellTypeMap();
         assertEquals(2, result.size());
-        assertEquals("Podocyte", result.get("HUBMAP:001"));
-        assertEquals("Tubule cell", result.get("HUBMAP:002"));
+        assertTrue(result.contains(cellType1));
+        assertTrue(result.contains(cellType2));
     }
 
     @Test
-    void testBuildHubmapIdToCellTypeMap_emptyListReturnsEmptyMap() {
+    void testBuildHubmapIdToCellTypeMap_emptyListReturnsEmptyList() {
         when(repo.findAll()).thenReturn(Collections.emptyList());
-        Map<String, String> result = service.buildHubmapIdToCellTypeMap();
+        List<HubmapOntologyCellType> result = service.buildHubmapIdToCellTypeMap();
         assertTrue(result.isEmpty());
     }
 }

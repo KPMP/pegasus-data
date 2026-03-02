@@ -25,6 +25,7 @@ import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellType.HubmapCellTypeMappingService;
+import org.kpmp.cellType.HubmapOntologyCellType;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
@@ -386,13 +387,19 @@ public class QueryControllerTest {
 	}
 	@Test
 	public void testGetHubmapTermMap() {
-		Map<String, String> expectedMap = new java.util.HashMap<>();
-		expectedMap.put("HUBMAP:001", "Podocyte");
-		expectedMap.put("HUBMAP:002", "Tubule cell");
-		when(hubmapCellTypeMappingService.buildHubmapIdToCellTypeMap()).thenReturn(expectedMap);
+		HubmapOntologyCellType cellType1 = mock(HubmapOntologyCellType.class);
+		when(cellType1.getHubmapOntologyId()).thenReturn("HUBMAP:001");
+		when(cellType1.getCellType()).thenReturn("Podocyte");
 
-		Map<String, String> result = query.getHubmapTermMap();
-		assertEquals(expectedMap, result);
+		HubmapOntologyCellType cellType2 = mock(HubmapOntologyCellType.class);
+		when(cellType2.getHubmapOntologyId()).thenReturn("HUBMAP:002");
+		when(cellType2.getCellType()).thenReturn("Tubule cell");
+
+		List<HubmapOntologyCellType> expectedList = Arrays.asList(cellType1, cellType2);
+		when(hubmapCellTypeMappingService.buildHubmapIdToCellTypeMap()).thenReturn(expectedList);
+
+		List<HubmapOntologyCellType> result = query.getHubmapTermMap();
+		assertEquals(expectedList, result);
 		verify(hubmapCellTypeMappingService).buildHubmapIdToCellTypeMap();
 	}
 }
