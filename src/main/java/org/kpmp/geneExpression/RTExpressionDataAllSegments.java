@@ -2,20 +2,19 @@ package org.kpmp.geneExpression;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "rt_segments")
+@IdClass(RTExpressionDataId.class)
 public class RTExpressionDataAllSegments implements RTExpressionData, Serializable {
 
 	private static final long serialVersionUID = 9029734049386312455L;
 	@Id
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "gene_symbol")
+    @Id
+    @Column(name = "gene_symbol")
 	private String geneSymbol;
 	@Column(name = "segment")
 	private String segment;
@@ -23,6 +22,7 @@ public class RTExpressionDataAllSegments implements RTExpressionData, Serializab
 	private String segmentName;
 	@Column(name = "fold_change")
 	private Double foldChange;
+    @Id
 	@Column(name = "p_val")
 	private Double pVal;
 	@Column(name = "std_dev")
