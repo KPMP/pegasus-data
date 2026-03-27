@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 alpine:3.19.1
+FROM --platform=linux/amd64 alpine:3.21.6
 
 RUN apk update
 RUN apk add openjdk21
