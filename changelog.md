@@ -1,7 +1,13 @@
 # Changelog
 
-## Release 3.2 (unreleased)
+## Release 3.3 (unreleased)
+
+---
+
+## Release 3.2 
 Brief summary:
+- return HUBMAP cell type ontology ID 
+- fixed duplicate data being returned for Regional Transcriptomics data
 
 ### Breaking changes
 

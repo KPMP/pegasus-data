@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 
 public class ParticipantDataTypeSummaryTest {
 
-	private ParticipantDataTypeSummary summary;
+	private ParticipantDataTypeSummary2025 summary;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		summary = new ParticipantDataTypeSummary();
+		summary = new ParticipantDataTypeSummary2025();
 	}
 
 	@AfterEach
@@ -26,7 +26,7 @@ public class ParticipantDataTypeSummaryTest {
 
 	@Test
 	public void testSetSpatialViewerDataTypes() {
-		List<ParticipantDataTypeInformation> experimentInfo = Arrays.asList(mock(ParticipantDataTypeInformation.class));
+		List<ParticipantDataTypeInformation2025> experimentInfo = Arrays.asList(mock(ParticipantDataTypeInformation2025.class));
 
 		summary.setSpatialViewerDataTypes(experimentInfo);
 
@@ -35,7 +35,7 @@ public class ParticipantDataTypeSummaryTest {
 
 	@Test
 	public void testSetExplorerDataType() {
-		List<ParticipantDataTypeInformation> experimentInfo = Arrays.asList(mock(ParticipantDataTypeInformation.class));
+		List<ParticipantDataTypeInformation2025> experimentInfo = Arrays.asList(mock(ParticipantDataTypeInformation2025.class));
 
 		summary.setExplorerDataTypes(experimentInfo);
 

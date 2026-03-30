@@ -3,6 +3,7 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.kpmp.atlasMessage.AtlasMessage;
 import org.kpmp.atlasMessage.AtlasMessageService;
@@ -10,6 +11,8 @@ import org.kpmp.autocomplete.AutocompleteResult;
 import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
+import org.kpmp.cellType.HubmapCellTypeMappingService;
+import org.kpmp.cellType.HubmapOntologyCellType;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
@@ -17,19 +20,9 @@ import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
 import org.kpmp.geneExpression.*;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
-import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummaryService2025;
-import org.kpmp.participant.ParticipantClinicalDataset;
-import org.kpmp.participant.ParticipantDataTypeSummary;
-import org.kpmp.participant.ParticipantDataTypeSummary2025;
-import org.kpmp.participant.ParticipantRepoDataTypeInformation;
-import org.kpmp.participant.ParticipantRepoDataTypeSummary;
-import org.kpmp.participant.ParticipantService;
-import org.kpmp.participant.ParticipantService2025;
-import org.kpmp.participant.ParticipantSummaryDataset;
-import org.kpmp.participant.ParticipantEnrollmentCategorySummary;
+import org.kpmp.participant.*;
 import org.kpmp.umap.PlotData;
-import org.kpmp.umap.UmapDataService;
 import org.kpmp.umap.UmapDataService2025;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,41 +38,35 @@ public class QueryController implements GraphQLQueryResolver {
 
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
-	private GeneExpressionSummaryService geneExpressionSummaryService;
     private GeneExpressionSummaryService2025 geneExpressionSummaryService2025;
 	private DataSummaryService dataSummaryService;
-	private UmapDataService umapService;
     private UmapDataService2025 umapService2025;
 	private ClusterHierarchyService clusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
-
 	private RPExpressionDataService rpExpressionDataService;
-	private ParticipantService participantService;
     private ParticipantService2025 participantService2025;
     private AtlasMessageService atlasMessageService;
+	private HubmapCellTypeMappingService hubmapCellTypeMappingService;
 	private Logger logger = LoggerFactory.getLogger(QueryController.class);
 
 	@Autowired
-	public QueryController(AutocompleteService autocompleteService, CellTypeService cellTypeService,
-			UmapDataService umapService, UmapDataService2025 umapService2025, GeneExpressionSummaryService geneExpressionSummaryService, 
+	public QueryController(AutocompleteService autocompleteService, CellTypeService cellTypeService, UmapDataService2025 umapService2025,
             GeneExpressionSummaryService2025 geneExpressionService2025,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
-			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService,
-      ParticipantService participantService, ParticipantService2025 participantService2025, AtlasMessageService atlasMessageService) {
+			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService, ParticipantService2025 participantService2025,
+                           AtlasMessageService atlasMessageService, HubmapCellTypeMappingService hubmapCellTypeMappingService) {
 
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
-		this.umapService = umapService;
         this.umapService2025 = umapService2025;
-		this.geneExpressionSummaryService = geneExpressionSummaryService;
         this.geneExpressionSummaryService2025 = geneExpressionService2025;
 		this.dataSummaryService = dataSummaryService;
 		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
 		this.rpExpressionDataService = rpExpressionDataService;
-		this.participantService = participantService;
         this.participantService2025 = participantService2025;
         this.atlasMessageService = atlasMessageService;
+		this.hubmapCellTypeMappingService = hubmapCellTypeMappingService;
 	}
 
     @QueryMapping
@@ -88,27 +75,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public CellTypeHierarchy cellTypeHierarchy() throws IOException {
-		return cellTypeService.getCellTypeHierarchy();
-	}
-
-    @QueryMapping
     public CellTypeHierarchy cellTypeHierarchy2025() throws IOException {
         return cellTypeService.getCellTypeHierarchy2025();
     }
-
-    @QueryMapping
-	public List<? extends GeneExpressionSummary> geneExpressionSummary(@Argument String dataType, @Argument String geneSymbol,
-        @Argument String cellType, @Argument String enrollmentCategory) throws IOException {
-		List<? extends GeneExpressionSummary> results = new ArrayList<>();
-		if (cellType.isEmpty()) {
-			results = geneExpressionSummaryService.getByDataTypeEnrollmentCategoryAndGene(dataType, geneSymbol, enrollmentCategory);
-		} else if (geneSymbol.isEmpty()) {
-			results = geneExpressionSummaryService.getExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(dataType,
-					cellType, enrollmentCategory);
-		}
-		return results;
-	}
 
     @QueryMapping
 	public List<? extends GeneExpressionSummary> geneExpressionSummary2025(@Argument String dataType, @Argument String geneSymbol,
@@ -124,39 +93,14 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public List<ClusterHierarchy> getClusterHieararchies(@Argument String cellType) throws IOException {
-		return clusterHierarchyService.findClustersByCellType(cellType);
-	}
-
-    @QueryMapping
     public List<ClusterHierarchy> getClusterHieararchies2025(@Argument String cellType) throws IOException {
         return clusterHierarchyService.findClustersByCellType2025(cellType);
     }
 
     @QueryMapping
-	public PlotData getUmapPlotData(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
-		try {
-			return umapService.getPlotData(dataType, geneSymbol, enrollmentCategory);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw e;
-		}
-	}
-
-    @QueryMapping
 	public PlotData getUmapPlotData2025(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
 		try {
 			return umapService2025.getPlotData(dataType, geneSymbol, enrollmentCategory);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw e;
-		}
-	}
-
-    @QueryMapping
-	public List<DataTypeSummary> getDataTypeSummaryInformation() throws Exception {
-		try {
-            return geneExpressionSummaryService.getDataTypeSummaryInformation();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -184,20 +128,9 @@ public class QueryController implements GraphQLQueryResolver {
 	}
 
     @QueryMapping
-	public List<String> dataTypesForConcept(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
-		if (geneSymbol != null && !geneSymbol.isEmpty()) {
-			return geneExpressionSummaryService.findDataTypesByGene(geneSymbol);
-		} else if (clusterName != null && !clusterName.isEmpty()) {
-			return clusterHierarchyService.findDataTypesByClusterName(clusterName);
-		}
-		throw new Exception("Must provide either a cluster or a gene symbol.");
-
-	}
-
-    @QueryMapping
     public List<String> dataTypesForConcept2025(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
         if (geneSymbol != null && !geneSymbol.isEmpty()) {
-            return geneExpressionSummaryService.findDataTypesByGene(geneSymbol);
+            return geneExpressionSummaryService2025.findDataTypesByGene(geneSymbol);
         } else if (clusterName != null && !clusterName.isEmpty()) {
             return clusterHierarchyService.findDataTypesByClusterName2025(clusterName);
         }
@@ -260,7 +193,7 @@ public class QueryController implements GraphQLQueryResolver {
     @QueryMapping
     public ParticipantClinicalDataset getParticipantClinicalDataset(@Argument String redcapId) {
         try{
-            return participantService.getParticipantClinicalDataset(redcapId);
+            return participantService2025.getParticipantClinicalDataset(redcapId);
         }catch (Exception e) {
             logger.error(e.getMessage());
             throw e;
@@ -268,24 +201,19 @@ public class QueryController implements GraphQLQueryResolver {
     }
 
     @QueryMapping
-	public ParticipantDataTypeSummary getDataTypeInformationByParticipant(@Argument String redcapId) {
-		return participantService.getExperimentCounts(redcapId);
-	}
-
-    @QueryMapping
 	public ParticipantDataTypeSummary2025 getDataTypeInformationByParticipant2025(@Argument String redcapId) {
 		return participantService2025.getExperimentCounts(redcapId);
 	}
 
     @QueryMapping
-	public ParticipantRepoDataTypeSummary getRepoDataTypeInformationByParticipant(@Argument String redcapId) {
-		return participantService.getDataTypeCounts(redcapId);
-	}
+    public ParticipantRepoDataTypeSummary getRepoDataTypeInformationByParticipant(@Argument String redcapId) {
+        return participantService2025.getDataTypeCounts(redcapId);
+    }
 
     @QueryMapping
 	public ParticipantSummaryDataset participantSummaryDataset(@Argument String redcapId) throws Exception {
 		try {
-			return participantService.getParticipantSummaryDataset(redcapId);
+			return participantService2025.getParticipantSummaryDataset(redcapId);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			ParticipantSummaryDataset emptyResult = new ParticipantSummaryDataset();
@@ -298,7 +226,7 @@ public class QueryController implements GraphQLQueryResolver {
     @QueryMapping
 	public ParticipantRepoDataTypeInformation getTotalParticipantFilesCount(@Argument String redcapId) throws Exception {
 		try {
-			return this.participantService.getTotalFilesCount(redcapId);
+			return this.participantService2025.getTotalFilesCount(redcapId);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -308,7 +236,7 @@ public class QueryController implements GraphQLQueryResolver {
     @QueryMapping
 	public List<ParticipantEnrollmentCategorySummary> getEnrollmentCategorySummaryData() throws Exception {
 		try {
-			return participantService.getEnrollmentData();
+			return participantService2025.getEnrollmentData();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw e;
@@ -337,6 +265,11 @@ public class QueryController implements GraphQLQueryResolver {
 
     @QueryMapping
 	public List<ParticipantRepoDataTypeInformation> getExperimentalStrategyCountsByParticipant(@Argument String redcapId) {
-		return participantService.getExperimentalStrategyCountsByParticipant(redcapId);
+		return participantService2025.getExperimentalStrategyCountsByParticipant(redcapId);
+	}
+
+	@QueryMapping
+	public List<HubmapOntologyCellType>  getHubmapTermMap() {
+		return hubmapCellTypeMappingService.buildHubmapIdToCellTypeMap();
 	}
 }

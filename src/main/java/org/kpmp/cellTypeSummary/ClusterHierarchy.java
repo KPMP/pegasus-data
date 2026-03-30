@@ -7,8 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import org.springframework.lang.Nullable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "cluster_hierarchy_v")
@@ -41,6 +43,9 @@ public class ClusterHierarchy implements Serializable {
 	private String cellType;
 	@Column(name = "cell_type_order")
 	private Double cellTypeOrder;
+
+    @Transient
+    private String isSpatialTranscriptomics;
 
 	public int getCellTypeId() {
 		return cellTypeId;
@@ -116,6 +121,16 @@ public class ClusterHierarchy implements Serializable {
 	public void setIsRegionalProteomics(String isRegionalProteomics) {
 		this.isRegionalProteomics = isRegionalProteomics;
 	}
+
+    @JsonProperty("isSpatialTranscriptomics")
+    public String getIsSpatialTranscriptomics() {
+        return isSpatialTranscriptomics;
+    }
+
+    public void setIsSpatialTranscriptomics(String isSpatialTranscriptomics) {
+        this.isSpatialTranscriptomics = isSpatialTranscriptomics;
+    }
+
 	@Nullable
 	public Double getCellTypeOrder() {
 		return cellTypeOrder;

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RTExpressionDataAllSegments, Integer> {
+public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RTExpressionDataAllSegments, RTExpressionDataId> {
 	@Cacheable("rtExpGeneSymbolAndEnrollmentCategoryWithCounts")
 	@Query(value = "SELECT rts.*, rsv.sample_count, s.segment_name FROM rt_segments rts "
 			+ "LEFT JOIN rt_summary_v rsv ON rts.segment = rsv.segment AND rts.enrollment_category = rsv.enrollment_category "
