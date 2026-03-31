@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -31,9 +32,14 @@ public class GeneService {
 			false);
 
 	MyGeneInfoResult query(String url, String queryString) throws IOException, Exception {
-		String encodedQueryString = URLEncoder.encode(queryString.replaceAll("[/|\\(|\\)]", ""),
-				StandardCharsets.UTF_8.toString());
-		URL queryUrl = new URL(String.format(url, encodedQueryString, encodedQueryString));
+		String encodedQueryString = URLEncoder.encode(
+        queryString.replaceAll("[/|\\(|\\)]", ""),
+        StandardCharsets.UTF_8);
+
+        URL queryUrl = URI.create(
+            String.format(url, encodedQueryString, encodedQueryString)
+        ).toURL();
+        
 		HttpURLConnection con = getUrlConnection(queryUrl);
 		con.setRequestMethod("GET");
 
