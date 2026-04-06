@@ -12,7 +12,7 @@ import jakarta.persistence.Transient;
 import org.kpmp.FullDataTypeEnum;
 import org.kpmp.geneExpressionSummary.GeneExpressionId;
 import org.kpmp.geneExpressionSummary.GeneExpressionSummary;
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 @Entity
 @Table(name = "sn_rnaseq_2025")
@@ -163,7 +163,6 @@ public class SNRNAGeneExpressionExpressionSummaryValue2025 implements GeneExpres
 	}
 
 	@Override
-	@Nullable
 	public void setAvgExp(Double avgExp) {
 		this.avgExp = avgExp;
 	}

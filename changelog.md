@@ -1,6 +1,8 @@
 # Changelog
 
 ## Release 3.3 (unreleased)
+Brief summary:
+- Fix vulnerabilities found in docker image
 
 ---
 
