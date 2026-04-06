@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -18,9 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class GeneService {
@@ -29,18 +27,13 @@ public class GeneService {
 	static final String GET_MY_GENE_INFO_QUERY_SYMBOL = "http://mygene.info/v3/query?q=symbol:%s%%2A&species=9606&fields=symbol,name,taxid,entrezgene,alias&size=100";
 	static final String GET_MY_GENE_INFO_QUERY_ALIAS = "http://mygene.info/v3/query?q=alias:%s%%2A%%20NOT%%20symbol:%s%%2A&species=9606&fields=symbol,name,taxid,entrezgene,alias&size=100";
 
+	private ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+			false);
 
-    private ObjectMapper mapper = JsonMapper.builder().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).build();
-    
 	MyGeneInfoResult query(String url, String queryString) throws IOException, Exception {
-		String encodedQueryString = URLEncoder.encode(
-        queryString.replaceAll("[/|\\(|\\)]", ""),
-        StandardCharsets.UTF_8);
-
-        URL queryUrl = URI.create(
-            String.format(url, encodedQueryString, encodedQueryString)
-        ).toURL();
-        
+		String encodedQueryString = URLEncoder.encode(queryString.replaceAll("[/|\\(|\\)]", ""),
+				StandardCharsets.UTF_8.toString());
+		URL queryUrl = new URL(String.format(url, encodedQueryString, encodedQueryString));
 		HttpURLConnection con = getUrlConnection(queryUrl);
 		con.setRequestMethod("GET");
 
