@@ -50,6 +50,7 @@ public class ClusterHierarchyService {
             tiCluster.setCellTypeOrder(0.01);
             result.add(tiCluster);
         }
+        result.addAll(clusterToHierarchy.values());
         Collections.sort(result, new Comparator<ClusterHierarchy>() {
             @Override
             public int compare(ClusterHierarchy a, ClusterHierarchy b) {
