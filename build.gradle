@@ -13,7 +13,7 @@ plugins {
 }
 
 group = 'kingstonduo'
-version = '3.3.0'
+version = '3.4.0'
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -96,4 +96,10 @@ docker {
     name "kingstonduo/pegasus-data:" + getCurrentGitBranch()
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
+}
+
+task printImageTag {
+    doLast {
+        println "kingstonduo/pegasus-data:" + getCurrentGitBranch()
+    }
 }
