@@ -40,7 +40,7 @@ public class ClusterHierarchyService {
                 clusterToHierarchy.put(clusterName, clusterHierarchy);
             }
         }
-        if (cellType.equals("Tubules") || cellType.equals("Interstitium")) {
+        if (cellType.equals("Tubules") || cellType.equals("Interstitium") || cellType.equals("Proximal Tubule") || cellType.equals("Proximal Tubule Epithelial Cell")) {
             ClusterHierarchy tiCluster = new ClusterHierarchy();
             tiCluster.setStructureRegion("Tubulo-interstitium");
             tiCluster.setIsSingleCellCluster("N");
