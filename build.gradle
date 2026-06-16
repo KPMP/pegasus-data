@@ -97,3 +97,9 @@ docker {
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }
+
+task printImageTag {
+    doLast {
+        println "kingstonduo/pegasus-data:" + getCurrentGitBranch()
+    }
+}
