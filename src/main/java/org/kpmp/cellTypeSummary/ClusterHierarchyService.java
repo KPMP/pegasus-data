@@ -40,9 +40,20 @@ public class ClusterHierarchyService {
                 clusterToHierarchy.put(clusterName, clusterHierarchy);
             }
         }
-        if (cellType.equals("Tubules") || cellType.equals("Interstitium") 
-            || cellType.equals("Proximal Tubule") || cellType.equals("Proximal Tubule Epithelial Cell")
-        || cellType.equals("Stroma / Mesenchymal") || cellType.equals("Perivascular Fibroblast")) {
+
+        boolean hasTubulesOrInterstitium = clusterHierarchiesParentRegions.stream()
+            .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
+                    || "Interstitium".equals(ch.getStructureRegion()));
+
+        boolean hasTubulesOrInterstitiumRegional = clusterHierarchiesRegional.stream()
+        .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
+                || "Interstitium".equals(ch.getStructureRegion()));
+
+        boolean hasTubulesOrInterstitiumRNASeq = clusterHierarchiesRNASeq.stream()
+        .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
+                || "Interstitium".equals(ch.getStructureRegion()));
+
+        if (hasTubulesOrInterstitium || hasTubulesOrInterstitiumRegional || hasTubulesOrInterstitiumRNASeq || cellType.equals("Tubules") || cellType.equals("Interstitium")) {
             ClusterHierarchy tiCluster = new ClusterHierarchy();
             tiCluster.setStructureRegion("Tubulo-interstitium");
             tiCluster.setIsSingleCellCluster("N");

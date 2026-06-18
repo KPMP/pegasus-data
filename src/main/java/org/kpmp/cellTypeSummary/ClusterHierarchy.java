@@ -135,4 +135,21 @@ public class ClusterHierarchy implements Serializable {
 	public void setCellType(String cellType) {
 		this.cellType = cellType;
 	}
+
+    @Override
+    public String toString() {
+        return "ClusterHierarchy{" +
+                "cellTypeId=" + cellTypeId +
+                ", clusterId=" + clusterId +
+                ", structureRegion='" + structureRegion + '\'' +
+                ", structureSubregion='" + structureSubregion + '\'' +
+                ", clusterName='" + clusterName + '\'' +
+                ", isSingleCellCluster='" + isSingleCellCluster + '\'' +
+                ", isSingleNucCluster='" + isSingleNucCluster + '\'' +
+                ", isRegionalTranscriptomics='" + isRegionalTranscriptomics + '\'' +
+                ", isRegionalProteomics='" + isRegionalProteomics + '\'' +
+                ", cellType='" + cellType + '\'' +
+                ", cellTypeOrder=" + cellTypeOrder +
+                '}';
+    }
 }

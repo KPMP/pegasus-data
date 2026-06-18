@@ -24,13 +24,13 @@ interface ClusterHiearchyRepository extends CrudRepository<ClusterHierarchy, Clu
 
     // This query gets the regions or subregions that RT/RP data are in given a more specific cell type.
     @Cacheable("clusterHierarchy2025ByCellTypeRegionsSubregions")
-    @Query(value = "SELECT * FROM (SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v v1 " +
+    @Query(value = "SELECT * FROM (SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM rt_segment_hierarchy_2025_v v1 " +
     "WHERE v1.cell_type IS NULL AND v1.structure_subregion IS NULL AND v1.structure_region IN (" +
             "SELECT v2.structure_region FROM cell_type_2025 v2 " +
                     "WHERE v2.cell_type = :cell_type OR " +
                     "v2.structure_subregion = :cell_type) " +
     "UNION " +
-    "SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'Y' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM knowledge_environment.rt_segment_hierarchy_2025_v v1 " +
+    "SELECT v1.*, 0 AS cluster_id, v1.cell_type AS cluster_name, 'Y' AS is_rt, 'N' AS is_rp, 'N' AS is_single_cell, 'N' as is_single_nuc FROM knowledge_environment.rt_segment_hierarchy_2025_v v1 " +
     "WHERE v1.cell_type IS NULL AND v1.structure_subregion IN ( " +
             "SELECT v2.structure_subregion FROM cell_type_2025 v2 " +
                     "WHERE v2.cell_type = :cell_type OR " +
