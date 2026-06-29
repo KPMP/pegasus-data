@@ -156,17 +156,8 @@ public class DataSummaryService {
         long spatialLipidomicsTotalCount = 0;
         long spatialLipidomicsParticipantCount = 0;
 		for ( String dataType : svDataTypes) {
-            if (dataType.equals(SPATIAL_LIPIDOMICS)) {
-
-                spatialLipidomicsAkiCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsCkdCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsHrtCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsDmrCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsTotalCount += dataSummaryRepository.getDataSummaryTotal(dataType);
-                spatialLipidomicsParticipantCount += dataSummaryRepository.getParticipantSummaryCount(dataType);
-                continue;
-            }
-			summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+            if (!dataType.equals(SPATIAL_LIPIDOMICS)) {
+                summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 					dataType, FullDataTypeEnum.fromLong(dataType).getAbbreviation(),
 					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType),
@@ -174,20 +165,21 @@ public class DataSummaryService {
 					dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryTotal(dataType),
 					dataSummaryRepository.getParticipantSummaryCount(dataType)));
+            }
+            else{
+                spatialLipidomicsAkiCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsCkdCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsHrtCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsDmrCount += dataSummaryRepository.getDataSummaryCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsTotalCount += dataSummaryRepository.getDataSummaryTotal(SPATIAL_LIPIDOMICS);
+                spatialLipidomicsParticipantCount += dataSummaryRepository.getParticipantSummaryCount(SPATIAL_LIPIDOMICS);
+            }
 		}
 
 		List<String> linkDataTypes = dataSummaryRepository.getSpatialViewerLinkDataTypes();
 		for ( String dataType : linkDataTypes) {
-            if (dataType.equals(SPATIAL_LIPIDOMICS)) {
-                spatialLipidomicsAkiCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsCkdCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsHrtCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsDmrCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType);
-                spatialLipidomicsTotalCount += dataSummaryRepository.getDataSummaryLinkTotal(dataType);
-                spatialLipidomicsParticipantCount += dataSummaryRepository.getParticipantSummaryLinkCount(dataType);
-                continue;
-            }
-			summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
+            if (!dataType.equals(SPATIAL_LIPIDOMICS)) {
+                summaryData.add(new DataTypeSummary(OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
 					dataType, FullDataTypeEnum.fromLong(dataType).getAbbreviation(),
 					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), dataType),
@@ -195,13 +187,22 @@ public class DataSummaryService {
 					dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), dataType),
 					dataSummaryRepository.getDataSummaryLinkTotal(dataType),
 					dataSummaryRepository.getParticipantSummaryLinkCount(dataType)));
+            }
+            else {
+                spatialLipidomicsAkiCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.AKI.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsCkdCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.CKD.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsHrtCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.HEALTHY_REFERENCE.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsDmrCount += dataSummaryRepository.getDataSummaryLinkCount(EnrollmentCategoryEnum.DMR.getParticipantEnrollmentCategory(), SPATIAL_LIPIDOMICS);
+                spatialLipidomicsTotalCount += dataSummaryRepository.getDataSummaryLinkTotal(SPATIAL_LIPIDOMICS);
+                spatialLipidomicsParticipantCount += dataSummaryRepository.getParticipantSummaryLinkCount(SPATIAL_LIPIDOMICS);
+            }
+			
 		}
 
         // add the combined Spatial Lipidomics counts
         summaryData.add(new DataTypeSummary(
-            OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(),
-            SPATIAL_LIPIDOMICS,
-            FullDataTypeEnum.fromLong(SPATIAL_LIPIDOMICS).getAbbreviation(),
+            OmicsTypeEnum.TRANSCRIPTOMICS.getEnum(), 
+            SPATIAL_LIPIDOMICS, FullDataTypeEnum.fromLong(SPATIAL_LIPIDOMICS).getAbbreviation(),
             spatialLipidomicsAkiCount,
             spatialLipidomicsCkdCount,
             spatialLipidomicsHrtCount,
