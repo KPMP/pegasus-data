@@ -76,7 +76,7 @@ type ParticipantDataTypeInformation2025 {
 }
 
 type ParticipantRepoDataTypeSummary {
-  repositoryDataTypes: [ParticipantDataTypeInformation2025]
+  repositoryDataTypes: [ParticipantRepoDataTypeInformation]
 }
 
 type ParticipantRepoDataTypeInformation {
