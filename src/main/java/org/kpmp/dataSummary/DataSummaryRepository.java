@@ -18,12 +18,30 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	       		+ "and sv.release_sunset_version is null", nativeQuery = true)
 	Long getDataSummaryCount(@Param("enrollment_category") String enrollment_category, @Param("data_type") String data_type);
 
+    @Cacheable("dataSummaryCountSL")
+	@Query(value = "SELECT count(distinct(sl.redcap_id)) from (" + 
+                "(select distinct(redcap_id) from sv_link_v where data_type = 'Spatial Lipidomics' and enrollment_category = :enrollment_category) union all" +
+                "(select distinct(redcap_id) from sv_file_v where data_type = 'Spatial Lipidomics' and enrollment_category = :enrollment_category)) as sl", nativeQuery = true)
+	Long getDataSummaryCountSL(@Param("enrollment_category") String enrollment_category);
+
 	@Cacheable("dataSummaryTotal")
 	@Query(value = "select count(distinct(redcap_id)) from participant p "
 			+ "join file_participant fp on p.participant_id = fp.participant_id "
 			+ "join file f on f.file_id= fp.file_id " + "join sv_file_info sv on sv.file_id = f.file_id "
 			+ "where sv.config_type = :data_type and sv.release_sunset_version is null", nativeQuery = true)
 	Long getDataSummaryTotal(@Param("data_type") String data_type);
+
+    @Cacheable("dataSummaryTotalSL")
+	@Query(value = "select count(r.redcap_id) from "+ 
+                "( " +
+                "select distinct redcap_id " + 
+                "from sv_link_v where data_type = 'Spatial Lipidomics' " + 
+                "union " +
+                "(select distinct redcap_id " + 
+                "from sv_file_v " + 
+                "where data_type = 'Spatial Lipidomics')" + 
+                ") as r", nativeQuery = true)
+	Long getDataSummaryTotalSL();
 	
 	@Cacheable("repoDataSummaryCount")
 	@Query(value = "select count(distinct(dl_file_id)) from repo_file_v where experimental_strategy = :exp_strat and enrollment_category = :enrollment_category", nativeQuery = true)
@@ -50,9 +68,17 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "select count(distinct(redcap_id)) " + "from sv_link_v " + "where data_type = :data_type ", nativeQuery = true)
 	Long getDataSummaryLinkTotal(@Param("data_type") String data_type);
 
+    @Cacheable("dataSummaryLinkSL")
+	@Query(value = "select count(distinct(redcap_id)) " + "from sv_file_v " + "where data_type = 'Spatial Lipidomics' ", nativeQuery = true)
+	Long getDataSummaryLinkSL();
+
 	@Cacheable("dataParticipantSummaryCount")
 	@Query(value = "SELECT count(*) FROM sv_file_v WHERE data_type= :data_type", nativeQuery = true)
 	Long getParticipantSummaryCount(@Param("data_type") String data_type);
+
+    @Cacheable("dataParticipantSummaryCountSL")
+	@Query(value = "SELECT count(*) FROM sv_file_v WHERE data_type= :data_type", nativeQuery = true)
+	Long getParticipantSummaryCountSL(@Param("data_type") String data_type);
 
 	@Cacheable("dataParticipantSummaryCountByConfigType")
 	@Query(value = "SELECT count(*) FROM sv_file_v WHERE config_type= :config_type", nativeQuery = true)
