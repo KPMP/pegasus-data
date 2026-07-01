@@ -68,10 +68,6 @@ public interface DataSummaryRepository extends CrudRepository<DataSummaryValue, 
 	@Query(value = "select count(distinct(redcap_id)) " + "from sv_link_v " + "where data_type = :data_type ", nativeQuery = true)
 	Long getDataSummaryLinkTotal(@Param("data_type") String data_type);
 
-    @Cacheable("dataSummaryLinkSL")
-	@Query(value = "select count(distinct(redcap_id)) " + "from sv_file_v " + "where data_type = 'Spatial Lipidomics' ", nativeQuery = true)
-	Long getDataSummaryLinkSL();
-
 	@Cacheable("dataParticipantSummaryCount")
 	@Query(value = "SELECT count(*) FROM sv_file_v WHERE data_type= :data_type", nativeQuery = true)
 	Long getParticipantSummaryCount(@Param("data_type") String data_type);
