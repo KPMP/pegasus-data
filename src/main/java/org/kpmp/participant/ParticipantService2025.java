@@ -27,7 +27,7 @@ public class ParticipantService2025 {
 	private String BIOMARKERS;
 	@Value("${experiment.category.biomarker}")
 	private String BIOMARKER;
-	
+	private static final String SPATIAL_LIPIDOMICS = "Spatial Lipidomics";
 
 	private ParticipantSummaryDatasetRepository participantSummaryDatasetRepository;
 	private DataSummaryRepository dataSummaryRepo;
@@ -185,34 +185,40 @@ public class ParticipantService2025 {
 	}
 
 	private List<ParticipantDataTypeInformation2025> getSpatialViewerCounts(String redcapId) {
-		List<ParticipantDataTypeInformation2025> spatialViewerExperiments = new ArrayList<>();
+        List<ParticipantDataTypeInformation2025> spatialViewerExperiments = new ArrayList<>();
+        List<SpatialViewerDataType> spatialViewerDataTypes = svTypeRepo.findAll();
 
-		List<SpatialViewerDataType> spatialViewerDataTypes = svTypeRepo.findAll();
-		for (SpatialViewerDataType spatialViewerDataType : spatialViewerDataTypes) {
-			String dataType = spatialViewerDataType.getDataType();
-			if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_FILE_VIEW)) {
+        for (SpatialViewerDataType spatialViewerDataType : spatialViewerDataTypes) {
+            String dataType = spatialViewerDataType.getDataType();
 
-				Integer count = dataSummaryRepo.getParticipantSvFileDataTypeCount(redcapId, dataType);
-				ParticipantDataTypeInformation2025 dataTypeInfo = new ParticipantDataTypeInformation2025(dataType, count,
-						false);
+            // Handle Spatial Lipidomics separately below - skip it here
+            if (SPATIAL_LIPIDOMICS.equals(dataType)) {
+                continue;
+            }
 
-				spatialViewerExperiments.add(dataTypeInfo);
-                
-			} else if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_LINK_VIEW)) {
-				Integer count = dataSummaryRepo.getParticipantSvLinkDataTypeCount(redcapId, dataType);
-				ParticipantDataTypeInformation2025 dataTypeInfo = new ParticipantDataTypeInformation2025(dataType, count,
-						false);
-				spatialViewerExperiments.add(dataTypeInfo);
-			} else {
-				logger.error("Unable to query for data type: " + dataType + ". Need to change code to handle.");
-			}
-		}
+            if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_FILE_VIEW)) {
+                Integer count = dataSummaryRepo.getParticipantSvFileDataTypeCount(redcapId, dataType);
+                spatialViewerExperiments.add(new ParticipantDataTypeInformation2025(dataType, count, false));
+            } else if (spatialViewerDataType.getTableName().equals(SPATIAL_VIEWER_LINK_VIEW)) {
+                Integer count = dataSummaryRepo.getParticipantSvLinkDataTypeCount(redcapId, dataType);
+                spatialViewerExperiments.add(new ParticipantDataTypeInformation2025(dataType, count, false));
+            } else {
+                logger.error("Unable to query for data type: " + dataType + ". Need to change code to handle.");
+            }
+        }
+
+        // Explicitly combine Spatial Lipidomics counts from both views - one call each, no duplication risk
+        Integer fileLipidomicsCount = dataSummaryRepo.getParticipantSvFileDataTypeCount(redcapId, SPATIAL_LIPIDOMICS);
+        Integer linkLipidomicsCount = dataSummaryRepo.getParticipantSvLinkDataTypeCount(redcapId, SPATIAL_LIPIDOMICS);
+        int combinedLipidomicsCount = (fileLipidomicsCount != null ? fileLipidomicsCount : 0)
+                                    + (linkLipidomicsCount != null ? linkLipidomicsCount : 0);
+        spatialViewerExperiments.add(new ParticipantDataTypeInformation2025(SPATIAL_LIPIDOMICS, combinedLipidomicsCount, false));
+
         Integer segmentationCount = dataSummaryRepo.getParticipantSegmentationConfigTypeCount(redcapId, "Segmentation Masks & Pathomics Vectors");
-        ParticipantDataTypeInformation2025 segmentationDataTypeInfo = new ParticipantDataTypeInformation2025("Segmentation Masks & Pathomics Vectors", segmentationCount,
-                        false);
-                spatialViewerExperiments.add(segmentationDataTypeInfo);
-		return spatialViewerExperiments;
-	}
+        spatialViewerExperiments.add(new ParticipantDataTypeInformation2025("Segmentation Masks & Pathomics Vectors", segmentationCount, false));
+
+        return spatialViewerExperiments;
+}
 
 	private List<ParticipantRepoDataTypeInformation> getRepositoryCounts(String redcapId) {
 		List<ParticipantRepoDataTypeInformation> repoCounts = new ArrayList<>();

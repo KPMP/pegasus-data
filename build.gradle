@@ -3,23 +3,24 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.2.5")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.5.0")
     }
 }
 
 plugins {
+    id 'org.springframework.boot' version '3.5.0'
     id 'com.palantir.docker' version '0.35.0'
-    id 'org.springframework.boot' version '3.2.5'
 }
 
 group = 'kingstonduo'
-version = '3.3.0'
+version = '3.4.0'
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.palantir.docker'
 
 
 repositories {
@@ -30,28 +31,33 @@ sourceCompatibility = '21'
 targetCompatibility = '21'
 
 dependencies {
-    
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation 'commons-io:commons-io:2.16.1'
     implementation 'com.mysql:mysql-connector-j:9.0.0'
-    implementation 'org.apache.commons:commons-compress:1.26.2'
-    implementation 'org.apache.commons:commons-text:1.12.0'
-    implementation 'com.graphql-java:graphql-spring-boot-starter:5.0.2'
-    implementation 'com.graphql-java:graphiql-spring-boot-starter:5.0.2'
-    implementation 'com.graphql-java:graphql-java-tools:5.2.4'
+    implementation ("org.apache.commons:commons-compress:1.28.0")
+    implementation 'org.apache.commons:commons-text:1.14.0'
+    implementation 'org.springframework.boot:spring-boot-starter-graphql'
     implementation 'org.springframework.graphql:spring-graphql'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'com.hazelcast:hazelcast-all:4.2.5'
+    implementation ("com.hazelcast:hazelcast")
     implementation 'com.graphql-java:graphql-java-extended-scalars:21.0'
 
-    testImplementation('org.mockito:mockito-junit-jupiter:3.12.4')
+    testImplementation('org.mockito:mockito-junit-jupiter')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework:spring-test:5.2.25.RELEASE'
+    testImplementation 'org.springframework:spring-test'
     testImplementation 'org.mockito:mockito-core'
     
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.fasterxml.jackson.core:jackson-databind:2.21.0'
+        force 'com.fasterxml.jackson.core:jackson-core:2.21.0'
+        force 'com.fasterxml.jackson.core:jackson-annotations:2.21.0'
+    }
 }
 
 springBoot {
@@ -86,9 +92,14 @@ def getCurrentGitBranch() {
         }
     }
 }
-
 docker {
     name "kingstonduo/pegasus-data:" + getCurrentGitBranch()
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
+}
+
+task printImageTag {
+    doLast {
+        println "kingstonduo/pegasus-data:" + getCurrentGitBranch()
+    }
 }

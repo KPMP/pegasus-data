@@ -20,7 +20,7 @@ public interface CellTypeRepository extends CrudRepository<CellType, Integer> {
 	List<CellType> findByCellTypeContainingOrSynonymContaining(@Param("searchTerm") String searchTerm);
 
     @Cacheable("cellTypeIsNotNullOrderByCellTypeOrdering2025")
-    @Query(value = "SELECT * FROM cell_type_2025 WHERE cell_type IS NOT NULL ORDER BY cell_type_order ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM cell_type_2025 WHERE cell_type IS NOT NULL AND release_sunset IS NULL ORDER BY cell_type_order ASC", nativeQuery = true)
     List<CellType> findAllByCellTypeIsNotNullOrderByCellTypeOrdering2025();
 
 	@Cacheable("structureRegionContaining")

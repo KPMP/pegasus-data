@@ -40,7 +40,20 @@ public class ClusterHierarchyService {
                 clusterToHierarchy.put(clusterName, clusterHierarchy);
             }
         }
-        if (cellType.equals("Tubules") || cellType.equals("Interstitium")) {
+
+        boolean hasTubulesOrInterstitium = clusterHierarchiesParentRegions.stream()
+            .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
+                    || "Interstitium".equals(ch.getStructureRegion()));
+
+        boolean hasTubulesOrInterstitiumRegional = clusterHierarchiesRegional.stream()
+        .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
+                || "Interstitium".equals(ch.getStructureRegion()));
+
+        boolean hasTubulesOrInterstitiumRNASeq = clusterHierarchiesRNASeq.stream()
+        .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
+                || "Interstitium".equals(ch.getStructureRegion()));
+
+        if (hasTubulesOrInterstitium || hasTubulesOrInterstitiumRegional || hasTubulesOrInterstitiumRNASeq || cellType.equals("Tubules") || cellType.equals("Interstitium")) {
             ClusterHierarchy tiCluster = new ClusterHierarchy();
             tiCluster.setStructureRegion("Tubulo-interstitium");
             tiCluster.setIsSingleCellCluster("N");
@@ -50,15 +63,6 @@ public class ClusterHierarchyService {
             tiCluster.setCellTypeOrder(0.01);
             result.add(tiCluster);
         }
-        ClusterHierarchy bogusST = new ClusterHierarchy();
-        bogusST.setIsSpatialTranscriptomics("Y");
-        bogusST.setCellTypeOrder(-1.0);
-        bogusST.setIsSingleCellCluster("N");
-        bogusST.setIsSingleNucCluster("N");
-        bogusST.setIsRegionalProteomics("N");
-        bogusST.setIsRegionalTranscriptomics("N");
-        bogusST.setStructureRegion("Glomerulus / Renal Corpuscle");
-        result.add(bogusST);
         result.addAll(clusterToHierarchy.values());
         Collections.sort(result, new Comparator<ClusterHierarchy>() {
             @Override

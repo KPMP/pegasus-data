@@ -2,15 +2,14 @@ package org.kpmp.cellTypeSummary;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.Nullable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
-import org.springframework.lang.Nullable;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "cluster_hierarchy_v")
@@ -43,9 +42,6 @@ public class ClusterHierarchy implements Serializable {
 	private String cellType;
 	@Column(name = "cell_type_order")
 	private Double cellTypeOrder;
-
-    @Transient
-    private String isSpatialTranscriptomics;
 
 	public int getCellTypeId() {
 		return cellTypeId;
@@ -122,15 +118,6 @@ public class ClusterHierarchy implements Serializable {
 		this.isRegionalProteomics = isRegionalProteomics;
 	}
 
-    @JsonProperty("isSpatialTranscriptomics")
-    public String getIsSpatialTranscriptomics() {
-        return isSpatialTranscriptomics;
-    }
-
-    public void setIsSpatialTranscriptomics(String isSpatialTranscriptomics) {
-        this.isSpatialTranscriptomics = isSpatialTranscriptomics;
-    }
-
 	@Nullable
 	public Double getCellTypeOrder() {
 		return cellTypeOrder;
@@ -148,4 +135,21 @@ public class ClusterHierarchy implements Serializable {
 	public void setCellType(String cellType) {
 		this.cellType = cellType;
 	}
+
+    @Override
+    public String toString() {
+        return "ClusterHierarchy{" +
+                "cellTypeId=" + cellTypeId +
+                ", clusterId=" + clusterId +
+                ", structureRegion='" + structureRegion + '\'' +
+                ", structureSubregion='" + structureSubregion + '\'' +
+                ", clusterName='" + clusterName + '\'' +
+                ", isSingleCellCluster='" + isSingleCellCluster + '\'' +
+                ", isSingleNucCluster='" + isSingleNucCluster + '\'' +
+                ", isRegionalTranscriptomics='" + isRegionalTranscriptomics + '\'' +
+                ", isRegionalProteomics='" + isRegionalProteomics + '\'' +
+                ", cellType='" + cellType + '\'' +
+                ", cellTypeOrder=" + cellTypeOrder +
+                '}';
+    }
 }

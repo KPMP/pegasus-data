@@ -3,7 +3,6 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.kpmp.atlasMessage.AtlasMessage;
 import org.kpmp.atlasMessage.AtlasMessageService;
@@ -31,10 +30,8 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-
 @Controller
-public class QueryController implements GraphQLQueryResolver {
+public class QueryController {
 
 	private AutocompleteService autocompleteService;
 	private CellTypeService cellTypeService;
