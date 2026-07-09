@@ -145,6 +145,26 @@ public class ClusterHierarchyServiceTest {
     }
 
     @Test
+    public void testFindClustersByCellType_preservesRnaSeqOrder2025() {
+        ClusterHierarchy clusterHierarchy1 = new ClusterHierarchy();
+        clusterHierarchy1.setClusterName("Podocyte (<i>degenerative<sup>3</sup></i>)");
+        clusterHierarchy1.setCellTypeOrder(1.0);
+        ClusterHierarchy clusterHierarchy2 = new ClusterHierarchy();
+        clusterHierarchy2.setClusterName("Podocyte");
+        clusterHierarchy2.setCellTypeOrder(1.0);
+
+        List<ClusterHierarchy> hierarchiesRNA = new ArrayList<>(Arrays.asList(clusterHierarchy1, clusterHierarchy2));
+        List<ClusterHierarchy> hierarchiesRTRP = new ArrayList<>();
+        List<ClusterHierarchy> hierarchiesParent = new ArrayList<>();
+
+        when(clusterHierarchyRepo.findRTRPByCellTypeOrRegion("cell type")).thenReturn(hierarchiesRTRP);
+        when(clusterHierarchyRepo.findRnaSeqByCellTypeOrRegion("cell type")).thenReturn(hierarchiesRNA);
+        when(clusterHierarchyRepo.findRTRPParentRegions("cell type")).thenReturn(hierarchiesParent);
+
+        assertEquals(Arrays.asList(clusterHierarchy1, clusterHierarchy2), service.findClustersByCellType2025("cell type"));
+    }
+
+    @Test
     public void testFindDataTypesByClusterNameWhenBothY2025() throws Exception {
         ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
         clusterHierarchy.setIsSingleCellCluster("Y");
