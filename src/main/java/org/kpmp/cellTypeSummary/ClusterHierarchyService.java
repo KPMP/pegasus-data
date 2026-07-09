@@ -19,8 +19,8 @@ public class ClusterHierarchyService {
     public List<ClusterHierarchy> findClustersByCellType2025(String cellType) {
 
         ArrayList<ClusterHierarchy> result = new ArrayList<>();
-        Map<String, ClusterHierarchy> clusterToHierarchy = new HashMap<>();
-        Set<ClusterHierarchy> clusterHierarchySet = new HashSet<>();
+        Map<String, ClusterHierarchy> clusterToHierarchy = new LinkedHashMap<>();
+        Set<ClusterHierarchy> clusterHierarchySet = new LinkedHashSet<>();
         List<ClusterHierarchy> clusterHierarchiesRNASeq = clusterHierarchyRepo.findRnaSeqByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesRegional = clusterHierarchyRepo.findRTRPByCellTypeOrRegion(cellType);
         List<ClusterHierarchy> clusterHierarchiesParentRegions = clusterHierarchyRepo.findRTRPParentRegions(cellType);
