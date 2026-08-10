@@ -54,7 +54,7 @@ public class QueryController {
             GeneExpressionSummaryService2025 geneExpressionService2025,
 			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
 			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService, ParticipantService2025 participantService2025,
-                           AtlasMessageService atlasMessageService, HubmapCellTypeMappingService hubmapCellTypeMappingService) {
+                           AtlasMessageService atlasMessageService, HubmapCellTypeMappingService hubmapCellTypeMappingService, CellTypeClusterHierarchyService cellTypeClusterHierarchyService) {
 
 		this.autocompleteService = autocompleteService;
 		this.cellTypeService = cellTypeService;
@@ -67,6 +67,7 @@ public class QueryController {
         this.participantService2025 = participantService2025;
         this.atlasMessageService = atlasMessageService;
 		this.hubmapCellTypeMappingService = hubmapCellTypeMappingService;
+        this.cellTypeClusterHierarchyService = cellTypeClusterHierarchyService;
 	}
 
     @QueryMapping

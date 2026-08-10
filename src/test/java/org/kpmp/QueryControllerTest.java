@@ -25,6 +25,7 @@ import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellType.HubmapCellTypeMappingService;
 import org.kpmp.cellType.HubmapOntologyCellType;
+import org.kpmp.cellTypeSummary.CellTypeClusterHierarchyService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
@@ -79,12 +80,15 @@ public class QueryControllerTest {
 	@Mock
 	HubmapCellTypeMappingService hubmapCellTypeMappingService;
 
+    @Mock
+    private CellTypeClusterHierarchyService cellTypeClusterHierarchyService;
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new QueryController(autocompleteService, cellTypeService, umapDataService2025,
 				geneExpressionService2025, dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
-        participantService2025, atlasMessageService, hubmapCellTypeMappingService);
+        participantService2025, atlasMessageService, hubmapCellTypeMappingService, cellTypeClusterHierarchyService);
 	}
 
 	@AfterEach
