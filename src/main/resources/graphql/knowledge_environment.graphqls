@@ -3,8 +3,10 @@ type Query {
   cellTypeHierarchy2025: CellTypeHierarchy
   geneExpressionSummary2025(dataType: String, geneSymbol: String, cellType: String, enrollmentCategory: String) : [GeneExpressionSummary2025]
   getClusterHieararchies2025(cellType: String!): [ClusterHierarchy]
+  getClusterHierarchies2026(cellType: String!): [CellTypeClusterHierarchy]
   getUmapPlotData2025(dataType: String!, geneSymbol: String!, enrollmentCategory: String): PlotData2025
   dataTypesForConcept2025(geneSymbol: String, clusterName: String): [String]
+  dataTypesForConcept2026(geneSymbol: String, clusterName: String): [String]
   getDataTypeSummaryInformation2025: [DataTypeSummaryInformation2025]
   getRTGeneExpressionByEnrollment(comparisonType: String, geneSymbol: String): RTGeneExpressionByEnrollment
   getRPGeneExpressionByEnrollment(geneSymbol: String!): [RPAccessionGroup]
@@ -151,6 +153,24 @@ type ClusterHierarchy {
     isRegionalTranscriptomics: String
     isRegionalProteomics: String
     cellTypeOrder: Float
+}
+
+type CellTypeClusterHierarchy {
+    cellTypeClusterHierarchyId: Int!
+    structureRegion: String!
+    structureSubregion: String
+    cellType: String
+    releaseVer: Float!
+    releaseSunset: Float!
+    cellTypeOrder: Float
+    clusterName: String
+    clusterAbbreviation: String
+    rtSegmentAbbreviation: String
+    isSingleCellCluster: String!
+    isSingleNucCluster: String!
+    isRegionalTranscriptomics: String!
+    isRegionalProteomics: String!
+    isSpatialTranscriptomics: String!
 }
 
 type PlotData2025 {

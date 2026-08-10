@@ -12,6 +12,8 @@ import org.kpmp.cellType.CellTypeHierarchy;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellType.HubmapCellTypeMappingService;
 import org.kpmp.cellType.HubmapOntologyCellType;
+import org.kpmp.cellTypeSummary.CellTypeClusterHierarchy;
+import org.kpmp.cellTypeSummary.CellTypeClusterHierarchyService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
@@ -39,6 +41,7 @@ public class QueryController {
 	private DataSummaryService dataSummaryService;
     private UmapDataService2025 umapService2025;
 	private ClusterHierarchyService clusterHierarchyService;
+    private CellTypeClusterHierarchyService cellTypeClusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
 	private RPExpressionDataService rpExpressionDataService;
     private ParticipantService2025 participantService2025;
@@ -95,6 +98,11 @@ public class QueryController {
     }
 
     @QueryMapping
+    public List<CellTypeClusterHierarchy> getClusterHierarchies2026(@Argument String cellType) throws IOException {
+        return cellTypeClusterHierarchyService.findClustersByCellType2026(cellType);
+    }
+
+    @QueryMapping
 	public PlotData getUmapPlotData2025(@Argument String dataType, @Argument String geneSymbol, @Argument String enrollmentCategory) throws Exception {
 		try {
 			return umapService2025.getPlotData(dataType, geneSymbol, enrollmentCategory);
@@ -130,6 +138,17 @@ public class QueryController {
             return geneExpressionSummaryService2025.findDataTypesByGene(geneSymbol);
         } else if (clusterName != null && !clusterName.isEmpty()) {
             return clusterHierarchyService.findDataTypesByClusterName2025(clusterName);
+        }
+        throw new Exception("Must provide either a cluster or a gene symbol.");
+
+    }
+
+    @QueryMapping
+    public List<String> dataTypesForConcept2026(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
+        if (geneSymbol != null && !geneSymbol.isEmpty()) {
+            return geneExpressionSummaryService2025.findDataTypesByGene(geneSymbol);
+        } else if (clusterName != null && !clusterName.isEmpty()) {
+            return cellTypeClusterHierarchyService.findDataTypesByClusterName2025(clusterName);
         }
         throw new Exception("Must provide either a cluster or a gene symbol.");
 
