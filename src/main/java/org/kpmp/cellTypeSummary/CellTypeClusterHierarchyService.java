@@ -12,7 +12,7 @@ public class CellTypeClusterHierarchyService {
 	private CellTypeClusterHierarchyRepository cellTypeClusterHierarchyRepository;
 
 	@Autowired
-	public CellTypeClusterHierarchyService(ClusterHiearchyRepository clusterHierarchyRepo) {
+	public CellTypeClusterHierarchyService(CellTypeClusterHierarchyRepository cellTypeClusterHierarchyRepository) {
 		this.cellTypeClusterHierarchyRepository = cellTypeClusterHierarchyRepository;
 	}
 
