@@ -18,13 +18,9 @@ public class CellTypeClusterHierarchyService {
 
     public List<CellTypeClusterHierarchy> findClustersByCellType2026(String cellType) {
 
-        ArrayList<CellTypeClusterHierarchy> result = new ArrayList<>();
-        Map<String, CellTypeClusterHierarchy> clusterToHierarchy = new LinkedHashMap<>();
-        Set<CellTypeClusterHierarchy> cellTypeClusterHierarchySet = new LinkedHashSet<>();
         List<CellTypeClusterHierarchy> cellTypeClusterHierarchies = cellTypeClusterHierarchyRepository.findByCellTypeOrRegion(cellType);
-        cellTypeClusterHierarchySet.addAll(cellTypeClusterHierarchies);
 
-        boolean hasTubulesOrInterstitium = cellTypeClusterHierarchySet.stream()
+        boolean hasTubulesOrInterstitium = cellTypeClusterHierarchies.stream()
             .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
                     || "Interstitium".equals(ch.getStructureRegion()));
 
@@ -35,17 +31,19 @@ public class CellTypeClusterHierarchyService {
             tiCluster.setIsSingleNucCluster("N");
             tiCluster.setIsRegionalProteomics("Y");
             tiCluster.setIsRegionalTranscriptomics("Y");
+            tiCluster.setIsSpatialTranscriptomics("N");
+            tiCluster.setReleaseVer(1.0);
+            tiCluster.setReleaseSunset(99.0);
             tiCluster.setCellTypeOrder(0.01);
-            result.add(tiCluster);
+            cellTypeClusterHierarchies.add(tiCluster);
         }
-        result.addAll(clusterToHierarchy.values());
-        Collections.sort(result, new Comparator<CellTypeClusterHierarchy>() {
+        Collections.sort(cellTypeClusterHierarchies, new Comparator<CellTypeClusterHierarchy>() {
             @Override
             public int compare(CellTypeClusterHierarchy a, CellTypeClusterHierarchy b) {
                 return a.getCellTypeOrder().compareTo(b.getCellTypeOrder());
             }
         });
-        return result;
+        return cellTypeClusterHierarchies;
     }
 
     public List<String> findDataTypesByClusterName2025(String clusterName) {

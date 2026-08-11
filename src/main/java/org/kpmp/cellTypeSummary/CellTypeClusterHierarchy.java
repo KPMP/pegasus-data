@@ -42,6 +42,8 @@ public class CellTypeClusterHierarchy implements Serializable {
 	private String isRegionalTranscriptomics;
 	@Column(name = "is_rp")
 	private String isRegionalProteomics;
+    @Column(name = "is_st")
+    private String isSpatialTranscriptomics;
 
     @Nullable
     public String getClusterAbbreviation() {
@@ -68,11 +70,6 @@ public class CellTypeClusterHierarchy implements Serializable {
     public void setIsSpatialTranscriptomics(String isSpatialTranscriptomics) {
         this.isSpatialTranscriptomics = isSpatialTranscriptomics;
     }
-
-    @Column(name = "is_st")
-	private String isSpatialTranscriptomics;
-
-    
 
 	public int getCellTypeClusterHierarchyId() {
 		return cellTypeClusterHierarchyId;
