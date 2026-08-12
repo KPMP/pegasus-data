@@ -35,7 +35,7 @@ interface CellTypeClusterHierarchyRepository extends CrudRepository<CellTypeClus
             "UNION " +
             "SELECT ch.* " +
             "FROM cell_type_cluster_hierarchy ch " +
-            "where ch.cluster = :cell_type " +
+            "where ch.cluster_name = :cell_type " +
             "UNION " +
             "SELECT ch.* " +
             "FROM cell_type_cluster_hierarchy ch " +

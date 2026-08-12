@@ -29,6 +29,7 @@ public class CellTypeClusterHierarchyService {
             CellTypeClusterHierarchy tiCluster = new CellTypeClusterHierarchy();
             tiCluster.setStructureRegion("Tubulo-interstitium");
             tiCluster.setIsSingleCellCluster("N");
+            tiCluster.setRtSegmentAbbreviation("Ti");
             tiCluster.setIsSingleNucCluster("N");
             tiCluster.setIsRegionalProteomics("Y");
             tiCluster.setIsRegionalTranscriptomics("Y");
