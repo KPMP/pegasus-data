@@ -18,7 +18,8 @@ public class CellTypeClusterHierarchyService {
 
     public List<CellTypeClusterHierarchy> findClustersByCellType2026(String cellType) {
 
-        List<CellTypeClusterHierarchy> cellTypeClusterHierarchies = cellTypeClusterHierarchyRepository.findByCellTypeOrRegion(cellType);
+        List<CellTypeClusterHierarchy> cellTypeClusterHierarchies =
+                new ArrayList<>(cellTypeClusterHierarchyRepository.findByCellTypeOrRegion(cellType));
 
         boolean hasTubulesOrInterstitium = cellTypeClusterHierarchies.stream()
             .anyMatch(ch -> "Tubules".equals(ch.getStructureRegion()) 
