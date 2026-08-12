@@ -19,7 +19,7 @@ interface CellTypeClusterHierarchyRepository extends CrudRepository<CellTypeClus
             "FROM cell_type_cluster_hierarchy ch " +
             "JOIN cell_type_cluster_hierarchy ch2 on ch.structure_region = ch2.structure_region "+
             "WHERE (ch.cell_type = :cell_type or ch.structure_region = :cell_type or ch.structure_subregion = :cell_type) AND (ch2.cell_type IS NULL AND ch2.structure_subregion IS NULL) AND " +
-            "(ch.is_single_nuc = 'Y' OR ch.is_single_cell = 'Y' OR ch.is_rt = 'Y' OR ch.is_rp = 'Y' OR ch.is_st = 'Y' " +
+            "(ch.is_single_nuc = 'Y' OR ch.is_single_cell = 'Y' OR ch.is_rt = 'Y' OR ch.is_rp = 'Y' OR ch.is_st = 'Y') " +
             "UNION "+
             "SELECT ch2.* " +
             "FROM cell_type_cluster_hierarchy ch " +
