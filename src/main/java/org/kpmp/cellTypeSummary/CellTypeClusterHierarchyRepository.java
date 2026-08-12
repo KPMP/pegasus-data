@@ -19,6 +19,12 @@ interface CellTypeClusterHierarchyRepository extends CrudRepository<CellTypeClus
             "FROM cell_type_cluster_hierarchy ch " +
             "JOIN cell_type_cluster_hierarchy ch2 on ch.structure_region = ch2.structure_region "+
             "WHERE (ch.cell_type = :cell_type or ch.structure_region = :cell_type or ch.structure_subregion = :cell_type) AND (ch2.cell_type IS NULL AND ch2.structure_subregion IS NULL) AND " +
+            "(ch.is_single_nuc = 'Y' OR ch.is_single_cell = 'Y' OR ch.is_rt = 'Y' OR ch.is_rp = 'Y' OR ch.is_st = 'Y' " +
+            "UNION "+
+            "SELECT ch2.* " +
+            "FROM cell_type_cluster_hierarchy ch " +
+            "JOIN cell_type_cluster_hierarchy ch2 on ch.structure_subregion = ch2.structure_subregion "+
+            "WHERE (ch.cell_type = :cell_type or ch.structure_region = :cell_type or ch.structure_subregion = :cell_type) AND (ch2.cell_type IS NULL) AND " +
             "(ch.is_single_nuc = 'Y' OR ch.is_single_cell = 'Y' OR ch.is_rt = 'Y' OR ch.is_rp = 'Y' OR ch.is_st = 'Y')", nativeQuery = true)
     List<CellTypeClusterHierarchy> findByCellTypeOrRegion(@Param("cell_type") String cell_type);
 
@@ -29,7 +35,7 @@ interface CellTypeClusterHierarchyRepository extends CrudRepository<CellTypeClus
             "UNION " +
             "SELECT ch.* " +
             "FROM cell_type_cluster_hierarchy ch " +
-            "where ch.cell_type = :cell_type " +
+            "where ch.cluster = :cell_type " +
             "UNION " +
             "SELECT ch.* " +
             "FROM cell_type_cluster_hierarchy ch " +
