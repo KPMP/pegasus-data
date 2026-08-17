@@ -16,7 +16,6 @@ import org.kpmp.cellType.HubmapOntologyCellType;
 import org.kpmp.cellTypeSummary.CellTypeClusterHierarchy;
 import org.kpmp.cellTypeSummary.CellTypeClusterHierarchyService;
 import org.kpmp.cellTypeSummary.ClusterHierarchy;
-import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
@@ -41,7 +40,6 @@ public class QueryController {
     private GeneExpressionSummaryService2025 geneExpressionSummaryService2025;
 	private DataSummaryService dataSummaryService;
     private UmapDataService2025 umapService2025;
-	private ClusterHierarchyService clusterHierarchyService;
     private CellTypeClusterHierarchyService cellTypeClusterHierarchyService;
 	private RTExpressionDataService rtExpressionDataService;
 	private RPExpressionDataService rpExpressionDataService;
@@ -53,7 +51,7 @@ public class QueryController {
 	@Autowired
 	public QueryController(AutocompleteService autocompleteService, CellTypeService cellTypeService, UmapDataService2025 umapService2025,
             GeneExpressionSummaryService2025 geneExpressionService2025,
-			DataSummaryService dataSummaryService, ClusterHierarchyService clusterHierarchyService,
+			DataSummaryService dataSummaryService,
 			RTExpressionDataService rtExpressionDataService, RPExpressionDataService rpExpressionDataService, ParticipantService2025 participantService2025,
                            AtlasMessageService atlasMessageService, HubmapCellTypeMappingService hubmapCellTypeMappingService, CellTypeClusterHierarchyService cellTypeClusterHierarchyService) {
 
@@ -62,7 +60,6 @@ public class QueryController {
         this.umapService2025 = umapService2025;
         this.geneExpressionSummaryService2025 = geneExpressionService2025;
 		this.dataSummaryService = dataSummaryService;
-		this.clusterHierarchyService = clusterHierarchyService;
 		this.rtExpressionDataService = rtExpressionDataService;
 		this.rpExpressionDataService = rpExpressionDataService;
         this.participantService2025 = participantService2025;
@@ -96,14 +93,9 @@ public class QueryController {
 
     @QueryMapping
     public List<ClusterHierarchy> getClusterHieararchies2025(@Argument String cellType) throws IOException {
-        return cellTypeClusterHierarchyService.findClustersByCellType2026(cellType).stream()
+        return cellTypeClusterHierarchyService.findClustersByCellType(cellType).stream()
                 .map(CellTypeClusterHierarchy::getClusterHierarchy)
                 .collect(Collectors.toList());
-    }
-
-    @QueryMapping
-    public List<CellTypeClusterHierarchy> getClusterHierarchies2026(@Argument String cellType) throws IOException {
-        return cellTypeClusterHierarchyService.findClustersByCellType2026(cellType);
     }
 
     @QueryMapping
@@ -141,18 +133,7 @@ public class QueryController {
         if (geneSymbol != null && !geneSymbol.isEmpty()) {
             return geneExpressionSummaryService2025.findDataTypesByGene(geneSymbol);
         } else if (clusterName != null && !clusterName.isEmpty()) {
-            return cellTypeClusterHierarchyService.findDataTypesByClusterName2025(clusterName);
-        }
-        throw new Exception("Must provide either a cluster or a gene symbol.");
-
-    }
-
-    @QueryMapping
-    public List<String> dataTypesForConcept2026(@Argument String geneSymbol, @Argument String clusterName) throws Exception {
-        if (geneSymbol != null && !geneSymbol.isEmpty()) {
-            return geneExpressionSummaryService2025.findDataTypesByGene(geneSymbol);
-        } else if (clusterName != null && !clusterName.isEmpty()) {
-            return cellTypeClusterHierarchyService.findDataTypesByClusterName2025(clusterName);
+            return cellTypeClusterHierarchyService.findDataTypesByClusterName(clusterName);
         }
         throw new Exception("Must provide either a cluster or a gene symbol.");
 

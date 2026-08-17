@@ -25,8 +25,8 @@ import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellType.HubmapCellTypeMappingService;
 import org.kpmp.cellType.HubmapOntologyCellType;
+import org.kpmp.cellTypeSummary.CellTypeClusterHierarchy;
 import org.kpmp.cellTypeSummary.CellTypeClusterHierarchyService;
-import org.kpmp.cellTypeSummary.ClusterHierarchy;
 import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
@@ -87,7 +87,7 @@ public class QueryControllerTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new QueryController(autocompleteService, cellTypeService, umapDataService2025,
-				geneExpressionService2025, dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
+				geneExpressionService2025, dataSummaryService, rtExpressionDataService, rpExpressionDataService,
         participantService2025, atlasMessageService, hubmapCellTypeMappingService, cellTypeClusterHierarchyService);
 	}
 
@@ -175,11 +175,11 @@ public class QueryControllerTest {
 
 	@Test
 	public void testGetClusterHierarchies() throws Exception {
-		List<ClusterHierarchy> expectedList = Arrays.asList(new ClusterHierarchy());
-		when(clusterHierarchyService.findClustersByCellType2025("cell type")).thenReturn(expectedList);
+		List<CellTypeClusterHierarchy> expectedList = Arrays.asList(new CellTypeClusterHierarchy());
+		when(cellTypeClusterHierarchyService.findClustersByCellType("cell type")).thenReturn(expectedList);
 
 		assertEquals(expectedList, query.getClusterHieararchies2025("cell type"));
-		verify(clusterHierarchyService).findClustersByCellType2025("cell type");
+		verify(cellTypeClusterHierarchyService).findClustersByCellType("cell type");
 	}
 
 	@Test
@@ -192,10 +192,10 @@ public class QueryControllerTest {
         List<String> dataTypesForConcept2 = query.dataTypesForConcept2025("gene", null);
 
 		assertEquals(expectedResult1, dataTypesForConcept1);
-		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName2025(any(String.class));
+		verify(cellTypeClusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
 
         assertEquals(expectedResult2, dataTypesForConcept2);
-        verify(clusterHierarchyService, times(0)).findDataTypesByClusterName2025(any(String.class));
+        verify(cellTypeClusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
 	}
 
 	@Test

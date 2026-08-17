@@ -16,7 +16,7 @@ public class CellTypeClusterHierarchyService {
 		this.cellTypeClusterHierarchyRepository = cellTypeClusterHierarchyRepository;
 	}
 
-    public List<CellTypeClusterHierarchy> findClustersByCellType2026(String cellType) {
+    public List<CellTypeClusterHierarchy> findClustersByCellType(String cellType) {
 
         List<CellTypeClusterHierarchy> cellTypeClusterHierarchies =
                 new ArrayList<>(cellTypeClusterHierarchyRepository.findByCellTypeOrRegion(cellType));
@@ -48,7 +48,7 @@ public class CellTypeClusterHierarchyService {
         return cellTypeClusterHierarchies;
     }
 
-    public List<String> findDataTypesByClusterName2025(String clusterName) {
+    public List<String> findDataTypesByClusterName(String clusterName) {
         List<String> dataTypesRepresented = new ArrayList<>();
         if (clusterName.equals("Tubulo-interstitium")) {
             dataTypesRepresented.add(FullDataTypeEnum.REGIONAL_PROTEOMICS.getAbbreviation());
