@@ -3,6 +3,7 @@ package org.kpmp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.kpmp.atlasMessage.AtlasMessage;
 import org.kpmp.atlasMessage.AtlasMessageService;
@@ -95,7 +96,9 @@ public class QueryController {
 
     @QueryMapping
     public List<ClusterHierarchy> getClusterHieararchies2025(@Argument String cellType) throws IOException {
-        return clusterHierarchyService.findClustersByCellType2025(cellType);
+        return cellTypeClusterHierarchyService.findClustersByCellType2026(cellType).stream()
+                .map(CellTypeClusterHierarchy::getClusterHierarchy)
+                .collect(Collectors.toList());
     }
 
     @QueryMapping
@@ -138,7 +141,7 @@ public class QueryController {
         if (geneSymbol != null && !geneSymbol.isEmpty()) {
             return geneExpressionSummaryService2025.findDataTypesByGene(geneSymbol);
         } else if (clusterName != null && !clusterName.isEmpty()) {
-            return clusterHierarchyService.findDataTypesByClusterName2025(clusterName);
+            return cellTypeClusterHierarchyService.findDataTypesByClusterName2025(clusterName);
         }
         throw new Exception("Must provide either a cluster or a gene symbol.");
 

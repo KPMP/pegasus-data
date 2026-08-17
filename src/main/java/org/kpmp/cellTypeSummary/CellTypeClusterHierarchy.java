@@ -171,7 +171,22 @@ public class CellTypeClusterHierarchy implements Serializable {
     public void setReleaseSunset(Double releaseSunset) {
         this.releaseSunset = releaseSunset;
     }
-    
+
+    public ClusterHierarchy getClusterHierarchy() {
+        ClusterHierarchy clusterHierarchy = new ClusterHierarchy();
+        clusterHierarchy.setClusterId(0);
+        clusterHierarchy.setCellTypeId(cellTypeClusterHierarchyId);
+        clusterHierarchy.setIsSingleCellCluster(isSingleCellCluster);
+        clusterHierarchy.setClusterName(clusterName);
+        clusterHierarchy.setIsSingleCellCluster(isSingleCellCluster);
+        clusterHierarchy.setIsRegionalProteomics(isRegionalProteomics);
+        clusterHierarchy.setCellTypeOrder(cellTypeOrder);
+        clusterHierarchy.setIsSingleNucCluster(isSingleNucCluster);
+        clusterHierarchy.setIsRegionalTranscriptomics(isRegionalTranscriptomics);
+        clusterHierarchy.setStructureRegion(structureRegion);
+        clusterHierarchy.setStructureSubregion(structureSubregion);
+        return clusterHierarchy;
+    }
     
     @Override
     public String toString() {
