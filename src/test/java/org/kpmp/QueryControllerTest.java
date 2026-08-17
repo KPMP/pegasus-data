@@ -27,7 +27,6 @@ import org.kpmp.cellType.HubmapCellTypeMappingService;
 import org.kpmp.cellType.HubmapOntologyCellType;
 import org.kpmp.cellTypeSummary.CellTypeClusterHierarchy;
 import org.kpmp.cellTypeSummary.CellTypeClusterHierarchyService;
-import org.kpmp.cellTypeSummary.ClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
