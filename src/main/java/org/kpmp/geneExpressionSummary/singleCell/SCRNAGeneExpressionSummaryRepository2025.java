@@ -23,7 +23,7 @@ public interface SCRNAGeneExpressionSummaryRepository2025
 
 	@Cacheable("scCountsSummaryPerGene2025")
 	@Query(value = "SELECT DISTINCT scr.cluster, c.cluster_name, 0 as cell_count, scr.id, scr.enrollment_category, scr.gene, scr.p_val as p_val, scr.p_val_adj as p_val_adj, scr.fold_change, scr.pct_1, scr.pct_2, scr.avg_exp as avg_exp "
-			+ "FROM sc_rnaseq_2025 scr " + "JOIN cluster_2025 c ON scr.cluster = c.abbreviation AND c.cluster_name = :cellType "
+			+ "FROM sc_rnaseq_2025 scr " + "JOIN cell_type_cluster_hierarchy c ON scr.cluster = c.cluster_abbreviation AND c.cluster_name = :cellType "
 			+ "WHERE scr.enrollment_category = LCASE(:enrollmentCategory) " + "ORDER BY scr.fold_change DESC", nativeQuery = true)
 	List<SCRNAGeneExpressionExpressionSummaryValue2025> findExpressionSummaryPerGeneByCellTypeAndEnrollmentCategory(
 			@Param("cellType") String cellType, @Param("enrollmentCategory") String enrollmentCategory);
