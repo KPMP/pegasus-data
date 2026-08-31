@@ -15,7 +15,6 @@ import org.springframework.graphql.execution.RuntimeWiringConfigurer;
 @Configuration
 @EnableCaching
 @SpringBootApplication
-@ComponentScan(basePackages = { "org.kpmp" })
 public class Application {
 
 	public static void main(String[] args) {

@@ -25,8 +25,8 @@ import org.kpmp.autocomplete.AutocompleteService;
 import org.kpmp.cellType.CellTypeService;
 import org.kpmp.cellType.HubmapCellTypeMappingService;
 import org.kpmp.cellType.HubmapOntologyCellType;
-import org.kpmp.cellTypeSummary.ClusterHierarchy;
-import org.kpmp.cellTypeSummary.ClusterHierarchyService;
+import org.kpmp.cellTypeSummary.CellTypeClusterHierarchy;
+import org.kpmp.cellTypeSummary.CellTypeClusterHierarchyService;
 import org.kpmp.dataSummary.AtlasRepoSummaryResult;
 import org.kpmp.dataSummary.DataSummaryService;
 import org.kpmp.dataSummary.DataTypeSummary;
@@ -61,7 +61,7 @@ public class QueryControllerTest {
 	@Mock
 	private UmapDataService2025 umapDataService;
 	@Mock
-	private ClusterHierarchyService clusterHierarchyService;
+	private CellTypeClusterHierarchyService clusterHierarchyService;
 	@Mock
 	private RTExpressionDataService rtExpressionDataService;
 	@Mock
@@ -79,12 +79,15 @@ public class QueryControllerTest {
 	@Mock
 	HubmapCellTypeMappingService hubmapCellTypeMappingService;
 
+    @Mock
+    private CellTypeClusterHierarchyService cellTypeClusterHierarchyService;
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		query = new QueryController(autocompleteService, cellTypeService, umapDataService2025,
-				geneExpressionService2025, dataSummaryService, clusterHierarchyService, rtExpressionDataService, rpExpressionDataService, 
-        participantService2025, atlasMessageService, hubmapCellTypeMappingService);
+				geneExpressionService2025, dataSummaryService, rtExpressionDataService, rpExpressionDataService,
+        participantService2025, atlasMessageService, hubmapCellTypeMappingService, cellTypeClusterHierarchyService);
 	}
 
 	@AfterEach
@@ -171,11 +174,11 @@ public class QueryControllerTest {
 
 	@Test
 	public void testGetClusterHierarchies() throws Exception {
-		List<ClusterHierarchy> expectedList = Arrays.asList(new ClusterHierarchy());
-		when(clusterHierarchyService.findClustersByCellType2025("cell type")).thenReturn(expectedList);
+		List<CellTypeClusterHierarchy> expectedList = Arrays.asList(new CellTypeClusterHierarchy());
+		when(cellTypeClusterHierarchyService.findClustersByCellType("cell type")).thenReturn(expectedList);
 
 		assertEquals(expectedList, query.getClusterHieararchies2025("cell type"));
-		verify(clusterHierarchyService).findClustersByCellType2025("cell type");
+		verify(cellTypeClusterHierarchyService).findClustersByCellType("cell type");
 	}
 
 	@Test
@@ -188,10 +191,10 @@ public class QueryControllerTest {
         List<String> dataTypesForConcept2 = query.dataTypesForConcept2025("gene", null);
 
 		assertEquals(expectedResult1, dataTypesForConcept1);
-		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName2025(any(String.class));
+		verify(cellTypeClusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
 
         assertEquals(expectedResult2, dataTypesForConcept2);
-        verify(clusterHierarchyService, times(0)).findDataTypesByClusterName2025(any(String.class));
+        verify(cellTypeClusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
 	}
 
 	@Test
@@ -205,9 +208,9 @@ public class QueryControllerTest {
         List<String> dataTypesForConcept2 = query.dataTypesForConcept2025("gene", "");
 
 		assertEquals(expectedResult1, dataTypesForConcept1);
-		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName2025(any(String.class));
+		verify(clusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
         assertEquals(expectedResult2, dataTypesForConcept2);
-        verify(clusterHierarchyService, times(0)).findDataTypesByClusterName2025(any(String.class));
+        verify(clusterHierarchyService, times(0)).findDataTypesByClusterName(any(String.class));
 
 	}
 
@@ -215,8 +218,8 @@ public class QueryControllerTest {
 	public void dataTypesForConceptWhenClusterNameAndNullGene() throws Exception {
 		List<String> expectedResult1 = Arrays.asList("1", "2");
         List<String> expectedResult2 = Arrays.asList("3", "4");
-        when(clusterHierarchyService.findDataTypesByClusterName2025("cluster")).thenReturn(expectedResult1);
-        when(clusterHierarchyService.findDataTypesByClusterName2025("cluster")).thenReturn(expectedResult2);
+        when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult1);
+        when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult2);
 
 		List<String> dataTypesForConcept1 = query.dataTypesForConcept2025(null, "cluster");
         List<String> dataTypesForConcept2 = query.dataTypesForConcept2025(null, "cluster");
@@ -231,8 +234,8 @@ public class QueryControllerTest {
 	public void dataTypesForConceptWhenClusterNameAndBlankGene() throws Exception {
 		List<String> expectedResult1 = Arrays.asList("1", "2");
         List<String> expectedResult2 = Arrays.asList("3", "4");
-        when(clusterHierarchyService.findDataTypesByClusterName2025("cluster")).thenReturn(expectedResult1);
-        when(clusterHierarchyService.findDataTypesByClusterName2025("cluster")).thenReturn(expectedResult2);
+        when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult1);
+        when(clusterHierarchyService.findDataTypesByClusterName("cluster")).thenReturn(expectedResult2);
 
 		List<String> dataTypesForConcept1 = query.dataTypesForConcept2025("", "cluster");
         List<String> dataTypesForConcept2 = query.dataTypesForConcept2025("", "cluster");

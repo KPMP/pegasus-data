@@ -19,7 +19,14 @@ public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RT
 	List<RTExpressionDataAllSegments> findByGeneSymbolAndEnrollmentCategoryWithCounts(String geneSymbol, String enrollmentCategory);
 
 	@Cacheable("rtExpByStructure")
-	@Query(value = "CALL rt_diffex_sp(:structure);", nativeQuery = true)
+	@Query(value = "SELECT rs.*, null as sample_count, null as segment_name FROM rt_segments rs " +
+            "JOIN cell_type_cluster_hierarchy ctch on rs.segment = ctch.rt_segment_abbreviation " +
+            "where (ctch.structure_region = :structure or ctch.structure_subregion = :structure) AND ctch.is_rt = 'Y' AND rs.enrollment_category = 'all' " +
+            "UNION " +
+            "SELECT rg.*, null as sample_count, null as segment_name from rt_gti rg " +
+            "JOIN cell_type_cluster_hierarchy ctch on rg.segment = ctch.rt_segment_abbreviation " +
+            "where (ctch.structure_region = :structure or ctch.structure_subregion = :structure) AND ctch.is_rt = 'Y' AND rg.enrollment_category = 'all' AND rg.segment <> 'Glom' " +
+            "ORDER BY fold_change DESC", nativeQuery = true)
 	List<RTExpressionDataAllSegments> findByStructure(@Param("structure") String structure);
 
 	@Cacheable("rtExpCountByGene")
