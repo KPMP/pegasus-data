@@ -37,12 +37,11 @@ public class ExpressionDataService2025Test {
 	public void testGetGeneExpressionValuesWhenSingleNuc() throws JSONException, Exception {
 		SNExpressionData2025 expressionData1 = mock(SNExpressionData2025.class);
 		JSONObject expectedResult1 = new JSONObject();
-        JSONObject expectedResult2 = new JSONObject();
 		when(expressionData1.getExpressionDataAsJson()).thenReturn(expectedResult1);
 		when(snRepo.findByGeneSymbol("geneSymbol")).thenReturn(expressionData1);
 
-		assertEquals(expectedResult1, service.getGeneExpressionValues("sn", "geneSymbol"));
-        assertEquals(expectedResult2, service.getGeneExpressionValues("sn", "geneSymbol"));
+		assertEquals(expectedResult1.toMap(), service.getGeneExpressionValues("sn", "geneSymbol").toMap());
+		assertEquals(expectedResult1.toMap(), service.getGeneExpressionValues("sn", "geneSymbol").toMap());
 	}
 
 	@Test

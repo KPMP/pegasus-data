@@ -1,6 +1,7 @@
 package org.kpmp.geneExpressionSummary.singleNucleus;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -201,7 +202,7 @@ public class SNRNAGeneExpressionExpressionSummaryValue2025 implements GeneExpres
 
 	@Override
 	public int hashCode() {
-		return (gene + cluster).hashCode();
+		return Objects.hash(gene, cluster);
 	}
 
 	@Override
@@ -211,7 +212,7 @@ public class SNRNAGeneExpressionExpressionSummaryValue2025 implements GeneExpres
 		if (!(obj instanceof SNRNAGeneExpressionExpressionSummaryValue2025))
 			return false;
 		SNRNAGeneExpressionExpressionSummaryValue2025 snrnaGeneExpressionExpressionSummaryValue2025 = (SNRNAGeneExpressionExpressionSummaryValue2025) obj;
-		return (snrnaGeneExpressionExpressionSummaryValue2025.getGene().equals(this.getGene())
-				&& snrnaGeneExpressionExpressionSummaryValue2025.getCluster().equals(this.getCluster()));
+		return Objects.equals(snrnaGeneExpressionExpressionSummaryValue2025.getGene(), this.getGene())
+				&& Objects.equals(snrnaGeneExpressionExpressionSummaryValue2025.getCluster(), this.getCluster());
 	}
 }
