@@ -3,13 +3,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.5.0")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:4.1.1")
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '3.5.0'
-    id 'com.palantir.docker' version '0.35.0'
+    id 'org.springframework.boot' version '4.1.1'
+    id 'com.palantir.docker' version '0.40.0'
 }
 
 group = 'kingstonduo'
@@ -31,32 +31,31 @@ sourceCompatibility = '21'
 targetCompatibility = '21'
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation 'commons-io:commons-io:2.16.1'
-    implementation 'com.mysql:mysql-connector-j:9.0.0'
+    implementation 'com.mysql:mysql-connector-j:9.7.0'
+    implementation 'org.json:json:20260814'
     implementation ("org.apache.commons:commons-compress:1.28.0")
     implementation 'org.apache.commons:commons-text:1.14.0'
     implementation 'org.springframework.boot:spring-boot-starter-graphql'
-    implementation 'org.springframework.graphql:spring-graphql'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation ("com.hazelcast:hazelcast")
-    implementation 'com.graphql-java:graphql-java-extended-scalars:21.0'
+    implementation 'com.graphql-java:graphql-java-extended-scalars:24.0'
 
-    testImplementation('org.mockito:mockito-junit-jupiter')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework:spring-test'
-    testImplementation 'org.mockito:mockito-core'
-    
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }
 
 configurations.all {
     resolutionStrategy {
-        force 'com.fasterxml.jackson.core:jackson-databind:2.21.0'
-        force 'com.fasterxml.jackson.core:jackson-core:2.21.0'
-        force 'com.fasterxml.jackson.core:jackson-annotations:2.21.0'
+        force 'com.fasterxml.jackson.core:jackson-databind:2.21.5'
+        force 'com.fasterxml.jackson.core:jackson-core:2.21.5'
+        force 'com.fasterxml.jackson.core:jackson-annotations:2.21'
     }
 }
 

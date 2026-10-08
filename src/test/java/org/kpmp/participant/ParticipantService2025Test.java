@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.kpmp.dataSummary.DataSummaryRepository;
 import org.kpmp.geneExpressionSummary.regionalProteomics.RPParticipantRepository;
 import org.kpmp.geneExpressionSummary.regionalTranscriptomics.RTParticipantRepository;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -154,7 +153,7 @@ public class ParticipantService2025Test {
 		ParticipantDataTypeSummary2025 result = participantService.getExperimentCounts("redcapId");
 
 		List<ParticipantDataTypeInformation2025> spatialViewerDataTypes = result.getSpatialViewerDataTypes();
-		assertEquals(2, spatialViewerDataTypes.size());
+		assertEquals(3, spatialViewerDataTypes.size());
 		List<ParticipantDataTypeInformation2025> explorerDataTypes = result.getExplorerDataTypes();
 		assertEquals(4, explorerDataTypes.size());
 		for (ParticipantDataTypeInformation2025 participantDataTypeInformation : spatialViewerDataTypes) {
@@ -164,6 +163,9 @@ public class ParticipantService2025Test {
 			} else if (participantDataTypeInformation.getDataType().equals("Spatial Lipidomics")) {
 				assertEquals(Integer.valueOf(2), participantDataTypeInformation.getCount());
 				assertEquals(false, participantDataTypeInformation.isAggregatedData());
+			} else if (participantDataTypeInformation.getDataType().equals("Segmentation Masks & Pathomics Vectors")) {
+				assertEquals(Integer.valueOf(0), participantDataTypeInformation.getCount());
+				assertEquals(false, participantDataTypeInformation.isAggregatedData());
 			}
 		}
 		for (ParticipantDataTypeInformation2025 participantDataTypeInformation : explorerDataTypes) {
@@ -171,14 +173,9 @@ public class ParticipantService2025Test {
 			assertEquals(true, participantDataTypeInformation.isAggregatedData());
 		}
 
-		ArgumentCaptor<String> redcapIdCaptor = ArgumentCaptor.forClass(String.class);
-		ArgumentCaptor<String> dataTypeCaptor = ArgumentCaptor.forClass(String.class);
-		verify(dataSummaryRepo).getParticipantSvFileDataTypeCount(redcapIdCaptor.capture(), dataTypeCaptor.capture());
-		assertEquals("redcapId", redcapIdCaptor.getValue());
-		assertEquals("Light Microscopy", dataTypeCaptor.getValue());
-		verify(dataSummaryRepo).getParticipantSvLinkDataTypeCount(redcapIdCaptor.capture(), dataTypeCaptor.capture());
-		assertEquals("redcapId", redcapIdCaptor.getValue());
-		assertEquals("Spatial Lipidomics", dataTypeCaptor.getValue());
+		verify(dataSummaryRepo).getParticipantSvFileDataTypeCount("redcapId", "Light Microscopy");
+		verify(dataSummaryRepo).getParticipantSvFileDataTypeCount("redcapId", "Spatial Lipidomics");
+		verify(dataSummaryRepo).getParticipantSvLinkDataTypeCount("redcapId", "Spatial Lipidomics");
 
 	}
 
