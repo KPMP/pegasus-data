@@ -1,6 +1,17 @@
 # Changelog
 
-## Release 3.3 (unreleased)
+## Release 3.6 (unreleased)
+Brief Summary:
+
+---
+
+## Release 3.5
+Brief Summary:
+- Upgrade Spring Boot to 4.1.1
+- Corrected parent-region classification so records from the updated hierarchy are properly identified as reference points.
+---
+
+## Release 3.3 
 Brief summary:
 - Fix vulnerabilities found in docker image
 
