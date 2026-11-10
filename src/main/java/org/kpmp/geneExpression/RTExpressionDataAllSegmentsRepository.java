@@ -24,10 +24,10 @@ public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RT
             "JOIN segment s on ctch.rt_segment_abbreviation = s.abbreviation " +
             "where (ctch.structure_region = :structure or ctch.structure_subregion = :structure) AND ctch.is_rt = 'Y' AND rs.enrollment_category = 'all' " +
             "UNION " +
-            "SELECT rg.*, null as sample_count, s.segment_name from rt_gti rg " +
+            "SELECT rg.*, null as sample_count, REPLACE(s.segment_name, 'Glomerulus / Renal Corpuscle', 'Glom') from rt_gti rg " +
             "JOIN cell_type_cluster_hierarchy ctch on rg.segment = ctch.rt_segment_abbreviation " +
             "JOIN segment s on ctch.rt_segment_abbreviation = s.abbreviation " +
-            "where (ctch.structure_region = :structure or ctch.structure_subregion = :structure) AND ctch.is_rt = 'Y' AND rg.enrollment_category = 'all' AND rg.segment <> 'Glom' " +
+            "where (ctch.structure_region = :structure or ctch.structure_subregion = :structure) AND ctch.is_rt = 'Y' AND rg.enrollment_category = 'all' " +
             "ORDER BY fold_change DESC", nativeQuery = true)
 	List<RTExpressionDataAllSegments> findByStructure(@Param("structure") String structure);
 
