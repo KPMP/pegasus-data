@@ -19,7 +19,7 @@ public interface RTExpressionDataAllSegmentsRepository extends CrudRepository<RT
 	List<RTExpressionDataAllSegments> findByGeneSymbolAndEnrollmentCategoryWithCounts(String geneSymbol, String enrollmentCategory);
 
 	@Cacheable("rtExpByStructure")
-	@Query(value = "SELECT rs.*, null as sample_count, REPLACE(s.segment_name, 'Glomerulus / Renal Corpuscle', 'Glom') FROM rt_segments rs " +
+	@Query(value = "SELECT rs.*, null as sample_count, REPLACE(s.segment_name, 'Glomerulus / Renal Corpuscle', 'Glom') as segment_name FROM rt_segments rs " +
             "JOIN cell_type_cluster_hierarchy ctch on rs.segment = ctch.rt_segment_abbreviation " +
             "JOIN segment s on ctch.rt_segment_abbreviation = s.abbreviation " +
             "where (ctch.structure_region = :structure or ctch.structure_subregion = :structure) AND ctch.is_rt = 'Y' AND rs.enrollment_category = 'all' " +
